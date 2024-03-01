@@ -1,0 +1,56 @@
+.signup-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .signup-form .username_dv{
+    display: flex;
+    justify-content: space-between;
+  }
+  .signup-form label  {
+    display: block;
+    margin-bottom: 5px;
+    text-align: right;
+    padding-right: 3%;
+    color: #585653;
+  }
+  
+  .signup-form .input-group>input ,
+  .signup-form .user_info{
+    text-align: right;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .signup-form .user_info {
+    width: 100%;   
+  }
+  .signup-form .SELECT-dv {
+    width: 95%;
+  }
+  .signup-form button {
+    width: 100%;
+    background-color: #3D3935;
+    color: white;
+    padding: 10px 0;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 3%;
+  }
+  .signup-form .connection_link {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    padding-right: 3%;
+  }
+  .signup-form .connection_link a {
+    text-decoration: none;
+  }
+  .signup-form button:hover {
+    background-color: #35312e;
+  }
