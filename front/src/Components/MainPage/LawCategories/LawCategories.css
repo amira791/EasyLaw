@@ -1,0 +1,49 @@
+.LawCategories{
+    margin: 5% auto;
+    padding: 20px;
+    max-width: 100%;
+}
+.LawCategories .law-titre{
+    margin-right: 4%;
+    font-weight: 400;
+}
+.background-text {
+    background-color: #EFC8A4;
+    border-radius: 14px;
+    padding: 2px 0px 5px 25px;
+    font-weight: bold;
+   
+}
+.LawCategories .Law_content{
+    padding-left: 5%;
+    width: max-content;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3,300px);
+    grid-template-rows: repeat(2, 250px);
+    justify-content: center;
+    align-items: center;
+
+
+}
+.LawCategories .law-titre{
+    text-align: right;
+}
+.LawCategories .law_item{
+    width: 250px;
+    height: 200px;
+    background-color: #E2E1E1;
+    border: black 1px solid;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
+
+}
+.LawCategories .law-icon{
+
+    width: 80px;
+    height: 80px;
+}
