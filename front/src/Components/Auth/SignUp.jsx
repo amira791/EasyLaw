@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import "./SignUp.css"
 import { Link } from 'react-router-dom';
 import Footer from '../Footer/Footer';
+import Logo from '../LOGO/Logo';
 
 
 function SignUp() {
@@ -35,7 +36,10 @@ function SignUp() {
   };
   return (
     <>
-
+    <Logo/>
+<div className='signup_titre'>
+      <h2> إنشاء حساب</h2>
+    </div>
     <div className="signup-form">
       <form onSubmit={handleSubmit}>
         <div className='username_dv'>

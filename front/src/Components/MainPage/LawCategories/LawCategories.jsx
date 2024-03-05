@@ -2,12 +2,14 @@ import React from 'react'
 import './LawCategories.css'
 import Footer from '../../Footer/Footer'
 import Gpt from '../GPT/Gpt'
+import Logo from '../../LOGO/Logo'
 
 
 function LawCategories() {
   return (
 
     <>
+    <Logo/>
     <Gpt/>
     <div className='LawCategories'>
         

@@ -1,6 +1,7 @@
 import React , { useState }from 'react'
 import { Link } from 'react-router-dom';
 import Footer from '../Footer/Footer';
+import Logo from '../LOGO/Logo';
 
 function SignIn() {
     const [formData, setFormData] = useState({
@@ -22,8 +23,12 @@ function SignIn() {
       };
   return (
     <>
-
+    <Logo/>
+<div className='signup_titre'>
+      <h2>تسجيل الدخول</h2>
+    </div>
     <div className="signup-form">
+    
       <form onSubmit={handleSubmit}>
         
         <div className='username_dv1'>
@@ -57,7 +62,7 @@ function SignIn() {
         <button type="submit">تسجيل الدخول</button>
         <div className="connection_link">
         <a   >
-          <Link style={{ color: '#484646' }}  to ="/">إنشاء حساب </Link>
+          <Link style={{ color: '#484646' }}  to ="/signup">إنشاء حساب </Link>
           </a>
         </div>
         

@@ -1,0 +1,61 @@
+.logo_section{
+    max-width: 100%;
+    border-bottom: 2.2px solid #3D3935;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5% 2%;
+}
+.logo_section .easylaw_section{
+    display: flex;
+    align-items: center;
+}
+.logo_section .lign_dv{
+    border: #3D3935 1px solid;
+    height: 40px;
+    margin: 0px 16px;
+}
+.logo_section .help_icon{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 87px;
+}
+.logo_section .easylaw_logo img{
+    width: 90px;
+}
+.logo_section .login_section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    padding: 5px;
+    width: 250px;
+   
+}
+.logo_section .btn{
+    width: 120px;
+    height: 35px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 2px;
+   
+    cursor: pointer;
+
+}
+.logo_section .login_btn{
+    background-color: #3D3935;
+    border: none;
+    box-shadow: 0px 5px 12px 0px #5856534a;
+    color: white;
+   
+
+    
+}
+.logo_section .select_lang{
+    border: #3D3935 1px solid;
+   
+}
