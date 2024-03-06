@@ -9,7 +9,9 @@ In the project directory, you can run:
 
 In the server(backend) run the folowing:
 
-### source venv/bin/activate
+
+### python3 -m venv venv
+### .\venv\Scripts\Activate
 ### pip install -r requirements.txt
 ### python manage.py runserver
 ### when done :  deactivate
