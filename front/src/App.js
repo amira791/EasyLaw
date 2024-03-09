@@ -5,6 +5,7 @@ import SignIn from './Components/Auth/SignIn';
 import Footer from './Components/Footer/Footer';
 import LawCategories from './Components/MainPage/LawCategories/LawCategories';
 import Gpt from './Components/MainPage/GPT/Gpt';
+import Profile from './Components/Profile/Profile';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/footer" element={<Footer/>} />
         <Route path="/" element={<LawCategories/>} />
         <Route path="/gpt" element={<Gpt/>} />
+        <Route path="/profile" element={<Profile/>} />
         
       </Routes>
     </div>

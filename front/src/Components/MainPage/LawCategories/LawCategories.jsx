@@ -3,6 +3,7 @@ import './LawCategories.css'
 import Footer from '../../Footer/Footer'
 import Gpt from '../GPT/Gpt'
 import Logo from '../../LOGO/Logo'
+import NavBar from '../NavBar/NavBar'
 
 
 function LawCategories() {
@@ -10,6 +11,7 @@ function LawCategories() {
 
     <>
     <Logo/>
+    <NavBar/>
     <Gpt/>
     <div className='LawCategories'>
         

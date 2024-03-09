@@ -1,0 +1,40 @@
+.navBar_container{
+    padding: 5% 3% 0% 10%;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+   
+    align-items: center;
+}
+.navBar_container .NavBar_item{
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid black;
+    border-radius: 6px;
+    background-color: #3D3935;
+    width: 720px;
+}
+
+.navBar_container .li_item1{
+margin: 2% auto;
+width: 130px;
+
+
+}
+.navBar_container .li_item1 li {
+   text-align: center;
+    list-style: none;
+    color: white;
+   
+    
+}
+.navBar_container .navbar_btn{
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: transparent;
+    width: 170px;
+    height: 40px;
+    font-size: 18px;
+    box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
+
+}

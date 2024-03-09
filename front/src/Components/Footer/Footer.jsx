@@ -22,10 +22,10 @@ function Footer() {
              <h4>:تواصل معنا</h4>
             </div>
             <div className='socialmedia'>
-                <LinkedInIcon sx={{ width: '30px', height: '30px' }} />
-                <FacebookOutlinedIcon sx={{ width: '30px', height: '30px' }}/>
-                <YouTubeIcon sx={{ width: '30px', height: '30px' }}/>
-                <InstagramIcon sx={{ width: '30px', height: '30px' }}/>
+               <a href='https://www.linkedin.com'> <LinkedInIcon sx={{ width: '30px', height: '30px' }} /></a>
+               <a href='https://www.facebook.com/?locale=fr_FR'><FacebookOutlinedIcon sx={{ width: '30px', height: '30px' }}/></a>
+               <a href='#'> <YouTubeIcon sx={{ width: '30px', height: '30px' }}/></a>
+               <a href='#'> <InstagramIcon sx={{ width: '30px', height: '30px' }}/></a>
 
             </div>
             
