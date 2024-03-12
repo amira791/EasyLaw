@@ -1,0 +1,101 @@
+.profile_container .profile_name{
+    background-color: #3D3935;
+    padding: 3%;
+    display: flex;
+    align-items: center;
+}
+.profile_container .profile_name h3{
+    color: white;
+    margin-left: 3%;
+}
+.profile_container .profile_content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile_container .profile_navBar{
+    background-color: #3D3935;
+    padding: 3%;
+      
+}
+.profile_container .profile_navBar ul{
+padding: 0%;
+}
+.profile_container .profile_navBar li{
+    list-style-type: none;
+    color: white;
+    text-align: right;
+    cursor: pointer;
+    margin: 30% auto;
+}
+
+.profile_container .profile_form{
+    
+    margin: 4% auto 14% auto;
+    padding: 3%;
+    width: 70%; 
+    
+   
+    
+}
+.profile_container .lign_dv{
+    display: flex;
+    justify-content: space-between;
+  
+    margin-bottom: 5%;
+}
+.profile_container .profile_info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 5%;
+   /* border: #3D3935 1px solid;*/
+    width: 100%; 
+}
+.profile_container .lign_dv_info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 48%;
+}
+.profile_container  label {
+    margin-bottom: 2%; 
+}
+
+.profile_container .profile_info input {
+    width: 97%; 
+    padding: 1.5%; 
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+}
+.profile_container  input::placeholder {
+    text-align: right;
+}
+
+.profile_container .profile_info select {
+    width: 100%; 
+    padding: 1.5%; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+}
+.profile_container .inpt_lign{
+    width:400px; 
+    padding:3%; 
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+   
+
+}
+
+.profile_container .profile_form button {
+    width: 100%; 
+    padding: 2%; 
+    border: none; 
+    border-radius: 5px;
+    background-color: #3D3935;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 3%;
+    
+}

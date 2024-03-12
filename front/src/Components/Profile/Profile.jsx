@@ -10,7 +10,8 @@ function Profile() {
         lastName: '',
         DateN: '',
         company: '',
-        job: ''
+        job: '',
+        mail:''
       });
     
       const handleChange = (e) => {
@@ -30,25 +31,27 @@ function Profile() {
           lastName: '',
           DateN: '',
           company: '',
-          job: ''
+          job: '',
+          mail:''
         });
       };
   return (
     <>
     <Logo/>
 <div className='profile_container'>
-    <div>
+    <div className='profile_name'>
         <img alt='photo profile'/>
         <h3>Sanaa_791</h3>
     </div>
 
-    <div>
+    <div className='profile_content'>
         
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='profile_form'>
         <div className='lign_dv'>
-           <div className='profile_info'>
+           <div className='lign_dv_info'>
                <label htmlFor="lastName">اللقب</label>
                <input
+               className='inpt_lign'
                 type="text"
                 id="lastName"
                 name="lastName"
@@ -57,9 +60,10 @@ function Profile() {
                 placeholder='اللقب'
                 required/>
            </div>
-           <div className='profile_info'>
+           <div className='lign_dv_info'>
                 <label htmlFor="firstName">الاسم</label>
                 <input
+                className='inpt_lign'
                 type="text"
                 id="firstName"
                 name="firstName"
@@ -71,20 +75,22 @@ function Profile() {
 
         </div>
         <div className='lign_dv'>
-           <div className='profile_info'>
-               <label htmlFor="lastName">اللقب</label>
+           <div className='lign_dv_info'>
+               <label htmlFor="lastName">البريد الالكتروني</label>
                <input
+               className='inpt_lign'
                 type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
+                id="mail"
+                name="mail"
+                value={formData.mail}
                 onChange={handleChange}
-                placeholder='اللقب'
+                placeholder='البريد الالكتروني'
                 required/>
            </div>
-           <div className='profile_info'>
+           <div className='lign_dv_info'>
                 <label htmlFor="dateN">تاريخ الميلاد</label>
                 <input
+                className='inpt_lign'
                 type="date"
                 id="dateN"
                 name="DateN"
@@ -99,6 +105,7 @@ function Profile() {
             <div className='profile_info'>
                 <label htmlFor="company">الشركة / الجامعة </label>
                 <input
+                
                   type="text"
                   id="company"
                   name="company"
@@ -128,7 +135,7 @@ function Profile() {
          </div>
          <button type="submit"> حفظ المعلومات</button>
     </form>
-    <div>
+    <div className='profile_navBar'>
         <ul>
             <li>الحساب الشخصي</li>
             <li>تغيير كلمة السر </li>
