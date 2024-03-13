@@ -1,17 +1,17 @@
-POST http://127.0.0.1:9000/login 
+POST http://127.0.0.1:9000/user/login 
 Content-Type: application/json
 
 { "username": "adam5", "password": "Pass1234!" }
 
 ###
 
-POST http://127.0.0.1:9000/signup 
+POST http://127.0.0.1:9000/user/signup 
 Content-Type: application/json
 
 { "username": "adam5", "password": "Pass1234!", "email": "adam@mail.com" }
 
 ###
 
-GET http://127.0.0.1:9000/test_token 
+GET http://127.0.0.1:9000/user/test_token 
 Content-Type: application/json
 Authorization: token cbd44d27f6493862e1e7386e78c1ee97e8617a81
