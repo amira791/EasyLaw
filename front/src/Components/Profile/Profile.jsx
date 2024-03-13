@@ -105,7 +105,7 @@ function Profile() {
             <div className='profile_info'>
                 <label htmlFor="company">الشركة / الجامعة </label>
                 <input
-                
+                className='profile_info_input'
                   type="text"
                   id="company"
                   name="company"
@@ -121,7 +121,7 @@ function Profile() {
                 <select
                 id="job"
                 name="job"
-                
+                className='profile_info_input'
                 value={formData.job}
                 onChange={handleChange}
                 required
@@ -133,7 +133,7 @@ function Profile() {
                 </select>
             </div>
          </div>
-         <button type="submit"> حفظ المعلومات</button>
+         <button className='save_info' type="submit"> حفظ المعلومات</button>
     </form>
     <div className='profile_navBar'>
         <ul>

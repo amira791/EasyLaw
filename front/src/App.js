@@ -6,6 +6,7 @@ import Footer from './Components/Footer/Footer';
 import LawCategories from './Components/MainPage/LawCategories/LawCategories';
 import Gpt from './Components/MainPage/GPT/Gpt';
 import Profile from './Components/Profile/Profile';
+import Subscrib from './Components/Subscrib/Subscrib';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<LawCategories/>} />
         <Route path="/gpt" element={<Gpt/>} />
         <Route path="/profile" element={<Profile/>} />
+        <Route path="/subscrib" element={<Subscrib/>} />
         
       </Routes>
     </div>
