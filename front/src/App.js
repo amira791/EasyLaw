@@ -7,6 +7,7 @@ import LawCategories from './Components/MainPage/LawCategories/LawCategories';
 import Gpt from './Components/MainPage/GPT/Gpt';
 import Profile from './Components/Profile/Profile';
 import Subscrib from './Components/Subscrib/Subscrib';
+import Validation from './Components/Auth/Validation';
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path="/gpt" element={<Gpt/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/subscrib" element={<Subscrib/>} />
+        <Route path="/validation" element={<Validation/>} />
+        
         
       </Routes>
     </div>

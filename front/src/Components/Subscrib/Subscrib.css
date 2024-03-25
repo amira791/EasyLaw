@@ -1,5 +1,5 @@
 .sub_titre{
-    background-color: #3D3935;
+    background-color:var(--primary-color);
     height: 45px;
 }
 .sub_titre h2{
@@ -29,7 +29,7 @@
    
 }
 .sub_container .offre{
-    border: 2px #3D3935 solid;
+    border: 2px var(--primary-color) solid;
     padding: 2%;
     border-radius: 9px;
     display: flex;
@@ -41,7 +41,7 @@
 }
 .sub_container .btn_sub{
     border: none;
-    background-color: #3D3935;
+    background-color:var(--primary-color);
     padding: 5%;
     color: white;
     font-weight: 500;

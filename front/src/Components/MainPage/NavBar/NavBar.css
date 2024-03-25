@@ -11,30 +11,39 @@
     justify-content: space-evenly;
     border: 1px solid black;
     border-radius: 6px;
-    background-color: #3D3935;
+    background-color:var(--primary-color);
     width: 720px;
 }
+
 
 .navBar_container .li_item1{
 margin: 2% auto;
 width: 130px;
-
+list-style-type: none;
 
 }
 .navBar_container .li_item1 li {
    text-align: center;
-    list-style: none;
     color: white;
+    display: inline-block;
    
     
 }
+
 .navBar_container .navbar_btn{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    
+    
+
+}
+.navBar_container .dv_btn{
+   display:flex;
+   align-items: center;
+    height: 40px;
+    box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
     border: 1px solid black;
     border-radius: 8px;
-    background-color: transparent;
-    width: 170px;
-    height: 40px;
-    font-size: 18px;
-    box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
-
+    padding: 0.5% 4%;
 }

@@ -1,6 +1,6 @@
 .logo_section{
     max-width: 100%;
-    border-bottom: 2.2px solid #3D3935;
+    border-bottom: 2.2px solid var(--primary-color);
     
     display: flex;
     justify-content: space-between;
@@ -12,7 +12,7 @@
     align-items: center;
 }
 .logo_section .lign_dv{
-    border: #3D3935 1px solid;
+    border: var(--primary-color) 1px solid;
     height: 40px;
     margin: 0px 16px;
 }
@@ -47,15 +47,15 @@
 
 }
 .logo_section .login_btn{
-    background-color: #3D3935;
+    background-color: var(--primary-color);
     border: none;
-    box-shadow: 0px 5px 12px 0px #5856534a;
+    box-shadow: 0px 5px 12px 0px var(--primary-color);
     color: white;
    
 
     
 }
 .logo_section .select_lang{
-    border: #3D3935 1px solid;
+    border: var(--primary-color) 1px solid;
    
 }

@@ -17,12 +17,12 @@
     border-radius: 0px 4px 4px 0px;
     padding: 10px;
     color: black;
-    border: 1px solid #3D3935
+    border: 1px solid var(--primary-color)
     ;
   }
   
   .btn-primary {
-    background-color: #3D3935;
+    background-color:var(--primary-color);
     border: none;
     color: #fff;
     padding: 10px 20px;
@@ -56,7 +56,7 @@
   }
   .select_item{
     background-color: #DADADA;
-    color: #3D3935;
+    color: var(--primary-color);
     width: 100px;
     height: 40px;
     border-radius: 3px;
