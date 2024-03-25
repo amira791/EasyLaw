@@ -5,8 +5,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from rest_framework.response import Response
+from rest_framework import status
+from .models import OfficialJournal  # Import the OfficialJournal model
+import os
+
+
 import time
 import re
+import requests
+import os
+
 
 @api_view(['POST'])
 def initial_jt_filling(request):
@@ -219,3 +228,160 @@ def initial_jt_filling(request):
     driver.quit()
 
     # Create your views here.
+
+
+
+
+
+@api_view(['POST'])
+def process_files_generator_view(request):
+    if request.method == 'POST':
+        base_url = 'F:\\project 2cs\\EasyLaw\\back\\jaraid'
+        
+        # Generator function to process files
+        def process_files_generator(base_url):
+            # Iterate through directories and files
+            for root, dirs, files in os.walk(base_url):
+                for file in files:
+                    # Extract number and year from file name
+                    file_parts = os.path.basename(file).split('.')[0].split('A')
+                    
+                    # Check if file name matches expected pattern and has enough parts
+                    if len(file_parts) >= 2 and file_parts[1]:  # Ensure at least 2 parts and non-empty second part
+                        # Split the second part ('2023001') into year (first 4 characters) and number (last 3 characters)
+                        year = file_parts[1][:4]  # First 4 characters
+                        number = file_parts[1][-3:]  # Last 3 characters
+                        
+                        # Construct the desired file path format
+                        year_directory = os.path.join('/files/JOs', year)
+                        file_path = os.path.join(year_directory, file)
+                        
+                        yield {'number': number, 'year': year, 'file_path': file_path}
+        
+        # Process the generator to get the results one at a time
+        result_generator = process_files_generator(base_url)
+        
+        # Create a list to hold the results
+        results_list = []
+        for item in result_generator:
+            results_list.append(item)
+        
+        return Response({'results': results_list}, status=status.HTTP_200_OK)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+# Example usage in urls.py
+# path('process-files/', process_files_generator_view, name='process_files_generator_view'),
+
+
+
+
+
+
+@api_view(['POST'])
+def process_files_generator_download(request):
+    if request.method == 'POST':
+        base_url = 'F:\\project 2cs\\EasyLaw\\back\\jaraid'
+        
+        # Generator function to process files
+        def process_files_generator(base_url):
+            # Iterate through directories and files
+            for root, dirs, files in os.walk(base_url):
+                for file in files:
+                    # Extract number and year from file name
+                    file_parts = os.path.basename(file).split('.')[0].split('A')
+                    
+                    # Check if file name matches expected pattern and has enough parts
+                    if len(file_parts) >= 2 and file_parts[1]:  # Ensure at least 2 parts and non-empty second part
+                        # Split the second part ('2023001') into year (first 4 characters) and number (last 3 characters)
+                        year = file_parts[1][:4]  # First 4 characters
+                        number = file_parts[1][-3:]  # Last 3 characters
+                        
+                        # Construct the desired file path format
+                        year_directory = os.path.join('/files/JOs', year)
+                        file_path = os.path.join(year_directory, file)
+                        
+                        # Create an instance of OfficialJournal and save to database
+                        journal = OfficialJournal(number=number, year=year, text_file=file_path)
+                        journal.save()
+                        
+                        yield {'number': number, 'year': year, 'file_path': file_path}
+        
+        # Process the generator to get the results one at a time
+        result_generator = process_files_generator(base_url)
+        
+        # Create a list to hold the results
+        results_list = []
+        for item in result_generator:
+            results_list.append(item)
+        
+        return Response({'message': 'Data saved to database'}, status=status.HTTP_200_OK)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+
+
+
+
+
+
+
+@api_view(['GET'])
+def show_results(request):
+    if request.method == 'GET':
+        # Retrieve all instances of OfficialJournal from the database
+        journals = OfficialJournal.objects.all()
+
+        # Serialize the queryset to JSON format
+        serialized_data = [{'number': journal.number, 'year': journal.year, 'file_path': journal.text_file.url} for journal in journals]
+
+        return Response({'results': serialized_data})
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+
+
+
+
+
+
+@api_view(['POST'])
+def process_files_generator_downloadFr(request):
+    if request.method == 'POST':
+        base_url = 'F:\\project 2cs\\EasyLaw\\back\\jaraid2'
+        
+        # Generator function to process files
+        def process_files_generator(base_url):
+            # Iterate through directories and files
+            for root, dirs, files in os.walk(base_url):
+                for file in files:
+                    # Extract number and year from file name
+                    file_parts = os.path.basename(file).split('.')[0].split('F')
+                    
+                    # Check if file name matches expected pattern and has enough parts
+                    if len(file_parts) >= 2 and file_parts[1]:  # Ensure at least 2 parts and non-empty second part
+                        # Split the second part ('2023001') into year (first 4 characters) and number (last 3 characters)
+                        year = file_parts[1][:4]  # First 4 characters
+                        number = file_parts[1][-3:]  # Last 3 characters
+                        
+                        # Construct the desired file path format
+                        year_directory = os.path.join('/files/JOs', year)
+                        file_path = os.path.join(year_directory, file)
+                        
+                        # Create an instance of OfficialJournal and save to database
+                        journal = OfficialJournal(number=number, year=year, text_file=file_path)
+                        journal.save()
+                        
+                        yield {'number': number, 'year': year, 'file_path': file_path}
+        
+        # Process the generator to get the results one at a time
+        result_generator = process_files_generator(base_url)
+        
+        # Create a list to hold the results
+        results_list = []
+        for item in result_generator:
+            results_list.append(item)
+        
+        return Response({'message': 'Data saved to database'}, status=status.HTTP_200_OK)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
