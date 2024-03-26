@@ -10,9 +10,51 @@ function Services() {
     <h2>اهتماماتي </h2>
     <div className='services-display'>
     <div className='service-item'>
-            <h4> العرض الأول في خدمة الجرائد القانونية  </h4>
+            <h4> <span className='serv-span'>العرض الأول</span>  في خدمة الجرائد القانونية  </h4>
             <p>: ميزات العرض</p>
-            <ul>
+            <ul >
+                <li>الاطلاع على كل النصوص القانونية</li>
+                <li>الحصول على كل المستجدات</li>
+                <li>تلقي تنبيهات متعلقة بالمستجدات</li>
+            </ul>
+            <p>ينتهي العرض في :    10/10/2025  </p>
+            <div className=' service-item-content'>
+                <div className='icon-service'>
+                <p>تجديد العرض</p>
+                </div>
+                <div className='icon-service ofr'>
+               
+                <p>3 أيام على انتهاء العرض</p>
+                </div>
+                
+            </div>
+        </div>
+
+        <div className='service-item'>
+            <h4> <span className='serv-span'>العرض الأول</span>  في خدمة الجرائد القانونية  </h4>
+            <p>: ميزات العرض</p>
+            <ul >
+                <li>الاطلاع على كل النصوص القانونية</li>
+                <li>الحصول على كل المستجدات</li>
+                <li>تلقي تنبيهات متعلقة بالمستجدات</li>
+            </ul>
+            <p>ينتهي العرض في :    10/10/2025  </p>
+            <div className=' service-item-content'>
+                <div className='icon-service'>
+                <p>تجديد العرض</p>
+                </div>
+                <div className='icon-service ofr'>
+               
+                <p>3 أيام على انتهاء العرض</p>
+                </div>
+                
+            </div>
+        </div>
+
+        <div className='service-item'>
+            <h4> <span className='serv-span'>العرض الأول</span>  في خدمة الجرائد القانونية  </h4>
+            <p>: ميزات العرض</p>
+            <ul >
                 <li>الاطلاع على كل النصوص القانونية</li>
                 <li>الحصول على كل المستجدات</li>
                 <li>تلقي تنبيهات متعلقة بالمستجدات</li>
@@ -32,7 +74,7 @@ function Services() {
        
         
     </div>
-    <button>الاشتراك في خدمات أخرى</button>
+    <button className='btn_sub'>الاشتراك في خدمات أخرى</button>
    </div>
    </>
   )

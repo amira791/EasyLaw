@@ -99,18 +99,22 @@ padding: 0%;
     
 }
 .services-container{
-    border: #020202 2px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    padding: 2%;
+    padding: 5% 2%;
+    
 }
-.services-container h2,h3{
+.services-container h2,h3,h4{
     text-align: center;
 }
 .services-container .services-display{
     display: grid;
-    grid-template-columns: repeat(2,350px);
-    justify-content:space-around;
+    grid-template-columns: repeat(2,400px);
+    justify-content:space-between;
     margin-top: 5%;
+    width: 85%;
     
 }
 .services-container .service-item{
@@ -133,7 +137,17 @@ justify-content: space-between;
     color: white;
     font-weight: 500;
 }
-
+.services-container ul {
+    direction: rtl;
+}
+.service-item p{
+    text-align: end;
+}
+.service-item .serv-span{
+    background-color: #FEFFB5;
+    border-radius: 8px;
+    padding: 3px;
+}
 .services-container .ofr{
 background-color: white;
 color: red;
@@ -147,10 +161,19 @@ color: red;
     justify-content: center;
    
 }
-
+.services-container .btn_sub{
+    background-image:linear-gradient(to right, #1D8B8C 20%, #00C8CB 100%);
+    border: none;
+    padding: 1% 4%;
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
+}
 
 .interest-container{
-    border: #020202 2px solid;
+  
     width: 100%;
     padding: 2%;
 }

@@ -9,7 +9,7 @@
 .navBar_container .NavBar_item{
     display: flex;
     justify-content: space-evenly;
-    border: 1px solid black;
+    
     border-radius: 6px;
     background-color:var(--primary-color);
     width: 720px;

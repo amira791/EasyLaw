@@ -8,6 +8,7 @@ import Gpt from './Components/MainPage/GPT/Gpt';
 import Profile from './Components/Profile/Profile';
 import Subscrib from './Components/Subscrib/Subscrib';
 import Validation from './Components/Auth/Validation';
+import AccountManag from './Components/Admin/AccountManag/AccountManag';
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         <Route path="/profile" element={<Profile/>} />
         <Route path="/subscrib" element={<Subscrib/>} />
         <Route path="/validation" element={<Validation/>} />
+
+
+        <Route path="/accountmanagment" element={<AccountManag/>} />
         
         
       </Routes>

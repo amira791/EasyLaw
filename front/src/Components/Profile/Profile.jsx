@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import Compte from './Compte';
 import ChangePwd from './ChangePwd';
 import Services from './Services';
+import Interest from './Interest'
+
 
 
 function Profile() {
