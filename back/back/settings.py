@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'User',
-   
 ]
 
 AUTH_USER_MODEL='User.CustomUser'
@@ -142,4 +141,3 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
-
