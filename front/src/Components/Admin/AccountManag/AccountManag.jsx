@@ -1,9 +1,10 @@
 import React from 'react';
 import './AccountManag.css';
-import Footer from '../../Footer/Footer';
-import Logo from '../../LOGO/Logo';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import TitleBar from '../../TitleBar/TitleBar';
+import LogoAdmin from '../../LOGO/LogoAdmin';
+import FooterAdmin from '../../Footer/FooterAdmin';
 
 // Exemple de données pour la DataTable
 
@@ -29,10 +30,8 @@ function AccountManag() {
       ];
   return (
     <>
-      <Logo />
-      <div className='AccManag_titre'>
-        <h2> ادارة الحسابات</h2>
-      </div>
+      <LogoAdmin />
+      <TitleBar title="ادارة الحسابات" />
       <div className='accountManag-container'>
       <h2> حسابات المستخدمين</h2>
       <DataTable value={userAccount} paginator rows={7}  tableStyle={{ minWidth: '50rem' }}>
@@ -56,7 +55,7 @@ function AccountManag() {
           <Column field="username" header="إسم المستخدم" style={{ width: '15%' }}></Column>
         </DataTable>
       </div>
-      <Footer />
+      <FooterAdmin />
     </>
   );
 }

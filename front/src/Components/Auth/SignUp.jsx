@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import TitleBar from '../TitleBar/TitleBar';
 
 
 function SignUp() {
@@ -55,9 +56,7 @@ function SignUp() {
   return (
     <>
     <Logo/>
-<div className='signup_titre'>
-      <h2> إنشاء حساب</h2>
-    </div>
+    <TitleBar title="  إنشاء حساب " />
 <div className="signup-form">
   <form onSubmit={handleSubmit} className='signup_sub'>
     <div className='username_dv'>

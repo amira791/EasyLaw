@@ -9,6 +9,10 @@ import Profile from './Components/Profile/Profile';
 import Subscrib from './Components/Subscrib/Subscrib';
 import Validation from './Components/Auth/Validation';
 import AccountManag from './Components/Admin/AccountManag/AccountManag';
+import Payment from './Components/Payment/Payment';
+import AuthAdmin from './Components/Admin/AuthAdmin/AuthAdmin';
+import AuthModerateur from './Components/Admin/AuthAdmin/AuthModerateur';
+import CreateAccModerateur from './Components/Admin/AuthAdmin/CreateAccModerateur';
 
 function App() {
   return (
@@ -23,9 +27,13 @@ function App() {
         <Route path="/profile" element={<Profile/>} />
         <Route path="/subscrib" element={<Subscrib/>} />
         <Route path="/validation" element={<Validation/>} />
+        <Route path="/payment" element={<Payment/>} />
 
 
         <Route path="/accountmanagment" element={<AccountManag/>} />
+        <Route path="/admin" element={<AuthAdmin />} />
+        <Route path="/moderateur" element={<AuthModerateur />} />
+        <Route path="/createAccMod" element={<CreateAccModerateur />} />
         
         
       </Routes>

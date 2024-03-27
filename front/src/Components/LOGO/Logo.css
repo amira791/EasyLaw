@@ -1,7 +1,6 @@
 .logo_section{
     max-width: 100%;
     border-bottom: 2.2px solid var(--primary-color);
-    
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,13 +48,28 @@
 .logo_section .login_btn{
     background-color: var(--primary-color);
     border: none;
-    box-shadow: 0px 5px 12px 0px var(--primary-color);
     color: white;
-   
-
-    
+}
+.logo_section .btn_admin{
+    background-color: transparent;
+    border:  2px solid #045253 ;
+    color:#045253;
 }
 .logo_section .select_lang{
     border: var(--primary-color) 1px solid;
    
+}
+.logo_section a{
+    text-decoration: none;
+}
+.logo_section .titre_section h2{
+    width: 200px;
+    color:  #374957;
+   margin: 0%;
+
+}
+.logo_section .titre_section {
+    text-align: center;
+    width: 200px;
+    margin-right: 15%;
 }

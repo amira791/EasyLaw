@@ -1,13 +1,11 @@
+import LogoAdmin from '../../LOGO/LogoAdmin'
+import FooterAdmin from '../../Footer/FooterAdmin'
 import React , { useState }from 'react'
-import { Link } from 'react-router-dom';
-import Footer from '../Footer/Footer';
-import Logo from '../LOGO/Logo';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import TitleBar from '../TitleBar/TitleBar';
+import TitleBar from '../../TitleBar/TitleBar';
 
-
-function SignIn() {
+function CreateAccModerateur() {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -35,9 +33,11 @@ function SignIn() {
         setPasswordError('');}
       };
   return (
-    <>
-    <Logo/>
-    <TitleBar title="  تسجيل الدخول" />
+   <>
+   <LogoAdmin title="صفحة الادارة"/>
+   <TitleBar title="  ادارة الحسابات" />
+   <h2 style={{ textAlign: 'center', color:'#374957'}}>انشاء حساب مشرف جديد</h2>
+
     <div className="signin-form">
     
       <form onSubmit={handleSubmit}>
@@ -80,20 +80,14 @@ function SignIn() {
       {passwordError && <span className="error-message">{passwordError}</span>}
         </div>
 </div>
-        <button type="submit">تسجيل الدخول</button>
-        <div className="connection_link">
-        <a   >
-          <Link style={{ color: '#484646' }}  to ="/signup">إنشاء حساب </Link>
-          </a>
-        </div>
+        <button type="submit"> انشاء الحساب </button>
+        
         
 
       </form>
     </div>
-    <Footer/>
-
-    </>
+   <FooterAdmin/>
+   </>
   )
 }
-
-export default SignIn
+export default CreateAccModerateur
