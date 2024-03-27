@@ -30,7 +30,8 @@ SECRET_KEY = 'django-insecure-#egh*o&jitym^s()0agi5klq6(*g%^d%@8fqt(q1w$-lauuj(n
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'User.Client'
+ROOT_URLCONF = 'back.urls'
 
 # Application definition
 
