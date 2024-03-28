@@ -1,11 +1,26 @@
-import React from 'react'
 import "./Logo.css"
 import HelpIcon from '@mui/icons-material/Help';
 import LoginIcon from '@mui/icons-material/Login';
 import LanguageIcon from '@mui/icons-material/Language';
 import { Link } from 'react-router-dom';
+import React, { useState, useEffect} from 'react';
 
 function Logo() {
+  const [username, setUsername] = useState('');
+
+useEffect(() => {
+  const storedUsername = localStorage.getItem('username');
+  if (storedUsername) {
+    setUsername(storedUsername);
+  }
+}, []);
+
+  const [isAuth, setIsAuth] = useState(false);
+  useEffect(() => {
+  if (localStorage.getItem('token') !== null) {
+    setIsAuth(true); 
+  }
+}, [isAuth]);
   return (
     <>
     <div className='logo_section'>
@@ -22,12 +37,14 @@ function Logo() {
           </select>
           
           </div>
+          {isAuth ?
           <Link  to ="/signin">
           <button className=' btn login_btn'> 
           <p>تسجيل الدخول </p>
            <LoginIcon sx={{ width: '20px', height: '20px' }}/>
            </button>
            </Link>
+           : <p>{username}</p>}
     </div>
 
     <div className='easylaw_section'>

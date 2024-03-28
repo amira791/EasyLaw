@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import "./SignUp.css"
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -25,6 +27,8 @@ function SignUp() {
 
   const [passwordError, setPasswordError] = useState('');
   const [passwordType, setPasswordType] = useState('password');
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
   const togglePassword = () => {
     setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
   };
@@ -48,6 +52,7 @@ function SignUp() {
         
         const response = await axios.post('http://localhost:8000/user/signup', formData);
         console.log(response.data);
+        setSuccessMessage('تم إنشاء الحساب بنجاح! يتم إعادة توجيهك إلى صفحة تسجيل الدخول...');
         // Réinitialiser le formulaire après l'inscription réussie
         setFormData({
           prenom: '',
@@ -61,6 +66,9 @@ function SignUp() {
         });
         setPasswordError('');
         setConfirmPassword('');
+        setTimeout(() => {
+          navigate('/signin');
+        }, 5000); 
       } catch (error) {
         console.error('Une erreur s\'est produite lors de l\'inscription :', error);
         // Gérer les erreurs d'inscription ici, par exemple :
@@ -76,6 +84,7 @@ function SignUp() {
     <TitleBar title="  إنشاء حساب " />
 <div className="signup-form">
   <form onSubmit={handleSubmit} className='signup_sub'>
+  {successMessage && <p className="success-message">{successMessage}</p>}
     <div className='username_dv'>
       <div className='input-group'>
          <label htmlFor="nom">اللقب</label>

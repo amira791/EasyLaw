@@ -42,8 +42,13 @@ function SignIn() {
       // Si l'authentification réussit, stockez le token et redirigez vers la page de profil
       // Vous pouvez stocker le token dans le stockage local ou les cookies du navigateur
 
-      localStorage.setItem('token', response.data.token);
-      setLoggedIn(true);
+      localStorage.clear();
+         localStorage.setItem('access_token', response.data.access);
+         localStorage.setItem('refresh_token', response.data.refresh);
+         axios.defaults.headers.common['Authorization'] =  `Bearer ${response.data['access']}`;
+         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data['access']}`;
+         localStorage.setItem('username', response.data.username); // Storing the username
+         setLoggedIn(true);
     } catch (error) {
       console.error('Une erreur s\'est produite lors de l\'authentification :', error);
       setPasswordError('Erreur lors de l\'authentification. Veuillez vérifier vos informations.');
@@ -51,7 +56,7 @@ function SignIn() {
   };
 
   if (loggedIn) {
-     return <Navigate to="/profile" />;
+     return <Navigate to="/" />;
   }
 
   return (
