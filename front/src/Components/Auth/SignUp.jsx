@@ -10,14 +10,17 @@ import axios from 'axios';
 
 
 function SignUp() {
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    DateN: '',
-    company: '',
-    job: '',
+    prenom: '',
+    nom: '',
+    dateNaiss: '',
+    univer_Entrep: '',
+    occupation: '',
     email: '',
-    password: ''
+    password: '',
+    username:''
   });
 
   const [passwordError, setPasswordError] = useState('');
@@ -33,34 +36,39 @@ function SignUp() {
       [name]: value
     }));
   };
-
+  console.log(formData)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password.length < 8) {
+    if (formData.password !== confirmPassword) {
+      setPasswordError('كلمة السر وتأكيد كلمة السر يجب أن تتطابق');
+  } else if (formData.password.length < 8) {
       setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
-    } else {
+  } else {
       try {
-        const response = await axios.post('http://localhost:8000/signup/', formData);
+        
+        const response = await axios.post('http://localhost:8000/user/signup', formData);
         console.log(response.data);
         // Réinitialiser le formulaire après l'inscription réussie
         setFormData({
-          firstName: '',
-          lastName: '',
-          DateN: '',
-          company: '',
-          job: '',
+          prenom: '',
+          nom: '',
+          dateNaiss: '',
+          univer_Entrep: '',
+          occupation: '',
           email: '',
-          password: ''
+          password: '',
+          username:''
         });
         setPasswordError('');
+        setConfirmPassword('');
       } catch (error) {
         console.error('Une erreur s\'est produite lors de l\'inscription :', error);
         // Gérer les erreurs d'inscription ici, par exemple :
         // if (error.response.data.password) {
         //   setPasswordError(error.response.data.password);
-        // }
+         }
       }
-    }
+   // }
   };
   return (
     <>
@@ -70,26 +78,26 @@ function SignUp() {
   <form onSubmit={handleSubmit} className='signup_sub'>
     <div className='username_dv'>
       <div className='input-group'>
-         <label htmlFor="lastName">اللقب</label>
+         <label htmlFor="nom">اللقب</label>
          <input
          className='input_item'
             type="text"
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
+            id="nom"
+            name="nom"
+            value={formData.nom}
             onChange={handleChange}
             placeholder='اللقب'
             required
           />
       </div>
       <div className='input-group'>
-         <label htmlFor="firstName">الاسم</label>
+         <label htmlFor="prenom">الاسم</label>
          <input
          className='input_item'
             type="text"
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
+            id="prenom"
+            name="prenom"
+            value={formData.prenom}
             onChange={handleChange}
             placeholder='الاسم'
             required
@@ -98,7 +106,7 @@ function SignUp() {
     </div>
     <div className='username_dv'>
       <div className='input-group'>
-         <label htmlFor="company"> البريد الالكتروني </label>
+         <label htmlFor="email"> البريد الالكتروني </label>
          <input
          className='input_item'
              type="email"
@@ -112,14 +120,14 @@ function SignUp() {
           />
       </div>
       <div className='input-group'>
-         <label htmlFor="dateN">تاريخ الميلاد</label>
+         <label htmlFor="dateNaiss">تاريخ الميلاد</label>
          <input
          className='input_item'
              type="date"
-             id="dateN"
-             name="DateN"
+             id="dateNaiss"
+             name="dateNaiss"
              //className='user_info SELECT-dv'
-             value={formData.DateN}
+             value={formData.dateNaiss}
              onChange={handleChange}
              placeholder='تاريخ الميلاد'
              required
@@ -128,25 +136,38 @@ function SignUp() {
    </div>
    <div className='username_dv1'>
       <div className='input-group-col'>
-        <label htmlFor="company">الشركة / الجامعة </label>
+        <label htmlFor="univer_Entrep">الشركة / الجامعة </label>
         <input
             type="text"
-            id="company"
-            name="company"
+            id="univer_Entrep"
+            name="univer_Entrep"
             className='input_item_col'
-            value={formData.company}
+            value={formData.univer_Entrep}
             onChange={handleChange}
             placeholder=' الشركة / الجامعة'
             required
          />
       </div>
       <div className='input-group-col'>
-        <label htmlFor="job">المهنة</label>
+        <label htmlFor="username">username</label>
+        <input
+            type="text"
+            id="username"
+            name="username"
+            className='input_item_col'
+            value={formData.username}
+            onChange={handleChange}
+            placeholder=' username'
+            required
+         />
+      </div>
+      <div className='input-group-col'>
+        <label htmlFor="occupation">المهنة</label>
         <select
-           id="job"
-           name="job"
+           id="occupation"
+           name="occupation"
            className='input_item_col '
-           value={formData.job}
+           value={formData.occupation}
            onChange={handleChange}
            required
          >
@@ -180,7 +201,7 @@ function SignUp() {
       </div>
       {passwordError && <span className="error-message">{passwordError}</span>}
     </div>
-      <div className='input-group-col'>
+    <div className='input-group-col'>
          <label htmlFor="company"> تأكيد كلمة السر </label>
          <div className='input-group-row '>
          <div className='visibility-icon' onClick={togglePassword}>
@@ -190,18 +211,20 @@ function SignUp() {
             <VisibilityOffIcon sx={{ width: '20px', height: '20px',marginTop:'5px' }}/>
           )}
         </div>
-            <input
-             type="password"
-             id="passwordV"
-             name="password"
-             className='input_item_col'
-             value={formData.password}
-             onChange={handleChange}
-             placeholder=' تأكيد كلمة السر'
-             required
-            />
+        <input
+    type="password"
+    id="confirmPassword"
+    name="confirmPassword"
+    className='input_item_col'
+    value={confirmPassword}
+    onChange={(e) => setConfirmPassword(e.target.value)}
+    placeholder='تأكيد كلمة السر'
+    required
+/>
             </div>
       </div>
+      
+      
 </div>
 
  <button type="submit" >انشاء حساب</button>

@@ -1,69 +1,97 @@
 import "./Profile.css"
-import React , { useState }from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Compte() {
 
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        DateN: '',
-        company: '',
-        job: '',
-        mail:''
-      });
+  const [formData, setFormData] = useState({
+    dateNaiss: '',
+    email: '',
+    nom: '',
+    occupation: '',
+    password: '',
+    prenom: '',
+    univer_Entrep: '',
+    username:''
+  });
 
-      const [activeList, setNavList] = useState('profile');
+useEffect(() => {
+    const fetchUserData = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:8000/user/user_profile', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const userData = response.data;
+            console.log(userData);
+            setFormData({
+                dateNaiss: userData.dateNaiss || '',
+                email: userData.email || '',
+                nom: userData.nom || '',
+                occupation: userData.occupation || '',
+                prenom: userData.prenom || '',
+                univer_Entrep: userData.univer_Entrep || '',
+                
+                
+            });
+        } catch (error) {
+            console.error('Une erreur s\'est produite lors de la récupération des informations de profil :', error);
+        }
+    };
+    console.log(formData)
+    fetchUserData();
+}, []);
 
-      const handleListChange = (newContent) => {
-        setNavList( newContent); // Update the active List
-      };
-    
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-          ...prevData,
-          [name]: value
-        }));
-      };
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
-        // Reset form 
-        setFormData({
-          firstName: '',
-          lastName: '',
-          DateN: '',
-          company: '',
-          job: '',
-          mail:''
+const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+        ...prevData,
+        [name]: value
+    }));
+};
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const token = localStorage.getItem('token');
+        await axios.put('http://localhost:8000/user/user_profile', formData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         });
-      };
+        alert('Les informations ont été mises à jour avec succès !');
+    } catch (error) {
+        console.error('Une erreur s\'est produite lors de la mise à jour des informations de profil :', error);
+    }
+};
+
   return (
     <>
-    {activeList === 'profile' && (
+   
       <form onSubmit={handleSubmit} className='profile_form'>
         <div className='lign_dv'>
            <div className='lign_dv_info'>
-               <label htmlFor="lastName">اللقب</label>
+               <label htmlFor="nom">اللقب</label>
                <input
                className='inpt_lign'
                 type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
+                id="nom"
+                name="nom"
+                value={formData.nom}
                 onChange={handleChange}
                 placeholder='اللقب'
                 required/>
            </div>
            <div className='lign_dv_info'>
-                <label htmlFor="firstName">الاسم</label>
+                <label htmlFor="prenom">الاسم</label>
                 <input
                 className='inpt_lign'
                 type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
+                id="prenom"
+                name="prenom"
+                value={formData.prenom}
                 onChange={handleChange}
                 placeholder='الاسم'
                 required/>
@@ -72,25 +100,25 @@ function Compte() {
         </div>
         <div className='lign_dv'>
            <div className='lign_dv_info'>
-               <label htmlFor="lastName">البريد الالكتروني</label>
+               <label htmlFor="email">البريد الالكتروني</label>
                <input
                className='inpt_lign'
                 type="text"
-                id="mail"
-                name="mail"
-                value={formData.mail}
+                id="email"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
                 placeholder='البريد الالكتروني'
                 required/>
            </div>
            <div className='lign_dv_info'>
-                <label htmlFor="dateN">تاريخ الميلاد</label>
+                <label htmlFor="dateNaiss">تاريخ الميلاد</label>
                 <input
                 className='inpt_lign'
                 type="date"
-                id="dateN"
-                name="DateN"
-                value={formData.DateN}
+                id="dateNaiss"
+                name="dateNaiss"
+                value={formData.dateNaiss}
                 onChange={handleChange}
                 placeholder='تاريخ الميلاد'
                 required/>
@@ -99,26 +127,26 @@ function Compte() {
         </div>
         <div className='col_dv'>
             <div className='profile_info'>
-                <label htmlFor="company">الشركة / الجامعة </label>
+                <label htmlFor="univer_Entrep">الشركة / الجامعة </label>
                 <input
                 className='profile_info_input'
                   type="text"
-                  id="company"
-                  name="company"
+                  id="univer_Entrep"
+                  name="univer_Entrep"
                 
-                  value={formData.company}
+                  value={formData.univer_Entrep}
                   onChange={handleChange}
                   placeholder=' الشركة / الجامعة'
                   required
                 />
             </div>
             <div className='profile_info'>
-                <label htmlFor="job">المهنة</label>
+                <label htmlFor="occupation">المهنة</label>
                 <select
-                id="job"
-                name="job"
+                id="occupation"
+                name="occupation"
                 className='profile_info_input'
-                value={formData.job}
+                value={formData.occupation}
                 onChange={handleChange}
                 required
                 >
@@ -130,7 +158,7 @@ function Compte() {
             </div>
          </div>
          <button className='save_info' type="submit"> حفظ المعلومات</button>
-    </form>)}
+    </form>
     </>
   )
 }

@@ -58,7 +58,7 @@ function Profile() {
     </div>
 
     <div className='profile_content'>
-      <Services/>
+      <Compte/>
     <div className='profile_navBar'>
         <ul>
         <li>
