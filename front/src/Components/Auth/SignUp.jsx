@@ -6,6 +6,7 @@ import Logo from '../LOGO/Logo';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import TitleBar from '../TitleBar/TitleBar';
+import axios from 'axios';
 
 
 function SignUp() {
@@ -33,25 +34,33 @@ function SignUp() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password.length < 8) {
       setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
     } else {
-      console.log(formData);
-    // Reset form 
-    setFormData({
-      firstName: '',
-      lastName: '',
-      DateN: '',
-      company: '',
-      job: '',
-      email: '',
-      password: ''
-    });
-    setPasswordError('');}
-
-    
+      try {
+        const response = await axios.post('http://localhost:8000/signup/', formData);
+        console.log(response.data);
+        // Réinitialiser le formulaire après l'inscription réussie
+        setFormData({
+          firstName: '',
+          lastName: '',
+          DateN: '',
+          company: '',
+          job: '',
+          email: '',
+          password: ''
+        });
+        setPasswordError('');
+      } catch (error) {
+        console.error('Une erreur s\'est produite lors de l\'inscription :', error);
+        // Gérer les erreurs d'inscription ici, par exemple :
+        // if (error.response.data.password) {
+        //   setPasswordError(error.response.data.password);
+        // }
+      }
+    }
   };
   return (
     <>

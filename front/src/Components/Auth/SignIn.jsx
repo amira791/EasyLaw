@@ -1,4 +1,4 @@
-import React , { useState }from 'react'
+import React , { useEffect, useState }from 'react'
 import { Link } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
@@ -34,6 +34,8 @@ function SignIn() {
         console.log(formData);
         setPasswordError('');}
       };
+      
+     
   return (
     <>
     <Logo/>
