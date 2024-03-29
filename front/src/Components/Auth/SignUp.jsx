@@ -28,6 +28,7 @@ function SignUp() {
   const [passwordError, setPasswordError] = useState('');
   const [passwordType, setPasswordType] = useState('password');
   const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const togglePassword = () => {
     setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
@@ -70,10 +71,13 @@ function SignUp() {
           navigate('/signin');
         }, 5000); 
       } catch (error) {
-        console.error('Une erreur s\'est produite lors de l\'inscription :', error);
-        // Gérer les erreurs d'inscription ici, par exemple :
-        // if (error.response.data.password) {
-        //   setPasswordError(error.response.data.password);
+        if (error.response.data.email) {
+          setErrorMessage(error.response.data.email);
+        } else if (error.response.data.username) {
+          setErrorMessage(error.response.data.username);
+        } else {
+          setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
+        }
          }
       }
    // }
@@ -84,7 +88,10 @@ function SignUp() {
     <TitleBar title="  إنشاء حساب " />
 <div className="signup-form">
   <form onSubmit={handleSubmit} className='signup_sub'>
-  {successMessage && <p className="success-message">{successMessage}</p>}
+  <div className='message-container'>
+            {successMessage && <p className="success-message">{successMessage}</p>}
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+          </div>
     <div className='username_dv'>
       <div className='input-group'>
          <label htmlFor="nom">اللقب</label>
