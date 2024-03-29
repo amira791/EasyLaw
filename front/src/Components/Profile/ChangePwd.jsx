@@ -2,6 +2,10 @@ import React , { useState }from 'react'
 import "./Profile.css"
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Link } from 'react-router-dom';
+import Logo from '../LOGO/Logo';
+import Footer from '../Footer/Footer';
+import NavBarProfile from './NavBarProfile';
 
 
 function ChangePwd() {
@@ -20,6 +24,8 @@ function ChangePwd() {
       };
       
     
+    
+      
       const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevData => ({
@@ -51,7 +57,14 @@ function ChangePwd() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className='profile_form'>
+     <Logo/>
+<div className='profile_container'>
+    <div className='profile_name'>
+        <img alt='photo profile'/>
+        <h3>Sanaa_791</h3>
+    </div>
+    <div className='profile_content'>
+    <form onSubmit={handleSubmit} className='profile_form'>
     
     <div className='col_dv'>
         <div className='profile_info'>
@@ -99,7 +112,13 @@ function ChangePwd() {
         
      </div>
      <button className='save_info' type="submit"> حفظ كلمة السر الجديدة </button>
-</form></>
+</form>
+    <NavBarProfile/>
+  </div>
+</div>
+    <Footer/>
+    
+      </>
   )
 }
 

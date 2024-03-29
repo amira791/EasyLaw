@@ -3,10 +3,20 @@ import './Profile.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import NavBarProfile from './NavBarProfile';
+import Logo from '../LOGO/Logo';
+import Footer from '../Footer/Footer';
 
 function Interest() {
   return (
     <>
+     <Logo/>
+<div className='profile_container'>
+    <div className='profile_name'>
+        <img alt='photo profile'/>
+        <h3>Sanaa_791</h3>
+    </div>
+    <div className='profile_content'>
     <div className='interest-container'>
      <h2>اهتماماتي </h2>
      <div className='interest-display'>
@@ -59,6 +69,11 @@ function Interest() {
          
      </div>
     </div>
+    <NavBarProfile/>
+  </div>
+</div>
+    <Footer/>
+    
     </>
   )
 }

@@ -3,11 +3,21 @@ import './Profile.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import Footer from '../Footer/Footer';
+import Logo from '../LOGO/Logo';
+import NavBarProfile from './NavBarProfile';
 function Services() {
   return (
    <>
-   <div className='services-container'>
-    <h2>اهتماماتي </h2>
+<Logo/>
+<div className='profile_container'>
+    <div className='profile_name'>
+        <img alt='photo profile'/>
+        <h3>Sanaa_791</h3>
+    </div>
+    <div className='profile_content'>
+    <div className='services-container'>
+    <h2>خدماتي </h2>
     <div className='services-display'>
     <div className='service-item'>
             <h4> <span className='serv-span'>العرض الأول</span>  في خدمة الجرائد القانونية  </h4>
@@ -76,6 +86,11 @@ function Services() {
     </div>
     <button className='btn_sub'>الاشتراك في خدمات أخرى</button>
    </div>
+    <NavBarProfile/>
+  </div>
+</div>
+    <Footer/>
+   
    </>
   )
 }

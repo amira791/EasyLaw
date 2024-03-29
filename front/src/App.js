@@ -15,6 +15,10 @@ import AuthModerateur from './Components/Admin/AuthAdmin/AuthModerateur';
 import CreateAccModerateur from './Components/Admin/AuthAdmin/CreateAccModerateur';
 import Law from './Components/Law/Law';
 import LawDetails from './Components/Law/LawDetails';
+import ChangePwd from './Components/Profile/ChangePwd';
+import Compte from './Components/Profile/Compte';
+import Interest from './Components/Profile/Interest';
+import Services from './Components/Profile/Services';
 
 function App() {
   return (
@@ -27,6 +31,10 @@ function App() {
         <Route path="/" element={<LawCategories/>} />
         <Route path="/gpt" element={<Gpt/>} />
         <Route path="/profile" element={<Profile/>} />
+        <Route path="/Changepwd" element={<ChangePwd/>} />
+        <Route path="/compte" element={<Compte/>} />
+        <Route path="/interest" element={<Interest/>} />
+        <Route path="/services" element={<Services/>} />
         <Route path="/subscrib" element={<Subscrib/>} />
         <Route path="/validation" element={<Validation/>} />
         <Route path="/payment" element={<Payment/>} />

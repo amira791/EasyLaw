@@ -2,11 +2,12 @@ import React , { useState }from 'react'
 import Logo from '../LOGO/Logo'
 import "./Profile.css"
 import Footer from '../Footer/Footer'
-import { Link } from 'react-router-dom';
+
 import Compte from './Compte';
 import ChangePwd from './ChangePwd';
 import Services from './Services';
 import Interest from './Interest'
+import NavBarProfile from './NavBarProfile';
 
 
 
@@ -56,30 +57,9 @@ function Profile() {
         <img alt='photo profile'/>
         <h3>Sanaa_791</h3>
     </div>
-
     <div className='profile_content'>
       <Compte/>
-    <div className='profile_navBar'>
-        <ul>
-        <li>
-                <Link to='/profile' onClick={() => handleListChange('profile')}>
-                  الحساب الشخصي
-                </Link>
-              </li>
-              <li>
-                <Link to='/changePwd' >تغيير كلمة السر</Link>
-              </li>
-              <li>
-                <Link to='/interest' >اهتماماتي</Link>
-              </li>
-              <li>
-                <Link to='/services'>خدماتي</Link>
-              </li>
-              <li>
-                <a>تسجيل الخروج</a>
-              </li>
-        </ul>
-    </div>
+    <NavBarProfile/>
   </div>
 </div>
     <Footer/>
