@@ -1,0 +1,66 @@
+
+.law-display{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 99%;
+    padding: 3% 0;   
+}
+.law-display .Law-container{
+    display: grid;
+    grid-template-columns: repeat(2,400px);
+    grid-row-gap: 50px;
+    justify-content:space-between;
+    width: 85%;   
+    margin-left: 5%; 
+}
+.Law-container .law-item p{
+   font-size: larger;
+   font-weight: 500;
+   margin-right: 6%;
+}
+
+.Law-container .law-item{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 90%;
+    height: 100px;
+    border-radius: 10px;
+}
+.Law-container .law-item:nth-child(even) {
+    background-color: #58D6D7; 
+}
+.Law-container .law-item:nth-child(odd) {
+    background-color: #f4f0f0; 
+}
+.Law-container .law-item:nth-child(4n+3),
+.Law-container .law-item:nth-child(4n+1) {
+    background-color: #58D6D7; 
+}
+.Law-container .law-item:nth-child(4n+1),
+.Law-container .law-item:nth-child(4n+4) {
+    background-color:  #f4f0f0; 
+}
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .pagination button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    margin: 0% 5px  ;
+    cursor: pointer;
+    color: #045253;
+    font-size: larger;
+  }
+  .pagination button.active {
+    background-color: #045253; 
+    color: white;
+  }
+  

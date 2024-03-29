@@ -44,6 +44,7 @@ function SignUp() {
   console.log(formData)
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage('');
     if (formData.password !== confirmPassword) {
       setPasswordError('كلمة السر وتأكيد كلمة السر يجب أن تتطابق');
   } else if (formData.password.length < 8) {

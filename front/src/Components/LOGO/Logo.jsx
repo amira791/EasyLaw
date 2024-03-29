@@ -17,7 +17,7 @@ useEffect(() => {
 
   const [isAuth, setIsAuth] = useState(false);
   useEffect(() => {
-  if (localStorage.getItem('token') !== null) {
+  if (localStorage.getItem('token') == null) {
     setIsAuth(true); 
   }
 }, [isAuth]);

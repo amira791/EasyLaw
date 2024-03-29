@@ -13,6 +13,8 @@ import Payment from './Components/Payment/Payment';
 import AuthAdmin from './Components/Admin/AuthAdmin/AuthAdmin';
 import AuthModerateur from './Components/Admin/AuthAdmin/AuthModerateur';
 import CreateAccModerateur from './Components/Admin/AuthAdmin/CreateAccModerateur';
+import Law from './Components/Law/Law';
+import LawDetails from './Components/Law/LawDetails';
 
 function App() {
   return (
@@ -28,12 +30,15 @@ function App() {
         <Route path="/subscrib" element={<Subscrib/>} />
         <Route path="/validation" element={<Validation/>} />
         <Route path="/payment" element={<Payment/>} />
+        <Route path="/law" element={<Law/>} />
+        <Route path="/LawDetails/:id" element={<LawDetails/>} />
 
 
         <Route path="/accountmanagment" element={<AccountManag/>} />
         <Route path="/admin" element={<AuthAdmin />} />
         <Route path="/moderateur" element={<AuthModerateur />} />
         <Route path="/createAccMod" element={<CreateAccModerateur />} />
+        
         
         
       </Routes>

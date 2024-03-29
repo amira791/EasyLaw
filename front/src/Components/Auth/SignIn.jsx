@@ -19,6 +19,7 @@ function SignIn() {
   const [passwordError, setPasswordError] = useState('');
   const [passwordType, setPasswordType] = useState('password');
   const [loggedIn, setLoggedIn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const togglePassword = () => {
     setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
@@ -51,7 +52,8 @@ function SignIn() {
          setLoggedIn(true);
     } catch (error) {
       console.error('Une erreur s\'est produite lors de l\'authentification :', error);
-      setPasswordError('Erreur lors de l\'authentification. Veuillez vérifier vos informations.');
+      setErrorMessage('Erreur lors de l\'authentification. Veuillez vérifier vos informations.');
+    
     }
   };
 
@@ -66,7 +68,7 @@ function SignIn() {
     <div className="signin-form">
     
       <form onSubmit={handleSubmit}>
-        
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
         <div className='username_dv1'>
         <div className='input-group'>
         <label htmlFor="dateN"> البريد الالكتروني</label>
@@ -102,7 +104,7 @@ function SignIn() {
           required
         />
         </div>
-      {passwordError && <span className="error-message">{passwordError}</span>}
+      
         </div>
 </div>
         <button type="submit">تسجيل الدخول</button>
