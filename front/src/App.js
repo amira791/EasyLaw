@@ -19,6 +19,7 @@ import ChangePwd from './Components/Profile/ChangePwd';
 import Compte from './Components/Profile/Compte';
 import Interest from './Components/Profile/Interest';
 import Services from './Components/Profile/Services';
+import Scraping from './Components/Admin/Scraping/Scraping';
 
 function App() {
   return (
@@ -27,9 +28,7 @@ function App() {
       <Routes>
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/signin" element={<SignIn/>} />
-        <Route path="/footer" element={<Footer/>} />
         <Route path="/" element={<LawCategories/>} />
-        <Route path="/gpt" element={<Gpt/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/Changepwd" element={<ChangePwd/>} />
         <Route path="/compte" element={<Compte/>} />
@@ -37,7 +36,7 @@ function App() {
         <Route path="/services" element={<Services/>} />
         <Route path="/subscrib" element={<Subscrib/>} />
         <Route path="/validation" element={<Validation/>} />
-        <Route path="/payment" element={<Payment/>} />
+        <Route path="/payment/:id" element={<Payment/>} />
         <Route path="/law" element={<Law/>} />
         <Route path="/LawDetails/:id" element={<LawDetails/>} />
 
@@ -46,6 +45,7 @@ function App() {
         <Route path="/admin" element={<AuthAdmin />} />
         <Route path="/moderateur" element={<AuthModerateur />} />
         <Route path="/createAccMod" element={<CreateAccModerateur />} />
+        <Route path="/scraping" element={<Scraping/>} />
         
         
         

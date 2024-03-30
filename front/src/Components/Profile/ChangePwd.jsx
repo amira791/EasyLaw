@@ -2,7 +2,7 @@ import React , { useState }from 'react'
 import "./Profile.css"
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Link } from 'react-router-dom';
+
 import Logo from '../LOGO/Logo';
 import Footer from '../Footer/Footer';
 import NavBarProfile from './NavBarProfile';

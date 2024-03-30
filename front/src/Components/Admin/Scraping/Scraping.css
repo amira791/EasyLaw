@@ -1,0 +1,77 @@
+.scraping-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+    width: 100%;
+    padding: 2% 0;
+    color: #374957;
+}
+.scraping-container .scraping-plan{
+    display: flex;
+    justify-content: space-between;
+    
+    width: 85%;
+}
+.scraping-container .scraping-time{
+    
+    width: 40%;
+    text-align: end;
+
+}
+.scraping-container .scraping-time h4{
+    text-align: right;
+
+}
+.scraping-container .scraping-frequency li{
+list-style: none;
+margin-bottom: 3%;
+
+   
+}
+.scraping-container .scraping-option ul {
+   margin-right: 5%;    
+    }
+.scraping-container .date-choice{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+}
+.scraping-container .date_choice_input {
+    width: 50%;
+    margin-top: 3%;
+    margin-right: 5%;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 25px;
+
+}
+.scraping-container .btn-date{
+    font-size: 16px;
+    background-color: #58D6D7;
+    color: #374957;
+    border-radius: 20px;
+    padding: 1% 7%;
+    border: none;
+    font-weight: 600;
+   cursor: pointer;
+
+}
+.scraping-container .btn-dv-scraping{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+   margin: 4% 0%;
+}
+.scraping-container .btn-scraping{
+    background-color: transparent;
+    border:  2px solid #58D6D7;
+    border-radius: 10px;
+    padding: 1% 4%;
+    font-size: 16px;
+    font-weight: 600;
+    color: #374957;
+}
