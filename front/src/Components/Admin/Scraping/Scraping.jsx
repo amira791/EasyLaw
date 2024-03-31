@@ -60,7 +60,18 @@ const handleLegalTextChange = (event) => {
  const handleDisplayOptions = () => {
     setShowOptions(!showOptions);
   };
-   
+  const urlOptions = [
+    { name: "url1", url: "https://www.futura-sciences.com." },
+    { name: "url2", url: "https://www.futura-sciences.com." },
+    { name: "url3", url: "https://www.futura-sciences.com." },
+    { name: "url4", url: "https://www.futura-sciences.com." },
+    { name: "url5", url: "https://www.futura-sciences.com." }
+  ];
+  const frequencyOptions = [
+    { label: "يوميا", value: "daily" },
+    { label: "أسبوعيا", value: "weekly" },
+    { label: "شهريا", value: "monthly" }
+  ];
   return (
     <>
       <LogoAdmin title="صفحة الاشراف "/>
@@ -83,47 +94,23 @@ const handleLegalTextChange = (event) => {
                       </label>
                    </div>
                    <div className='scraping-frequency'>
-                     <ul>
-                        <li>
-                            <label>
-                              يوميا
-                              <input 
-                                type='radio'
-                                name='frequency'
-                                value='daily'
-                                checked={frequency === "daily"}
-                                onChange={handleFrequencyChange}
-                                disabled={selectedOption !== "periodically"}
-                              />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                              أسبوعيا
-                              <input 
-                                type='radio'
-                                name='frequency'
-                                value='weekly'
-                                checked={frequency === "weekly"}
-                                onChange={handleFrequencyChange}
-                                disabled={selectedOption !== "periodically"}
-                              />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                              شهريا
-                              <input 
-                                type='radio'
-                                name='frequency'
-                                value='monthly'
-                                checked={frequency === "monthly"}
-                                onChange={handleFrequencyChange}
-                                disabled={selectedOption !== "periodically"}
-                              />
-                            </label>
-                        </li>
-                     </ul>
+                    <ul>
+                      {frequencyOptions.map((option, index) => (
+                        <li key={index}>
+                          <label>
+                            {option.label}
+                           <input 
+                             type='radio'
+                             name='frequency'
+                             value={option.value}
+                             checked={frequency === option.value}
+                             onChange={handleFrequencyChange}
+                             disabled={selectedOption !== "periodically"}
+                           />
+                         </label>
+                       </li>
+                     ))}
+                   </ul>
                    </div>
                    <div className='date-choice'>
                    <label>
@@ -151,6 +138,8 @@ const handleLegalTextChange = (event) => {
                      <button className='btn-date' onClick={handleSaveInformation}>حفظ المعلومات </button>
                    </div>
               </div>
+
+
               <div className='scraping-content'>
                   <h4>ملأ المعلومات الأساسية</h4>
                   <div className='scraping form'>
@@ -177,51 +166,17 @@ const handleLegalTextChange = (event) => {
                           <i className="fa fa-chevron-down"></i>
                         </div>
                         <div className="checkbox-options" style={{ display: showOptions ? 'block' : 'none' }}>
-                          <div>
-                            <input
+                            {urlOptions.map((option, index) => (
+                              <div key={index}>
+                                <input
                               type="checkbox"
-                              name="url1"
-                              value="https://www.futura-sciences.com."
+                              name={option.name}
+                              value={option.url}
                               onChange={handleUrlChange}
                             />
-                            https://www.futura-sciences.com.
+                            {option.url}
                           </div>
-                          <div>
-                            <input
-                              type="checkbox"
-                              name="url2"
-                              value="https://www.futura-sciences.com."
-                              onChange={handleUrlChange}
-                            />
-                            https://www.futura-sciences.com.
-                          </div>
-                          <div>
-                            <input
-                              type="checkbox"
-                              name="url3"
-                              value="https://www.futura-sciences.com."
-                              onChange={handleUrlChange}
-                            />
-                            https://www.futura-sciences.com.
-                          </div>
-                          <div>
-                            <input
-                              type="checkbox"
-                              name="url4"
-                              value="https://www.futura-sciences.com."
-                              onChange={handleUrlChange}
-                            />
-                            https://www.futura-sciences.com.
-                          </div>
-                          <div>
-                            <input
-                              type="checkbox"
-                              name="url5"
-                              value="https://www.futura-sciences.com."
-                              onChange={handleUrlChange}
-                            />
-                            https://www.futura-sciences.com.
-                          </div>
+                        ))}
                         </div>
                         
                       </div>
