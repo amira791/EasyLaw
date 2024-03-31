@@ -45,8 +45,17 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'User',
     'Data_Collection',
+    'django_elasticsearch_dsl',
+    
    
 ]
+ELASTICSEARCH_DSL={
+'default': {
+'hosts': 'http://localhost:9200',
+'http_auth': ('nermine', '17161670')
+}
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,7 +72,7 @@ ROOT_URLCONF = 'back.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR /"template"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,14 +91,16 @@ WSGI_APPLICATION = 'back.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+import os
+
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE'),
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'lawdata',
+        'USER': 'root',
+        'PASSWORD': '17161670@Esi',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 

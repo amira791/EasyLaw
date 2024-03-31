@@ -1,0 +1,32 @@
+<!-- Your HTML form with styling -->
+<form style="margin-bottom: 20px;">
+    <input type="text" name="q" style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;" />
+    <input type="submit" value="Search" style="padding: 5px 10px; border-radius: 5px; border: none; background-color: #007bff; color: #fff; cursor: pointer;" />
+</form>
+
+<!-- Display the query -->
+{% if query %}
+<div style="margin-bottom: 20px;">
+    <p><strong>Search Results for: </strong>{{ query }}</p>
+</div>
+{% endif %}
+
+<!-- Display the search results with styling -->
+{% if results %}
+<ul style="list-style: none; padding: 0;">
+    {% for result in results %}
+    <li style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px;">
+        <p><strong>ID:</strong> {{ result.id }}</p>
+        <p><strong>Description:</strong> {{ result.description }}</p>
+        <p><strong>Type Text:</strong> {{ result.type_text }}</p>
+        <p><strong>Signature Date:</strong> {{ result.signature_date }}</p>
+        <p><strong>Publication Date:</strong> {{ result.publication_date }}</p>
+        <p><strong>JT Number:</strong> {{ result.jt_number }}</p>
+        <p><strong>Source:</strong> {{ result.source }}</p>
+        <p><strong>Official Journal Page:</strong> {{ result.official_journal_page }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No results found.</p>
+{% endif %}

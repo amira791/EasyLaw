@@ -5,8 +5,26 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
+from datetime import datetime
+from .models import JuridicalText, Adjutstement, OfficialJournal
+from django.http import HttpResponse
+from rest_framework import status
 import re
+import time
+from .search import lookup
+
+def search_view(request):
+    # https://www.google.com/search?q=ffff&oq=ffff&aqs=chrome..69i57j46j0l6.824j0j7&sourceid=chrome&ie=UTF-8
+    query_params = request.GET
+    q = query_params.get('q')
+
+    context = {}
+
+    if q is not None:
+        results = lookup(q)
+        context['results'] = results
+        context['query'] = q
+    return render(request, 'search.html', context)
 
 @api_view(['POST'])
 def initial_jt_filling(request):
@@ -32,6 +50,20 @@ def initial_jt_filling(request):
 
     # Wait for the page to load
     wait = WebDriverWait(driver, 10)
+    wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")))
+
+    page_setting = driver.find_element(By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")
+    page_setting.click()
+
+    wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='b1']/a")))
+
+    input = driver.find_element(By.XPATH, "/html/body/div/form/table[1]/tbody/tr[7]/td[2]/input")
+    input.clear()
+    input.send_keys('100')
+
+    send = driver.find_element(By.XPATH, "//*[@id='b1']/a")
+    send.click()
+
     wait.until(EC.presence_of_element_located((By.NAME, "znat")))
 
     # Find the select element
@@ -49,13 +81,14 @@ def initial_jt_filling(request):
         'مايو': '05',
         'يونيو': '06',
         'يوليو': '07',
-        'أغسطس': '08',
+        'غشت': '08',
         'سبتمبر': '09',
         'أكتوبر': '10',
         'نوفمبر': '11',
         'ديسمبر': '12'
     }
-    for i in range(1, len(select_element.options)):
+    # len(select_element.options)
+    for i in range(22, 24):
         option_text = select_element.options[i].text
         select_element.options[i].click()  # Select the option
         # Click on the search button
@@ -84,12 +117,12 @@ def initial_jt_filling(request):
                 )
                 # Initialize dictionary
                 info_dict = {}
-                info_dict["text_id"] = text_id
-                info_dict["type"] = option_text
+                info_dict["id_text"] = text_id
+                info_dict["type_text"] = option_text
                 if "الجريدة الرسمية" in information_rows[1].text:
                     information_rows.insert(1, None)
                 # Extract signature date from row1
-                signature_date_match = re.search(r"\d+\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+\d{4}",
+                signature_date_match = re.search(r"\d+\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+\d{4}",
                                                     information_rows[0].text)
                 if signature_date_match:
                     signature_date = signature_date_match.group()
@@ -97,13 +130,15 @@ def initial_jt_filling(request):
                     arabic_month = signature_date_match.group(1)
                     numerical_month = arabic_month_to_number[arabic_month]
                     # Extract day and year
-                    day_year_match = re.search(r"(\d+)\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+(\d{4})", signature_date)
+                    day_year_match = re.search(r"(\d+)\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+(\d{4})", signature_date)
                     if day_year_match:
                         day = day_year_match.group(1)
                         year = day_year_match.group(3)
                         # Convert to DD/MM/YYYY format
-                        day_month_year = f"{day}/{numerical_month}/{year}"
+                        day_month_year = f"{year}-{numerical_month}-{day}"
                         info_dict["signature_date"] = day_month_year
+                    else: info_dict["signature_date"] = None
+                else: info_dict["signature_date"] = None
                 
                 jt_number_match = re.search(r'رقم (\d+-\d+)', information_rows[0].text)
 
@@ -121,30 +156,40 @@ def initial_jt_filling(request):
                 page_match = re.search(r'الصفحة (\d+)', information_rows[2].text)
                 number_match = re.search(r'عدد (\d+)', information_rows[2].text)
 
-                if page_match and number_match:
+                if number_match:
                     info_dict["official_journal_number"] = number_match.group(1)
-                    info_dict["official_journal_page"] = page_match.group(1)
+                else: info_dict["official_journal_number"] = None
+                if page_match : 
+                    info_dict["official_journal_page"] = None
+
                 
-                jo_date_match = re.search(r"\d+\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+\d{4}",
+                jo_date_match = re.search(r"\d+\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+\d{4}",
                                                     information_rows[2].text)
+                
                 if jo_date_match:
                     jo_date = jo_date_match.group()
                     # Extract Arabic month name and convert it to its numerical representation
                     arabic_month = jo_date_match.group(1)
                     numerical_month = arabic_month_to_number[arabic_month]
                     # Extract day and year
-                    day_year_match = re.search(r"(\d+)\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+(\d{4})", jo_date)
+                    day_year_match = re.search(r"(\d+)\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+(\d{4})", jo_date)
                     if day_year_match:
                         day = day_year_match.group(1)
                         year = day_year_match.group(3)
                         # Convert to DD/MM/YYYY format
-                        day_month_year = f"{day}/{numerical_month}/{year}"
-                        info_dict["official_journal_date"] = day_month_year
-                # Extract description from row4
-                info_dict["description"] = information_rows[3].text
+                        day_month_year = f"{year}-{numerical_month}-{day}"
+                        info_dict["publication_date"] = day_month_year
+                    else: info_dict["publication_date"] = None
+                else: info_dict['publication_date'] = None
+            
+                if info_dict['publication_date'] :
+                    # Extract description from row4
+                    info_dict["description"] = information_rows[3].text
+                    date_object = datetime.strptime(info_dict["publication_date"], '%Y-%m-%d')
+                    info_dict["official_journal_year"] = date_object.year
+                    info_dict["text_file"] = f'/files/JTs/{info_dict["id_text"]}.txt'
 
-                print(info_dict)
-                juridical_texts.append(info_dict)
+                    juridical_texts.append(info_dict)
 
             adjustments = driver.find_elements(
                 By.XPATH, "//tr[./td[@bgcolor='#9ec7d7']]"
@@ -186,7 +231,6 @@ def initial_jt_filling(request):
                     "adjustment_type": keyword,
                     "adjusting_num": adjusting_text_id,
                 }
-                print(adj_dict)
                 adjustments_associations.append(adj_dict)
             next_page_button = driver.find_elements(
                 By.XPATH, "//a[contains(@href, \"Sauter('a',3)\")]"
@@ -195,6 +239,53 @@ def initial_jt_filling(request):
                 next_page_button[0].click()
             else:
                 stop = True
+        
+        error_element = driver.find_elements(By.CSS_SELECTOR, "h1")
+
+        # Check if the element's text matches
+        if len(error_element) > 0 and error_element[0].text == "Erreur de serveur":
+            return HttpResponse({"msg" : "crashed website"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+        juridical_data = []
+        for data in juridical_texts :
+            try:
+                official_journal = OfficialJournal.objects.get(number = data['official_journal_number'], year = data['official_journal_year'])
+            except OfficialJournal.DoesNotExist:
+                print(data['official_journal_number'], data['official_journal_year'])
+                return HttpResponse({"msg" : "Does not exist"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+            jt = JuridicalText(
+                id_text=data['id_text'],
+                type_text=data['type_text'],
+                signature_date=data['signature_date'],
+                publication_date=data['publication_date'],
+                jt_number=data['jt_number'],
+                source=data['source'],
+                official_journal = official_journal,
+                official_journal_page=data['official_journal_page'],
+                description=data['description'],
+                text_file=data['text_file']
+            ) 
+            juridical_data.append(jt)
+
+        JuridicalText.objects.bulk_create(juridical_data)
+        
+        adjustment_data = []
+        for data in adjustments_associations:
+
+            # Create Adjutstement instances using retrieved JuridicalText instances
+            adjustment = Adjutstement(
+                adjusted_num=data['adjusted_num'],
+                adjusting_num=data['adjusting_num'],
+                adjustment_type=data['adjustment_type']
+            )
+            adjustment_data.append(adjustment)
+
+        # Bulk create the instances into the database
+        Adjutstement.objects.bulk_create(adjustment_data)
+
+        juridical_texts = []
+        adjustments_associations = []
+
+        print(f'{option_text} inserted')
 
         driver.switch_to.default_content()
         driver.switch_to.frame(driver.find_element(By.XPATH, "//frame[@src='ATitre.htm']"))
@@ -217,5 +308,6 @@ def initial_jt_filling(request):
         i = i+1
     # Close the WebDriver
     driver.quit()
+    return HttpResponse({"msg" : "successfuly inserted"}, status = status.HTTP_201_CREATED)
 
     # Create your views here.
