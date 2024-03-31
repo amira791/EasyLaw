@@ -11,8 +11,9 @@
 .scraping-container .scraping-plan{
     display: flex;
     justify-content: space-between;
-    
+    margin-bottom: 8%;
     width: 85%;
+    
 }
 .scraping-container .scraping-time{
     
@@ -58,6 +59,7 @@ margin-bottom: 3%;
     border: none;
     font-weight: 600;
    cursor: pointer;
+   margin-top: 5%;
 
 }
 .scraping-container .btn-dv-scraping{
@@ -66,6 +68,102 @@ margin-bottom: 3%;
     justify-content: center;
    margin: 4% 0%;
 }
+.scraping-container .scraping-content{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+
+}
+.scraping-container .scraping-content h4{
+    text-align: right;
+
+}
+
+.scraping-container .scraping form{
+    background-color: #E3FAFC;
+   border-radius: 10px;
+   padding: 10% 6% 3% 6%;
+}
+.scraping-info {
+    margin-bottom: 40px; 
+    direction: rtl;
+  }
+  
+  .scraping-info-item {
+    width: 100%; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    
+  }
+  .scraping-container .checkbox-options{
+    border: #58D6D7 1px solid ;
+    direction: ltr;
+    text-align: start;
+    background-color: white;
+    position: absolute;
+    width: 37%;
+    max-height: 166px; 
+  overflow-y: auto;
+  }
+  .scraping-container .checkbox-options::-webkit-scrollbar {
+    width: 8px; 
+  }
+  
+  .scraping-container .checkbox-options::-webkit-scrollbar-track {
+    background: #ffffff; 
+  }
+  
+  .scraping-container .checkbox-options::-webkit-scrollbar-thumb {
+    background: #58D6D7; 
+    border-radius: 5px; 
+  }
+  
+
+  .scraping-container .checkbox-options div{
+    display: flex;
+    align-items: center;
+    border: #58D6D7 1px solid ;
+    direction: ltr;
+   height: 40px;
+    background-color: white;
+  }
+  
+
+  .scraping-info-item select {
+    appearance: none; 
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff; 
+    cursor: pointer;
+  }
+  .scraping .display-options{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    background-color: white;
+    width: 100%; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+
+  }
+  .scraping-container .titre-url{
+    width: 100%    
+  }
+  .scraping-container .titre-url p{
+    margin: 0%;
+    color: #374957;
+  }
 .scraping-container .btn-scraping{
     background-color: transparent;
     border:  2px solid #58D6D7;
