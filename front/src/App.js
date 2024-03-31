@@ -20,11 +20,13 @@ import Compte from './Components/Profile/Compte';
 import Interest from './Components/Profile/Interest';
 import Services from './Components/Profile/Services';
 import Scraping from './Components/Admin/Scraping/Scraping';
+import ScrapingResult from './Components/Admin/Scraping/ScrapingResult';
+
 
 function App() {
   return (
     <div className="App">
-     
+    
       <Routes>
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/signin" element={<SignIn/>} />
@@ -46,10 +48,12 @@ function App() {
         <Route path="/moderateur" element={<AuthModerateur />} />
         <Route path="/createAccMod" element={<CreateAccModerateur />} />
         <Route path="/scraping" element={<Scraping/>} />
+        <Route path="/scrapingresult" element={<ScrapingResult/>} />
         
         
         
       </Routes>
+      
     </div>
   );
 
