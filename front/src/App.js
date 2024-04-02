@@ -21,6 +21,7 @@ import Interest from './Components/Profile/Interest';
 import Services from './Components/Profile/Services';
 import Scraping from './Components/Admin/Scraping/Scraping';
 import ScrapingResult from './Components/Admin/Scraping/ScrapingResult';
+import Main from './Components/Admin/Moderateur/Main';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
         <Route path="/createAccMod" element={<CreateAccModerateur />} />
         <Route path="/scraping" element={<Scraping/>} />
         <Route path="/scrapingresult" element={<ScrapingResult/>} />
+        <Route path="/mainmoderateur" element={<Main/>} />
         
         
         
