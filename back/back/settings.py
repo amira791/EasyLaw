@@ -35,6 +35,12 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     
 ]
+CORS_ALLOWED_HEADERS = [
+    'token',  
+    'content-type',
+    'Authorization',
+    # Ajoutez d'autres en-têtes personnalisés si nécessaire
+]
 CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 

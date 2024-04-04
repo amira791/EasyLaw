@@ -7,7 +7,7 @@ function LawDetails() {
     const { id } = useParams();
   return (
     <>
-    <Logo/>
+    <Logo />
     <div>
       <h2>Détails de la loi ID: {id}</h2>
      

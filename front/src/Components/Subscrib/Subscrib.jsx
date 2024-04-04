@@ -43,7 +43,7 @@ function Subscrib() {
 
   return (
    <>
-    <Logo/>
+    <Logo />
     <TitleBar title="  عروض الاشتراك  " />
     <div className='sub_container'>
         <p className='offre_title'>إختاروا العرض الذي يناسبكم</p>

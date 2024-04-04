@@ -22,6 +22,7 @@ import Services from './Components/Profile/Services';
 import Scraping from './Components/Admin/Scraping/Scraping';
 import ScrapingResult from './Components/Admin/Scraping/ScrapingResult';
 import Main from './Components/Admin/Moderateur/Main';
+import AdminMain from './Components/Admin/AdminMain/AdminMain';
 
 
 function App() {
@@ -45,12 +46,13 @@ function App() {
 
 
         <Route path="/accountmanagment" element={<AccountManag/>} />
-        <Route path="/admin" element={<AuthAdmin />} />
+        <Route path="/adminauth" element={<AuthAdmin />} />
         <Route path="/moderateur" element={<AuthModerateur />} />
         <Route path="/createAccMod" element={<CreateAccModerateur />} />
         <Route path="/scraping" element={<Scraping/>} />
         <Route path="/scrapingresult" element={<ScrapingResult/>} />
         <Route path="/mainmoderateur" element={<Main/>} />
+        <Route path="/admin" element={<AdminMain/>} />
         
         
         

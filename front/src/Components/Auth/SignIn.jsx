@@ -37,18 +37,17 @@ function SignIn() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8000/user/login', formData);
-      console.log(response.data);
+      console.log(response.data.token);
 
-      // Gérer la réponse de la requête
-      // Si l'authentification réussit, stockez le token et redirigez vers la page de profil
-      // Vous pouvez stocker le token dans le stockage local ou les cookies du navigateur
+    localStorage.clear();
+     
+      
 
-      localStorage.clear();
-         localStorage.setItem('access_token', response.data.access);
+        console.log( localStorage.setItem('access_token', response.data.token));
          localStorage.setItem('refresh_token', response.data.refresh);
-         axios.defaults.headers.common['Authorization'] =  `Bearer ${response.data['access']}`;
-         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data['access']}`;
-         localStorage.setItem('username', response.data.username); // Storing the username
+         axios.defaults.headers.common['Authorization'] =  `Bearer ${response.data['token']}`;
+         
+        // localStorage.setItem('username', response.data.username);  Storing the username
          setLoggedIn(true);
     } catch (error) {
       console.error('Une erreur s\'est produite lors de l\'authentification :', error);
@@ -58,12 +57,12 @@ function SignIn() {
   };
 
   if (loggedIn) {
-     return <Navigate to="/" />;
+     return <Navigate to="/profile" />;
   }
 
   return (
     <>
-    <Logo/>
+    <Logo />
     <TitleBar title="  تسجيل الدخول" />
     <div className="signin-form">
     

@@ -78,7 +78,7 @@ function Payment() {
     }    
   return (
     <>
-     <Logo/>
+     <Logo />
      <TitleBar title="صفحة الدفع" />
     <div className='payment-form'>
     

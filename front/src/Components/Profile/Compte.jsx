@@ -2,75 +2,35 @@ import "./Profile.css"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function Compte() {
+function Compte({ formData, onSubmit }) {
+  const [editedFormData, setEditedFormData] = useState(formData);
 
-  const [formData, setFormData] = useState({
-    dateNaiss: '',
-    email: '',
-    nom: '',
-    occupation: '',
-    password: '',
-    prenom: '',
-    univer_Entrep: '',
-    username:''
-  });
-
-useEffect(() => {
-    const fetchUserData = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:8000/user/user_profile', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            const userData = response.data;
-            console.log(userData);
-            setFormData({
-                dateNaiss: userData.dateNaiss || '',
-                email: userData.email || '',
-                nom: userData.nom || '',
-                occupation: userData.occupation || '',
-                prenom: userData.prenom || '',
-                univer_Entrep: userData.univer_Entrep || '',
-                
-                
-            });
-        } catch (error) {
-            console.error('Une erreur s\'est produite lors de la récupération des informations de profil :', error);
-        }
-    };
-    console.log(formData)
-    fetchUserData();
-}, []);
-
-const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
-        ...prevData,
-        [name]: value
-    }));
-};
-
-const handleSubmit = async (e) => {
+    setEditedFormData({
+      ...editedFormData,
+      [name]: value
+    });
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const token = localStorage.getItem('token');
-        await axios.put('http://localhost:8000/user/user_profile', formData, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        alert('Les informations ont été mises à jour avec succès !');
+      const access_token = localStorage.getItem('access_token');
+      await axios.put('http://localhost:8000/user/edit_user_info', editedFormData, {
+        headers: {
+          Authorization: `token ${access_token}`
+        }
+      });
+      alert('Les informations ont été mises à jour avec succès !');
     } catch (error) {
-        console.error('Une erreur s\'est produite lors de la mise à jour des informations de profil :', error);
+      console.error('Une erreur s\'est produite lors de la mise à jour des informations de profil :', error);
     }
-};
+  };
 
   return (
     <>
    
-      <form onSubmit={handleSubmit} className='profile_form'>
+      <form  className='profile_form' onSubmit={handleSubmit}>
         <div className='lign_dv'>
            <div className='lign_dv_info'>
                <label htmlFor="nom">اللقب</label>
