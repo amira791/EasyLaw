@@ -4,10 +4,11 @@ import LoginIcon from '@mui/icons-material/Login';
 import LanguageIcon from '@mui/icons-material/Language';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../LogoProvider';
+import { AuthContext } from '../Context/LogoProvider';
 
 function Logo() {
   const { isAuth, setIsAuth, formData, setFormData} = useContext(AuthContext);
+  
    
    // const [isAuth, setIsAuth] = useState(false);
     useEffect(() => {

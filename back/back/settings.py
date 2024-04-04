@@ -41,6 +41,7 @@ CORS_ALLOWED_HEADERS = [
     'Authorization',
     # Ajoutez d'autres en-têtes personnalisés si nécessaire
 ]
+CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 

@@ -23,7 +23,8 @@ import Scraping from './Components/Admin/Scraping/Scraping';
 import ScrapingResult from './Components/Admin/Scraping/ScrapingResult';
 import Main from './Components/Admin/Moderateur/Main';
 import AdminMain from './Components/Admin/AdminMain/AdminMain';
-import LogoProvider from './Components/LogoProvider';
+import LogoProvider from './Components/Context/LogoProvider';
+import ProtectedRoute from './Components/Context/ProtectedRoute';
 
 
 function App() {
@@ -34,7 +35,8 @@ function App() {
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/signin" element={<SignIn/>} />
         <Route path="/" element={<LawCategories />} />
-        <Route path="/profile" element={<Profile/>} />
+        <Route path="/profile" element={<Profile />}/>
+        
         <Route path="/Changepwd" element={<ChangePwd/>} />
         <Route path="/compte" element={<Compte/>} />
         <Route path="/interest" element={<Interest/>} />

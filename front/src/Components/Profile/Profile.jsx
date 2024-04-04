@@ -10,7 +10,7 @@ import Interest from './Interest'
 import NavBarProfile from './NavBarProfile';
 import React, { useState, useEffect , useContext} from 'react';
 import axios from 'axios';
-import { AuthContext } from '../LogoProvider';
+import { AuthContext } from '../Context/LogoProvider';
 
 
 function Profile() {
