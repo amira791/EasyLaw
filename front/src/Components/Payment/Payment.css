@@ -41,6 +41,25 @@
    /* border: #3D3935 1px solid;*/
     width: 100%; 
 }
+.payment-form .paiement-mode{
+  display: flex;
+  margin-top: 2%;
+  width: 100%;
+  justify-content: space-between;
+}
+.payment-form .paiement-mode-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: #E2E1E1 1px solid;
+  width: 200px;
+ background-color: transparent;
+ color: black;
+  border-radius: 10px;
+}
+.payment-form  .paiement-mode-item.active {
+  border:2px solid #58D6D7;
+}
 .payment-form .payment_item_col{
   width: 97%; 
   padding: 1.5%; 

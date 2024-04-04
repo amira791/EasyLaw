@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import TitleBar from '../TitleBar/TitleBar';
 
 function Payment() {
+  const [activeButton, setActiveButton] = useState(0);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [errors, setErrors] = useState({});
   const { id } = useParams();
@@ -17,7 +18,24 @@ function Payment() {
           DateExp: ''
       });
     
-      
+     
+    const handleButtonClick = (index) => {
+      setActiveButton(index); 
+      // Mettre à jour le mode de paiement sélectionné en fonction de l'index
+      switch(index) {
+        case 0:
+          setFormData(prevData => ({ ...prevData, modePaiement: 'Dahabia' }));
+          break;
+        case 1:
+          setFormData(prevData => ({ ...prevData, modePaiement: 'BaridiMOB' }));
+          break;
+        case 2:
+          setFormData(prevData => ({ ...prevData, modePaiement: 'CIB' }));
+          break;
+        default:
+          setFormData(prevData => ({ ...prevData, modePaiement: '' }));
+      }
+    };
       
       const handleChange = (e) => {
         const { name, value } = e.target;
@@ -59,7 +77,8 @@ function Payment() {
           NumCart: '',
           username: '',
           NumCVC: '',
-          DateExp: ''
+          DateExp: '',
+          modePaiement: ''
         });
       //}else{
         setErrors(errors);
@@ -78,7 +97,7 @@ function Payment() {
     }    
   return (
     <>
-     <Logo />
+     <Logo/>
      <TitleBar title="صفحة الدفع" />
     <div className='payment-form'>
     
@@ -88,7 +107,21 @@ function Payment() {
     <h2>Details de l'abonnement sélectionné: {id}</h2>
       <div className='payment-group-col'>
         <label htmlFor="modeP"> : طريقة الدفع </label>
-       carte de payment
+       <div className='paiement-mode'>
+       <div className={`paiement-mode-item ${activeButton === 2 ? 'active' : ''}`} onClick={() => handleButtonClick(2)}> 
+       <img src='../images/cib.png'/>
+       <h3>CIB</h3>
+       </div>
+       <div className={`paiement-mode-item ${activeButton === 1 ? 'active' : ''}`} onClick={() => handleButtonClick(1)}> 
+       <img src='../images/baridimob.png'/>
+       <h3>BaridiMOB</h3>
+       </div>
+       <div className={`paiement-mode-item ${activeButton === 0 ? 'active' : ''}`} onClick={() => handleButtonClick(0)}> 
+       <img src='../images/dahabia.png'/>
+       <h3>Dahabia</h3>
+       </div>
+
+       </div>
       </div>
       <div className='payment-group-col'>
         <label htmlFor="Ncart"> : رقم البطاقة </label>

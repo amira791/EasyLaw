@@ -56,7 +56,7 @@ function Logo() {
         <div className='lign_dv'></div>
         <div className='easylaw_logo'> 
         <Link  to ="/">
-            <img src ="./images/logo.png"/>
+            <img src ="../images/logo.png"/>
             </Link>
             </div>
     </div>
