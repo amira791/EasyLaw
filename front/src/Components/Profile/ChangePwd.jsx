@@ -2,12 +2,12 @@ import React, { useState,useContext } from 'react'
 import './Profile.css'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import axios from 'axios';
+
 import Logo from '../LOGO/Logo';
 import Footer from '../Footer/Footer';
 import NavBarProfile from './NavBarProfile';
 import { AuthContext } from '../Context/LogoProvider';
-
+import axios from 'axios';
 function ChangePwd() {
   const {  formData} = useContext(AuthContext);
   const [pwd, setPwd] = useState({ oldPassword: '', newPassword: '', confirmPassword: '' });

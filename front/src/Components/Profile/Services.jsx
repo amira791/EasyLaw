@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState,useContext } from 'react'
 import './Profile.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import CampaignIcon from '@mui/icons-material/Campaign';
@@ -6,14 +6,17 @@ import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
 import NavBarProfile from './NavBarProfile';
+import { AuthContext } from '../Context/LogoProvider';
+import axios from 'axios';
 function Services() {
+    const {  formData} = useContext(AuthContext);
   return (
    <>
 <Logo/>
 <div className='profile_container'>
     <div className='profile_name'>
         <img alt='photo profile'/>
-        <h3>Sanaa_791</h3>
+        <h3>{formData.nom}</h3>
     </div>
     <div className='profile_content'>
     <div className='services-container'>
