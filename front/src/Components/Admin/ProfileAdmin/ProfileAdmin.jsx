@@ -1,42 +1,62 @@
-import React, { useState, useEffect } from 'react';
+
+import LogoAdmin from '../../LOGO/LogoAdmin'
+import FooterAdmin from '../../Footer/FooterAdmin'
+import Compte from '../../Profile/Compte'
+import NavBarProfile from '../../Profile/NavBarProfile'
+import React, { useState, useEffect , useContext} from 'react';
 import axios from 'axios';
-import "./Profile.css";
+import { AuthContext } from '../../Context/LogoProvider';
 
-function Compte({ formData = {}, onSubmit }) {
-  const [editMode, setEditMode] = useState(false);
-  const [editedFormData, setEditedFormData] = useState(formData);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditedFormData({
-      ...editedFormData,
-      [name]: value
+function ProfileAdmin() {
+    const [activeList, setNavList] = useState('profile');
+    const { updateFormData } = useContext(AuthContext);
+    const [formData, setFormData] = useState({
+      nom: '',
+      prenom: '',
+      dateNaiss: '',
+      occupation: '',
+      univer_Entrep: '',
+      email:''
     });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const access_token = localStorage.getItem('access_token');
-      await axios.put('http://localhost:8000/user/edit_user_info', editedFormData, {
-        headers: {
-          Authorization: `Token ${access_token}`
-        }
+    //const [isAuth, setIsAuth] = useState(false);
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log(formData);
+      // Reset form 
+      setFormData({
+        nom: '',
+        prenom: '',
+        dateNaiss: '',
+        occupation: '',
+        univer_Entrep: '',
+        email:''
       });
-      alert('Les informations ont été mises à jour avec succès !');
-      setEditMode(false);
-    } catch (error) {
-      console.error('Une erreur s\'est produite lors de la mise à jour des informations de profil :', error);
-    }
-  };
-
-  useEffect(() => {
-    setEditedFormData(formData);
-  }, [formData]);
+    };
+    const [editMode, setEditMode] = useState(false);
+    const [editedFormData, setEditedFormData] = useState();
+  
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setEditedFormData({
+        ...editedFormData,
+        [name]: value
+      });
+    };
+  
+    
 
   return (
     <>
-      <form className='profile_form' onSubmit={handleSubmit}>
+    <LogoAdmin/>
+    <div className='profile_container'>
+    <div className='profile_name'>
+        <img alt='photo profile'/>
+        <h3>hhh</h3>
+    </div>
+    <div className='profile_content'>
+    <form className='profile_form' onSubmit={handleSubmit}>
         <div className='lign_dv'>
           <div className='lign_dv_info'>
             <label htmlFor="nom">اللقب</label>
@@ -45,7 +65,7 @@ function Compte({ formData = {}, onSubmit }) {
               type="text"
               id="nom"
               name="nom"
-              value={editedFormData.nom || ''}
+              value={formData.nom }
               onChange={handleChange}
               placeholder='اللقب'
               required
@@ -60,7 +80,7 @@ function Compte({ formData = {}, onSubmit }) {
               type="text"
               id="prenom"
               name="prenom"
-              value={editedFormData.prenom || ''}
+              value={formData.prenom || ''}
               onChange={handleChange}
               placeholder='الاسم'
               required
@@ -76,7 +96,7 @@ function Compte({ formData = {}, onSubmit }) {
               type="text"
               id="email"
               name="email"
-              value={editedFormData.email}
+              value={formData.email}
               onChange={handleChange}
               placeholder='البريد الالكتروني'
               required
@@ -90,7 +110,7 @@ function Compte({ formData = {}, onSubmit }) {
               type="date"
               id="dateNaiss"
               name="dateNaiss"
-              value={editedFormData.dateNaiss}
+              value={formData.dateNaiss}
               onChange={handleChange}
               placeholder='تاريخ الميلاد'
               required
@@ -107,7 +127,7 @@ function Compte({ formData = {}, onSubmit }) {
               type="text"
               id="univer_Entrep"
               name="univer_Entrep"
-              value={editedFormData.univer_Entrep || ''}
+              value={formData.univer_Entrep || ''}
               onChange={handleChange}
               placeholder='الشركة / الجامعة'
               required
@@ -120,7 +140,7 @@ function Compte({ formData = {}, onSubmit }) {
               id="occupation"
               name="occupation"
               className='profile_info_input'
-              value={editedFormData.occupation || ''}
+              value={formData.occupation || ''}
               onChange={handleChange}
               required
               disabled={!editMode}
@@ -139,8 +159,13 @@ function Compte({ formData = {}, onSubmit }) {
       <button onClick={() => setEditMode(!editMode)}>
         {editMode ? 'Annuler' : 'Modifier'}
       </button>
+    <NavBarProfile/>
+  </div>
+    <FooterAdmin/>
+    </div>
     </>
-  );
+    
+  )
 }
 
-export default Compte;
+export default ProfileAdmin

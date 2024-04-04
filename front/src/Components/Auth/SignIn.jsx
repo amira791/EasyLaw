@@ -45,7 +45,7 @@ function SignIn() {
 
         console.log( localStorage.setItem('access_token', response.data.token));
          localStorage.setItem('refresh_token', response.data.refresh);
-         axios.defaults.headers.common['Authorization'] =  `Bearer ${response.data['token']}`;
+         axios.defaults.headers.common['Authorization'] =  `token ${response.data['token']}`;
          
         // localStorage.setItem('username', response.data.username);  Storing the username
          setLoggedIn(true);

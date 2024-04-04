@@ -4,7 +4,7 @@ import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../Context/LogoProvider';
 
-function NavBarProfile() {
+function NavBarProfile(props) {
   const [isLoggedOut, setIsLoggedOut] = useState(false);
   const { setFormData ,setIsAuth} = useContext(AuthContext);
 
@@ -41,10 +41,10 @@ function NavBarProfile() {
             <Link to='/changePwd'>تغيير كلمة السر</Link>
           </li>
           <li>
-            <Link to='/interest'>اهتماماتي</Link>
+            <Link to='/interest'>{props.interest}</Link>
           </li>
           <li>
-            <Link to='/services'>خدماتي</Link>
+            <Link to='/services'>{props.services}</Link>
           </li>
           <li>
             <a onClick={handleLogout}>تسجيل الخروج</a>

@@ -72,7 +72,7 @@ function Interest() {
          
      </div>
     </div>
-    <NavBarProfile/>
+    <NavBarProfile  interest="اهتماماتي"  services="خدماتي" />
   </div>
 </div>
     <Footer/>

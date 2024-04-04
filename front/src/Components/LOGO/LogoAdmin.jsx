@@ -11,7 +11,7 @@ function LogoAdmin(props) {
     <div className='logo_section '>
     <div className='login_section'>
     
-          <Link  to ="/signin">
+          <Link  to ="/adminauth">
           <button className=' btn login_btn btn_admin'> 
           <p> الدخول كمستخدم </p>
            <LoginIcon sx={{ width: '20px', height: '20px' }}/>

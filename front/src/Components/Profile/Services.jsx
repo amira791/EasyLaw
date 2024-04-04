@@ -89,7 +89,7 @@ function Services() {
     </div>
     <button className='btn_sub'>الاشتراك في خدمات أخرى</button>
    </div>
-    <NavBarProfile/>
+   <NavBarProfile  interest="اهتماماتي"  services="خدماتي" />
   </div>
 </div>
     <Footer/>

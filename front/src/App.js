@@ -25,6 +25,7 @@ import Main from './Components/Admin/Moderateur/Main';
 import AdminMain from './Components/Admin/AdminMain/AdminMain';
 import LogoProvider from './Components/Context/LogoProvider';
 import ProtectedRoute from './Components/Context/ProtectedRoute';
+import ProfileAdmin from './Components/Admin/ProfileAdmin/ProfileAdmin';
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
         <Route path="/scrapingresult" element={<ScrapingResult/>} />
         <Route path="/mainmoderateur" element={<Main/>} />
         <Route path="/admin" element={<AdminMain/>} />
+        <Route path="/profileadmin" element={<ProfileAdmin/>} />
         
         
         

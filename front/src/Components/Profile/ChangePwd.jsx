@@ -103,7 +103,7 @@ function ChangePwd() {
             </div>
             <button className='save_info' type="submit"> حفظ كلمة السر الجديدة </button>
           </form>
-          <NavBarProfile />
+          <NavBarProfile  interest="اهتماماتي"  services="خدماتي" />
         </div>
       </div>
       <Footer />

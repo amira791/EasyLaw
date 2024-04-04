@@ -8,14 +8,16 @@ import { AuthContext } from '../Context/LogoProvider';
 
 function Logo() {
   const { isAuth, setIsAuth, formData, setFormData} = useContext(AuthContext);
-  
+  const [initials, setInitials] = useState('');
    
    // const [isAuth, setIsAuth] = useState(false);
     useEffect(() => {
     if (localStorage.getItem('access_token') !== null) {
       setIsAuth(true); 
     }
-  }, [isAuth]);
+    const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
+    setInitials(nameInitials);
+  }, [isAuth, formData.nom]);
   console.log(formData);
   return (
     <>
@@ -34,7 +36,7 @@ function Logo() {
           
           </div>
           {isAuth ? (
-            <p>{formData.nom}</p>
+            <div className="user-initials-circle"> <Link to="/profile">{initials}</Link></div>
           ) : (
             <Link to="/signin">
               <button className=' btn login_btn'>

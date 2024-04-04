@@ -17,6 +17,7 @@ function Profile() {
   
       const [activeList, setNavList] = useState('profile');
       const { updateFormData } = useContext(AuthContext);
+      const [initials, setInitials] = useState('');
       const [formData, setFormData] = useState({
         nom: '',
         prenom: '',
@@ -68,6 +69,8 @@ function Profile() {
                 });
               //  setIsAuth(true);
               updateFormData({ nom: userData.nom });
+              const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
+    setInitials(nameInitials);
             } catch (error) {
                 console.error('Une erreur s\'est produite lors de la récupération des informations de profil :', error);
                // setIsAuth(false); 
@@ -75,7 +78,7 @@ function Profile() {
         };
         console.log(formData)
         fetchUserData();
-    }, []);
+    }, [formData.nom]);
    
 
   return (
@@ -83,12 +86,12 @@ function Profile() {
     <Logo formData={formData}  />
 <div className='profile_container'>
     <div className='profile_name'>
-        <img alt='photo profile'/>
+    <div className="user-initials-circle"> {initials}</div>
         <h3>{formData.nom}</h3>
     </div>
     <div className='profile_content'>
       <Compte formData={formData} onSubmit={handleSubmit}/>
-    <NavBarProfile formData={formData}/>
+    <NavBarProfile  interest="اهتماماتي"  services="خدماتي" formData={formData}/>
   </div>
 </div>
     <Footer/>
