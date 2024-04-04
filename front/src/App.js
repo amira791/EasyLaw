@@ -23,16 +23,17 @@ import Scraping from './Components/Admin/Scraping/Scraping';
 import ScrapingResult from './Components/Admin/Scraping/ScrapingResult';
 import Main from './Components/Admin/Moderateur/Main';
 import AdminMain from './Components/Admin/AdminMain/AdminMain';
+import LogoProvider from './Components/LogoProvider';
 
 
 function App() {
   return (
     <div className="App">
-    
+    <LogoProvider>
       <Routes>
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/signin" element={<SignIn/>} />
-        <Route path="/" element={<LawCategories/>} />
+        <Route path="/" element={<LawCategories />} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/Changepwd" element={<ChangePwd/>} />
         <Route path="/compte" element={<Compte/>} />
@@ -57,6 +58,7 @@ function App() {
         
         
       </Routes>
+      </LogoProvider>
       
     </div>
   );

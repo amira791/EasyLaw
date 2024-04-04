@@ -10,7 +10,7 @@ function LawCategories() {
   return (
 
     <>
-    <Logo />
+     <Logo />
     <NavBar/>
     <Gpt/>
     <div className='LawCategories'>

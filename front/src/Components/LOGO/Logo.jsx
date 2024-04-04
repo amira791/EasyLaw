@@ -3,10 +3,19 @@ import HelpIcon from '@mui/icons-material/Help';
 import LoginIcon from '@mui/icons-material/Login';
 import LanguageIcon from '@mui/icons-material/Language';
 import { Link } from 'react-router-dom';
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../LogoProvider';
 
-function Logo({ formData, isAuth }) {
+function Logo() {
+  const { isAuth, setIsAuth, formData, setFormData} = useContext(AuthContext);
    
+   // const [isAuth, setIsAuth] = useState(false);
+    useEffect(() => {
+    if (localStorage.getItem('access_token') !== null) {
+      setIsAuth(true); 
+    }
+  }, [isAuth]);
+  console.log(formData);
   return (
     <>
     <div className='logo_section'>

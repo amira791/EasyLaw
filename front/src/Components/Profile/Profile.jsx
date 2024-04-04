@@ -8,35 +8,36 @@ import ChangePwd from './ChangePwd';
 import Services from './Services';
 import Interest from './Interest'
 import NavBarProfile from './NavBarProfile';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useContext} from 'react';
 import axios from 'axios';
-
+import { AuthContext } from '../LogoProvider';
 
 
 function Profile() {
+  
       const [activeList, setNavList] = useState('profile');
-    
+      const { updateFormData } = useContext(AuthContext);
       const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        DateN: '',
-        company: '',
-        job: '',
-        mail:''
+        nom: '',
+        prenom: '',
+        dateNaiss: '',
+        occupation: '',
+        univer_Entrep: '',
+        email:''
       });
-      const [isAuth, setIsAuth] = useState(false);
+      //const [isAuth, setIsAuth] = useState(false);
     
       const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
         // Reset form 
         setFormData({
-          firstName: '',
-          lastName: '',
-          DateN: '',
-          company: '',
-          job: '',
-          mail:''
+          nom: '',
+          prenom: '',
+          dateNaiss: '',
+          occupation: '',
+          univer_Entrep: '',
+          email:''
         });
       };
       useEffect(() => {
@@ -65,10 +66,11 @@ function Profile() {
                     prenom: userData.prenom || '',
                     univer_Entrep: userData.univer_Entrep || '',
                 });
-                setIsAuth(true);
+              //  setIsAuth(true);
+              updateFormData({ nom: userData.nom });
             } catch (error) {
                 console.error('Une erreur s\'est produite lors de la récupération des informations de profil :', error);
-                setIsAuth(false); 
+               // setIsAuth(false); 
             }
         };
         console.log(formData)
@@ -78,7 +80,7 @@ function Profile() {
 
   return (
     <>
-    <Logo formData={formData} isAuth={isAuth} />
+    <Logo formData={formData}  />
 <div className='profile_container'>
     <div className='profile_name'>
         <img alt='photo profile'/>
