@@ -2,8 +2,10 @@ from django.conf import settings
 
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework import status
+
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import *
 from .models import Abonnement
@@ -62,8 +64,9 @@ def addUser(request):
 
 
 @api_view(['Post'])
+@permission_classes([IsAuthenticated])
 def subscribe(request):
-    customerId = request.data.get('customerId')
+    customerId = request.user.stripeCustomerId
     priceId = request.data.get('priceId')
 
     try:
@@ -123,8 +126,9 @@ def subscribe(request):
 
 
 @api_view(['Get'])
+@permission_classes([IsAuthenticated])
 def getsubscription(request):
-    userId = request.data.get('userId')
+    userId = request.user.id
 
     abonnement = Abonnement.objects.filter(user = 2)
 
@@ -137,8 +141,9 @@ def getsubscription(request):
 
 
 @api_view(['Get'])
+@permission_classes([IsAuthenticated])
 def getinvoices(request):
-    userId = request.data.get('userId')
+    userId = request.user.id
 
     abonnement = Abonnement.objects.filter(user = 2)
 
