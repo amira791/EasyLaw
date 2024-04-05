@@ -30,9 +30,19 @@ SECRET_KEY = 'django-insecure-#egh*o&jitym^s()0agi5klq6(*g%^d%@8fqt(q1w$-lauuj(n
 DEBUG = True
 
 ALLOWED_HOSTS = []
-AUTH_USER_MODEL = 'User.CustomUser'
-ROOT_URLCONF = 'back.urls'
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    
+]
+CORS_ALLOWED_HEADERS = [
+    'token',  
+    'content-type',
+    'Authorization',
+    # Ajoutez d'autres en-têtes personnalisés si nécessaire
+]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,6 +55,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'User',
+    'corsheaders',
 ]
 
 AUTH_USER_MODEL='User.CustomUser'
@@ -57,6 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'back.urls'

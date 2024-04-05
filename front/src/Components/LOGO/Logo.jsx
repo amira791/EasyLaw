@@ -1,11 +1,24 @@
-import React from 'react'
 import "./Logo.css"
 import HelpIcon from '@mui/icons-material/Help';
 import LoginIcon from '@mui/icons-material/Login';
 import LanguageIcon from '@mui/icons-material/Language';
 import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../Context/LogoProvider';
 
 function Logo() {
+  const { isAuth, setIsAuth, formData, setFormData} = useContext(AuthContext);
+  const [initials, setInitials] = useState('');
+   
+   // const [isAuth, setIsAuth] = useState(false);
+    useEffect(() => {
+    if (localStorage.getItem('access_token') !== null) {
+      setIsAuth(true); 
+    }
+    const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
+    setInitials(nameInitials);
+  }, [isAuth, formData.nom]);
+  console.log(formData);
   return (
     <>
     <div className='logo_section'>
@@ -22,12 +35,17 @@ function Logo() {
           </select>
           
           </div>
-          <Link  to ="/signin">
-          <button className=' btn login_btn'> 
-          <p>تسجيل الدخول </p>
-           <LoginIcon sx={{ width: '20px', height: '20px' }}/>
-           </button>
-           </Link>
+          {isAuth ? (
+            <div className="user-initials-circle"> <Link to="/profile">{initials}</Link></div>
+          ) : (
+            <Link to="/signin">
+              <button className=' btn login_btn'>
+                <p>تسجيل الدخول </p>
+                <LoginIcon sx={{ width: '20px', height: '20px' }} />
+              </button>
+            </Link>
+          )}
+           
     </div>
 
     <div className='easylaw_section'>
@@ -38,7 +56,7 @@ function Logo() {
         <div className='lign_dv'></div>
         <div className='easylaw_logo'> 
         <Link  to ="/">
-            <img src ="./images/logo.png"/>
+            <img src ="../images/logo.png"/>
             </Link>
             </div>
     </div>

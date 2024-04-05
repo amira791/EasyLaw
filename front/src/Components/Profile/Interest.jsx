@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useState,useContext } from 'react'
 import './Profile.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import NavBarProfile from './NavBarProfile';
+import Logo from '../LOGO/Logo';
+import Footer from '../Footer/Footer';
+import { AuthContext } from '../Context/LogoProvider';
+import axios from 'axios';
 
 function Interest() {
+    const {  formData} = useContext(AuthContext);
   return (
     <>
+     <Logo/>
+<div className='profile_container'>
+    <div className='profile_name'>
+        <img alt='photo profile'/>
+        <h3>{formData.nom}</h3>
+    </div>
+    <div className='profile_content'>
     <div className='interest-container'>
      <h2>اهتماماتي </h2>
      <div className='interest-display'>
@@ -59,6 +72,11 @@ function Interest() {
          
      </div>
     </div>
+    <NavBarProfile  interest="اهتماماتي"  services="خدماتي" />
+  </div>
+</div>
+    <Footer/>
+    
     </>
   )
 }

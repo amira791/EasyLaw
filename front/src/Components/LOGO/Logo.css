@@ -73,3 +73,19 @@
     width: 200px;
     margin-right: 15%;
 }
+.logo_section .user-initials-circle{
+   background-color: #045253;
+    border-radius: 100%;
+    width: 38px;
+    height: 32px;
+   text-align: center;
+   padding-top: 3%;
+   color: white;
+   margin-right: 28%;
+}
+.logo_section .user-initials-circle a{
+    list-style: none;
+    text-align: center;
+    padding-top: 3%;
+    color: white;
+ }

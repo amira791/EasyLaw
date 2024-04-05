@@ -4,41 +4,46 @@ import Footer from '../Footer/Footer'
 import "./Subscrib.css"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import TitleBar from '../TitleBar/TitleBar';
+import { Link } from 'react-router-dom';
 
 function Subscrib() {
-    const offers = [
-        {
-          title: 'العرض الثالث',
-          price: '1000دج/شهر',
-          features: [
-            'الاطلاع على كل النصوص القانونية',
-            'الحصول على كل المستجدات',
-            'تلقي تنبيهات متعلقة بالمستجدات'
-          ]
-        },
-        {
-          title: 'العرض الثاني',
-          price: '1000دج/شهر',
-          features: [
-            'الاطلاع على كل النصوص القانونية',
-            'الحصول على كل المستجدات',
-            'تلقي تنبيهات متعلقة بالمستجدات'
-          ]
-        },
-        {
-          title: 'العرض الأول',
-          price: '1000دج/شهر',
-          features: [
-            'الاطلاع على كل النصوص القانونية',
-            'الحصول على كل المستجدات',
-            'تلقي تنبيهات متعلقة بالمستجدات'
-          ]
-        }
-      ];
+  const offers = [
+    {
+      id: 1,
+      title: 'العرض الثالث',
+      price: '1000دج/شهر',
+      features: [
+        'الاطلاع على كل النصوص القانونية',
+        'الحصول على كل المستجدات',
+        'تلقي تنبيهات متعلقة بالمستجدات'
+      ]
+    },
+    {
+      id: 2,
+      title: 'العرض الثاني',
+      price: '1000دج/شهر',
+      features: [
+        'الاطلاع على كل النصوص القانونية',
+        'الحصول على كل المستجدات',
+        'تلقي تنبيهات متعلقة بالمستجدات'
+      ]
+    },
+    {
+      id: 3,
+      title: 'العرض الأول',
+      price: '1000دج/شهر',
+      features: [
+        'الاطلاع على كل النصوص القانونية',
+        'الحصول على كل المستجدات',
+        'تلقي تنبيهات متعلقة بالمستجدات'
+      ]
+    }
+  ];
+
 
   return (
    <>
-    <Logo/>
+    <Logo />
     <TitleBar title="  عروض الاشتراك  " />
     <div className='sub_container'>
         <p className='offre_title'>إختاروا العرض الذي يناسبكم</p>
@@ -56,9 +61,9 @@ function Subscrib() {
                       ))}
                     </ul>
                 </div>
-                <button className='btn_sub'>
+                <Link to={`/payment/${offer.id}`} className='btn_sub'>
                     اشتراك<ShoppingCartIcon sx={{ width: '20px', height: '20px',marginLeft:'5px' }}/>
-                </button>
+                </Link>
               </div>
             ))}
         </div>

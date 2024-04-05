@@ -40,7 +40,7 @@ function Validation() {
 
   return (
     <>
-      <Logo />
+      <Logo  />
       <div className='validation_container'>
         <h3>تمت عملية التسجيل بنجاح <DoneIcon sx={{ width: '30px', height: '30px',marginLeft:'5px' }}/></h3>
         <p>تم تأكيد التسجيل و الاشتراك في العرض التجريبي لمدة 7 أيام</p>

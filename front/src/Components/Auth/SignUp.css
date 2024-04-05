@@ -108,6 +108,19 @@
   margin-bottom: 5%;
   width: 100%; 
 }
+.message-container {
+  text-align: center;
+}
+
+.message-container .success-message {
+  color: green;
+  font-size: 16px;
+}
+.message-container .error-message{
+  color: red;
+  font-size: 16px;
+ 
+}
 
 .visibility-icon {
   cursor: pointer; 
