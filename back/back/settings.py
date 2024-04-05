@@ -15,6 +15,10 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,7 +35,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    
+]
+CORS_ALLOWED_HEADERS = [
+    'token',  
+    'content-type',
+    'Authorization',
+    # Ajoutez d'autres en-têtes personnalisés si nécessaire
+]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,8 +57,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'Payement_Validation'
+    'rest_framework.authtoken',
+    'corsheaders',
+    'User',
+    'Payement_Validation',
 ]
+
+AUTH_USER_MODEL='User.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +73,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'back.urls'
@@ -89,7 +111,6 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -134,8 +155,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-
 # Stripe Api keys
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51OygXvLDzFR9kcMzeb7UST3IEa8SXi7CD3pXxIcTSQFunxMWcnaKqIJiCHZWO7fLFvnpgauFm9XArtMtZ9xjBJGl00FHM5TiPB'
 STRIPE_SECRET_KEY = 'sk_test_51OygXvLDzFR9kcMzaC13E9NNGto4R0hhduIBABMRb8tAMfbkVmGEZXnAYwuZYIhqtOBZrU87c4psmMTDQJWTJ8nA000k6jr6NZ'
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}

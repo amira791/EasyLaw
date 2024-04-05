@@ -1,18 +1,38 @@
 import React, { useState } from 'react'
 import "./SignUp.css"
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import TitleBar from '../TitleBar/TitleBar';
+import axios from 'axios';
 
 
 function SignUp() {
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    DateN: '',
-    company: '',
-    job: ''
+    prenom: '',
+    nom: '',
+    dateNaiss: '',
+    univer_Entrep: '',
+    occupation: '',
+    email: '',
+    password: '',
+    username:''
   });
+
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordType, setPasswordType] = useState('password');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+  const togglePassword = () => {
+    setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,99 +41,210 @@ function SignUp() {
       [name]: value
     }));
   };
-
-  const handleSubmit = (e) => {
+  console.log(formData)
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Reset form 
-    setFormData({
-      firstName: '',
-      lastName: '',
-      DateN: '',
-      company: '',
-      job: ''
-    });
+    setErrorMessage('');
+    if (formData.password !== confirmPassword) {
+      setPasswordError('كلمة السر وتأكيد كلمة السر يجب أن تتطابق');
+  } else if (formData.password.length < 8) {
+      setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
+  } else {
+      try {
+        
+        const response = await axios.post('http://localhost:8000/user/signup', formData);
+        console.log(response.data);
+        setSuccessMessage('تم إنشاء الحساب بنجاح! يتم إعادة توجيهك إلى صفحة تسجيل الدخول...');
+        // Réinitialiser le formulaire après l'inscription réussie
+        setFormData({
+          prenom: '',
+          nom: '',
+          dateNaiss: '',
+          univer_Entrep: '',
+          occupation: '',
+          email: '',
+          password: '',
+          username:''
+        });
+        setPasswordError('');
+        setConfirmPassword('');
+        setTimeout(() => {
+          navigate('/signin');
+        }, 5000); 
+      } catch (error) {
+        if (error.response.data.email) {
+          setErrorMessage(error.response.data.email);
+        } else if (error.response.data.username) {
+          setErrorMessage(error.response.data.username);
+        } else {
+          setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
+        }
+         }
+      }
+   // }
   };
   return (
     <>
     <Logo/>
-<div className='signup_titre'>
-      <h2> إنشاء حساب</h2>
-    </div>
-    <div className="signup-form">
-      <form onSubmit={handleSubmit}>
-        <div className='username_dv'>
-        <div className='input-group'>
-      <label htmlFor="lastName">اللقب</label>
-      <input
-        type="text"
-        id="lastName"
-        name="lastName"
-        value={formData.lastName}
-        onChange={handleChange}
-        placeholder='اللقب'
-        required
-      />
-    </div>
-    <div className='input-group'>
-      <label htmlFor="firstName">الاسم</label>
-      <input
-        type="text"
-        id="firstName"
-        name="firstName"
-        value={formData.firstName}
-        onChange={handleChange}
-        placeholder='الاسم'
-        required
-      />
-    </div>
-
-        </div>
-        <div className='username_dv1'>
-        <div className='input-group'>
-        <label htmlFor="dateN">تاريخ الميلاد</label>
-        <input
-          type="date"
-          id="dateN"
-          name="DateN"
-          className='user_info SELECT-dv'
-          value={formData.DateN}
-          onChange={handleChange}
-          placeholder='تاريخ الميلاد'
-          required
+    <TitleBar title="  إنشاء حساب " />
+<div className="signup-form">
+  <form onSubmit={handleSubmit} className='signup_sub'>
+  <div className='message-container'>
+            {successMessage && <p className="success-message">{successMessage}</p>}
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+          </div>
+    <div className='username_dv'>
+      <div className='input-group'>
+         <label htmlFor="nom">اللقب</label>
+         <input
+         className='input_item'
+            type="text"
+            id="nom"
+            name="nom"
+            value={formData.nom}
+            onChange={handleChange}
+            placeholder='اللقب'
+            required
+          />
+      </div>
+      <div className='input-group'>
+         <label htmlFor="prenom">الاسم</label>
+         <input
+         className='input_item'
+            type="text"
+            id="prenom"
+            name="prenom"
+            value={formData.prenom}
+            onChange={handleChange}
+            placeholder='الاسم'
+            required
         />
-        </div>
-        <div className='input-group'>
-        <label htmlFor="company">الشركة / الجامعة </label>
+       </div>
+    </div>
+    <div className='username_dv'>
+      <div className='input-group'>
+         <label htmlFor="email"> البريد الالكتروني </label>
+         <input
+         className='input_item'
+             type="email"
+             id="email"
+             name="email"
+             //lassName='user_info SELECT-dv'
+             value={formData.email}
+             onChange={handleChange}
+             placeholder=' البريد الالكتروني'
+             required
+          />
+      </div>
+      <div className='input-group'>
+         <label htmlFor="dateNaiss">تاريخ الميلاد</label>
+         <input
+         className='input_item'
+             type="date"
+             id="dateNaiss"
+             name="dateNaiss"
+             //className='user_info SELECT-dv'
+             value={formData.dateNaiss}
+             onChange={handleChange}
+             placeholder='تاريخ الميلاد'
+             required
+          />
+      </div>
+   </div>
+   <div className='username_dv1'>
+      <div className='input-group-col'>
+        <label htmlFor="univer_Entrep">الشركة / الجامعة </label>
         <input
-          type="text"
-          id="company"
-          name="company"
-          className='user_info SELECT-dv'
-          value={formData.company}
-          onChange={handleChange}
-          placeholder=' الشركة / الجامعة'
-          required
-        />
-        </div>
-        <div className='input-group'>
-        <label htmlFor="job">المهنة</label>
+            type="text"
+            id="univer_Entrep"
+            name="univer_Entrep"
+            className='input_item_col'
+            value={formData.univer_Entrep}
+            onChange={handleChange}
+            placeholder=' الشركة / الجامعة'
+            required
+         />
+      </div>
+      <div className='input-group-col'>
+        <label htmlFor="username">username</label>
+        <input
+            type="text"
+            id="username"
+            name="username"
+            className='input_item_col'
+            value={formData.username}
+            onChange={handleChange}
+            placeholder=' username'
+            required
+         />
+      </div>
+      <div className='input-group-col'>
+        <label htmlFor="occupation">المهنة</label>
         <select
-        id="job"
-        name="job"
-        className='user_info '
-        value={formData.job}
-        onChange={handleChange}
-        required
-        >
+           id="occupation"
+           name="occupation"
+           className='input_item_col '
+           value={formData.occupation}
+           onChange={handleChange}
+           required
+         >
           <option value="">اختر المهنة</option>
           <option value="طالب">طالب</option>
           <option value="موظف">موظف</option>
           <option value="مهندس">مهندس</option>
-</select>
+        </select>
+      </div>
+      <div className='input-group-col'>
+      <label htmlFor="password"> كلمة السر </label>
+      <div className='input-group-row '>
+      <div className='visibility-icon' onClick={togglePassword}>
+          {passwordType === 'password' ? (
+            <VisibilityIcon sx={{ width: '20px', height: '20px',marginTop:'5px' }}/>
+          ) : (
+            <VisibilityOffIcon sx={{ width: '20px', height: '20px',marginTop:'5px' }}/>
+          )}
+        </div>
+        <input
+          type={passwordType}
+          id="password"
+          name="password"
+          className='input_item_col'
+          value={formData.password}
+          onChange={handleChange}
+          placeholder=' كلمة السر'
+          required
+        />
+        
+      </div>
+      {passwordError && <span className="error-message">{passwordError}</span>}
+    </div>
+    <div className='input-group-col'>
+         <label htmlFor="company"> تأكيد كلمة السر </label>
+         <div className='input-group-row '>
+         <div className='visibility-icon' onClick={togglePassword}>
+          {passwordType === 'password' ? (
+            <VisibilityIcon sx={{ width: '20px', height: '20px',marginTop:'5px' }}/>
+          ) : (
+            <VisibilityOffIcon sx={{ width: '20px', height: '20px',marginTop:'5px' }}/>
+          )}
+        </div>
+        <input
+    type="password"
+    id="confirmPassword"
+    name="confirmPassword"
+    className='input_item_col'
+    value={confirmPassword}
+    onChange={(e) => setConfirmPassword(e.target.value)}
+    placeholder='تأكيد كلمة السر'
+    required
+/>
+            </div>
+      </div>
+      
+      
 </div>
-</div>
-        <button type="submit">انشاء حساب</button>
+
+ <button type="submit" >انشاء حساب</button>
         <a className='connection_link'><Link style={{ color: '#484646'}}  to ="/signin">تسجيل الدخول</Link></a>
       </form>
     </div>

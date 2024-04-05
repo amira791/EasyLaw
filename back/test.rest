@@ -1,0 +1,57 @@
+POST http://127.0.0.1:9000/user/login 
+Content-Type: application/json
+
+{ "username": "adam8", "password": "Pass1234!" }
+
+###
+
+POST http://127.0.0.1:9000/user/signup 
+Content-Type: application/json
+
+{ "username": "adam8", "password": "Pass1234!", "email": "adam8@mail.com" }
+
+###
+
+GET http://127.0.0.1:9000/user/test_token 
+Content-Type: application/json
+Authorization: token 2e74f8fd81ac00e9790ad1ea4c207be90f80d599
+
+###
+
+GET http://127.0.0.1:9000/user/get_user_info
+Content-Type: application/json
+Authorization: token 2e74f8fd81ac00e9790ad1ea4c207be90f80d599
+
+###
+
+
+PUT http://127.0.0.1:9000/user/edit_user_info
+Content-Type: application/json
+Authorization: Token 2e74f8fd81ac00e9790ad1ea4c207be90f80d599
+
+{
+  "username": "adam8",
+  "email": "adam8@mail.com",
+  "nom": "Smith",
+  "prenom": "John",
+  "num_telephone": "1234567890",
+  "location": "New York"
+}
+
+
+###
+
+POST http://127.0.0.1:9000/user/change_password 
+Content-Type: application/json
+Authorization: Token 2e74f8fd81ac00e9790ad1ea4c207be90f80d599
+
+{
+  "old_password": "Pass1234!",
+  "new_password": "NewPass1234!"
+}
+
+
+###
+
+POST http://127.0.0.1:9000/user/logout
+Authorization: Token 7bc3ee9d3e01b0fe6d284d9b42d17bc8c827b0af

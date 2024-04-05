@@ -18,3 +18,10 @@ In the server(backend) run the folowing:
 
 
 ### ports client: 3000 server: 8000
+
+
+To connect database "lawdata" with your server : 
+
+1/ In terminal : pip install mysqlclient
+2/ python manage.py makemigrations
+3/ python manage.py migrate

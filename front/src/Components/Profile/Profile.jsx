@@ -1,141 +1,97 @@
-import React , { useState }from 'react'
+
 import Logo from '../LOGO/Logo'
 import "./Profile.css"
 import Footer from '../Footer/Footer'
-import { Link } from 'react-router-dom';
+
+import Compte from './Compte';
+import ChangePwd from './ChangePwd';
+import Services from './Services';
+import Interest from './Interest'
+import NavBarProfile from './NavBarProfile';
+import React, { useState, useEffect , useContext} from 'react';
+import axios from 'axios';
+import { AuthContext } from '../Context/LogoProvider';
+
 
 function Profile() {
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        DateN: '',
-        company: '',
-        job: ''
+  
+      const [activeList, setNavList] = useState('profile');
+      const { updateFormData } = useContext(AuthContext);
+      const [initials, setInitials] = useState('');
+      const [formData, setFormData] = useState({
+        nom: '',
+        prenom: '',
+        dateNaiss: '',
+        occupation: '',
+        univer_Entrep: '',
+        email:''
       });
-    
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-          ...prevData,
-          [name]: value
-        }));
-      };
+      //const [isAuth, setIsAuth] = useState(false);
     
       const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
         // Reset form 
         setFormData({
-          firstName: '',
-          lastName: '',
-          DateN: '',
-          company: '',
-          job: ''
+          nom: '',
+          prenom: '',
+          dateNaiss: '',
+          occupation: '',
+          univer_Entrep: '',
+          email:''
         });
       };
+      useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const access_token = localStorage.getItem('access_token');
+               
+               console.log(access_token)
+                if (!access_token) {
+                    throw new Error('Token not found in localStorage');
+                }
+                
+                const response = await axios.get('http://localhost:8000/user/get_user_info', {
+                    headers: {
+                        Authorization: `token ${access_token}`
+                    }
+                });
+                console.log(true)
+                const userData = response.data;
+                console.log(userData);
+                setFormData({
+                    dateNaiss: userData.dateNaiss || '',
+                    email: userData.email || '',
+                    nom: userData.nom || '',
+                    occupation: userData.occupation || '',
+                    prenom: userData.prenom || '',
+                    univer_Entrep: userData.univer_Entrep || '',
+                });
+              //  setIsAuth(true);
+              updateFormData({ nom: userData.nom });
+              const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
+    setInitials(nameInitials);
+            } catch (error) {
+                console.error('Une erreur s\'est produite lors de la récupération des informations de profil :', error);
+               // setIsAuth(false); 
+            }
+        };
+        console.log(formData)
+        fetchUserData();
+    }, [formData.nom]);
+   
+
   return (
     <>
-    <Logo/>
+    <Logo formData={formData}  />
 <div className='profile_container'>
-    <div>
-        <img alt='photo profile'/>
-        <h3>Sanaa_791</h3>
+    <div className='profile_name'>
+    <div className="user-initials-circle"> {initials}</div>
+        <h3>{formData.nom}</h3>
     </div>
-
-    <div>
-        
-      <form onSubmit={handleSubmit}>
-        <div className='lign_dv'>
-           <div className='profile_info'>
-               <label htmlFor="lastName">اللقب</label>
-               <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder='اللقب'
-                required/>
-           </div>
-           <div className='profile_info'>
-                <label htmlFor="firstName">الاسم</label>
-                <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder='الاسم'
-                required/>
-           </div>
-
-        </div>
-        <div className='lign_dv'>
-           <div className='profile_info'>
-               <label htmlFor="lastName">اللقب</label>
-               <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder='اللقب'
-                required/>
-           </div>
-           <div className='profile_info'>
-                <label htmlFor="dateN">تاريخ الميلاد</label>
-                <input
-                type="date"
-                id="dateN"
-                name="DateN"
-                value={formData.DateN}
-                onChange={handleChange}
-                placeholder='تاريخ الميلاد'
-                required/>
-           </div>
-
-        </div>
-        <div className='col_dv'>
-            <div className='profile_info'>
-                <label htmlFor="company">الشركة / الجامعة </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                
-                  value={formData.company}
-                  onChange={handleChange}
-                  placeholder=' الشركة / الجامعة'
-                  required
-                />
-            </div>
-            <div className='profile_info'>
-                <label htmlFor="job">المهنة</label>
-                <select
-                id="job"
-                name="job"
-                
-                value={formData.job}
-                onChange={handleChange}
-                required
-                >
-                  <option value="">اختر المهنة</option>
-                  <option value="طالب">طالب</option>
-                  <option value="موظف">موظف</option>
-                  <option value="مهندس">مهندس</option>
-                </select>
-            </div>
-         </div>
-         <button type="submit"> حفظ المعلومات</button>
-    </form>
-    <div>
-        <ul>
-            <li>الحساب الشخصي</li>
-            <li>تغيير كلمة السر </li>
-            <li>خدماتي</li>
-            <li>تسجيل الخروج</li>
-        </ul>
-    </div>
+    <div className='profile_content'>
+      <Compte formData={formData} onSubmit={handleSubmit}/>
+    <NavBarProfile  interest="اهتماماتي"  services="خدماتي" formData={formData}/>
   </div>
 </div>
     <Footer/>

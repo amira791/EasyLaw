@@ -1,0 +1,106 @@
+
+  .payment-form .payment_sub{
+   margin: auto;
+    padding: 5%;
+    width: 50%; 
+    border-radius: 5px;
+    
+}
+  .payment-form .payment-section2{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5%;
+  }
+
+  .payment-form .payment-group{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 48%;
+    
+}
+.payment-form .payment_item{
+  width:94%; 
+  padding:3%; 
+  border: 1px solid #ccc;
+  border-radius: 5px; 
+}
+
+  .payment-form label  {
+    display: block;
+    margin-bottom: 5px;
+    text-align: right;
+    color: #585653;
+    font-weight: 500;
+  }
+  .payment-form .payment-group-col{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 5%;
+   /* border: #3D3935 1px solid;*/
+    width: 100%; 
+}
+.payment-form .paiement-mode{
+  display: flex;
+  margin-top: 2%;
+  width: 100%;
+  justify-content: space-between;
+}
+.payment-form .paiement-mode-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: #E2E1E1 1px solid;
+  width: 200px;
+ background-color: transparent;
+ color: black;
+  border-radius: 10px;
+}
+.payment-form  .paiement-mode-item.active {
+  border:2px solid #58D6D7;
+}
+.payment-form .payment_item_col{
+  width: 97%; 
+  padding: 1.5%; 
+  border: 1px solid #ccc;
+  border-radius: 5px; 
+}
+.payment-form input::placeholder {
+  text-align: right;
+}
+
+ 
+  .payment-form button {
+    width: 37%;
+    background-color:var(--primary-color);
+    color: white;
+    padding: 6px 0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 3% ;
+    font-size: 20px;
+  }
+
+  .payment-form .payment-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+}
+
+.payment-form .payment-button {
+   
+    width: 250px; 
+    height: 40px; 
+    background-color:var(--primary-color);
+    color: white;
+    padding: 6px 0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 3% ;
+    font-size: 20px;
+   
+}
+  

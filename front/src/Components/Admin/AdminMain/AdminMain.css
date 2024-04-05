@@ -1,0 +1,31 @@
+.AdminMain-Container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 5% 0;
+    color: #374957;
+}
+.AdminMain-Container .AdminMain-menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #E3FAFC;
+    border-radius: 10px;
+    height: 300px;
+    width: 300px;
+    overflow: hidden;
+    position: relative;
+    margin: 0px 3%;
+}
+.AdminMain-Container .pic-menu-dv{
+    width: 100%;
+  margin: 6% 0%;
+    display: flex;
+    justify-content: center;
+   
+}
+.AdminMain-Container .pic-menu{
+    width: 100px;
+}

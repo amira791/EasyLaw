@@ -6,6 +6,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
 
+
 function Footer() {
   return (
     <>
@@ -22,10 +23,10 @@ function Footer() {
              <h4>:تواصل معنا</h4>
             </div>
             <div className='socialmedia'>
-               <a href='https://www.linkedin.com'> <LinkedInIcon sx={{ width: '30px', height: '30px' }} /></a>
-               <a href='https://www.facebook.com/?locale=fr_FR'><FacebookOutlinedIcon sx={{ width: '30px', height: '30px' }}/></a>
-               <a href='#'> <YouTubeIcon sx={{ width: '30px', height: '30px' }}/></a>
-               <a href='#'> <InstagramIcon sx={{ width: '30px', height: '30px' }}/></a>
+               <a href='https://www.linkedin.com'> <LinkedInIcon sx={{ width: '35px', height: '35px',color: '#045253' ,backgroundColor:'white',borderRadius:'100%' ,padding:'6px' }} /></a>
+               <a href='https://www.facebook.com/?locale=fr_FR'><FacebookOutlinedIcon sx={{ width: '35px', height: '35px',color: '#045253' ,backgroundColor:'white',borderRadius:'100%' ,padding:'6px' }}/></a>
+               <a href='#'> <YouTubeIcon sx={{ width: '35px', height: '35px',color: '#045253' ,backgroundColor:'white',borderRadius:'100%' ,padding:'6px' }}/></a>
+               <a href='#'> <InstagramIcon sx={{ width: '35px', height: '35px',color: '#045253' ,backgroundColor:'white',borderRadius:'100%' ,padding:'6px' }} /></a>
 
             </div>
             
