@@ -1,16 +1,9 @@
-from django.urls import path
+# from django.contrib import admin
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
-    path('login/', views.login),
-    path('signup/', views.signup),
-    path('test_token/', views.test_token)
-]
-from django.urls import path
-from . import views
-
-urlpatterns = [
-    path('login/', views.login),
-    path('signup/', views.signup),
-    path('test_token/', views.test_token)
+    re_path('login', views.login),
+    re_path('signup', views.signup),
+    # re_path('test_token', views.test_token)
 ]

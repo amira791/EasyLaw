@@ -1,31 +1,35 @@
+:root {
+  --primary-color: #1D8B8C;
+  --secondary-color: #E3FAFC;
+  --text-color:#374957;
+
+  /* Autres couleurs... */
+}
+
 .footer {
-    background-color: #3D3935;
-    color: #fff;
-    padding: 30px 0;
-    
-  }
-  
-  .container {
-    width: 90%;
-    margin: 0 auto;
+    background-color:var(--primary-color);
+    color: #fff;    
   }
   
   .footer-content {
+    padding: 2% 4%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
+   
   }
   
   .footer-item {
     flex: 1;
     margin-bottom: 20px;
   }
-  
-  .footer-item img {
-    width: 150px;
-    margin-bottom: 10px;
+  .footer-item-admin{
+    flex: 0;
+    margin-bottom: 20px;
   }
+  
+  
   
   .footer-item h4 {
     margin-bottom: 15px;
@@ -53,9 +57,10 @@
     justify-content: space-between;
   }
   .footer-item .socialmedia{
-    max-width: 150px;
+    max-width: 250px;
     display: flex;
     justify-content: space-between;
+    margin-top: 2%;
   }
 
   .footer-item .contact{
@@ -68,4 +73,7 @@
     margin-top: 4%;
     width: 300px;
     border: #ffffff solid 1px;
+  }
+  .footer-item .img_logo{
+    width: 200px;
   }

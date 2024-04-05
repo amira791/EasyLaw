@@ -3,6 +3,7 @@ import Logo from '../LOGO/Logo'
 import Footer from '../Footer/Footer'
 import "./Subscrib.css"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import TitleBar from '../TitleBar/TitleBar';
 
 function Subscrib() {
     const offers = [
@@ -38,9 +39,7 @@ function Subscrib() {
   return (
    <>
     <Logo/>
-    <div className='sub_titre'>
-      <h2>  عروض الاشتراك</h2>
-    </div>
+    <TitleBar title="  عروض الاشتراك  " />
     <div className='sub_container'>
         <p className='offre_title'>إختاروا العرض الذي يناسبكم</p>
         <div className='sub_offers'>

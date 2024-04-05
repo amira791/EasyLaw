@@ -1,41 +1,80 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class ClientManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('The Email field must be set')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+class CustomUser(AbstractUser):
 
-        return self.create_user(email, password, **extra_fields)
+    ROLE_CHOICES = (
+        ('client', 'Client'),
+        ('moderateur', 'Moderateur'),
+    )
 
-class Client(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(unique=True)
-    numTelephone = models.CharField(max_length=20)
-    role = models.CharField(max_length=20, choices=(('client', 'Client'), ('moderateur', 'Moderateur')))
-    nom = models.CharField(max_length=255)
-    prenom = models.CharField(max_length=255)
-    dateNaiss = models.DateField()
-    lieuNaiss = models.CharField(max_length=255)
-    univer_Entrep = models.CharField(max_length=255)
-    occupation = models.CharField(max_length=255)
+    nom = models.CharField(max_length=255, null=True)
+    prenom = models.CharField(max_length=255, null=True)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='client')
+    num_telephone = models.CharField(max_length=20, null=True)
+    dateNaiss = models.DateField(null=True, blank=True)
+    lieuNaiss = models.CharField(max_length=255, null=True)
+    univer_Entrep = models.CharField(max_length=255, null=True)
+    occupation = models.CharField(max_length=255, null=True)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True)
 
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
 
-    objects = ClientManager()
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
 
     def __str__(self):
         return self.username
+    
+
+
+
+
+
+
+
+# ROLE_CHOICES = (
+#     ('client', 'Client'),
+#     ('moderateur', 'Moderateur'),
+# )
+
+# class CustomUser(AbstractUser):
+#     # Custom fields for extended attributes
+#     num_telephone = models.CharField(max_length=20, null=True)
+#     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='client')
+#     nom = models.CharField(max_length=255, null=True)
+#     prenom = models.CharField(max_length=255, null=True)
+#     dateNaiss = models.DateField(null=True, blank=True)
+#     lieuNaiss = models.CharField(max_length=255, null=True)
+#     univer_Entrep = models.CharField(max_length=255, null=True)
+#     occupation = models.CharField(max_length=255, null=True)
+
+#     # Fields from the original CustomUser model
+   
+#     bio = models.TextField(max_length=500, blank=True)
+#     location = models.CharField(max_length=100, blank=True)
+#     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True)
+
+#     def create_user(self, username, email, password, num_telephone=None, role='client', nom=None,
+#                     prenom=None, dateNaiss=None, lieuNaiss=None, univer_Entrep=None, occupation=None, **extra_fields):
+#         """
+#         Create and return a new user instance with the given username, email, password, and additional fields.
+#         """
+#         if not username:
+#             raise ValueError('The username must be set')
+#         if not email:
+#             raise ValueError('The email must be set')
+#         email = self.normalize_email(email)
+#         user = self.model(username=username, email=email, num_telephone=num_telephone, role=role,
+#                             nom=nom, prenom=prenom, dateNaiss=dateNaiss, lieuNaiss=lieuNaiss,
+#                             univer_Entrep=univer_Entrep, occupation=occupation, **extra_fields)
+#         user.set_password(password)
+#         user.save(using=self._db)
+#         return user
+
+#     def __str__(self):
+#         return self.username
+
+#     class Meta:
+#         app_label = 'auth'
