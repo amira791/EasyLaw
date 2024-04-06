@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 export default function useUser() {
@@ -16,10 +16,11 @@ export default function useUser() {
       const response = await axios.post('http://localhost:8000/user/login', formData);
       console.log(response.data.token);
       localStorage.clear();
-      console.log(localStorage.setItem('access_token', response.data.token));
+      localStorage.setItem('access_token', response.data.token);
       localStorage.setItem('refresh_token', response.data.refresh);
       axios.defaults.headers.common['Authorization'] =  `token ${response.data.token}`;
       setLoggedIn(true);
+      return true;
     } catch (error) {
       console.error('Une erreur s\'est produite lors de l\'authentification :', error);
       setErrorMessage('Erreur lors de l\'authentification. Veuillez vérifier vos informations.');
