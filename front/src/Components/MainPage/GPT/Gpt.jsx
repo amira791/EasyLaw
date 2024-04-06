@@ -1,6 +1,7 @@
 import React , { useState }from 'react'
 import './Gpt.css'
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 function Gpt() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -37,7 +38,7 @@ function Gpt() {
    <>
    <div className='gpt_dv'> 
    <div className='gpt_logo'>
-    <img  className ="icon_gpt" src="./images/gpt.png"/>
+    <Link to="/gptpage"><img  className ="icon_gpt" src="./images/gpt.png"/></Link>
    </div>
    <div className='gpt_search'>
     <form className="search-form" onSubmit={handleSearchSubmit} >
@@ -50,7 +51,7 @@ function Gpt() {
         <SearchIcon className="search-icon"  />
      </form>
      <div className='search_filter'>
-     <div className='filter_item'>
+    
         <select id="file-type" 
               name="file-type" 
               className='select_item'
@@ -59,9 +60,9 @@ function Gpt() {
           <option value=""> نوع الملف</option>
           <option value="طالب">طالب</option>
         </select>
-      </div>
       
-      <div className='filter_item'>
+      
+      
       <input 
     type="date" 
     id="date" 
@@ -71,8 +72,8 @@ function Gpt() {
     value={date}
     onChange={handleDateChange}
   />
-      </div>
-      <div className='filter_item'>
+      
+     
         <select id="source" 
               name="source" 
               className='select_item'
@@ -81,9 +82,9 @@ function Gpt() {
           <option value=""> المصدر</option>
           <option value="طالب">طالب</option>
         </select>
-      </div>
+     
       
-      <div className='filter_item'>
+     
         <select id="category" 
               name="category" 
               className='select_item'
@@ -92,7 +93,7 @@ function Gpt() {
           <option value=""> التصنيف</option>
           <option value="طالب">طالب</option>
         </select>
-      </div>
+     
 
      </div>
 

@@ -36,6 +36,7 @@ function Compte({ formData = {}, onSubmit }) {
 
   return (
     <>
+    <div style={{width:'100%'}}>
       <form className='profile_form' onSubmit={handleSubmit}>
         <div className='lign_dv'>
           <div className='lign_dv_info'>
@@ -139,6 +140,7 @@ function Compte({ formData = {}, onSubmit }) {
       <button onClick={() => setEditMode(!editMode)}>
         {editMode ? 'Annuler' : 'Modifier'}
       </button>
+      </div>
     </>
   );
 }

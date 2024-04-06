@@ -3,12 +3,13 @@ import './ScrapingResult.css';
 import FooterAdmin from '../../Footer/FooterAdmin';
 import TitleBar from '../../TitleBar/TitleBar';
 import LogoAdmin from '../../LOGO/LogoAdmin';
-import { Worker, Viewer } from '@react-pdf-viewer/core';
+
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
 import { pdfjs } from 'react-pdf';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import { Container } from 'semantic-ui-react';
+import PdfContent from './PdfContent';
 
 function ScrapingResult() {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
@@ -24,28 +25,7 @@ function ScrapingResult() {
             <TitleBar title="ادارة المحتوى القانوني"/>
             <div className='scraping-result-container'>
                 <h2>(Scraping) كشط النصوص القانونية </h2>
-
-
-
-
-
-
-                <div className='scraping-contentPDF'  style={{ height: '750px',}}>
-                
-                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-                    <Viewer fileUrl="./ProjetTDM.pdf" />
-                </Worker>
-                </div>
-
-
-
-
-
-
-
-
-
-
+               <PdfContent/>
 
                 <div className='scraping-result-btn'>
                     <button className={activeButton === 0 ? 'active' : ''} onClick={() => handleButtonClick(0)}>اشعار المتابعين</button>
