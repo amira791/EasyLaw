@@ -26,12 +26,10 @@ function Profile() {
         univer_Entrep: '',
         email:''
       });
-      //const [isAuth, setIsAuth] = useState(false);
-    
+  
       const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
-        // Reset form 
+        console.log(formData); 
         setFormData({
           nom: '',
           prenom: '',
@@ -59,6 +57,7 @@ function Profile() {
                 console.log(true)
                 const userData = response.data;
                 console.log(userData);
+                console.log(localStorage.setItem('user_data', userData));
                 setFormData({
                     dateNaiss: userData.dateNaiss || '',
                     email: userData.email || '',
@@ -80,10 +79,11 @@ function Profile() {
         fetchUserData();
     }, [formData.nom]);
    
+   
 
   return (
     <>
-    <Logo formData={formData}  />
+    <Logo />
 <div className='profile_container'>
     <div className='profile_name'>
     <div className="user-initials-circle"> {initials}</div>
