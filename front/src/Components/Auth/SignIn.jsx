@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -15,7 +15,7 @@ function SignIn() {
   });
   const { loginUser, errorMessage } = useUser();
   const [passwordType, setPasswordType] = useState('password');
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   const togglePassword = () => {
     setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
@@ -33,7 +33,7 @@ function SignIn() {
     e.preventDefault();
     const loggedIn = await loginUser(formData);
     if (loggedIn) {
-      navigate('/profile'); // Navigate to profile page if logged in successfully
+      navigate('/profile'); // Navigate to main page if logged in successfully
     }
   };
 
