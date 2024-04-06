@@ -6,7 +6,7 @@ import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import NavBarProfile from './NavBarProfile';
 import Logo from '../LOGO/Logo';
 import Footer from '../Footer/Footer';
-import { AuthContext } from '../Context/LogoProvider';
+import { AuthContext } from '../../Context/LogoProvider';
 import axios from 'axios';
 
 function Interest() {

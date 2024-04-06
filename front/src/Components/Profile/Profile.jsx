@@ -10,76 +10,66 @@ import Interest from './Interest'
 import NavBarProfile from './NavBarProfile';
 import React, { useState, useEffect , useContext} from 'react';
 import axios from 'axios';
-import { AuthContext } from '../Context/LogoProvider';
-
+import { AuthContext } from '../../Context/LogoProvider';
+import useUser from '../../Hooks/useUser';
 
 function Profile() {
-  
-      const [activeList, setNavList] = useState('profile');
-      const { updateFormData } = useContext(AuthContext);
-      const [initials, setInitials] = useState('');
-      const [formData, setFormData] = useState({
-        nom: '',
-        prenom: '',
-        dateNaiss: '',
-        occupation: '',
-        univer_Entrep: '',
-        email:''
-      });
-  
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData); 
+  const [activeList, setNavList] = useState('profile');
+  const { updateFormData } = useContext(AuthContext);
+  const [initials, setInitials] = useState('');
+  const [formData, setFormData] = useState({
+    nom: '',
+    prenom: '',
+    dateNaiss: '',
+    occupation: '',
+    univer_Entrep: '',
+    email: ''
+  });
+
+  const { getUserInfo } = useUser(); // Utilisation de la fonction getUserInfo du hook useUser
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    setFormData({
+      nom: '',
+      prenom: '',
+      dateNaiss: '',
+      occupation: '',
+      univer_Entrep: '',
+      email: ''
+    });
+  };
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getUserInfo();
+        console.log(userData);
+
         setFormData({
-          nom: '',
-          prenom: '',
-          dateNaiss: '',
-          occupation: '',
-          univer_Entrep: '',
-          email:''
+          dateNaiss: userData.dateNaiss || '',
+          email: userData.email || '',
+          nom: userData.nom || '',
+          occupation: userData.occupation || '',
+          prenom: userData.prenom || '',
+          univer_Entrep: userData.univer_Entrep || '',
         });
-      };
-      useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const access_token = localStorage.getItem('access_token');
-               
-               console.log(access_token)
-                if (!access_token) {
-                    throw new Error('Token not found in localStorage');
-                }
-                
-                const response = await axios.get('http://localhost:8000/user/get_user_info', {
-                    headers: {
-                        Authorization: `token ${access_token}`
-                    }
-                });
-                console.log(true)
-                const userData = response.data;
-                console.log(userData);
-                console.log(localStorage.setItem('user_data', userData));
-                setFormData({
-                    dateNaiss: userData.dateNaiss || '',
-                    email: userData.email || '',
-                    nom: userData.nom || '',
-                    occupation: userData.occupation || '',
-                    prenom: userData.prenom || '',
-                    univer_Entrep: userData.univer_Entrep || '',
-                });
-              //  setIsAuth(true);
-              updateFormData({ nom: userData.nom });
-              const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
+
+        updateFormData({ nom: userData.nom });
+
+       
+      } catch (error) {
+        console.error('Une erreur s\'est produite lors de la récupération des informations de profil :', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
     setInitials(nameInitials);
-            } catch (error) {
-                console.error('Une erreur s\'est produite lors de la récupération des informations de profil :', error);
-               // setIsAuth(false); 
-            }
-        };
-        console.log(formData)
-        fetchUserData();
-    }, [formData.nom]);
-   
-   
+  }, [formData.nom]);
 
   return (
     <>

@@ -5,7 +5,7 @@ import Compte from '../../Profile/Compte'
 import NavBarProfile from '../../Profile/NavBarProfile'
 import React, { useState, useEffect , useContext} from 'react';
 import axios from 'axios';
-import { AuthContext } from '../../Context/LogoProvider';
+import { AuthContext } from '../../../Context/LogoProvider';
 
 
 function ProfileAdmin() {

@@ -2,27 +2,18 @@ import React, { useState, useContext } from 'react';
 import './Profile.css';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../Context/LogoProvider';
+import { AuthContext } from '../../Context/LogoProvider';
+import useUser from '../../Hooks/useUser';
 
 function NavBarProfile(props) {
   const [isLoggedOut, setIsLoggedOut] = useState(false);
   const { setFormData ,setIsAuth} = useContext(AuthContext);
+  const { logout } = useUser(); // Utilisez la fonction logout du hook useUser
 
   const handleLogout = async () => {
-    try {
-      const response = await axios.post('http://localhost:8000/user/logout', null, {
-        headers: {
-          'Authorization': `Token ${localStorage.getItem('access_token')}`
-        }
-      });
-      console.log(response.data.message);
-      localStorage.removeItem('access_token');
-      setIsLoggedOut(true);
-
-      setFormData({ nom: '' }); // Réinitialiser formData après la déconnexion
-      setIsAuth(false);
-    } catch (error) {
-      console.error(error);
+    const isLogout = await logout(); // Appelez la fonction logout correcte
+    if (isLogout) {
+      setIsLoggedOut(true); // Mettre à jour l'état après la déconnexion
     }
   }
 

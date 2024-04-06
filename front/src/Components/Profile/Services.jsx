@@ -6,7 +6,7 @@ import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
 import NavBarProfile from './NavBarProfile';
-import { AuthContext } from '../Context/LogoProvider';
+import { AuthContext } from '../../Context/LogoProvider';
 import axios from 'axios';
 function Services() {
     const {  formData} = useContext(AuthContext);

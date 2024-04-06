@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+
+import { AuthContext } from '../Context/LogoProvider';
 
 
 export default function useUser() {
@@ -8,7 +10,79 @@ export default function useUser() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate(); 
+    const [isLoggedOut, setIsLoggedOut] = useState(false);
+    const { setFormData ,setIsAuth} = useContext(AuthContext);
+    // Fonction logout
+    const logout = async () => {
+      try {
+        const response = await axios.post('http://localhost:8000/user/logout', null, {
+          headers: {
+            'Authorization': `Token ${localStorage.getItem('access_token')}`
+          }
+        });
+        console.log(response.data.message);
+        localStorage.removeItem('access_token');
+        setIsLoggedOut(true);
 
+        setFormData({ nom: '' }); // Réinitialiser formData après la déconnexion
+        setIsAuth(false);
+        return true
+      } catch (error) {
+        console.error(error);
+      }
+    }
+ // Fonction pour récupérer les informations de l'utilisateur
+ const getUserInfo = async () => {
+  try {
+    const access_token = localStorage.getItem('access_token');
+
+    if (!access_token) {
+      throw new Error('Token not found in localStorage');
+    }
+
+    const response = await axios.get('http://localhost:8000/user/get_user_info', {
+      headers: {
+        Authorization: `token ${access_token}`
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Une erreur s\'est produite lors de la récupération des informations de l\'utilisateur :', error);
+    throw error; // Propager l'erreur pour la gérer dans le composant
+  }
+};
+
+const editUserInfo = async (editedFormData) => {
+  try {
+    const access_token = localStorage.getItem('access_token');
+    await axios.put('http://localhost:8000/user/edit_user_info', editedFormData, {
+      headers: {
+        Authorization: `Token ${access_token}`
+      }
+    });
+    alert('Les informations ont été mises à jour avec succès !');
+  } catch (error) {
+    console.error('Une erreur s\'est produite lors de la mise à jour des informations de profil :', error);
+  }
+};
+ // Fonction pour modifier le mot de passe de l'utilisateur
+const changePassword = async (oldPassword, newPassword) => {
+  try {
+    const response = await axios.post('http://localhost:8000/user/change_password', {
+      old_password: oldPassword,
+      new_password: newPassword
+    }, {
+      headers: {
+        'Authorization': `Token ${localStorage.getItem('access_token')}`
+      }
+    });
+    console.log(response.data.message);
+  } catch (error) {
+    console.error(error);
+    setErrorMessage('خطأ في تغيير كلمة السر');
+  }
+};
 
 //************** For Sign In ************************** */
   const loginUser = async (formData) => {
@@ -67,6 +141,10 @@ const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessag
   };
 
   return {
+    logout,
+    getUserInfo,
+    editUserInfo,
+    changePassword,
     addNewUser,
     loginUser,
     errorMessage,
