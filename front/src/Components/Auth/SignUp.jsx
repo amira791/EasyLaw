@@ -8,12 +8,13 @@ import Logo from '../LOGO/Logo';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import TitleBar from '../TitleBar/TitleBar';
+import useUser from '../../Hooks/useUser';
 import axios from 'axios';
 
 
 function SignUp() {
+  const { addNewUser } = useUser();
   const [confirmPassword, setConfirmPassword] = useState('');
-
   const [formData, setFormData] = useState({
     prenom: '',
     nom: '',
@@ -22,14 +23,14 @@ function SignUp() {
     occupation: '',
     email: '',
     password: '',
-    username:''
+    username: ''
   });
-
   const [passwordError, setPasswordError] = useState('');
   const [passwordType, setPasswordType] = useState('password');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+
   const togglePassword = () => {
     setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
   };
@@ -41,47 +42,10 @@ function SignUp() {
       [name]: value
     }));
   };
-  console.log(formData)
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setErrorMessage('');
-    if (formData.password !== confirmPassword) {
-      setPasswordError('كلمة السر وتأكيد كلمة السر يجب أن تتطابق');
-  } else if (formData.password.length < 8) {
-      setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
-  } else {
-      try {
-        
-        const response = await axios.post('http://localhost:8000/user/signup', formData);
-        console.log(response.data);
-        setSuccessMessage('تم إنشاء الحساب بنجاح! يتم إعادة توجيهك إلى صفحة تسجيل الدخول...');
-        // Réinitialiser le formulaire après l'inscription réussie
-        setFormData({
-          prenom: '',
-          nom: '',
-          dateNaiss: '',
-          univer_Entrep: '',
-          occupation: '',
-          email: '',
-          password: '',
-          username:''
-        });
-        setPasswordError('');
-        setConfirmPassword('');
-        setTimeout(() => {
-          navigate('/signin');
-        }, 5000); 
-      } catch (error) {
-        if (error.response.data.email) {
-          setErrorMessage(error.response.data.email);
-        } else if (error.response.data.username) {
-          setErrorMessage(error.response.data.username);
-        } else {
-          setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
-        }
-         }
-      }
-   // }
+    addNewUser(formData, confirmPassword, setErrorMessage, setPasswordError, setSuccessMessage, navigate);
   };
   return (
     <>
