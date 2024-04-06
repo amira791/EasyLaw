@@ -31,7 +31,7 @@
 .scraping-result-container .scraping-result-btn button.active {
     background-color: #58D6D7;
 }
-.scraping-result-container .scraping-contentPDF{
+.scraping-contentPDF{
     width: 70%;
     background-color:#58D6D7 ;
     border-radius: 10px;

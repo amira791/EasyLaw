@@ -26,6 +26,8 @@ import AdminMain from './Components/Admin/AdminMain/AdminMain';
 import LogoProvider from './Components/Context/LogoProvider';
 import ProtectedRoute from './Components/Context/ProtectedRoute';
 import ProfileAdmin from './Components/Admin/ProfileAdmin/ProfileAdmin';
+import GptPage from './Components/GptPage/GptPage';
+import Ressource from './Components/Ressource/Ressource';
 
 
 function App() {
@@ -47,6 +49,8 @@ function App() {
         <Route path="/payment/:id" element={<Payment/>} />
         <Route path="/law" element={<Law/>} />
         <Route path="/LawDetails/:id" element={<LawDetails/>} />
+        <Route path="/gptpage" element={<GptPage/>} />
+        <Route path="/ressource" element={<Ressource/>} />
 
 
         <Route path="/accountmanagment" element={<AccountManag/>} />

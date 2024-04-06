@@ -1,8 +1,11 @@
 .gpt_dv{
-    margin: 5% auto;
-    max-width: 100%;
+    margin: 5% 0px;
+    width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    padding: 0px;
+   
+   
    
 
 }
@@ -39,32 +42,36 @@
   }
   .gpt_logo{
    
-    width: 27%;
-    display: flex;
-    justify-content: center;
+    width: 18%;
+    margin-right: 2%;
+    /*display: flex;
+    justify-content: center;*/
   }
   .gpt_search{
-    width: 60%;
+    width: 74%;
+    margin: 0px;
+    padding: 0px;
     /* solid 1px rgb(55, 0, 51);*/
   }
   .search_filter{
     display: flex;
     width: 100%;
-    justify-content: end;
-   
+    justify-content: space-between;
     padding: 20px 0px 10px 0px;
+    margin-top: 2%;
   }
   .select_item{
     border: 1px solid black;
     color: var(--text-color);
-    width: 100px;
-    height: 40px;
+    width: 22%;
+    height: 45px;
     border-radius: 3px;
     text-align: right;
     font-weight: bold;
     font-size: 16px;
-    margin-left: 55px;
+    
+   
   }
   .icon_gpt{
-    width: 70%;
+    width: 100%;
   }

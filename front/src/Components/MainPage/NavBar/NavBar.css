@@ -1,8 +1,8 @@
 .navBar_container{
-    padding: 5% 3% 0% 10%;
-    max-width: 100%;
+    padding: 5% 0% 0% 0%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
    
     align-items: center;
 }
@@ -12,14 +12,15 @@
     
     border-radius: 6px;
     background-color:var(--primary-color);
-    width: 720px;
+    width: 70%;
 }
 
 
 .navBar_container .li_item1{
 margin: 2% auto;
-width: 130px;
+/*width: 130px;*/
 list-style-type: none;
+flex:auto
 
 }
 .navBar_container .li_item1 li {
@@ -39,11 +40,12 @@ list-style-type: none;
 
 }
 .navBar_container .dv_btn{
-   display:flex;
-   align-items: center;
+  
     height: 40px;
     box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
     border: 1px solid black;
     border-radius: 8px;
-    padding: 0.5% 4%;
+    padding:0.5% 1% ;
+    
+    text-align: center;
 }
