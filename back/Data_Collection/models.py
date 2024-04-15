@@ -23,6 +23,6 @@ class JuridicalText(models.Model):
     text_file = models.FileField(null = True) #path example : files/JTs/{rest of the path}
 
 class Adjutstement(models.Model):
-    adjusted_num = models.ForeignKey(JuridicalText, on_delete=models.CASCADE, related_name='ajusted_texts')
-    adjusting_num = models.ForeignKey(JuridicalText, on_delete=models.CASCADE, related_name='ajusting_texts')
+    adjusted_num = models.CharField(max_length=100)
+    adjusting_num = models.CharField(max_length=100)
     adjustment_type = models.CharField(max_length=100)

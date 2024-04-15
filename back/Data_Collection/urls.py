@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = [
     re_path('init_scrap_jt', views.initial_jt_filling),
+    re_path('ocr', views.ocrTest),
 ]
