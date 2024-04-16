@@ -28,6 +28,7 @@ import ProtectedRoute from './Context/ProtectedRoute';
 import ProfileAdmin from './Components/Admin/ProfileAdmin/ProfileAdmin';
 import GptPage from './Components/GptPage/GptPage';
 import Ressource from './Components/Ressource/Ressource';
+import SearchResult from './Components/Search/SearchResult/SearchResult';
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
         <Route path="/LawDetails/:id" element={<LawDetails/>} />
         <Route path="/gptpage" element={<GptPage/>} />
         <Route path="/ressource" element={<Ressource/>} />
+        <Route path="/searchresult" element={<SearchResult/>} />
 
 
         <Route path="/accountmanagment" element={<AccountManag/>} />

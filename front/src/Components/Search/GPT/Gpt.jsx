@@ -26,6 +26,7 @@ function Gpt() {
       // L'utilisateur a un abonnement, vous pouvez effectuer la recherche normalement
       console.log('Utilisateur a un abonnement. Effectuer la recherche...');
       console.log(hasSubscription)
+      navigate('/searchresult');
   } else {
       // L'utilisateur n'a pas d'abonnement, redirigez-le vers la page de paiement
       console.log('Utilisateur n\'a pas d\'abonnement. Redirection vers la page de paiement...');
