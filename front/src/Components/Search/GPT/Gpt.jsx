@@ -1,7 +1,8 @@
-import React , { useState }from 'react'
+import React , { useContext, useState }from 'react'
 import './Gpt.css'
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../Context/LogoProvider';
 
 function Gpt() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -9,10 +10,28 @@ function Gpt() {
   const [source, setSource] = useState('');
   const [date, setDate] = useState('');
   const [fileType, setFileType] = useState('');
+  const navigate = useNavigate(); 
+
+
+   // État pour indiquer si l'utilisateur a un abonnement
+   const { hasSubscription, setHasSubscription } = useContext(AuthContext);
+   //const [hasSubscription, setHasSubscription] = useState(false);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log('Recherche soumise avec la requête :', searchQuery);
+
+     // Vérifier si l'utilisateur a un abonnement
+     if (hasSubscription) {
+      // L'utilisateur a un abonnement, vous pouvez effectuer la recherche normalement
+      console.log('Utilisateur a un abonnement. Effectuer la recherche...');
+      console.log(hasSubscription)
+  } else {
+      // L'utilisateur n'a pas d'abonnement, redirigez-le vers la page de paiement
+      console.log('Utilisateur n\'a pas d\'abonnement. Redirection vers la page de paiement...');
+      navigate('/subscrib') // Redirection vers la page de paiement
+      console.log(hasSubscription)
+  }
   };
 
   const handleInputChange = (e) => {

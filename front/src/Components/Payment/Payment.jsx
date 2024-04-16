@@ -1,16 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import "./Payment.css"
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams,useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
 import { Link } from 'react-router-dom';
 import TitleBar from '../TitleBar/TitleBar';
+import { AuthContext } from '../../Context/LogoProvider';
 
 function Payment() {
   const [activeButton, setActiveButton] = useState(0);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [errors, setErrors] = useState({});
   const { id } = useParams();
+  const navigate = useNavigate();
+  
+   const { hasSubscription, setHasSubscription } = useContext(AuthContext);
+  
     const [formData, setFormData] = useState({
         NumCart: '',
           username: '',
@@ -18,7 +23,7 @@ function Payment() {
           DateExp: ''
       });
     
-     
+      //const [hasSubscription, setHasSubscription] = useState(false);
     const handleButtonClick = (index) => {
       setActiveButton(index); 
       // Mettre à jour le mode de paiement sélectionné en fonction de l'index
@@ -58,6 +63,8 @@ function Payment() {
     if (!formData.DateExp || formData.DateExp.length !== 5 || !isValidDate(formData.DateExp)) {
       errors.DateExp = 'Format de date invalide (MM/YY)';
     }
+    
+   
 
     /*if (Object.keys(errors).length === 0) {
       // Envoi des données au serveur si aucune erreur de validation
@@ -72,6 +79,8 @@ function Payment() {
         });*/
           console.log(formData);
           setPaymentSuccess(true);
+          setHasSubscription(true);
+          console.log(hasSubscription);
         // Reset form 
         setFormData({
           NumCart: '',
@@ -102,7 +111,7 @@ function Payment() {
     <div className='payment-form'>
     
     <form onSubmit={handleSubmit} className='payment_sub'>
-    {paymentSuccess && <p>Le paiement a été effectué avec succès !</p>}
+    {paymentSuccess &&  <p>Le paiement a été effectué avec succès !</p>}
     <div className='payment-section1'>
     <h2>Details de l'abonnement sélectionné: {id}</h2>
       <div className='payment-group-col'>

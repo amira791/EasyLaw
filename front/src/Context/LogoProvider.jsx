@@ -6,6 +6,8 @@ const LogoProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [formData, setFormData] = useState({ nom: '' });
 
+  const [hasSubscription, setHasSubscription] = useState(false);
+
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
     setIsAuth(accessToken !== null);
@@ -31,7 +33,8 @@ const LogoProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth, formData, setFormData, updateFormData }}>
+    <AuthContext.Provider value={{ isAuth, setIsAuth, formData, setFormData, updateFormData,
+    hasSubscription, setHasSubscription }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import './Profile.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import CampaignIcon from '@mui/icons-material/Campaign';
@@ -10,13 +10,19 @@ import { AuthContext } from '../../Context/LogoProvider';
 import axios from 'axios';
 
 function Interest() {
+    const [initials, setInitials] = useState('');
     const {  formData} = useContext(AuthContext);
+    useEffect(() => {
+        const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
+        setInitials(nameInitials);
+      }, [formData.nom]);
+    
   return (
     <>
      <Logo/>
 <div className='profile_container'>
-    <div className='profile_name'>
-        <img alt='photo profile'/>
+<div className='profile_name'>
+    <div className="user-initials-circle"> {initials}</div>
         <h3>{formData.nom}</h3>
     </div>
     <div className='profile_content'>

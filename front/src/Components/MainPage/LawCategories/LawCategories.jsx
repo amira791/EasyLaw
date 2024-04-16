@@ -1,7 +1,7 @@
 import React from 'react'
 import './LawCategories.css'
 import Footer from '../../Footer/Footer'
-import Gpt from '../GPT/Gpt'
+import Gpt from '../../Search/GPT/Gpt'
 import Logo from '../../LOGO/Logo'
 import NavBar from '../NavBar/NavBar'
 
@@ -40,18 +40,20 @@ function LawCategories() {
                 <h3>الدستور الجزائري  </h3>
             </div>
             <div className='law_item'>
-           
-                <div ><img  className='law-icon'src="./images/algremovebgpreview.png"  /></div>
-                <h3>الجرائد الرسمية</h3>
+            <div ><img  className='law-icon'src="./images/echelledejustice.png"  /></div>
+                <h3>الاجتهادات القضائية</h3>
             </div>
+           
             <div className='law_item'>
             <div ><img  className='law-icon'src="./images/remarquer.png"  /></div>
                 <h3>القوانين  </h3>
             </div>
             <div className='law_item'>
-            <div ><img  className='law-icon'src="./images/echelledejustice.png"  /></div>
-                <h3>الاجتهادات القضائية</h3>
-            </div>
+           
+           <div ><img  className='law-icon'src="./images/algremovebgpreview.png"  /></div>
+           <h3>الجرائد الرسمية</h3>
+       </div>
+            
            
             
         </div>

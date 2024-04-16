@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import './Profile.css'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -15,6 +15,7 @@ function ChangePwd() {
   const [pwd, setPwd] = useState({ oldPassword: '', newPassword: '', confirmPassword: '' });
   const [passwordError, setPasswordError] = useState('');
   const [passwordType, setPasswordType] = useState('password');
+  const [initials, setInitials] = useState('');
 
   const togglePassword = () => {
     setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
@@ -38,14 +39,18 @@ function ChangePwd() {
       setPasswordError('');
     }
   };
+  useEffect(() => {
+    const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
+    setInitials(nameInitials);
+  }, [formData.nom]);
   return (
     <>
       <Logo />
       <div className='profile_container'>
-        <div className='profile_name'>
-          <img alt='photo profile' />
-          <h3>{formData.nom}</h3>
-        </div>
+      <div className='profile_name'>
+    <div className="user-initials-circle"> {initials}</div>
+        <h3>{formData.nom}</h3>
+    </div>
         <div className='profile_content'>
           <form onSubmit={handleSubmit} className='profile_form'>
             <div className='col_dv'>
