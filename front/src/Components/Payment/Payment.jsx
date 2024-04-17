@@ -81,6 +81,7 @@ function Payment() {
           setPaymentSuccess(true);
           setHasSubscription(true);
           console.log(hasSubscription);
+          navigate('/sucesspayment');
         // Reset form 
         setFormData({
           NumCart: '',
@@ -89,6 +90,7 @@ function Payment() {
           DateExp: '',
           modePaiement: ''
         });
+
       //}else{
         setErrors(errors);
       //}

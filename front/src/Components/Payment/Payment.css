@@ -104,3 +104,36 @@
    
 }
   
+
+
+
+
+.success-payment-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  direction: rtl;
+}
+
+.success-payment-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.success-payment-details {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.success-payment-details p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.success-payment-details strong {
+  font-weight: bold;
+}

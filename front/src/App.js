@@ -29,6 +29,7 @@ import ProfileAdmin from './Components/Admin/ProfileAdmin/ProfileAdmin';
 import GptPage from './Components/GptPage/GptPage';
 import Ressource from './Components/Ressource/Ressource';
 import SearchResult from './Components/Search/SearchResult/SearchResult';
+import SucessPayment from './Components/Payment/SucessPayment';
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Route path="/subscrib" element={<Subscrib/>} />
         <Route path="/validation" element={<Validation/>} />
         <Route path="/payment/:id" element={<Payment/>} />
+        <Route path="/sucesspayment" element={<SucessPayment/>} />
         <Route path="/law" element={<Law/>} />
         <Route path="/LawDetails/:id" element={<LawDetails/>} />
         <Route path="/gptpage" element={<GptPage/>} />

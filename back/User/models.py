@@ -1,7 +1,5 @@
-from django.contrib.auth.models import AbstractUser, Permission
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 
 class CustomUser(AbstractUser):
@@ -29,44 +27,3 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
     
-
-
-# # Custom permissions
-# class ClientPermissions(models.Model):
-#     class Meta:
-#         managed = False  # This model is not managed by Django's migrations
-
-#     @staticmethod
-#     def get_permissions():
-#         return ['view_client_data', 'edit_client_data']
-
-# class ModeratorPermissions(models.Model):
-#     class Meta:
-#         managed = False  # This model is not managed by Django's migrations
-
-#     @staticmethod
-#     def get_permissions():
-#         return ['moderate_content', 'manage_users']
-
-# # Signal to assign permissions to users based on their role
-# @receiver(post_save, sender=CustomUser)
-# def assign_permissions(sender, instance, created, **kwargs):
-#     if created:
-#         if instance.role == 'client':
-#             permissions = ClientPermissions.get_permissions()
-#         elif instance.role == 'moderateur':
-#             permissions = ModeratorPermissions.get_permissions()
-#         else:
-#             permissions = []
-
-#         for permission_code in permissions:
-#             permission = Permission.objects.get(codename=permission_code)
-#             instance.user_permissions.add(permission)
-
-# class Client(CustomUser):
-    
-#     pass
-
-# class Moderateur(CustomUser):
-   
-#     pass
