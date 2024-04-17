@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import './Profile.css'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -6,13 +6,16 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import Logo from '../LOGO/Logo';
 import Footer from '../Footer/Footer';
 import NavBarProfile from './NavBarProfile';
-import { AuthContext } from '../Context/LogoProvider';
+import { AuthContext } from '../../Context/LogoProvider';
 import axios from 'axios';
+import useUser from '../../Hooks/useUser';
 function ChangePwd() {
+  const { changePassword } = useUser();
   const {  formData} = useContext(AuthContext);
   const [pwd, setPwd] = useState({ oldPassword: '', newPassword: '', confirmPassword: '' });
   const [passwordError, setPasswordError] = useState('');
   const [passwordType, setPasswordType] = useState('password');
+  const [initials, setInitials] = useState('');
 
   const togglePassword = () => {
     setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
@@ -31,33 +34,23 @@ function ChangePwd() {
     } else if (pwd.newPassword !== pwd.confirmPassword) {
       setPasswordError('كلمتا السر الجديدتان غير متطابقتين');
     } else {
-      try {
-        const response = await axios.post('http://localhost:8000/user/change_password', {
-          old_password: pwd.oldPassword,
-          new_password: pwd.newPassword
-        }, {
-          headers: {
-            'Authorization': `Token ${localStorage.getItem('access_token')}`
-          }
-        });
-        console.log(response.data.message);
-        setPwd({ oldPassword: '', newPassword: '', confirmPassword: '' });
-        setPasswordError('');
-      } catch (error) {
-        console.error(error);
-        setPasswordError('خطأ في تغيير كلمة السر');
-      }
+      await changePassword(pwd.oldPassword, pwd.newPassword); // Utilisez la fonction changePassword pour modifier le mot de passe
+      setPwd({ oldPassword: '', newPassword: '', confirmPassword: '' });
+      setPasswordError('');
     }
   };
-
+  useEffect(() => {
+    const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
+    setInitials(nameInitials);
+  }, [formData.nom]);
   return (
     <>
       <Logo />
       <div className='profile_container'>
-        <div className='profile_name'>
-          <img alt='photo profile' />
-          <h3>{formData.nom}</h3>
-        </div>
+      <div className='profile_name'>
+    <div className="user-initials-circle"> {initials}</div>
+        <h3>{formData.nom}</h3>
+    </div>
         <div className='profile_content'>
           <form onSubmit={handleSubmit} className='profile_form'>
             <div className='col_dv'>

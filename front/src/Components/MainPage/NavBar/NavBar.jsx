@@ -8,7 +8,7 @@ function NavBar() {
       <div className='dv_btn'>
         <Link to="/subscrib" className='navbar_btn'>! اشترك معنا الان</Link>
       </div>
-      <div >
+      
         <ul className='NavBar_item'>
           <div className='li_item1'><Link to="/about-us"><li>حول المنصة </li></Link></div>
           <div className='li_item1'><Link to="/subscrib"><li>عروضنا</li></Link></div>
@@ -16,7 +16,7 @@ function NavBar() {
           <div className='li_item1'><Link to="/latest-news"><li>اخر المستجدات</li></Link></div>
           <div className='li_item1'><Link to="/home"><li>الرئيسية</li></Link></div>
         </ul>
-      </div>
+     
     </div>
   );
 }

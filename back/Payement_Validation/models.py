@@ -49,3 +49,11 @@ class Abonnement(models.Model):
         return self.user.username + " on " + self.service.nom
 
 
+
+class DomainInterets(models.Model):
+    id = models.IntegerField(primary_key=True)
+    nom = models.CharField(max_length=30)
+    users = models.ManyToManyField(User)
+
+    def __str__(self):
+        return self.nom

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Law.css';
 import Logo from '../LOGO/Logo';
 import NavBar from '../MainPage/NavBar/NavBar';
-import Gpt from '../MainPage/GPT/Gpt';
+import Gpt from '../Search/GPT/Gpt';
 import Footer from '../Footer/Footer';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';

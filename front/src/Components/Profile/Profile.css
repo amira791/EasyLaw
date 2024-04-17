@@ -44,16 +44,16 @@ padding: 0%;
 }
 .profile_container .profile_form{
     
-    margin: 4% auto 14% auto;
+    margin: 4% 0% 14% 0%;
     padding: 3%;
-    width: 70%; 
+    width: 90%; 
    
     
 }
 .profile_container .lign_dv{
     display: flex;
     justify-content: space-between;
-  
+  width: 100%;
     margin-bottom: 5%;
 }
 
@@ -64,7 +64,7 @@ padding: 0%;
     width: 48%;
 }
 .profile_container .inpt_lign{
-    width:400px; 
+    width:91%; 
     padding:3%; 
     border: 1px solid #ccc;
     border-radius: 5px; 
@@ -78,7 +78,7 @@ padding: 0%;
 }
 
 .profile_container .profile_info_input {
-    width: 97%; 
+    width: 95.5%; 
     padding: 1.5%; 
     border: 1px solid #ccc;
     border-radius: 5px; 
@@ -90,7 +90,7 @@ padding: 0%;
 }
 
 .profile_container .profile_info select {
-    width: 100%; 
+    width: 99%; 
     padding: 1.5%; 
     border: 1px solid #ccc; 
     border-radius: 5px; 

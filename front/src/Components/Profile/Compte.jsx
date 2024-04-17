@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./Profile.css";
+import  useUser  from '../../Hooks/useUser';
 
 function Compte({ formData = {}, onSubmit }) {
+  const { editUserInfo } = useUser();// Utilisez la fonction editUserInfo du hook useUser
   const [editMode, setEditMode] = useState(false);
   const [editedFormData, setEditedFormData] = useState(formData);
 
@@ -17,13 +19,7 @@ function Compte({ formData = {}, onSubmit }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const access_token = localStorage.getItem('access_token');
-      await axios.put('http://localhost:8000/user/edit_user_info', editedFormData, {
-        headers: {
-          Authorization: `Token ${access_token}`
-        }
-      });
-      alert('Les informations ont été mises à jour avec succès !');
+      await editUserInfo(editedFormData); // Utilisez la fonction editUserInfo pour mettre à jour les informations de l'utilisateur
       setEditMode(false);
     } catch (error) {
       console.error('Une erreur s\'est produite lors de la mise à jour des informations de profil :', error);
@@ -36,6 +32,7 @@ function Compte({ formData = {}, onSubmit }) {
 
   return (
     <>
+    <div style={{width:'100%'}}>
       <form className='profile_form' onSubmit={handleSubmit}>
         <div className='lign_dv'>
           <div className='lign_dv_info'>
@@ -139,6 +136,7 @@ function Compte({ formData = {}, onSubmit }) {
       <button onClick={() => setEditMode(!editMode)}>
         {editMode ? 'Annuler' : 'Modifier'}
       </button>
+      </div>
     </>
   );
 }

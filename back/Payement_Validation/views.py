@@ -19,7 +19,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 
-def verifyPlans():
+def verifyPlans(services):
     pass
 
 
@@ -29,11 +29,12 @@ def verifyPlans():
 @api_view(['Get'])
 def getServices(request):
 
-    service = Service.objects.all()
-
+    services = Service.objects.all()
     
-    serializer = ServiceSerializer(service, many=True)
+    serializer = ServiceSerializer(services, many=True)
     serialized_data = serializer.data
+
+    verifyPlans(serialized_data)
 
     res = {"all" : serialized_data, "current" : None}
 
@@ -81,11 +82,15 @@ def subscribe(request):
     method = request.data.get('paymentMethod')
 
 
-    subs = Abonnement.objects.filter(user=userId, statut="active" , service__priceId = priceId)
+    subs = Abonnement.objects.filter(user=userId, statut="active")
     if(len(subs)):
-        return Response({"message" : "this user is already subscribed"}, status=status.HTTP_409_CONFLICT)
-
-    
+        for sub in subs:
+            if(sub.service.priceId == priceId):
+                return Response({"message" : "this user is already subscribed"}, status=status.HTTP_409_CONFLICT)
+                break
+            else:
+                sub.statut="upgraded"
+                sub.save()
 
     #Execution
     try:

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState,useContext } from 'react'
 import "./Payment.css"
-import { useLocation, useParams } from 'react-router-dom';
+import { Navigate, useParams,useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,8 @@ import TitleBar from '../TitleBar/TitleBar';
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
+
+import { AuthContext } from '../../Context/LogoProvider';
 
 function Payment(props) {
 

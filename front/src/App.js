@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SignUp from './Components/Auth/SignUp';
 import SignIn from './Components/Auth/SignIn';
-import Footer from './Components/Footer/Footer';
+
 import LawCategories from './Components/MainPage/LawCategories/LawCategories';
-import Gpt from './Components/MainPage/GPT/Gpt';
+
 import Profile from './Components/Profile/Profile';
 import Subscrib from './Components/Subscrib/Subscrib';
 import Validation from './Components/Auth/Validation';
@@ -23,9 +23,12 @@ import Scraping from './Components/Admin/Scraping/Scraping';
 import ScrapingResult from './Components/Admin/Scraping/ScrapingResult';
 import Main from './Components/Admin/Moderateur/Main';
 import AdminMain from './Components/Admin/AdminMain/AdminMain';
-import LogoProvider from './Components/Context/LogoProvider';
-import ProtectedRoute from './Components/Context/ProtectedRoute';
+import LogoProvider from './Context/LogoProvider';
+import ProtectedRoute from './Context/ProtectedRoute';
 import ProfileAdmin from './Components/Admin/ProfileAdmin/ProfileAdmin';
+import GptPage from './Components/GptPage/GptPage';
+import Ressource from './Components/Ressource/Ressource';
+import SearchResult from './Components/Search/SearchResult/SearchResult';
 
 import { loadStripe } from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
@@ -56,6 +59,9 @@ function App() {
         } />
         <Route path="/law" element={<Law/>} />
         <Route path="/LawDetails/:id" element={<LawDetails/>} />
+        <Route path="/gptpage" element={<GptPage/>} />
+        <Route path="/ressource" element={<Ressource/>} />
+        <Route path="/searchresult" element={<SearchResult/>} />
 
 
         <Route path="/accountmanagment" element={<AccountManag/>} />
