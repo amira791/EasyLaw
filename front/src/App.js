@@ -27,8 +27,13 @@ import LogoProvider from './Components/Context/LogoProvider';
 import ProtectedRoute from './Components/Context/ProtectedRoute';
 import ProfileAdmin from './Components/Admin/ProfileAdmin/ProfileAdmin';
 
+import { loadStripe } from '@stripe/stripe-js'
+import {Elements} from '@stripe/react-stripe-js'
 
 function App() {
+
+  const stripe = loadStripe("pk_test_51OygXvLDzFR9kcMzeb7UST3IEa8SXi7CD3pXxIcTSQFunxMWcnaKqIJiCHZWO7fLFvnpgauFm9XArtMtZ9xjBJGl00FHM5TiPB");
+
   return (
     <div className="App">
     <LogoProvider>
@@ -42,9 +47,13 @@ function App() {
         <Route path="/compte" element={<Compte/>} />
         <Route path="/interest" element={<Interest/>} />
         <Route path="/services" element={<Services/>} />
-        <Route path="/subscrib" element={<Subscrib/>} />
+        <Route path="/subscrib" element={ <Subscrib /> } />
         <Route path="/validation" element={<Validation/>} />
-        <Route path="/payment/:id" element={<Payment/>} />
+        <Route path="/payment/:id" element={
+          <Elements stripe = {stripe}>
+            <Payment/>
+          </Elements>
+        } />
         <Route path="/law" element={<Law/>} />
         <Route path="/LawDetails/:id" element={<LawDetails/>} />
 

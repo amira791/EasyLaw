@@ -27,6 +27,12 @@
     flex-direction: column;
     align-items: center;
 }
+
+.offre.actif
+{
+    border-width: 5px;
+}
+
 .sub_container .offre h3{
     color: #C5AD96;
 }
@@ -43,7 +49,19 @@
     justify-content: center;
     font-size: 16px;
     cursor: pointer;
+    text-decoration: none;
 }
+
+
+.payment-bottom
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
 .sub_container .list_offers{
     text-align:end;
 }

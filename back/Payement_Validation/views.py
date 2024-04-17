@@ -35,7 +35,15 @@ def getServices(request):
     serializer = ServiceSerializer(service, many=True)
     serialized_data = serializer.data
 
-    return Response(serialized_data, status=status.HTTP_200_OK)
+    res = {"all" : serialized_data, "current" : None}
+
+    if request.user.is_authenticated:
+        userId = request.user.id
+        current = Abonnement.objects.filter(user = userId, statut = "active")
+        if(len(current)):
+            res["current"] =  current[0].service.id
+
+    return Response(res, status=status.HTTP_200_OK)
 
 
 
@@ -50,7 +58,7 @@ def addUser(request):
     try:
         existing_customer = stripe.Customer.list(email=email, limit=1)
         if existing_customer.data:
-            return Response({'stripe_customer_id': existing_customer.data[0].id}, status=status.HTTP_200_OK)
+            return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
         else:
 
             stripe_customer = stripe.Customer.create(
@@ -59,7 +67,7 @@ def addUser(request):
             )
             return Response({'stripe_customer_id': stripe_customer.id}, status=status.HTTP_201_CREATED)
     except stripe.error.StripeError as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -67,14 +75,25 @@ def addUser(request):
 @permission_classes([IsAuthenticated])
 def subscribe(request):
     customerId = request.user.stripeCustomerId
+    userId = request.user.id
     priceId = request.data.get('priceId')
+    token = request.data.get('token')
+    method = request.data.get('paymentMethod')
 
+
+    subs = Abonnement.objects.filter(user=userId, statut="active" , service__priceId = priceId)
+    if(len(subs)):
+        return Response({"message" : "this user is already subscribed"}, status=status.HTTP_409_CONFLICT)
+
+    
+
+    #Execution
     try:
 
         paymentMethod = stripe.PaymentMethod.create(
             type="card",
             card= {
-                "token": "tok_mastercard"
+                "token": token['id']
                 }
         )
 
@@ -94,13 +113,15 @@ def subscribe(request):
         )
     
         invoice = stripe.Invoice.retrieve(stripeSubscription.latest_invoice)
+
+        charge = stripe.Charge.retrieve(invoice.charge)
          
         subscription = {
             "id": stripeSubscription.id,
             "dateDebut": datetime.now().strftime('%Y-%m-%d'),
             "dateFin": datetime.fromtimestamp(stripeSubscription.current_period_end).strftime('%Y-%m-%d'),
             "statut": stripeSubscription.status,
-            "user": 2,
+            "user": userId,
             "service": stripeSubscription.plan.product,
             "facture": {
                 "id": invoice.id,
@@ -108,6 +129,8 @@ def subscribe(request):
                 "montant": invoice.amount_due/100,
                 "montant_payé" : invoice.amount_paid/100,
                 "montant_restant" : invoice.amount_remaining/100,
+                "methode_de_payment" : method,
+                "pdf": invoice.invoice_pdf,
             }
          }
 
@@ -116,12 +139,12 @@ def subscribe(request):
         serializer = AbonnementSerializer(data=subscription)
         if serializer.is_valid():
             serializer.save()
-            return Response({'subscription': subscription}, status=status.HTTP_201_CREATED)
+            return Response(subscription, status=status.HTTP_201_CREATED)
         else :
-            return Response({'serializer_error': serializer.errors, 'valid':serializer.is_valid()}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': str(serializer.errors), 'valid':serializer.is_valid()}, status=status.HTTP_400_BAD_REQUEST)
 
     except stripe.error.StripeError as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -130,11 +153,10 @@ def subscribe(request):
 def getsubscription(request):
     userId = request.user.id
 
-    abonnement = Abonnement.objects.filter(user = 2)
+    abonnement = Abonnement.objects.filter(user = userId, statut = "active")
 
     serializer = AbonnementFullSerializer(abonnement, many=True)
     serialized_data = serializer.data
-
 
     return Response(serialized_data, status=status.HTTP_200_OK)
 
@@ -145,9 +167,7 @@ def getsubscription(request):
 def getinvoices(request):
     userId = request.user.id
 
-    abonnement = Abonnement.objects.filter(user = 2)
-
-    
+    abonnement = Abonnement.objects.filter(user = userId)
 
     factures = [abonnement_instance.facture for abonnement_instance in abonnement]
     
@@ -155,4 +175,5 @@ def getinvoices(request):
     serialized_data = serializer.data
 
     return Response(serialized_data, status=status.HTTP_200_OK)
+
 

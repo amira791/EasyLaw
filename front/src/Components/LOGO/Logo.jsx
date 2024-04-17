@@ -18,7 +18,6 @@ function Logo() {
     const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
     setInitials(nameInitials);
   }, [isAuth, formData.nom]);
-  console.log(formData);
   return (
     <>
     <div className='logo_section'>

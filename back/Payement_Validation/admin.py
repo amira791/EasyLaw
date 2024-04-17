@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Abonnement)
 admin.site.register(Facture)
 admin.site.register(Service)
+admin.site.register(Access)
