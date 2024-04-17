@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'User',
     'corsheaders',
-    'rest_framework_simplejwt',
+    
 ]
 
 AUTH_USER_MODEL='User.CustomUser'
