@@ -7,8 +7,13 @@ urlpatterns = [
     re_path('init_scrap_pdfs', views.process_files_generator_view),
     re_path('init_dwnl_pdfs', views.process_files_generator_download),
     re_path('fr', views.process_files_generator_downloadFr),
-    re_path('showJresult', views.show_results
-),
+    re_path('showJresult', views.show_results),
+    re_path('ocr1993', views.ocrTestbefore1993),
+
+    re_path('ocr', views.ocrTest),
+
+
+    
 
 
 

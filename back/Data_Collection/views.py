@@ -9,6 +9,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import OfficialJournal  # Import the OfficialJournal model
 import os
+from django.http import HttpResponse
+from rest_framework import status
+from django.http import JsonResponse
+import re
+import PyPDF2
+from PyPDF2 import PdfReader
+import json 
 
 
 import time
@@ -17,6 +24,317 @@ from .models import JuridicalText, Adjutstement, OfficialJournal
 import re
 import requests
 import os
+from pdf2image import convert_from_path
+import tempfile
+import pytesseract
+from pytesseract import image_to_string
+
+
+
+
+patterns = [
+
+    
+    r'^(?:أمر.*?|أوامر|امر.*?|اوامر)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+
+
+    r'^(?:منشور.*?|مناشير)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+
+
+    r'^(?:منشور.*?\sوزاري.*?\sمشترك.*?|مناشير وزارية مشتركة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:لائحة.*?|لوائح|لائحتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مداولة.*?|مداولات|مداولتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+
+    #r'^(مداولة.*?\sم-أ-للدولة.*?)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+
+    r'^(?:مرسوم.*?\sتنفيذي.*?|مراسيم تنفيذية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مرسوم.*?\sتشريعي.*?|مراسيم تشريعية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مرسوم.*?\sرئاسي.*?|مراسيم رئاسية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مقرر.*?|مقررات)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مقرر.*?\sوزاري.*?\sمشترك.*?|مقررات وزارية مشتركة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:إعلان.*?|اعلان.*?)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:نظام.*?|أنظمة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:اتفاقية.*?|إتفاقيات|إتفاقيتان|إتفاقية|اتفاقيتان|اتفاقيات)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تصريح.*?|تصاريح)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تقرير.*?|تقارير)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تعليمة.*?|تعليمات|تعليمتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تعليمة.*?\sوزارية.*?\sمشتركة.*?|تعليمات وزارية مشتركة|تعليمتان وزاريتان مشتركتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:جدول.*?|جداول)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:رأي.*?|آراء)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قانون.*?|قوانين)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قانون.*?\sعضوي.*?|قوانين عضوية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قرار.*?|قرارات)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قرار.*?\sولائي.*?|قرارات ولائية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قرار.*?\sوزاري.*?\sمشترك.*?|قرارات وزارية مشتركة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)'
+]
+
+
+@api_view(['POST'])
+def ocrTest(request):
+    # Assuming 'year' and 'type_text' are passed in the POST request data
+    year = '2021'
+    #type_text = 'مرسوم تنفيذي'
+
+
+    # Construct the base directory for PDFs
+    base_directory = f'F:\\project 2cs\\EasyLaw\\back\\jaraid'
+
+    # Fetch JuridicalText objects based on the provided criteria
+    juridical_texts = JuridicalText.objects.filter(
+        official_journal__year=year,
+    )
+
+    # Iterate over the filtered JuridicalText objects
+    for jt in juridical_texts:
+        with open(rf'F:\project 2cs\EasyLaw\back\text_files\{jt.id_text}.txt', 'w', encoding='utf-8') as f:
+
+            # Construct the PDF file path for each JuridicalText
+            pdf_file_path = os.path.join(base_directory, year, f'A{year}{jt.official_journal.number:03}.pdf')
+            print(f'Processing PDF File: {pdf_file_path } , {jt.official_journal_page}')
+
+            # Extract text from the specific page of the PDF file
+            
+            extracted_text = extract_text_from_pdf_file(pdf_file_path, jt.official_journal_page)
+
+            nb_matches = 0 
+            for pt in patterns : 
+                # Define a regular expression pattern to match the desired phrases
+                pattern = re.compile(pt, re.MULTILINE)
+                # Find all matches in the text
+                matches = re.findall(pattern, extracted_text)
+
+                if len(matches) > 0 :
+                    nb_matches += len(matches)
+
+            f.write(extracted_text)
+
+            if nb_matches <= 1:
+                page = jt.official_journal_page
+                stop = False
+                while not stop:
+                    page = page + 1
+                    extracted_text = extract_text_from_pdf_file(pdf_file_path, page)
+                    for pt in patterns:
+                        # Define a regular expression pattern to match the desired phrases
+                        pattern = re.compile(pt, re.MULTILINE)
+                        # Find all matches in the text
+                        matches = re.findall(pattern, extracted_text)
+
+                        if len(matches) > 0:
+                            stop = True
+                            match = matches[0]
+                            print(match)
+                            # Get the index of the first occurrence of the match in the extracted_text
+                            match_index = extracted_text.find(match)
+                            
+                            if match_index != -1:
+                                # Remove all text after the match
+                                extracted_text = extracted_text[:match_index]
+                            f.write(extracted_text)
+
+                            break
+
+                    if not stop :
+                        f.write(extracted_text)
+
+                        pdf_reader = PdfReader(pdf_file_path)
+        
+                        # Get the number of pages in the PDF
+                        page_count = len(pdf_reader.pages)
+
+                        if page == page_count :
+                            stop = True
+
+            # print(extracted_text)
+            print("=" * 50)  # Separator between texts
+
+    # Return a success response
+    return HttpResponse({"msg" : "successfuly inserted"}, status = status.HTTP_201_CREATED)
+
+
+
+
+
+
+
+    
+   
+        
+    # # Convertir le PDF en une liste d'images
+    # images = convert_from_path(tmp_file_path)
+    # extracted_text = ""
+    # # Parcourir chaque image et extraire le texte
+    # for img in images:
+    #     text = image_to_string(img, lang='ara')  # 'ara' pour l'arabe
+    #     extracted_text += text + '\n'  # Ajouter le texte extrait avec un saut de ligne
+        
+    # # Écrire le texte extrait dans le fichier de sortie
+    # with open('extracted_text.txt', 'w', encoding='utf-8') as f:
+    #     f.write(extracted_text)
+        
+    #     # Supprimer le fichier temporaire
+    #     # Notez que le fichier sera automatiquement supprimé lorsque l'objet NamedTemporaryFile sera fermé
+    # print(f"Texte extrait et enregistré dans : {'extracted_text.txt'}")
+
+
+
+
+
+
+
+
+
+@api_view(['POST'])
+def ocrTestbefore1993(request):
+    # Assuming 'year' and 'type_text' are passed in the POST request data
+    year = '1982'
+    #type_text = 'مرسوم تنفيذي'
+
+
+    # Construct the base directory for PDFs
+    base_directory = f'F:\\project 2cs\\EasyLaw\\back\\jaraid'
+
+    # Fetch JuridicalText objects based on the provided criteria
+    juridical_texts = JuridicalText.objects.filter(
+        official_journal__year=year,
+    )
+
+    # Iterate over the filtered JuridicalText objects
+    for jt in juridical_texts:
+        with open(rf'F:\project 2cs\EasyLaw\back\text_files\{jt.id_text}.txt', 'w', encoding='utf-8') as f:
+
+            # Construct the PDF file path for each JuridicalText
+            pdf_file_path = os.path.join(base_directory, year, f'A{year}{jt.official_journal.number:03}.pdf')
+            # Example usage
+            json_file_path = r'F:\project 2cs\projet2\EasyLaw\back\sheetsresult.json'
+            #journal_number = 9  # Example journal number
+            #page_initial = 468  # Example initial page number
+            print(f'year: {year } ,  {jt.official_journal.number}  , {jt.official_journal_page }')
+
+            real_page_number = get_real_page_number(json_file_path, year, jt.official_journal.number, jt.official_journal_page)
+           
+            #if real_page_number is not None:
+             #   print(f'Real Page Number: {real_page_number}')
+
+            
+            # page wanted in the json file , 
+            print(f'Processing PDF File: {pdf_file_path } , {real_page_number}')
+
+            # Extract text from the specific page of the PDF file
+            
+            extracted_text = extract_text_from_pdf_file(pdf_file_path, real_page_number)
+
+            nb_matches = 0 
+            for pt in patterns : 
+                # Define a regular expression pattern to match the desired phrases
+                pattern = re.compile(pt, re.MULTILINE)
+                # Find all matches in the text
+                matches = re.findall(pattern, extracted_text)
+
+                if len(matches) > 0 :
+                    nb_matches += len(matches)
+
+            f.write(extracted_text)
+
+            if nb_matches <= 1:
+                page = real_page_number
+                stop = False
+                while not stop:
+                    page = page + 1
+                    extracted_text = extract_text_from_pdf_file(pdf_file_path, page)
+                    for pt in patterns:
+                        # Define a regular expression pattern to match the desired phrases
+                        pattern = re.compile(pt, re.MULTILINE)
+                        # Find all matches in the text
+                        matches = re.findall(pattern, extracted_text)
+
+                        if len(matches) > 0:
+                            stop = True
+                            match = matches[0]
+                            print(match)
+                            # Get the index of the first occurrence of the match in the extracted_text
+                            match_index = extracted_text.find(match)
+                            
+                            if match_index != -1:
+                                # Remove all text after the match
+                                extracted_text = extracted_text[:match_index]
+                            f.write(extracted_text)
+
+                            break
+
+                    if not stop :
+                        f.write(extracted_text)
+
+                        pdf_reader = PdfReader(pdf_file_path)
+        
+                        # Get the number of pages in the PDF
+                        page_count = len(pdf_reader.pages)
+
+                        if page == page_count :
+                            stop = True
+
+            # print(extracted_text)
+            print("=" * 50)  # Separator between texts
+
+    # Return a success response
+    return HttpResponse({"msg" : "successfuly inserted"}, status = status.HTTP_201_CREATED)
+
+
+def extract_text_from_pdf_file(pdf_file_path, page_number):
+    # Check if the PDF file exists
+    if os.path.isfile(pdf_file_path):
+        # Convert the specific page of the PDF to an image
+        images = convert_from_path(pdf_file_path, first_page=page_number, last_page=page_number)
+
+        if images:
+            # Perform OCR on the extracted page using pytesseract
+            extracted_text = pytesseract.image_to_string(images[0], lang='ara')  # OCR for Arabic text
+
+            return extracted_text
+        else:
+            print(f"Failed to extract page {page_number} from PDF.")
+            return None
+    else:
+        print(f"PDF file not found at {pdf_file_path}")
+        return None
+
+
+
+
+
+
+def get_real_page_number(json_file, year, journal_number, page_initial):
+    with open(json_file, 'r') as file:
+        data = json.load(file)
+    
+    year_key = str(year)  # Convert year to string for dictionary lookup
+    if year_key in data:
+        for sublist in data[year_key]:  # Iterate over each sublist within the year
+            for entry in sublist:  # Iterate over each entry within the sublist
+                # Convert float values to integers for comparison
+                file_name = str(entry['file_name'])
+                print(f'{file_name}')
+                p_b = int(entry['p_b'])
+                p_e = int(entry['p_e'])
+                if file_name.startswith(f'A{year}') and p_b <= page_initial + 1 <= p_e:
+                    real_page = page_initial - entry['p_b'] +1
+                    return int(real_page)
+    
+    return None  # Return None if the entry is not found
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @api_view(['POST'])
@@ -43,6 +361,20 @@ def initial_jt_filling(request):
 
     # Wait for the page to load
     wait = WebDriverWait(driver, 10)
+    wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")))
+
+    page_setting = driver.find_element(By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")
+    page_setting.click()
+
+    wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='b1']/a")))
+
+    input = driver.find_element(By.XPATH, "/html/body/div/form/table[1]/tbody/tr[7]/td[2]/input")
+    input.clear()
+    input.send_keys('100')
+
+    send = driver.find_element(By.XPATH, "//*[@id='b1']/a")
+    send.click()
+
     wait.until(EC.presence_of_element_located((By.NAME, "znat")))
 
     # Find the select element
@@ -66,7 +398,8 @@ def initial_jt_filling(request):
         'نوفمبر': '11',
         'ديسمبر': '12'
     }
-    for i in range(1, len(select_element.options)):
+    # len(select_element.options)
+    for i in range(3, 4):
         option_text = select_element.options[i].text
         select_element.options[i].click()  # Select the option
         # Click on the search button
@@ -116,6 +449,7 @@ def initial_jt_filling(request):
                         day_month_year = f"{year}-{numerical_month}-{day}"
                         info_dict["signature_date"] = day_month_year
                     else: info_dict["signature_date"] = None
+                else: info_dict["signature_date"] = None
                 
                 jt_number_match = re.search(r'رقم (\d+-\d+)', information_rows[0].text)
 
@@ -133,12 +467,20 @@ def initial_jt_filling(request):
                 page_match = re.search(r'الصفحة (\d+)', information_rows[2].text)
                 number_match = re.search(r'عدد (\d+)', information_rows[2].text)
 
-                if page_match and number_match:
+                if number_match:
                     info_dict["official_journal_number"] = number_match.group(1)
+                else: info_dict["official_journal_number"] = None
+
+
+                if page_match : 
                     info_dict["official_journal_page"] = page_match.group(1)
+                else :
+                    info_dict["official_journal_page"] = None
+
                 
                 jo_date_match = re.search(r"\d+\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+\d{4}",
                                                     information_rows[2].text)
+                
                 if jo_date_match:
                     jo_date = jo_date_match.group()
                     # Extract Arabic month name and convert it to its numerical representation
@@ -153,13 +495,16 @@ def initial_jt_filling(request):
                         day_month_year = f"{year}-{numerical_month}-{day}"
                         info_dict["publication_date"] = day_month_year
                     else: info_dict["publication_date"] = None
-                # Extract description from row4
-                info_dict["description"] = information_rows[3].text
-                date_object = datetime.strptime(info_dict["publication_date"], '%Y-%m-%d')
-                info_dict["official_journal_year"] = date_object.year
-                info_dict["text_file"] = f'/files/JTs/{info_dict["id_text"]}.txt'
+                else: info_dict['publication_date'] = None
+            
+                if info_dict['publication_date'] :
+                    # Extract description from row4
+                    info_dict["description"] = information_rows[3].text
+                    date_object = datetime.strptime(info_dict["publication_date"], '%Y-%m-%d')
+                    info_dict["official_journal_year"] = date_object.year
+                    info_dict["text_file"] = f'/files/JTs/{info_dict["id_text"]}.txt'
 
-                juridical_texts.append(info_dict)
+                    juridical_texts.append(info_dict)
 
             adjustments = driver.find_elements(
                 By.XPATH, "//tr[./td[@bgcolor='#9ec7d7']]"
@@ -210,51 +555,66 @@ def initial_jt_filling(request):
             else:
                 stop = True
         
+        error_element = driver.find_elements(By.CSS_SELECTOR, "h1")
 
-        juridical_data = []
-        for data in juridical_texts :
-            official_journal = OfficialJournal.objects.get(number = data['official_journal_number'], year = data['official_journal_year'])
-            jt = JuridicalText(
-                id_text=data['id_text'],
-                type_text=data['type_text'],
-                signature_date=data['signature_date'],
-                publication_date=data['publication_date'],
-                jt_number=data['jt_number'],
-                source=data['source'],
-                official_journal = official_journal,
-                official_journal_page=data['official_journal_page'],
-                description=data['description'],
-                text_file=data['text_file']
-            ) 
-            print(jt)
-            juridical_data.append(jt)
-
-        JuridicalText.objects.bulk_create(juridical_data)
+        # Check if the element's text matches
+        if len(error_element) > 0 and error_element[0].text == "Erreur de serveur":
+            return HttpResponse({"msg" : "crashed website"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
         
-        adjustment_data = []
-        for data in adjustments_associations:
-            adjusted_num_id = data['adjusted_num']
-            adjusting_num_id = data['adjusting_num']
 
-            # Retrieve JuridicalText instances based on the ids
-            adjusted_num_instance = JuridicalText.objects.get(id_text=adjusted_num_id)
-            adjusting_num_instance = JuridicalText.objects.get(id_text=adjusting_num_id)
+        # Split juridical_texts into smaller lists
+        chunk_size = 3000
+        juridical_data_chunks = [juridical_texts[i:i + chunk_size] for i in range(0, len(juridical_texts), chunk_size)]
 
-            # Create Adjutstement instances using retrieved JuridicalText instances
-            adjustment = Adjutstement(
-                adjusted_num=adjusted_num_instance,
-                adjusting_num=adjusting_num_instance,
-                adjustment_type=data['adjustment_type']
-            )
-            adjustment_data.append(adjustment)
+        # Insert juridical_data_chunks into the database
+        for chunk in juridical_data_chunks:
+            juridical_data = []
+            for data in chunk:
+                try:
+                    official_journal = OfficialJournal.objects.get(number=data['official_journal_number'], year=data['official_journal_year'])
+                except OfficialJournal.DoesNotExist:
+                    print(data['official_journal_number'], data['official_journal_year'])
+                    return HttpResponse({"msg": "Does not exist"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                jt = JuridicalText(
+                    id_text=data['id_text'],
+                    type_text=data['type_text'],
+                    signature_date=data['signature_date'],
+                    publication_date=data['publication_date'],
+                    jt_number=data['jt_number'],
+                    source=data['source'],
+                    official_journal=official_journal,
+                    official_journal_page=data['official_journal_page'],
+                    description=data['description'],
+                    text_file=data['text_file']
+                )
+                juridical_data.append(jt)
 
-        # Bulk create the instances into the database
-        Adjutstement.objects.bulk_create(adjustment_data)
+            # Bulk create the instances into the database
+            JuridicalText.objects.bulk_create(juridical_data)
+
+        # Split adjustments_associations into smaller lists
+        adjustment_data_chunks = [adjustments_associations[i:i + chunk_size] for i in range(0, len(adjustments_associations), chunk_size)]
+
+        # Insert adjustment_data_chunks into the database
+        for chunk in adjustment_data_chunks:
+            adjustment_data = []
+            for data in chunk:
+                # Create Adjustment instances using retrieved JuridicalText instances
+                adjustment = Adjutstement(
+                    adjusted_num=data['adjusted_num'],
+                    adjusting_num=data['adjusting_num'],
+                    adjustment_type=data['adjustment_type']
+                )
+                adjustment_data.append(adjustment)
+
+            # Bulk create the instances into the database
+            Adjutstement.objects.bulk_create(adjustment_data)
+
 
         juridical_texts = []
         adjustments_associations = []
 
-        
+        print(f'{option_text} inserted')
 
         driver.switch_to.default_content()
         driver.switch_to.frame(driver.find_element(By.XPATH, "//frame[@src='ATitre.htm']"))
@@ -277,8 +637,22 @@ def initial_jt_filling(request):
         i = i+1
     # Close the WebDriver
     driver.quit()
-
+    return HttpResponse({"msg" : "successfuly inserted"}, status = status.HTTP_201_CREATED)
     # Create your views here.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
