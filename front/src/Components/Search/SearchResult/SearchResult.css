@@ -1,7 +1,8 @@
 /* Dans le fichier SearchResult.css */
 
 .searchResult {
-    padding: 2% 5%;
+    padding: 2% 6%;
+    direction: rtl;
   }
   
   .searchResult h1 {
@@ -13,7 +14,7 @@
     padding: 1%;
     width: 90%;
   }
-  
+ 
   
   .searchResult-item {
     background-color: #d9d9d944;
@@ -21,6 +22,7 @@
     border-radius: 5px;
     margin: 2% 0%;
     direction: rtl;
+    
   }
   
   .searchResult-item h2 {
