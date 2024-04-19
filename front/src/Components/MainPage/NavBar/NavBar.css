@@ -8,8 +8,8 @@
 }
 .navBar_container .NavBar_item{
     display: flex;
-    justify-content: space-evenly;
-    
+    justify-content: space-around;
+    padding: 0% 2%;
     border-radius: 6px;
     background-color:var(--primary-color);
     width: 70%;
@@ -17,19 +17,28 @@
 
 
 .navBar_container .li_item1{
-margin: 2% auto;
-/*width: 130px;*/
+/*margin: 2% auto;
+width: 130px;*/
 list-style-type: none;
-flex:auto
+padding: 1.5% ;
+
+border-radius: 5px;
+flex:auto;
+
+direction: rtl;
 
 }
+
 .navBar_container .li_item1 li {
    text-align: center;
-    color: white;
-    display: inline-block;
+    color: white;    
+    width: 100%;
+    display: inline-flex;
+    
    
     
 }
+
 
 .navBar_container .navbar_btn{
     font-size: 18px;
