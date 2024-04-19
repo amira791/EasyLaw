@@ -316,7 +316,7 @@ def get_real_page_number(json_file, year, journal_number, page_initial):
                 print(f'{file_name}')
                 p_b = int(entry['p_b'])
                 p_e = int(entry['p_e'])
-                if file_name.startswith(f'A{year}') and p_b <= page_initial + 1 <= p_e:
+                if file_name.startswith(f'A{year}') and p_b <= page_initial  <= p_e:
                     real_page = page_initial - entry['p_b'] +1
                     return int(real_page)
     
