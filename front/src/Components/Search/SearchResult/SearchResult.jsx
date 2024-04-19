@@ -76,7 +76,7 @@ function SearchResult() {
         handleFileTypeChange={handleFileTypeChange}
       />
       <div className='searchResult'>
-        <h1>Résultats de la recherche</h1>
+        <h1>نتائج  البحث   </h1>
         <div className="searchResult-container">
           {searchResults.map(result => (
             <div key={result.id} className="searchResult-item">
