@@ -24,6 +24,15 @@
         <p><strong>JT Number:</strong> {{ result.jt_number }}</p>
         <p><strong>Source:</strong> {{ result.source }}</p>
         <p><strong>Official Journal Page:</strong> {{ result.official_journal_page }}</p>
+        <p><strong>text_file_content:</strong> {{ result.extracted_text }}</p>
+        {% if result.adjustments %}
+        <p><strong>Adjustments:</strong></p>
+        <ul>
+            {% for adjustment in result.adjustments %}
+            <li>{{ adjustment.adjusting_num }} - {{ adjustment.adjustment_type }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>

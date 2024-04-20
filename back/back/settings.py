@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 ELASTICSEARCH_DSL={
 'default': {
 'hosts': 'http://localhost:9200',
+'timeout': 60,  # Custom timeout
 'http_auth': ('nermine', '17161670')
 }
 }

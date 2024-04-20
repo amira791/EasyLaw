@@ -10,21 +10,172 @@ from .models import JuridicalText, Adjutstement, OfficialJournal
 from django.http import HttpResponse
 from rest_framework import status
 import re
-import time
 from .search import lookup
+import time
+from datetime import datetime
+from .models import JuridicalText, Adjutstement, OfficialJournal
+import os
+from pdf2image import convert_from_path
+import pytesseract
+from PyPDF2 import PdfReader
+from pytesseract import image_to_string
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import JuridicalTextSerializer 
 
-def search_view(request):
-    # https://www.google.com/search?q=ffff&oq=ffff&aqs=chrome..69i57j46j0l6.824j0j7&sourceid=chrome&ie=UTF-8
-    query_params = request.GET
-    q = query_params.get('q')
+#les expressions réguliéres
+patterns = [
+    r'^(?:أمر.*?|أوامر|امر.*?|اوامر)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:منشور.*?|مناشير)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:منشور.*?\sوزاري.*?\sمشترك.*?|مناشير وزارية مشتركة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:لائحة.*?|لوائح|لائحتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مداولة.*?|مداولات|مداولتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مرسوم.*?\sتنفيذي.*?|مراسيم تنفيذية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مرسوم.*?\sتشريعي.*?|مراسيم تشريعية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مرسوم.*?\sرئاسي.*?|مراسيم رئاسية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مقرر.*?|مقررات)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مقرر.*?\sوزاري.*?\sمشترك.*?|مقررات وزارية مشتركة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:إعلان.*?|اعلان.*?)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:نظام.*?|أنظمة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:اتفاقية.*?|إتفاقيات|إتفاقيتان|إتفاقية|اتفاقيتان|اتفاقيات)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تصريح.*?|تصاريح)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تقرير.*?|تقارير)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تعليمة.*?|تعليمات|تعليمتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تعليمة.*?\sوزارية.*?\sمشتركة.*?|تعليمات وزارية مشتركة|تعليمتان وزاريتان مشتركتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:جدول.*?|جداول)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:رأي.*?|آراء)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قانون.*?|قوانين)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قانون.*?\sعضوي.*?|قوانين عضوية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قرار.*?|قرارات)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قرار.*?\sولائي.*?|قرارات ولائية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قرار.*?\sوزاري.*?\sمشترك.*?|قرارات وزارية مشتركة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)'
+]
+@api_view(['POST'])
+def ocrTest(request):#text files construction 
+    # Assuming 'year' and 'type_text' are passed in the POST request data
+    year = '2024'
+    #type_text = 'مرسوم تنفيذي'
+    # Construct the base directory for PDFs
+    base_directory = rf'C:\Users\Amatek\Downloads\scrap\pdfs'
+    # Fetch JuridicalText objects based on the provided criteria
+    juridical_texts = JuridicalText.objects.filter(
+        official_journal__year=year,
+    )
 
-    context = {}
+    # Iterate over the filtered JuridicalText objects
+    for jt in juridical_texts:
+        with open(rf'C:\Users\Amatek\Desktop\EasyLaw\V01\EasyLaw\back\Data_Collection\files\JTs\{jt.id_text}.txt', 'w', encoding='utf-8') as f:
 
-    if q is not None:
-        results = lookup(q)
-        context['results'] = results
-        context['query'] = q
-    return render(request, 'search.html', context)
+            # Construct the PDF file path for each JuridicalText
+            pdf_file_path = os.path.join(base_directory, year, f'A{year}{jt.official_journal.number:03}.pdf')
+            print(f'Processing PDF File: {pdf_file_path } , {jt.official_journal_page}')
+            print(rf'saving in txt File: C:\Users\Amatek\Desktop\EasyLaw\V01\EasyLaw\back\Data_Collection\files\JTs{jt.id_text}.txt')
+            # Extract text from the specific page of the PDF file
+            
+            extracted_text = extract_text_from_pdf_file(pdf_file_path, jt.official_journal_page)
+
+            nb_matches = 0 
+            for pt in patterns : 
+                # Define a regular expression pattern to match the desired phrases
+                pattern = re.compile(pt, re.MULTILINE)
+                # Find all matches in the text
+                matches = re.findall(pattern, extracted_text)
+
+                if len(matches) > 0 :
+                    nb_matches += len(matches)
+
+            f.write(extracted_text)
+
+            if nb_matches <= 1:
+                page = jt.official_journal_page
+                stop = False
+                pdf_reader = PdfReader(pdf_file_path)
+                # Get the number of pages in the PDF
+                page_count = len(pdf_reader.pages)
+                page = page + 1
+                while not stop and page <= page_count:
+
+                    extracted_text = extract_text_from_pdf_file(pdf_file_path, page)
+                    for pt in patterns:
+                        # Define a regular expression pattern to match the desired phrases
+                        pattern = re.compile(pt, re.MULTILINE)
+                        # Find all matches in the text
+                        matches = re.findall(pattern, extracted_text)
+
+                        if len(matches) > 0:
+                            stop = True
+                            match = matches[0]
+                            # Get the index of the first occurrence of the match in the extracted_text
+                            print(match)
+                            match_index = extracted_text.find(match)
+                            
+                            if match_index != -1:
+                                # Remove all text after the match
+                                extracted_text = extracted_text[:match_index]
+                            f.write(extracted_text)
+                            break
+
+                    if not stop :
+                        f.write(extracted_text) 
+                        page = page + 1
+
+
+            # print(extracted_text)
+            print("=" * 50)  # Separator between texts
+
+    # Return a success response
+    return HttpResponse({"msg" : "successfuly inserted"}, status = status.HTTP_201_CREATED)
+#the ocr function
+def extract_text_from_pdf_file(pdf_file_path, page_number):
+    # Check if the PDF file exists
+    if os.path.isfile(pdf_file_path):
+        # Convert the specific page of the PDF to an image
+        images = convert_from_path(pdf_file_path, first_page=page_number, last_page=page_number)
+
+        if images:
+            # Perform OCR on the extracted page using pytesseract
+            extracted_text = pytesseract.image_to_string(images[0], lang='ara')  # OCR for Arabic text
+
+            return extracted_text
+        else:
+            print(f"Failed to extract page {page_number} from PDF.")
+            return None
+    else:
+        print(f"PDF file not found at {pdf_file_path}")
+        return None
+# the search function 
+# def search_view(request):
+#     query_params = request.GET
+#     q = query_params.get('q')
+#     context = {}
+#     if q is not None:
+#         results = lookup(q)
+#         context['results'] = results
+#         context['query'] = q
+#     return render(request, 'search.html', context)
+
+# from django.http import JsonResponse
+# from .elasticsearch_utils import lookup  # Import your Elasticsearch lookup function
+
+# def search_view(request):
+#     query = request.GET.get('q', '')  # Get the search query from the request
+#     if query:
+#         results = lookup(query)  # Call your Elasticsearch lookup function
+#         return JsonResponse({'results': results})
+#     else:
+#         return JsonResponse({'error': 'No search query provided'}, status=400)
+
+class search_view(APIView):
+        def get(self, request):
+         query = request.GET.get('q')
+         sort_by = request.GET.get('sort_by', 'relevance')  # Par défaut, tri par pertinence 
+         source = request.GET.get('source') 
+         year = request.GET.get('year')
+         if query:
+            results = lookup(query, sort_by=sort_by,source=source, year=year) 
+            return Response(results)
+         else:
+            return Response({'error': 'No search query provided'}, status=400)
 
 @api_view(['POST'])
 def initial_jt_filling(request):
@@ -50,19 +201,19 @@ def initial_jt_filling(request):
 
     # Wait for the page to load
     wait = WebDriverWait(driver, 10)
-    wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")))
+    # wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")))
 
-    page_setting = driver.find_element(By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")
-    page_setting.click()
+    # page_setting = driver.find_element(By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")
+    # page_setting.click()
 
-    wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='b1']/a")))
+    # wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='b1']/a")))
 
-    input = driver.find_element(By.XPATH, "/html/body/div/form/table[1]/tbody/tr[7]/td[2]/input")
-    input.clear()
-    input.send_keys('100')
+    # input = driver.find_element(By.XPATH, "/html/body/div/form/table[1]/tbody/tr[7]/td[2]/input")
+    # input.clear()
+    # input.send_keys('100')
 
-    send = driver.find_element(By.XPATH, "//*[@id='b1']/a")
-    send.click()
+    # send = driver.find_element(By.XPATH, "//*[@id='b1']/a")
+    # send.click()
 
     wait.until(EC.presence_of_element_located((By.NAME, "znat")))
 
@@ -88,7 +239,7 @@ def initial_jt_filling(request):
         'ديسمبر': '12'
     }
     # len(select_element.options)
-    for i in range(22, 24):
+    for i in range(3, 4):
         option_text = select_element.options[i].text
         select_element.options[i].click()  # Select the option
         # Click on the search button
@@ -245,42 +396,56 @@ def initial_jt_filling(request):
         # Check if the element's text matches
         if len(error_element) > 0 and error_element[0].text == "Erreur de serveur":
             return HttpResponse({"msg" : "crashed website"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
-        juridical_data = []
-        for data in juridical_texts :
-            try:
-                official_journal = OfficialJournal.objects.get(number = data['official_journal_number'], year = data['official_journal_year'])
-            except OfficialJournal.DoesNotExist:
-                print(data['official_journal_number'], data['official_journal_year'])
-                return HttpResponse({"msg" : "Does not exist"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
-            jt = JuridicalText(
-                id_text=data['id_text'],
-                type_text=data['type_text'],
-                signature_date=data['signature_date'],
-                publication_date=data['publication_date'],
-                jt_number=data['jt_number'],
-                source=data['source'],
-                official_journal = official_journal,
-                official_journal_page=data['official_journal_page'],
-                description=data['description'],
-                text_file=data['text_file']
-            ) 
-            juridical_data.append(jt)
-
-        JuridicalText.objects.bulk_create(juridical_data)
         
-        adjustment_data = []
-        for data in adjustments_associations:
 
-            # Create Adjutstement instances using retrieved JuridicalText instances
-            adjustment = Adjutstement(
-                adjusted_num=data['adjusted_num'],
-                adjusting_num=data['adjusting_num'],
-                adjustment_type=data['adjustment_type']
-            )
-            adjustment_data.append(adjustment)
+        # Split juridical_texts into smaller lists
+        chunk_size = 3000
+        juridical_data_chunks = [juridical_texts[i:i + chunk_size] for i in range(0, len(juridical_texts), chunk_size)]
 
-        # Bulk create the instances into the database
-        Adjutstement.objects.bulk_create(adjustment_data)
+        # Insert juridical_data_chunks into the database
+        for chunk in juridical_data_chunks:
+            juridical_data = []
+            for data in chunk:
+                try:
+                    official_journal = OfficialJournal.objects.get(number=data['official_journal_number'], year=data['official_journal_year'])
+                except OfficialJournal.DoesNotExist:
+                    print(data['official_journal_number'], data['official_journal_year'])
+                    return HttpResponse({"msg": "Does not exist"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                jt = JuridicalText(
+                    id_text=data['id_text'],
+                    type_text=data['type_text'],
+                    signature_date=data['signature_date'],
+                    publication_date=data['publication_date'],
+                    jt_number=data['jt_number'],
+                    source=data['source'],
+                    official_journal=official_journal,
+                    official_journal_page=data['official_journal_page'],
+                    description=data['description'],
+                    text_file=data['text_file']
+                )
+                juridical_data.append(jt)
+
+            # Bulk create the instances into the database
+            JuridicalText.objects.bulk_create(juridical_data)
+
+        # Split adjustments_associations into smaller lists
+        adjustment_data_chunks = [adjustments_associations[i:i + chunk_size] for i in range(0, len(adjustments_associations), chunk_size)]
+
+        # Insert adjustment_data_chunks into the database
+        for chunk in adjustment_data_chunks:
+            adjustment_data = []
+            for data in chunk:
+                # Create Adjustment instances using retrieved JuridicalText instances
+                adjustment = Adjutstement(
+                    adjusted_num=data['adjusted_num'],
+                    adjusting_num=data['adjusting_num'],
+                    adjustment_type=data['adjustment_type']
+                )
+                adjustment_data.append(adjustment)
+
+            # Bulk create the instances into the database
+            Adjutstement.objects.bulk_create(adjustment_data)
+
 
         juridical_texts = []
         adjustments_associations = []

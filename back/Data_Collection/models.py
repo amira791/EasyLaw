@@ -21,6 +21,7 @@ class JuridicalText(models.Model):
     official_journal_page = models.IntegerField()
     description = models.TextField(null = True)
     text_file = models.FileField(null = True) #path example : files/JTs/{rest of the path}
+    extracted_text = models.TextField(null=True)  # New field for extracted text
 class Adjutstement(models.Model):
     adjusted_num = models.CharField(max_length=100)
     adjusting_num = models.CharField(max_length=100)
