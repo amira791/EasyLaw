@@ -10,13 +10,9 @@ import axios from 'axios';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 
 import { AuthContext } from '../../Context/LogoProvider';
+import usePayment from '../../Hooks/usePayment';
 
 function Payment(props) {
-
-
-  axios.defaults.headers.common['Authorization'] = "token "+  localStorage.getItem('access_token');
-
-  console.log(localStorage.getItem('access_token'));
 
   const stripe = useStripe()
   const elements = useElements()
@@ -41,33 +37,9 @@ function Payment(props) {
   const name = params.get('name');
   const price = params.get('price');
   
-      
+  const {generateStripeToeken, subscribe} = usePayment()    
 
-    const generateStripeToeken = async () =>
-    {
-        if (!stripe || ! elements)
-        {
-          console.log("stripe or elements weren's set properly");
-          return
-        }
-
-        
-
-        const cardNumberElement = elements.getElement(CardNumberElement)
-        
-        const {token, error} =  activeButton!= 2 ? await stripe.createToken(cardNumberElement,
-            {
-              name : holderName
-            }): {token:{id: "tok_unionpay"}, error: null}
-            
-           
-        
-        if (!token || error)
-        {
-          throw error || "token creation failed"
-        }
-        return token
-    }
+    
 
 
 
@@ -81,19 +53,18 @@ function Payment(props) {
         const errors = {}
 
         try{
-          const token = await generateStripeToeken()
-          
-          await axios.post("http://localhost:8000/payment/subscribe",{priceId: id, token, paymentMethod: methods[activeButton]}).then((response)=>
-            {
-              console.log("payment succesful:" + response.data.subscriptionId)
-              setPaymentSuccess(true)
-            }
-            ).catch(error=>{
-              errors["general"] = error.response?.data?.message || error.message     
-            })
+          const token = await generateStripeToeken(stripe, elements, activeButton, holderName)
+
+
+          const {success , error} = await subscribe(id, token, methods[activeButton])
+          if(success) 
+            setPaymentSuccess(true)
+          else
+            errors["general"] = error
          }
         catch (error)
         {
+          console.error(error)
           const map = {
             number : "NumCart",
             expiry : "DateExp",
@@ -102,9 +73,12 @@ function Payment(props) {
 
           for (let key in map)
           {
-            if(error.code.includes(key))
+            if(error.code?.includes(key))
             {
               errors[map[key]] = error.message
+            }
+            else {
+              errors["general"] = error.message
             }
           }
           

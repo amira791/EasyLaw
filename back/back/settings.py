@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'User',
     'Payement_Validation',
-    'rest_framework_simplejwt',
 ]
 
 AUTH_USER_MODEL='User.CustomUser'
@@ -167,12 +166,6 @@ STRIPE_SECRET_KEY = 'sk_test_51OygXvLDzFR9kcMzaC13E9NNGto4R0hhduIBABMRb8tAMfbkVm
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-}
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),    
 }

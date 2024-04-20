@@ -6,43 +6,30 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import TitleBar from '../TitleBar/TitleBar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import usePayment from '../../Hooks/usePayment';
 
 
 function Subscrib() {
 
-  axios.defaults.headers.common['Authorization'] = "token "+  localStorage.getItem('access_token');
+  
 
   const [offers,setOffers] = useState([])
   const [current, setCurrent] = useState(null)
 
-  useEffect(() => {
-    const fetchData = async () =>{
-      try {
-      const response = await axios.get('http://localhost:8000/payment/service');
-      const data = response.data.all.map(offer=> ({
-      
-            id: offer.id,
-            priceId : offer.priceId,
-            title: offer.nom,
-            price:  `${offer.tarif}دج/شهر`,
-            features: offer.accesses.map(access=>({
-                nom:access.nom
-            }))
-          }))
-      setOffers(data)
-      setCurrent(response.data.current)
-        
+  const {getSubscriptions} = usePayment()
 
-      } catch (error) {
-        console.error('Une erreur s\'est produite lors de la recuperation des offres :', error);
-      
-      }
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const subs = await getSubscriptions()
+      setOffers(subs?.offers|| [])
+      setCurrent(subs?.curent)
     }
+
     fetchData()
 
   },[])
 
-  console.log(current);
   
 
   /*const offers = [
