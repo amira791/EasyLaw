@@ -12,6 +12,9 @@
     border-radius: 5px;
     margin: 1%;
   }
+  .p-datatable .p-column-header-content {
+    display: block;
+}
   
   .p-datatable thead th {
     background-color: var(--primary-color);

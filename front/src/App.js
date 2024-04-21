@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SignUp from './Components/Auth/SignUp';
@@ -30,6 +31,7 @@ import GptPage from './Components/GptPage/GptPage';
 import Ressource from './Components/Ressource/Ressource';
 import SearchResult from './Components/Search/SearchResult/SearchResult';
 import SucessPayment from './Components/Payment/SucessPayment';
+import Facture from './Components/Profile/Facture';
 
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
         <Route path="/compte" element={<Compte/>} />
         <Route path="/interest" element={<Interest/>} />
         <Route path="/services" element={<Services/>} />
+        <Route path="/facture" element={<Facture/>} />
         <Route path="/subscrib" element={<Subscrib/>} />
         <Route path="/validation" element={<Validation/>} />
         <Route path="/payment/:id" element={<Payment/>} />
