@@ -30,6 +30,10 @@ function Facture() {
 
         fetchUserInvoices();
     }, []);
+
+    const handleDownload = (pdfUrl) => {
+        window.open(pdfUrl, '_blank');
+    };
     
   return (
    <>
@@ -43,11 +47,14 @@ function Facture() {
    <div className='facture_container'> 
    <h2>فواتيري </h2>
    <DataTable value={userAccount} paginator rows={5}  style={{ width: '100%',textAlign:'center' }}>
-          <Column field="methode_de_payment" header="طريقة الدفع " style={{ width: '20%' ,textAlign:'center'}}></Column>
-          <Column field="Ispaid" header="مدفوعة " style={{ width: '20%' ,textAlign:'center'}}></Column>
-          <Column field="montant" header="الثمن" style={{ width: '20%' ,textAlign:'center'}}></Column>
-          <Column field="date" header="التاريخ " style={{ width: '20%',textAlign:'center' }}></Column>
-          <Column field="offre" header=" العرض" style={{ width: '20%',textAlign:'center' }}></Column>
+   <Column field="pdf" header="" style={{ width: '16%', color:'red' }} body={(rowData) => (
+                                <button style={{ color:'red' }} onClick={() => handleDownload(rowData.pdf)}>Télécharger</button>
+                            )}></Column>
+          <Column field="methode_de_payment" header="طريقة الدفع " style={{ width: '16%' ,textAlign:'center'}}></Column>
+          <Column field="Ispaid" header="مدفوعة " style={{ width: '16%' ,textAlign:'center'}}></Column>
+          <Column field="montant" header="الثمن" style={{ width: '16%' ,textAlign:'center'}}></Column>
+          <Column field="date" header="التاريخ " style={{ width: '16%',textAlign:'center' }}></Column>
+          <Column field="offre" header=" العرض" style={{ width: '16%',textAlign:'center' }}></Column>
         </DataTable>
    </div>
    <NavBarProfile interest="اهتماماتي"  services="خدماتي"/>
