@@ -21,16 +21,22 @@
 }
 .profile_container .profile_navBar ul{
 padding: 0%;
+direction: rtl;
+
 }
 .profile_container .profile_navBar li{
     list-style-type: none;
     text-align: right;
     cursor: pointer;
-    margin: 30% auto;
+    margin: 30% 0%;
+    
 }
 .profile_container .profile_navBar li a{
    text-decoration: none;
    color: white;
+   display: flex;
+    align-items: center;
+    justify-content: center;
     
 }
 
