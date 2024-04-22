@@ -25,7 +25,7 @@ function Payment(props) {
   const [password, setPassword] = useState("")
 
   const [isLoading,setIsLoading] = useState(false)
-
+console.log(stripe);
  
   const [paymentSuccess, setPaymentSuccess] = useState(false)
 
