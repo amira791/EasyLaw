@@ -128,7 +128,7 @@ const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessag
         setConfirmPassword('');
         setTimeout(() => {
           navigate('/signin'); // Use navigate to redirect to the signin page
-        }, 5000);
+        }, 2000);
       }
     } catch (error) {
       if (error.response.data.email) {
