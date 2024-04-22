@@ -11,14 +11,13 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from django.contrib.auth.hashers import make_password
-import requests
+
 
 @api_view(['POST'])
 def signup(request):
     if request.method == 'POST':
         data = request.data.copy()
         data['password'] = make_password(data['password'])  # Hash the password
-        data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
         serializer = CustomUserSerializer(data=data)
         if serializer.is_valid():
             user = serializer.save()
@@ -85,21 +84,3 @@ def logout(request):
     user = request.user
     Token.objects.filter(user=user).delete()  # Delete the user's authentication token
     return Response({'message': 'Logged out successfully.'})
-
-
-
-
-
-def stripeCustomerId(name, email,request):
-    url = root_url = request.build_absolute_uri('/')[:-1] +'/payment/customer'
-    data = {
-    "name":name,
-    "email":email
-    }  # Your POST data
-
-    print(data)
-
-    # Send POST request
-    response = requests.post(url, json=data)
-
-    return response.json()["stripe_customer_id"]

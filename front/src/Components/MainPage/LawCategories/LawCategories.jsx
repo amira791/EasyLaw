@@ -6,6 +6,7 @@ import Logo from '../../LOGO/Logo'
 import NavBar from '../NavBar/NavBar'
 
 
+
 function LawCategories() {
   return (
 
@@ -21,20 +22,20 @@ function LawCategories() {
 </h1>
         <div className='Law_content'>
            <div className='law_item'>
-           <img  className=' icon-free'src="./images/star.png"/>
+           <img  className=' icon-free'src="./images/Star.png"/>
            <span className='icon-free-span'>مجانا</span>
                 <div ><img  className='law-icon'src="./images/soutien.png"  /></div>
                 <h3>التجارة و الأعمال </h3>
             </div>
             <div className='law_item'>
-            <img  className=' icon-free'src="./images/star.png"/>
+            <img  className=' icon-free'src="./images/Star.png"/>
             <span className='icon-free-span'>مجانا</span>
                 <div ><img  className='law-icon'src="./images/debat.png"  /></div>
                 <h3>الاستشارات القضائية</h3>
             </div>
             
             <div className='law_item'>
-            <img  className=' icon-free'src="./images/star.png"/>
+            <img  className=' icon-free'src="./images/Star.png"/>
             <span className='icon-free-span'>مجانا</span>
                 <div ><img  className='law-icon'src="./images/دستورremovebgpreview.png"  /></div>
                 <h3>الدستور الجزائري  </h3>

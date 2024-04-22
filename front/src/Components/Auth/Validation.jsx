@@ -43,9 +43,6 @@ function Validation() {
       <Logo  />
       <div className='validation_container'>
         <h3>تمت عملية التسجيل بنجاح <DoneIcon sx={{ width: '30px', height: '30px',marginLeft:'5px' }}/></h3>
-        <p>تم تأكيد التسجيل و الاشتراك في العرض التجريبي لمدة 7 أيام</p>
-        
-          <button onClick={handleChangeSubscription}>تغيير برنامج الاشتراك</button>
        
         : اختر المواضيع التي تهتم بها للحصول على كافة المستجدات
         <div className='law_choice'>

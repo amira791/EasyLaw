@@ -33,8 +33,13 @@ import SearchResult from './Components/Search/SearchResult/SearchResult';
 import SucessPayment from './Components/Payment/SucessPayment';
 import Facture from './Components/Profile/Facture';
 
+import { loadStripe } from '@stripe/stripe-js'
+import {Elements} from '@stripe/react-stripe-js'
 
 function App() {
+
+  const stripe = loadStripe("pk_test_51OygXvLDzFR9kcMzeb7UST3IEa8SXi7CD3pXxIcTSQFunxMWcnaKqIJiCHZWO7fLFvnpgauFm9XArtMtZ9xjBJGl00FHM5TiPB");
+
   return (
     <div className="App">
     <LogoProvider>
@@ -49,10 +54,13 @@ function App() {
         <Route path="/interest" element={<Interest/>} />
         <Route path="/services" element={<Services/>} />
         <Route path="/facture" element={<Facture/>} />
-        <Route path="/subscrib" element={<Subscrib/>} />
+        <Route path="/subscrib" element={ <Subscrib /> } />
         <Route path="/validation" element={<Validation/>} />
-        <Route path="/payment/:id" element={<Payment/>} />
-        <Route path="/sucesspayment" element={<SucessPayment/>} />
+        <Route path="/payment/:id" element={
+          <Elements stripe = {stripe}>
+            <Payment/>
+          </Elements>
+        } />
         <Route path="/law" element={<Law/>} />
         <Route path="/LawDetails/:id" element={<LawDetails/>} />
         <Route path="/gptpage" element={<GptPage/>} />
