@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../Context/LogoProvider';
-import API from '../API';
+import  { userApiClient } from '../API';
 
 
 export default function useUser() {
@@ -16,7 +16,7 @@ export default function useUser() {
     // Fonction logout
     const logout = async () => {
       try {
-        const response = await API.post(`/logout/`, null, {
+        const response = await userApiClient.post(`/logout/`, null, {
           headers: {
             'Authorization': `Token ${localStorage.getItem('access_token')}`
           }
@@ -41,7 +41,7 @@ export default function useUser() {
       throw new Error('Token not found in localStorage');
     }
 
-    const response = await API.get(`/get_user_info/`, {
+    const response = await userApiClient.get(`/get_user_info/`, {
       headers: {
         Authorization: `token ${access_token}`
       }
@@ -57,7 +57,7 @@ export default function useUser() {
 const editUserInfo = async (editedFormData) => {
   try {
     const access_token = localStorage.getItem('access_token');
-    await API.put(`/edit_user_info/`, editedFormData, {
+    await userApiClient.put(`/edit_user_info/`, editedFormData, {
       headers: {
         Authorization: `Token ${access_token}`
       }
@@ -70,7 +70,7 @@ const editUserInfo = async (editedFormData) => {
  // Fonction pour modifier le mot de passe de l'utilisateur
 const changePassword = async (oldPassword, newPassword) => {
   try {
-    const response = await API.post(`/change_password/`, {
+    const response = await userApiClient.post(`/change_password/`, {
       old_password: oldPassword,
       new_password: newPassword
     }, {
@@ -88,7 +88,7 @@ const changePassword = async (oldPassword, newPassword) => {
 //************** For Sign In ************************** */
   const loginUser = async (formData) => {
     try {
-      const response = await API.post(`/login/`, formData);
+      const response = await userApiClient.post(`/login/`, formData);
       console.log(response.data.token);
       localStorage.clear();
       localStorage.setItem('access_token', response.data.token);
@@ -111,7 +111,7 @@ const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessag
       } else if (formData.password.length < 8) {
         setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
       } else {
-        const response = await API.post(`/signup`, formData);
+        const response = await userApiClient.post(`/signup`, formData);
         console.log(response.data);
         setSuccessMessage('تم إنشاء الحساب بنجاح! يتم إعادة توجيهك إلى صفحة تسجيل الدخول...');
         setFormData({
