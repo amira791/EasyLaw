@@ -1,0 +1,77 @@
+.gpt_dv{
+    margin: 5% 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0px;
+   
+   
+   
+
+}
+.search-form {
+    position: relative;
+    display: flex;
+  }
+.form-control {
+    width: 100%;
+    height: 37px;
+    background-color: transparent;
+    border-radius: 0px 4px 4px 0px;
+    padding: 10px;
+    color: black;
+    border: 1px solid var(--primary-color)
+    ;
+  }
+  
+  .btn-primary {
+    background-color:var(--primary-color);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px 0px 0px 4px;
+    font-weight: bold;
+    width: 120px;
+  }
+  .search-icon {
+    position: absolute;
+    right: 10px; 
+    top: 50%;
+    transform: translateY(-50%);
+   
+  }
+  .gpt_logo{
+   
+    width: 18%;
+    margin-right: 2%;
+    /*display: flex;
+    justify-content: center;*/
+  }
+  .gpt_search{
+    width: 74%;
+    margin: 0px;
+    padding: 0px;
+    /* solid 1px rgb(55, 0, 51);*/
+  }
+  .search_filter{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px 0px 10px 0px;
+    margin-top: 2%;
+  }
+  .select_item{
+    border: 1px solid black;
+    color: var(--text-color);
+    width: 22%;
+    height: 45px;
+    border-radius: 3px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 16px;
+    
+   
+  }
+  .icon_gpt{
+    width: 100%;
+  }

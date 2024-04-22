@@ -1,7 +1,10 @@
-# from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('test', "hello/"),
+    path('customer', views.addUser),
+    path('subscribe', views.subscribe),
+    path('subscribtion', views.getsubscription),
+    path('service', views.getServices),
+    path('invoice', views.getinvoices),
 ]

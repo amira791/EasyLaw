@@ -1,78 +1,97 @@
-import React , { useState }from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import TitleBar from '../TitleBar/TitleBar';
+import useUser from '../../Hooks/useUser';
 
 function SignIn() {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-      });
-    
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-          ...prevData,
-          [name]: value
-        }));
-      };
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
-      };
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    username: ''
+  });
+  const { loginUser, errorMessage } = useUser();
+  const [passwordType, setPasswordType] = useState('password');
+  const navigate = useNavigate();
+
+  const togglePassword = () => {
+    setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const loggedIn = await loginUser(formData);
+    if (loggedIn) {
+      navigate('/profile'); // Navigate to main page if logged in successfully
+    }
+  };
+
   return (
     <>
-    <Logo/>
-<div className='signup_titre'>
-      <h2>تسجيل الدخول</h2>
-    </div>
-    <div className="signup-form">
-    
-      <form onSubmit={handleSubmit}>
-        
-        <div className='username_dv1'>
-        <div className='input-group'>
-        <label htmlFor="dateN"> البريد الالكتروني</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          className='user_info SELECT-dv'
-          value={formData.email}
-          onChange={handleChange}
-          placeholder=' البريد الالكتروني'
-          required
-        />
-        </div>
-        <div className='input-group'>
-        <label htmlFor="company">كلمة السر </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          className='user_info SELECT-dv'
-          value={formData.password}
-          onChange={handleChange}
-          placeholder='كلمة السر'
-          required
-        />
-        </div>
-</div>
-        <button type="submit">تسجيل الدخول</button>
-        <div className="connection_link">
-        <a   >
-          <Link style={{ color: '#484646' }}  to ="/signup">إنشاء حساب </Link>
-          </a>
-        </div>
-        
-
-      </form>
-    </div>
-    <Footer/>
-
+      <Logo />
+      <TitleBar title="  تسجيل الدخول" />
+      <div className="signin-form">
+        <form onSubmit={handleSubmit}>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <div className='username_dv1'>
+            <div className='input-group'>
+              <label htmlFor="dateN"> اسم المستخدم </label>
+              <input
+                type="text"
+                id="email"
+                name="username"
+                className='user_info SELECT-dv'
+                value={formData.username}
+                onChange={handleChange}
+                placeholder=' اسم المستخدم'
+                required
+              />
+            </div>
+            <div className='input-group'>
+              <label htmlFor="company">كلمة السر </label>
+              <div className='input-group-row '>
+                <div className='visibility-icon' onClick={togglePassword}>
+                  {passwordType === 'password' ? (
+                    <VisibilityIcon sx={{ width: '20px', height: '20px' }}/>
+                  ) : (
+                    <VisibilityOffIcon sx={{ width: '18px', height: '18px' }}/>
+                  )}
+                </div>
+                <input
+                  type={passwordType}
+                  id="password"
+                  name="password"
+                  className='user_info SELECT-dv'
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder='كلمة السر'
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <button type="submit">تسجيل الدخول</button>
+          <div className="connection_link">
+            <a>
+              <Link style={{ color: '#484646' }} to="/signup">إنشاء حساب </Link>
+            </a>
+          </div>
+        </form>
+      </div>
+      <Footer/>
     </>
-  )
+  );
 }
 
-export default SignIn
+export default SignIn;

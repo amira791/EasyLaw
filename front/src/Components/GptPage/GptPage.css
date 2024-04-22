@@ -1,0 +1,54 @@
+.gptPage_container{
+    width: 100%;
+    background-color:  #1D8B8C;
+    padding-top: 4%;
+    display: flex;
+    justify-content: space-between;
+}
+.gptPage_container .gpt_search{
+    background-color: white;
+    border-radius: 10px 0px 0px 10px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10% 3% 28% 4%;
+}
+.gptPage_container .gpt_search_engine{
+    width: 100%;
+    text-align: right;
+    height: 130px;
+    margin: 4% 0%;
+   
+}
+.gptPage_container .gpt_historique{
+    width: 30%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4%;
+}
+.gpt_historique li{
+    list-style: none;
+    padding: 2%;
+    margin-bottom: 4%;
+    
+}
+.gpt_historique ul{
+   direction: rtl;
+    
+}
+.gptPage_container .gpt_qst{
+    display: grid;
+    grid-template-columns: repeat(2,40%);
+    grid-row-gap: 50px;
+    justify-content:space-between;
+    margin-top: 4%;
+}
+.gptPage_container .gpt_qst_item{
+    background-color: #58D6D7;
+    border-radius: 10px;
+    padding: 3%;
+    text-align: center;
+}
