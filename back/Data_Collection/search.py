@@ -13,7 +13,6 @@ client = Elasticsearch(
 def lookup(query, index='juridical_texts', fields=['id_text', 'type_text', 'description', 'extracted_text'], sort_by='relevance', source=None, year=None, signitureDateStart=None, signitureDateEnd=None, publicationDateStart=None, publicationDateEnd=None, type=None, ojNumber=None, jtNumber=None, jt_source=None, domain=None):
     if not query:
         return
-    
     # Définition du tri en fonction du paramètre sort_by pour avoir le tri pertinence ou par date
     if sort_by == 'relevance':
         sort = '_score'  # Tri par pertinence
@@ -25,7 +24,7 @@ def lookup(query, index='juridical_texts', fields=['id_text', 'type_text', 'desc
     # Construction de la requête Elasticsearch avec le tri
     s = Search(index=index).using(client).query(
         "multi_match", fields=fields, fuzziness='AUTO', query=query
-    ).sort(sort)  # Pagination
+    ).sort(sort) 
     if source:  # Tri par institut de publication
         print(f"Filtering by source: {source}")
         s = s.filter('term', source=source)

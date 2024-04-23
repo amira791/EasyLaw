@@ -57,7 +57,6 @@ function Gpt() {
     const queryParams = {
       q: searchQuery,
       sort_by: 'relevence', // Assuming you always want to sort by relevance
-      publicationDateStart: publication_date, // Include date in the query params
     };
 
    /* if (category) {
