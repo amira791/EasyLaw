@@ -1,28 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import './SearchResult.css';
 import Logo from '../../LOGO/Logo';
 import Gpt from '../GPT/Gpt';
 import Footer from '../../Footer/Footer';
+import { useLocation } from 'react-router-dom';
 
 function SearchResult() {
-  const searchResults = [
-    {
-      id: 1,
-      title: 'Titre du résultat ',
-      description: 'Description du résultat 1',
-    },
-    {
-      id: 2,
-      title: 'Titre du résultat 2',
-      description: 'Description du résultat 2',
-    },
-    {
-      id: 3,
-      title: 'Titre du résultat 3',
-      description: 'Description du résultat 3',
-    },
-  ];
+  const location = useLocation();
+  const [results, setResults] = useState([]);
+  useEffect(() => {
+    if (location.state && location.state.results) {
+      setResults(location.state.results);
+    }
+  }, [location.state]);
 
+  
   // États pour les filtres de recherche
   const [searchQuery, setSearchQuery] = useState('');
   const [category, setCategory] = useState('');
@@ -76,15 +68,28 @@ function SearchResult() {
         handleFileTypeChange={handleFileTypeChange}
       />
       <div className='searchResult'>
-        <h1>Résultats de la recherche</h1>
+        <h1>نتائج  البحث   </h1>
         <div className="searchResult-container">
-          {searchResults.map(result => (
-            <div key={result.id} className="searchResult-item">
-              <h2>{result.title}</h2>
-              <p>{result.description}</p>
-            </div>
-          ))}
-        </div>
+  {results.map(result => (
+    <div key={result.id_text} className="searchResult-item">
+      <h2>{result.description}</h2>
+      <p> {result.type_text}</p>
+      <p> {result.signature_date}</p>
+      <p> {result.adjustment}</p>
+      <div>
+        <h3>Ajustements :</h3>
+        {result.adjustments.map(adjustment => (
+          <div >
+            <p> {adjustment.adjustment_type}</p>
+            <p> {adjustment.adjustment_type}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+      
       </div>
       <Footer />
     </>

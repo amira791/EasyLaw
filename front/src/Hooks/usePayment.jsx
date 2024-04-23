@@ -8,12 +8,16 @@ import { CardNumberElement } from '@stripe/react-stripe-js';
 
 export default function usePayment() {
     
-    axios.defaults.headers.common['Authorization'] = "token "+  localStorage.getItem('access_token');
+    const token = localStorage.getItem('access_token')
+    if(token)
+      axios.defaults.headers.common['Authorization'] = "token "+  token;
 
     const getSubscriptions = async () =>{
         try {
         const response = await axios.get('http://localhost:8000/payment/service');
-        const data = response.data.all.map(offer=> ({
+        const sorted = response.data.all
+        sorted.sort((a,b)=> b.tarif - a.tarif)
+        const data = sorted.map(offer=> ({
         
               id: offer.id,
               priceId : offer.priceId,
@@ -23,10 +27,24 @@ export default function usePayment() {
                   nom:access.nom
               }))
             }))
-            return ({offers: data, curent: response.data.current})
+            
+        return ({offers: data, curent: response.data.current})
   
         } catch (error) {
-          console.error('Une erreur s\'est produite lors de la recuperation des offres :', error);
+          console.error('Une erreur s\'est produite lors de la recuperation des offres :', error.message);
+          return (error)
+        }
+      }
+   
+   
+      const getCurrentSubscription = async () =>{
+        try {
+        const response = await axios.get('http://localhost:8000/payment/subscribtion');
+        
+            return (response.data)
+  
+        } catch (error) {
+          console.error('Une erreur s\'est produite lors de la recuperation des offres :', error.message);
           return (error)
         }
       }
@@ -65,17 +83,35 @@ export default function usePayment() {
         try {
             const response = await axios.post("http://localhost:8000/payment/subscribe", { priceId, token, paymentMethod });
             console.log("Payment successful: " + response.data.id);
-            success = true;
+            success = response.data;
         } catch (err) {
             error = err.response?.data?.message || err.message;
         }
+        
         return { success, error };
-    };
+    }
+
+
+     // Fonction pour récupérer les factures de l'utilisateur
+    const getUserInvoices = async () => {
+      try {
+          const response = await axios.get('http://localhost:8000/payment/invoice');
+          const data = response.data
+          data.reverse()
+          console.log(data);
+          return data;
+      } catch (error) {
+          console.error('Erreur lors de la récupération des factures :', error);
+          return null;
+      }
+  };
 
 
   return {
     getSubscriptions,
     generateStripeToeken,
-    subscribe
+    subscribe,
+    getUserInvoices,
+    getCurrentSubscription,
   };
 }

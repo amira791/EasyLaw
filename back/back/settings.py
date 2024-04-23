@@ -15,12 +15,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-import os
-from dotenv import load_dotenv
-from datetime import timedelta
-
-
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,7 +57,17 @@ INSTALLED_APPS = [
     'corsheaders',
     'User',
     'Payement_Validation',
+    'Data_Collection',
+    'django_elasticsearch_dsl',
 ]
+ELASTICSEARCH_DSL={
+'default': {
+'hosts': 'http://localhost:9200',
+'timeout': 60,  # Custom timeout
+'http_auth': ('manel', '12345678')
+}
+}
+
 
 AUTH_USER_MODEL='User.CustomUser'
 
@@ -84,7 +88,7 @@ ROOT_URLCONF = 'back.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR /"template"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -102,6 +106,8 @@ WSGI_APPLICATION = 'back.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+import os
 
 DATABASES = {
     'default': {

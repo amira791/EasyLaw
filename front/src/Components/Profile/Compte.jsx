@@ -32,7 +32,7 @@ function Compte({ formData = {}, onSubmit }) {
 
   return (
     <>
-    <div style={{width:'100%'}}>
+    <div className='compte_user'>
       <form className='profile_form' onSubmit={handleSubmit}>
         <div className='lign_dv'>
           <div className='lign_dv_info'>
@@ -133,8 +133,8 @@ function Compte({ formData = {}, onSubmit }) {
         حفظ المعلومات
         </button>
       </form>
-      <button onClick={() => setEditMode(!editMode)}>
-        {editMode ? 'Annuler' : 'Modifier'}
+      <button className='edit_button' onClick={() => setEditMode(!editMode)}>
+        {editMode ? 'الغاء' : '  تغيير المعلومات    '}
       </button>
       </div>
     </>

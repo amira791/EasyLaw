@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../Context/LogoProvider';
+import  { userApiClient } from '../API';
 
 
 export default function useUser() {
@@ -15,7 +16,7 @@ export default function useUser() {
     // Fonction logout
     const logout = async () => {
       try {
-        const response = await axios.post('http://localhost:8000/user/logout', null, {
+        const response = await userApiClient.post(`/logout/`, null, {
           headers: {
             'Authorization': `Token ${localStorage.getItem('access_token')}`
           }
@@ -40,7 +41,7 @@ export default function useUser() {
       throw new Error('Token not found in localStorage');
     }
 
-    const response = await axios.get('http://localhost:8000/user/get_user_info', {
+    const response = await userApiClient.get(`/get_user_info/`, {
       headers: {
         Authorization: `token ${access_token}`
       }
@@ -56,7 +57,7 @@ export default function useUser() {
 const editUserInfo = async (editedFormData) => {
   try {
     const access_token = localStorage.getItem('access_token');
-    await axios.put('http://localhost:8000/user/edit_user_info', editedFormData, {
+    await userApiClient.put(`/edit_user_info/`, editedFormData, {
       headers: {
         Authorization: `Token ${access_token}`
       }
@@ -69,7 +70,7 @@ const editUserInfo = async (editedFormData) => {
  // Fonction pour modifier le mot de passe de l'utilisateur
 const changePassword = async (oldPassword, newPassword) => {
   try {
-    const response = await axios.post('http://localhost:8000/user/change_password', {
+    const response = await userApiClient.post(`/change_password/`, {
       old_password: oldPassword,
       new_password: newPassword
     }, {
@@ -87,7 +88,7 @@ const changePassword = async (oldPassword, newPassword) => {
 //************** For Sign In ************************** */
   const loginUser = async (formData) => {
     try {
-      const response = await axios.post('http://localhost:8000/user/login', formData);
+      const response = await userApiClient.post(`/login/`, formData);
       console.log(response.data.token);
       localStorage.clear();
       localStorage.setItem('access_token', response.data.token);
@@ -110,7 +111,7 @@ const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessag
       } else if (formData.password.length < 8) {
         setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
       } else {
-        const response = await axios.post('http://localhost:8000/user/signup', formData);
+        const response = await userApiClient.post(`/signup`, formData);
         console.log(response.data);
         setSuccessMessage('تم إنشاء الحساب بنجاح! يتم إعادة توجيهك إلى صفحة تسجيل الدخول...');
         setFormData({
@@ -127,7 +128,7 @@ const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessag
         setConfirmPassword('');
         setTimeout(() => {
           navigate('/signin'); // Use navigate to redirect to the signin page
-        }, 5000);
+        }, 2000);
       }
     } catch (error) {
       if (error.response.data.email) {

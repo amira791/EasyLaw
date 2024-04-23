@@ -47,7 +47,10 @@ function SignUp() {
     e.preventDefault();
     addNewUser(formData, confirmPassword, setErrorMessage, setPasswordError, setSuccessMessage, navigate);
   };
+
+
   return (
+    
     <>
     <Logo/>
     <TitleBar title="  إنشاء حساب " />

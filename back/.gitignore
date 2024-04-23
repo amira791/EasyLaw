@@ -1,2 +1,4 @@
 venv
-back_pycache_
+__pycache__
+/venv
+.env
