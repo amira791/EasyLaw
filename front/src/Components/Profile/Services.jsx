@@ -7,14 +7,32 @@ import Footer from '../Footer/Footer';
 import Logo from '../LOGO/Logo';
 import NavBarProfile from './NavBarProfile';
 import { AuthContext } from '../../Context/LogoProvider';
-import axios from 'axios';
+import usePayment from '../../Hooks/usePayment';
+import { Link } from 'react-router-dom';
+
+
+
 function Services() {
     const [initials, setInitials] = useState('');
+    
     const {  formData} = useContext(AuthContext);
+
+    const [sub, setSub] = useState(null)
+    const remaining = Math.ceil((new Date(sub?.dateFin) - new Date(sub?.dateDebut))/ (1000 * 60 * 60 * 24))
+    const {getCurrentSubscription} = usePayment()
+
     useEffect(() => {
         const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
         setInitials(nameInitials);
-      }, [formData.nom]);
+
+    const fetchCurrentSubscription = async () => {
+        const current = await getCurrentSubscription(); 
+        if (current)
+            setSub(current[0]);
+    };
+
+    fetchCurrentSubscription()
+    }, []);
     
   return (
    <>
@@ -28,72 +46,36 @@ function Services() {
     <div className='services-container'>
     <h2>خدماتي </h2>
     <div className='services-display'>
+
+    <div className='services'>
+            <h4> : الخدمات المتاحة لك  </h4>
+            <ul className='services'>
+                {
+                    sub?.service.accesses.map(access=> <li> {access.nom} </li>)
+                }
+            </ul>
+    </div>
+
     <div className='service-item'>
-            <h4> <span className='serv-span'>العرض الأول</span>  في خدمة الجرائد القانونية  </h4>
-            <p>: ميزات العرض</p>
-            <ul >
-                <li>الاطلاع على كل النصوص القانونية</li>
-                <li>الحصول على كل المستجدات</li>
-                <li>تلقي تنبيهات متعلقة بالمستجدات</li>
-            </ul>
-            <p>ينتهي العرض في :    10/10/2025  </p>
+            <h4> أنت مشترك في <span className='serv-span'>{sub?.service.nom}</span>   </h4>
+            <p> {sub?.service.tarif} : السعر </p>
+            <p>تاريخ الاشتراك : {sub?.dateDebut}     </p>
+            <p>تاريخ الانتهاء :    {sub?.dateFin}  </p>
             <div className=' service-item-content'>
                 <div className='icon-service'>
                 <p>تجديد العرض</p>
                 </div>
                 <div className='icon-service ofr'>
                
-                <p>3 أيام على انتهاء العرض</p>
+                <p  className={remaining > 7 && "safe"} > {remaining} : الأيام المتبقية للإنتهاء </p>
                 </div>
                 
             </div>
-        </div>
-
-        <div className='service-item'>
-            <h4> <span className='serv-span'>العرض الأول</span>  في خدمة الجرائد القانونية  </h4>
-            <p>: ميزات العرض</p>
-            <ul >
-                <li>الاطلاع على كل النصوص القانونية</li>
-                <li>الحصول على كل المستجدات</li>
-                <li>تلقي تنبيهات متعلقة بالمستجدات</li>
-            </ul>
-            <p>ينتهي العرض في :    10/10/2025  </p>
-            <div className=' service-item-content'>
-                <div className='icon-service'>
-                <p>تجديد العرض</p>
-                </div>
-                <div className='icon-service ofr'>
-               
-                <p>3 أيام على انتهاء العرض</p>
-                </div>
-                
-            </div>
-        </div>
-
-        <div className='service-item'>
-            <h4> <span className='serv-span'>العرض الأول</span>  في خدمة الجرائد القانونية  </h4>
-            <p>: ميزات العرض</p>
-            <ul >
-                <li>الاطلاع على كل النصوص القانونية</li>
-                <li>الحصول على كل المستجدات</li>
-                <li>تلقي تنبيهات متعلقة بالمستجدات</li>
-            </ul>
-            <p>ينتهي العرض في :    10/10/2025  </p>
-            <div className=' service-item-content'>
-                <div className='icon-service'>
-                <p>تجديد العرض</p>
-                </div>
-                <div className='icon-service ofr'>
-               
-                <p>3 أيام على انتهاء العرض</p>
-                </div>
-                
-            </div>
-        </div>
+    </div>
        
         
     </div>
-    <button className='btn_sub'>الاشتراك في خدمات أخرى</button>
+        { sub?.service.nom === "الاشتراك الشامل" ?  <h2>لقد اشتركت في أفضل عرض لدينا</h2>  : <Link to='/subscrib' className='btn_sub'>تغيير الاشتراك</Link> }
    </div>
    <NavBarProfile  interest="اهتماماتي"  services="خدماتي" />
   </div>

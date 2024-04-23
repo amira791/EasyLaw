@@ -38,6 +38,9 @@ function NavBarProfile(props) {
             <Link to='/services'>{props.services}</Link>
           </li>
           <li>
+            <Link to='/facture'>فواتيري</Link>
+          </li>
+          <li>
             <a onClick={handleLogout}>تسجيل الخروج</a>
           </li>
         </ul>

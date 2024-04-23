@@ -34,11 +34,11 @@ function Footer() {
           
           <div className="footer-item">
           
-          <div className="footer-item">
+          <div className="footer-item1">
           <a href="#">
-              <img src="" alt="EasyLaw App" />
+              <img src="./images/whitelogo.png" alt="EasyLaw App" />
             </a>
-            <p>محرك بحث النصوص القانونية الجزائرية</p>
+            
             <hr/>
           </div>
            

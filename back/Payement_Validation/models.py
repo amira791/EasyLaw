@@ -5,6 +5,7 @@ from User.models import CustomUser as User
 
 class Access(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
+    code = models.CharField(max_length=10)
     nom = models.CharField(max_length=50)
 
     def __str__(self):
@@ -28,7 +29,7 @@ class Facture(models.Model):
     date = models.DateField()
     montant = models.FloatField()
     montant_payé = models.FloatField()
-    montant_restant = models.FloatField()
+    payé = models.BooleanField()
     methode_de_payment = models.CharField(max_length=20, null=True)
     pdf = models.TextField()
 

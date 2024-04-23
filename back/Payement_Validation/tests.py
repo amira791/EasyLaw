@@ -4,14 +4,18 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from unittest.mock import MagicMock, patch
-from .views import getServices, addUser, getsubscription
-from .models import Service, Abonnement
+from .views import getServices, addUser, getsubscription, getinvoices
+from .models import Service, Abonnement, Facture
 from User.models import CustomUser
 
 import stripe
 
 from collections import namedtuple
 from datetime import datetime, timedelta
+
+
+
+
 
 
 class GetServicesTestCase(TestCase):
@@ -38,6 +42,8 @@ class GetServicesTestCase(TestCase):
         self.assertEqual(response.data["all"][1]["nom"], "Service 2")
         self.assertEqual(response.data["all"][0]["tarif"], 2000)
         self.assertEqual(response.data["current"], None)
+
+
 
 
 
@@ -111,6 +117,9 @@ class AddUserTestCase(TestCase):
 
 
 
+
+
+
 class getsubscriptionTestCase(TestCase):
 
     def setUp(self):
@@ -142,9 +151,8 @@ class getsubscriptionTestCase(TestCase):
     
     def test_get_subscription_inactive(self):
 
-        abonement = Abonnement.objects.get(id=0)
-        abonement.statut = "inactive"
-        abonement.save()
+        self.abonement.statut = "inactive"
+        self.abonement.save()
 
         # Creating a mock request object with an authenticated user
         request = HttpRequest()
@@ -164,3 +172,34 @@ class getsubscriptionTestCase(TestCase):
     
 
 
+
+
+
+class getinvoicesTestCase(TestCase):
+    def setUp(self):
+        self.service1 = Service.objects.create(id= 0,nom="Service 1", tarif = 2000, priceId = "price")
+        self.user = CustomUser.objects.create(id= 2)
+        self.facture = Facture.objects.create(id=1, date= datetime.now(), montant = 222, montant_payé= 222, payé= True, methode_de_payment = "Dhahabia")
+        self.abonement = Abonnement.objects.create(id= 0,user= self.user,service=self.service1, dateDebut = datetime.now().strftime('%Y-%m-%d'), 
+                                                    dateFin= (datetime.now()+timedelta(days=30)).strftime('%Y-%m-%d'), statut = "active", facture = self.facture)
+        self.token = Token.objects.create(user=self.user)
+
+
+    def test_getinvoices(self):
+
+        # Creating a mock request object with an authenticated user
+        request = HttpRequest()
+        request.method = 'GET'
+
+        request.META['HTTP_AUTHORIZATION'] = f'Token {self.token.key}'
+
+        user = {"id":123, "is_authenticated":True}
+        request.user = user  
+
+        # Call the view function
+        response = getinvoices(request)
+
+        # Assert that the response is as expected
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(int(response.data[0]["facture"]["id"]), self.facture.id)
+        self.assertEqual(response.data[0]["facture"]["montant"], self.facture.montant)

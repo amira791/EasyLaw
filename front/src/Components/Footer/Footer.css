@@ -23,6 +23,13 @@
   .footer-item {
     flex: 1;
     margin-bottom: 20px;
+   
+  }
+  .footer-item img {
+   width: 200px;
+  }
+  .footer-item1{
+    direction: rtl;
   }
   .footer-item-admin{
     flex: 0;
