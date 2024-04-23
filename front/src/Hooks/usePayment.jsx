@@ -87,19 +87,18 @@ export default function usePayment() {
         } catch (err) {
             error = err.response?.data?.message || err.message;
         }
+        
         return { success, error };
     }
+
+
      // Fonction pour récupérer les factures de l'utilisateur
     const getUserInvoices = async () => {
       try {
-          const token = localStorage.getItem('access_token');
-          const response = await axios.get('http://localhost:8000/payment/invoice', {
-              headers: {
-                  Authorization: `Token ${token}`
-              }
-          });
+          const response = await axios.get('http://localhost:8000/payment/invoice');
           const data = response.data
           data.reverse()
+          console.log(data);
           return data;
       } catch (error) {
           console.error('Erreur lors de la récupération des factures :', error);
@@ -113,6 +112,6 @@ export default function usePayment() {
     generateStripeToeken,
     subscribe,
     getUserInvoices,
-    getCurrentSubscription
+    getCurrentSubscription,
   };
 }

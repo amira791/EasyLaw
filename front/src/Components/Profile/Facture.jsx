@@ -1,13 +1,14 @@
-import React,{useState,useContext,useEffect} from 'react'
+
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../Context/LogoProvider';
-import './Profile.css'
+import './Profile.css';
 import Logo from '../LOGO/Logo';
 import Footer from '../Footer/Footer';
 import NavBarProfile from './NavBarProfile';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
-import axios from 'axios';
+
 import usePayment from '../../Hooks/usePayment';
 
 function Facture() {
@@ -22,9 +23,13 @@ function Facture() {
 
       useEffect(() => {
         const fetchUserInvoices = async () => {
-            const invoices = await getUserInvoices(); 
-            if (invoices) {
-                setUserAccount(invoices);
+            try {
+                const invoices = await getUserInvoices();
+                if (invoices) {
+                    setUserAccount(invoices);
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des factures :', error);
             }
         };
 
