@@ -55,7 +55,7 @@ function App() {
         <Route path="/services" element={<Services/>} />
         <Route path="/facture" element={<Facture/>} />
         <Route path="/subscrib" element={ <Subscrib /> } />
-        <Route path="/validation" element={<Validation/>} />
+        <Route path="/validation" element={<SucessPayment/>} />
         <Route path="/payment/:id" element={
           <Elements stripe = {stripe}>
             <Payment/>

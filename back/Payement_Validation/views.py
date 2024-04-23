@@ -10,6 +10,8 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import *
 from .models import Abonnement
 
+from permissions import is_Allowed
+
 from datetime import datetime
 
 
@@ -17,10 +19,6 @@ import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-
-
-def verifyPlans(services):
-    pass
 
 
 
@@ -33,8 +31,6 @@ def getServices(request):
     
     serializer = ServiceSerializer(services, many=True)
     serialized_data = serializer.data
-
-    verifyPlans(serialized_data)
 
     res = {"all" : serialized_data, "current" : None}
 
@@ -95,18 +91,20 @@ def subscribe(request):
     #Execution
     try:
 
+        #payement method atttachement
         paymentMethod = stripe.PaymentMethod.create(
             type="card",
             card= {
                 "token": token['id']
                 }
         )
-
         stripe.PaymentMethod.attach(
             paymentMethod.id,
             customer=customerId
         )
 
+
+        #creating the subscription
         stripeSubscription = stripe.Subscription.create(
             customer=customerId,
             items=[
@@ -114,13 +112,14 @@ def subscribe(request):
                     "price": priceId,  
                 }
             ],
-            default_payment_method= paymentMethod.id
+            default_payment_method= paymentMethod.id,
+            cancel_at_period_end = True,
         )
     
+        #retreiving the invoice associated 
         invoice = stripe.Invoice.retrieve(stripeSubscription.latest_invoice)
-
-        charge = stripe.Charge.retrieve(invoice.charge)
          
+        # 
         subscription = {
             "id": stripeSubscription.id,
             "dateDebut": datetime.now().strftime('%Y-%m-%d'),
@@ -133,13 +132,12 @@ def subscribe(request):
                 "date": datetime.now().strftime('%Y-%m-%d'),
                 "montant": invoice.amount_due/100,
                 "montant_payé" : invoice.amount_paid/100,
-                "montant_restant" : invoice.amount_remaining/100,
+                "payé" : invoice.amount_paid == invoice.amount_due,
                 "methode_de_payment" : method,
                 "pdf": invoice.invoice_pdf,
             }
          }
 
-        
 
         serializer = AbonnementSerializer(data=subscription)
         if serializer.is_valid():
@@ -173,12 +171,9 @@ def getinvoices(request):
     userId = request.user.id
 
     abonnement = Abonnement.objects.filter(user = userId)
-
-    factures = [abonnement_instance.facture for abonnement_instance in abonnement]
-    
-    serializer = FactureSerializer(factures, many=True)
+    serializer = AbonnementFullSerializer(abonnement, many=True)
     serialized_data = serializer.data
+    factures = [{"facture":abonnement_instance["facture"], "service": abonnement_instance["service"]["nom"]} for abonnement_instance in serialized_data]
+    
 
-    return Response(serialized_data, status=status.HTTP_200_OK)
-
-
+    return Response(factures, status=status.HTTP_200_OK)

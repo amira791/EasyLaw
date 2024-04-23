@@ -28,7 +28,7 @@ function Payment(props) {
 console.log(stripe);
  
   const [paymentSuccess, setPaymentSuccess] = useState(false)
-  const { hasSubscription, setHasSubscription } = useContext(AuthContext);
+  const [subscribed, setSubscribed] = useState(false)
 
   const { id } = useParams();
 
@@ -60,9 +60,8 @@ console.log(stripe);
           const {success , error} = await subscribe(id, token, methods[activeButton])
           if(success) {
             setPaymentSuccess(true)
-            //setHasSubscription(true)
-
-          }  
+            setSubscribed(success)
+          }
           else
             errors["general"] = error
          }
@@ -97,6 +96,10 @@ console.log(stripe);
     }    
 
 
+
+    const handleDownload = (pdfUrl) => {
+      window.open(pdfUrl, '_blank');
+  };
     
 
   
@@ -112,13 +115,19 @@ console.log(stripe);
 
     {paymentSuccess?
 
-    <section className='successful-payment'>
-      <h2>  تم إتمام معاملة الدفع بنجاح <i style={{color:"var(--primary-color)"}}>&#10003;</i></h2>
-
-      <Link to={`/subscrib`} className='payment-button'>
-        مغادرة
-      </Link>
-    </section>
+      <section className="successful-payment">
+      <h1 className="success-payment-title">تم إتمام معاملة الدفع بنجاح <i style={{color:"var(--primary-color)"}}>&#10003;</i></h1>
+      <div className="success-payment-details">
+        <p><strong>العرض المختار:</strong> {name} </p>
+        <p><strong>المبلغ:</strong> {price} </p>
+        <p><strong>تاريخ بداية الاشتراك: </strong> {subscribed.dateDebut} </p>
+        <p><strong>تاريخ نهاية الاشتراك: </strong> {subscribed.dateDebut} </p>
+      </div>
+      <div className="receipt-actions">
+              <button onClick={()=>handleDownload(subscribed.facture.pdf)} >تحميل الفاتورة &#11015;</button>
+              <button >طباعة الفاتورة &#x1F5A8;</button>
+            </div>
+      </section>
 
     :
 
