@@ -10,7 +10,7 @@ client = Elasticsearch(
     [ELASTIC_HOST],
     basic_auth=('manel', '12345678')
 )
-def lookup(query, index='juridical_texts', fields=['id_text', 'type_text', 'description', 'extracted_text'], sort_by='relevance', source=None, year=None, signitureDateStart=None, signitureDateEnd=None, publicationDateStart=None, publicationDateEnd=None, type=None, ojNumber=None, jtNumber=None, jt_source=None, domain=None,page=1, page_size=3):
+def lookup(query, index='juridical_texts', fields=['id_text', 'type_text', 'description', 'extracted_text'], sort_by='relevance', source=None, year=None, signitureDateStart=None, signitureDateEnd=None, publicationDateStart=None, publicationDateEnd=None, type=None, ojNumber=None, jtNumber=None, jt_source=None, domain=None):
     if not query:
         return
     
@@ -25,7 +25,7 @@ def lookup(query, index='juridical_texts', fields=['id_text', 'type_text', 'desc
     # Construction de la requête Elasticsearch avec le tri
     s = Search(index=index).using(client).query(
         "multi_match", fields=fields, fuzziness='AUTO', query=query
-    ).sort(sort)[(page - 1) * page_size: page * page_size]  # Pagination
+    ).sort(sort)  # Pagination
     if source:  # Tri par institut de publication
         print(f"Filtering by source: {source}")
         s = s.filter('term', source=source)

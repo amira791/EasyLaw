@@ -69,10 +69,13 @@ export default function usePayment() {
         } catch (err) {
             error = err.response?.data?.message || err.message;
         }
+        
         return { success, error };
+        
     }
+  
      // Fonction pour récupérer les factures de l'utilisateur
-    const getUserInvoices = async () => {
+   /* const getUserInvoices = async () => {
       try {
           const token = localStorage.getItem('access_token');
           const response = await axios.get('http://localhost:8000/payment/invoice', {
@@ -85,7 +88,27 @@ export default function usePayment() {
           console.error('Erreur lors de la récupération des factures :', error);
           return null;
       }
+  };*/
+
+  const getUserInvoices = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      const response = await axios.get('http://localhost:8000/payment/invoice', {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      });
+      if (response.data && response.data.length > 0) {
+        return { invoices: response.data, hasInvoices: true };
+      } else {
+        return { invoices: null, hasInvoices: false };
+      }
+    } catch (error) {
+      console.error('Erreur lors de la récupération des factures :', error);
+      return { invoices: null, hasInvoices: false };
+    }
   };
+  
 
 
   return {

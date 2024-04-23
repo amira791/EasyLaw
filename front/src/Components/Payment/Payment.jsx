@@ -28,6 +28,7 @@ function Payment(props) {
 console.log(stripe);
  
   const [paymentSuccess, setPaymentSuccess] = useState(false)
+  const { hasSubscription, setHasSubscription } = useContext(AuthContext);
 
   const { id } = useParams();
 
@@ -57,8 +58,11 @@ console.log(stripe);
 
 
           const {success , error} = await subscribe(id, token, methods[activeButton])
-          if(success) 
+          if(success) {
             setPaymentSuccess(true)
+            //setHasSubscription(true)
+
+          }  
           else
             errors["general"] = error
          }

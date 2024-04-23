@@ -174,18 +174,7 @@ class search_view(APIView):
          if query:
             results = lookup(query, sort_by='relevance',  # Ou 'publication_date' pour trier par date de publication
   # Filtre par institut de publication
-    year='2023',  # Filtre par année de publication
-    signitureDateStart='2023-01-01',  # Filtre par date de signature de début
-    signitureDateEnd='2023-12-31',  # Filtre par date de signature de fin
-    publicationDateStart='2023-01-01',  # Filtre par date de publication de début
-    publicationDateEnd='2023-12-31',  # Filtre par date de publication de fin
-    # type='votre_type_de_texte',  # Filtre par type de texte
-    # ojNumber='votre_numéro_journal_officiel',  # Filtre par numéro du journal officiel
-    # jtNumber='votre_numéro_juridique',  # Filtre par numéro juridique
-    # jt_source='votre_source_jt',  # Filtre par source JT
-    # domain='votre_domaine_de_description'  )# Filtre par domaine de description)
-      page=2,  # Page à récupérer
-    page_size=3 )# Nombre de résultats par page      
+    )# Nombre de résultats par page      
             return Response(results)
          else:
             return Response({'error': 'No search query provided'}, status=400)
