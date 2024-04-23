@@ -3,8 +3,10 @@ import './Gpt.css'
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/LogoProvider';
+import axios from 'axios';
 
 function Gpt() {
+  const [results, setResults] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
   const [category, setCategory] = useState('');
   const [source, setSource] = useState('');
@@ -17,7 +19,7 @@ function Gpt() {
    const { hasSubscription, setHasSubscription } = useContext(AuthContext);
    //const [hasSubscription, setHasSubscription] = useState(false);
 
-  const handleSearchSubmit = (e) => {
+  /*const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log('Recherche soumise avec la requête :', searchQuery);
 
@@ -33,7 +35,27 @@ function Gpt() {
       navigate('/subscrib') // Redirection vers la page de paiement
       console.log(hasSubscription)
   }
+  };*/
+
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Recherche soumise avec la requête :', searchQuery);
+
+    try {
+      // Envoyer une requête HTTP GET au backend pour récupérer les résultats de recherche
+      const response = await axios.get(`http://localhost:8000/data_collection/index_page?q=${searchQuery}`);
+      console.log('Résultats de la recherche:', response.data);
+      // Mettre à jour l'état avec les résultats de la recherche
+      setResults(response.data);
+      console.log(results)
+      // Rediriger l'utilisateur vers la page de résultats de recherche
+      navigate('/searchresult', { state: { results: response.data } });
+
+    } catch (error) {
+      console.error('Erreur lors de la recherche:', error);
+    }
   };
+
 
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);

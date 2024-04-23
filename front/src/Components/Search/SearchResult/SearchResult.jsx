@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import './SearchResult.css';
 import Logo from '../../LOGO/Logo';
 import Gpt from '../GPT/Gpt';
 import Footer from '../../Footer/Footer';
+import { useLocation } from 'react-router-dom';
 
 function SearchResult() {
+  const location = useLocation();
+  const [results, setResults] = useState([]);
+  useEffect(() => {
+    if (location.state && location.state.results) {
+      setResults(location.state.results);
+    }
+  }, [location.state]);
+
   const searchResults = [
     {
       id: 1,
@@ -84,12 +93,12 @@ function SearchResult() {
       <div className='searchResult'>
         <h1>نتائج  البحث   </h1>
         <div className="searchResult-container">
-          {searchResults.map(result => (
-            <div key={result.id} className="searchResult-item">
-              <h2>{result.title}</h2>
-              <p>{result.Ministère}</p>
-              <p>{result.journal}</p>
-              <p>{result.description}</p>
+          {results.map(result => (
+            <div key={result.id_text} className="searchResult-item">
+              <h2>{result.description}</h2>
+              <p>{result.type_text}</p>
+              <p>{result.signature_date}</p>
+              <p>{result.publication}</p>
             </div>
           ))}
         </div>
