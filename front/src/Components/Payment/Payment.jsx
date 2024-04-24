@@ -14,6 +14,8 @@ import usePayment from '../../Hooks/usePayment';
 
 function Payment(props) {
 
+  const navigate = useNavigate()
+
   const stripe = useStripe()
   const elements = useElements()
 
@@ -99,8 +101,7 @@ console.log(stripe);
 
     const handleDownload = (pdfUrl) => {
       window.open(pdfUrl, '_blank');
-  };
-    
+    };
 
   
 
@@ -125,7 +126,7 @@ console.log(stripe);
       </div>
       <div className="receipt-actions">
               <button onClick={()=>handleDownload(subscribed.facture.pdf)} >تحميل الفاتورة &#11015;</button>
-              <button >طباعة الفاتورة &#x1F5A8;</button>
+              <button onClick={()=> navigate('/services') } >صفحة الخدمات  &#128462;</button>
             </div>
       </section>
 
@@ -143,10 +144,10 @@ console.log(stripe);
       <div className='payment-group-col'>
         <label htmlFor="modeP"> : طريقة الدفع </label>
        <div className='paiement-mode'>
-       <button className={`paiement-mode-item ${activeButton === 2 ? 'active' : ''}`} onClick={(e)=>{ e.preventDefault(); setActiveButton(2)}} > 
+       {/* <button className={`paiement-mode-item ${activeButton === 2 ? 'active' : ''}`} onClick={(e)=>{ e.preventDefault(); setActiveButton(2)}} > 
        <img src='../images/baridimob.png'/>
        <h3>BaridiMOB</h3>
-       </button>
+       </button> */}
        <button className={`paiement-mode-item ${activeButton === 1 ? 'active' : ''}`} onClick={(e)=>{ e.preventDefault(); setActiveButton(1)}} > 
        <img src='../images/cib.png'/>
        <h3>CIB</h3>

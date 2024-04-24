@@ -33,7 +33,8 @@ function Services() {
 
     fetchCurrentSubscription()
     }, []);
-    
+    console.log(sub);
+
   return (
    <>
 <Logo/>
@@ -46,12 +47,13 @@ function Services() {
     <div className='services-container'>
     <h2>خدماتي </h2>
     <div className='services-display'>
-
+    {sub?
+    <>
     <div className='services'>
             <h4> : الخدمات المتاحة لك  </h4>
             <ul className='services'>
                 {
-                    sub?.service.accesses.map(access=> <li> {access.nom} </li>)
+                    sub?.service.accesses.map(access=> <li key={access.id} > {access.nom} </li>)
                 }
             </ul>
     </div>
@@ -62,20 +64,24 @@ function Services() {
             <p>تاريخ الاشتراك : {sub?.dateDebut}     </p>
             <p>تاريخ الانتهاء :    {sub?.dateFin}  </p>
             <div className=' service-item-content'>
-                <div className='icon-service'>
+                {/* <div className='icon-service'>
                 <p>تجديد العرض</p>
-                </div>
+                </div> */}
                 <div className='icon-service ofr'>
                
                 <p  className={remaining > 7 && "safe"} > {remaining} : الأيام المتبقية للإنتهاء </p>
                 </div>
                 
             </div>
-    </div>
+    </div></>
+
+    :
+            <h1>أنت غير مشترك في أي عرض</h1>
+    }
        
         
     </div>
-        { sub?.service.nom === "الاشتراك الشامل" ?  <h2>لقد اشتركت في أفضل عرض لدينا</h2>  : <Link to='/subscrib' className='btn_sub'>تغيير الاشتراك</Link> }
+        { sub?.service.nom === "الاشتراك الشامل" ?  <h2>لقد اشتركت في أفضل عرض لدينا</h2>  : <Link to='/subscrib' className='btn_sub'>تطوير الاشتراك</Link> }
    </div>
    <NavBarProfile  interest="اهتماماتي"  services="خدماتي" />
   </div>

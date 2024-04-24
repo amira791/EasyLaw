@@ -1,20 +1,19 @@
-import React, { useState, useContext } from 'react';
-import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
-
-import { AuthContext } from '../Context/LogoProvider';
 import { CardNumberElement } from '@stripe/react-stripe-js';
 
+import  { payementApiClient } from '../API';
 
 export default function usePayment() {
     
     const token = localStorage.getItem('access_token')
-    if(token)
-      axios.defaults.headers.common['Authorization'] = "token "+  token;
+    var headers = {}
+      if(token)
+         headers= {
+          'Authorization': `Token ${localStorage.getItem('access_token')}`
+        }
 
     const getSubscriptions = async () =>{
         try {
-        const response = await axios.get('http://localhost:8000/payment/service');
+        const response = await payementApiClient.get('/service', {headers});
         const sorted = response.data.all
         sorted.sort((a,b)=> b.tarif - a.tarif)
         const data = sorted.map(offer=> ({
@@ -39,8 +38,7 @@ export default function usePayment() {
    
       const getCurrentSubscription = async () =>{
         try {
-        const response = await axios.get('http://localhost:8000/payment/subscribtion');
-        
+        const response = await payementApiClient.get('/subscribtion', {headers});
             return (response.data)
   
         } catch (error) {
@@ -58,8 +56,6 @@ export default function usePayment() {
           return
         }
 
-        
-
         const cardNumberElement = elements.getElement(CardNumberElement)
         
         const {token, error} =  type!= 2 ? await stripe.createToken(cardNumberElement,
@@ -67,8 +63,6 @@ export default function usePayment() {
               name : holderName
             }): {token:{id: "tok_unionpay"}, error: null}
             
-           
-        
         if (!token || error)
         {
           throw error || "token creation failed"
@@ -81,7 +75,7 @@ export default function usePayment() {
         let success = false;
         let error = null;
         try {
-            const response = await axios.post("http://localhost:8000/payment/subscribe", { priceId, token, paymentMethod });
+            const response = await payementApiClient.post("/subscribe", { priceId, token, paymentMethod }, {headers});
             console.log("Payment successful: " + response.data.id);
             success = response.data;
         } catch (err) {
@@ -95,7 +89,7 @@ export default function usePayment() {
      // Fonction pour récupérer les factures de l'utilisateur
     const getUserInvoices = async () => {
       try {
-          const response = await axios.get('http://localhost:8000/payment/invoice');
+          const response = await payementApiClient.get('/invoice', {headers});
           const data = response.data
           data.reverse()
           console.log(data);
