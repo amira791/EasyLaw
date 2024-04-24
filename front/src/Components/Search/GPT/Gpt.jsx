@@ -41,14 +41,14 @@ function Gpt() {
   const { hasSubscription, setHasSubscription } = useContext(AuthContext);
   const { getUserInvoices } = usePayment();
   useEffect(() => {
-    const checkSubscription = async () => {
-      const { hasInvoices } = await getUserInvoices();
+    // const checkSubscription = async () => {
+    //   const { hasInvoices } = await getUserInvoices();
      
-      // Mettez à jour hasSubscription en fonction du résultat de getUserInvoices
-      setHasSubscription(hasInvoices);
-      console.log(hasSubscription);
-    };
-    checkSubscription();
+    //   // Mettez à jour hasSubscription en fonction du résultat de getUserInvoices
+    //   setHasSubscription(hasInvoices);
+    //   console.log(hasSubscription);
+    // };
+    // checkSubscription();
   }, []);
 
   const handleSearchSubmit = async (e) => {
@@ -70,23 +70,24 @@ function Gpt() {
     if (fileType) {
       queryParams.file_type = fileType; // Use a more descriptive param name
     }*/
- if (hasSubscription) {
-    console.log('Utilisateur a un abonnement. Effectuer la recherche...');
-    console.log(hasSubscription)
     try {
       console.log(queryParams)
       const response = await axios.get(
         `http://localhost:8000/data_collection/index_page`,
-        { params: queryParams } // Pass query params as an object
-      );
+          { headers: {'Authorization': `Token ${localStorage.getItem('access_token')}`}
+            ,params: queryParams  } // Pass query params as an object
+          );
+      console.log('Utilisateur a un abonnement. Effectuer la recherche...');
       console.log('Recherche soumise avec la requête :', searchQuery);
       console.log('Résultats de la recherche:', response.data);
       navigate('/searchresult', { state: { results: response.data } });
-    } catch (error) {
-      console.error('Erreur lors de la recherche:', error);
-    }}else{
-      navigate('/subscrib');
-    }
+      } catch (error) {
+        if (error.response?.status === 403) {
+          console.error('You are not allowed to search.');
+          navigate("/subscrib")
+        }
+        console.error('Erreur lors de la recherche:', error);
+      }
   };
 
   return (

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 # from selenium import webdriver
 # from selenium.webdriver.common.by import By
 # from selenium.webdriver.support.ui import Select
@@ -22,6 +22,9 @@ import os
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import JuridicalTextSerializer 
+
+from rest_framework.permissions import IsAuthenticated
+from permissions import is_Allowed
 
 #les expressions réguliéres
 # patterns = [
@@ -165,19 +168,23 @@ from .serializers import JuridicalTextSerializer
 #     else:
 #         return JsonResponse({'error': 'No search query provided'}, status=400)
 
+@permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
-         query = request.GET.get('q')
-         sort_by = request.GET.get('sort_by', 'relevance')  # Par défaut, tri par pertinence 
-         source = request.GET.get('source') 
-         year = request.GET.get('year')
-         if query:
-            results = lookup(query, sort_by='relevance',  # Ou 'publication_date' pour trier par date de publication
-  # Filtre par institut de publication
-    )# Nombre de résultats par page      
-            return Response(results)
-         else:
-            return Response({'error': 'No search query provided'}, status=400)
+            if( is_Allowed(request.user.id,"search")):
+                  query = request.GET.get('q')
+                  sort_by = request.GET.get('sort_by', 'relevance')  # Par défaut, tri par pertinence 
+                  source = request.GET.get('source') 
+                  year = request.GET.get('year')
+                  if query:
+                     results = lookup(query, sort_by='relevance',  # Ou 'publication_date' pour trier par date de publication
+                           # Filtre par institut de publication
+                     )# Nombre de résultats par page      
+                     return Response(results)
+                  else:
+                     return Response({'error': 'No search query provided'}, status=400)
+            else:
+               return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 
 # @api_view(['POST'])
 # def initial_jt_filling(request):
