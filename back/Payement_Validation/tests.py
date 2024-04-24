@@ -199,7 +199,7 @@ class subscribeTestCase(TestCase):
 
             data = {
                 'priceId': self.service1.priceId,
-                'paymentMethod': "Dhahabia",
+                'paymentMethod': "CIB",
                 'token': {"id":"tok_unionpay"},
             }
 
