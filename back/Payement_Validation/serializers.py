@@ -26,6 +26,7 @@ class AbonnementSerializer(WritableNestedModelSerializer, serializers.ModelSeria
 
 class AbonnementFullSerializer(serializers.ModelSerializer):
     service = ServiceSerializer()
+    facture = FactureSerializer()
 
     class Meta:
         model = Abonnement

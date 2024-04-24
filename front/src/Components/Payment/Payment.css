@@ -45,7 +45,7 @@
   display: flex;
   margin-top: 2%;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .payment-form .paiement-mode-item{
   display: flex;
@@ -154,19 +154,23 @@
 
 .successful-payment
 {
-  height: 50vh;
+  height: 60vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.successful-payment .payment-button
+.success-payment-details
 {
-  display: flex;
-  text-decoration: none;
-  justify-content: center;
-  align-items: center;
-  width: 5em;
+  text-align: right;
+  width: 30vw;
 }
 
+.receipt-actions
+{
+  margin-top: 2em;
+  width: 30vw;
+  display: flex;
+  justify-content: space-around;
+}

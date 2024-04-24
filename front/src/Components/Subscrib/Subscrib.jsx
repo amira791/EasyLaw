@@ -18,6 +18,9 @@ function Subscrib() {
 
   const {getSubscriptions} = usePayment()
 
+  var valid = true
+              
+
   useEffect(() => {
 
     const fetchData = async () => {
@@ -72,7 +75,10 @@ function Subscrib() {
     <div className='sub_container'>
         <p className='offre_title'>إختاروا العرض الذي يناسبكم</p>
         <div className='sub_offers'>
-            {offers.map((offer, index) => (
+            { offers.map((offer, index) => {
+              if(offer.id === current) valid = false
+
+              return(
               <div className= {'offre' + (offer.id === current ? ' actif' : '')} key={index}>
                 <p className='offre_title'>{offer.title}</p>
                 <h3>{offer.price}</h3>
@@ -89,15 +95,14 @@ function Subscrib() {
                   {
                     (offer.id === current)?
                       <h2 style= {{color: "var(--primary-color)"}}   >الاشتراك الحالي</h2>
-                    :
+                    : valid &&
                       <Link to={`/payment/${offer.priceId}?name=${offer.title}&price=${offer.price}`} className='btn_sub'>
                            {current?  "تطوير" : "اشتراك" } <ShoppingCartIcon sx={{ width: '20px', height: '20px',marginLeft:'5px' }}/>
                       </Link>
                   }
                 </div>
                 
-              </div>
-            ))}
+              </div>)})}
         </div>
     </div>
     <Footer/>

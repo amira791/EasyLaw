@@ -21,16 +21,22 @@
 }
 .profile_container .profile_navBar ul{
 padding: 0%;
+direction: rtl;
+
 }
 .profile_container .profile_navBar li{
     list-style-type: none;
     text-align: right;
     cursor: pointer;
-    margin: 30% auto;
+    margin: 30% 0%;
+    
 }
 .profile_container .profile_navBar li a{
    text-decoration: none;
    color: white;
+   display: flex;
+    align-items: center;
+    justify-content: center;
     
 }
 
@@ -144,6 +150,20 @@ padding: 0%;
     width: 90%;
     
   }
+.services{
+    font-size: 18pt;
+}
+
+.services
+{
+    list-style-type: none;
+}
+
+.services li::before
+{
+    content: "\2713";
+    margin-left: .5em;
+}
   
 .services-container{
     display: flex;
@@ -158,21 +178,20 @@ padding: 0%;
     text-align: center;
 }
 .services-container .services-display{
-    display: grid;
-    grid-template-columns: repeat(2,45%);
-    justify-content:space-between;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
     margin-top: 5%;
     width: 85%;
-    
+    margin-bottom: 3em;
 }
 .services-container .service-item{
-   padding: 3% 7%;
-    margin-bottom: 10%;
+    padding: 3% 7%;
     border-radius: 3px;
-   
     background-color: var(--secondary-color);
-    width: 100%;
+    width: 45%;
 }
+
 .services-container .service-item-content{
 display: flex;
 justify-content: space-between;
@@ -189,6 +208,12 @@ width: 100%;
     width: 30%;
    
 }
+
+.icon-service .safe
+{
+    color: var(--primary-color);
+}
+
 .services-container ul {
     direction: rtl;
 }
@@ -223,6 +248,8 @@ width: 50%;
     font-weight: 600;
     border-radius: 5px;
     box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .interest-container{

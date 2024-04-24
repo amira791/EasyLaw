@@ -24,6 +24,14 @@
     direction: rtl;
     
   }
+  .adjustment-item{
+    
+    margin-right: 6%;
+  }
+  .adjustment-item1{
+    
+    margin-right: 8%;
+  }
   
   .searchResult-item h2 {
     font-size: 18px;

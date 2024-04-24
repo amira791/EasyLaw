@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../Context/LogoProvider';
 import useUser from '../../Hooks/useUser';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function NavBarProfile(props) {
   const [isLoggedOut, setIsLoggedOut] = useState(false);

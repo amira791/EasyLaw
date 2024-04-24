@@ -8,9 +8,9 @@ ELASTIC_HOST = 'http://localhost:9200/'
 # Create the client instance
 client = Elasticsearch(
     [ELASTIC_HOST],
-    basic_auth=('nermine', '17161670')
+    basic_auth=('manel', '12345678')
 )
-def lookup(query, index='juridical_texts', fields=['id_text', 'type_text', 'description', 'extracted_text','jt_number'], sort_by=None, year=None, signitureDateStart=None, signitureDateEnd=None, publicationDateStart=None, publicationDateEnd=None, type=None, ojNumber=None, jtNumber=None, jt_source=None, domain=None,page=None, page_size=100):
+def lookup(query, index='juridical_texts', fields=['id_text', 'type_text', 'description', 'extracted_text'], sort_by='relevance', source=None, year=None, signitureDateStart=None, signitureDateEnd=None, publicationDateStart=None, publicationDateEnd=None, type=None, ojNumber=None, jtNumber=None, jt_source=None, domain=None):
     if not query:
         return
     # Définition du tri en fonction du paramètre sort_by pour avoir le tri pertinence ou par date
@@ -25,10 +25,10 @@ def lookup(query, index='juridical_texts', fields=['id_text', 'type_text', 'desc
     print(jt_source)
     s = Search(index=index).using(client).query(
         "multi_match", fields=fields, fuzziness='AUTO', query=query
-    ).sort(sort)[(int(page) - 1) * page_size: int(page) * page_size] # pagination  selon la page dans le front 
-    #Filtrage par différents champs 
-    if jt_source:  # Tri par institut de publication ca marche 
-        s = s.filter('term',source=jt_source)
+    ).sort(sort) 
+    if source:  # Tri par institut de publication
+        print(f"Filtering by source: {source}")
+        s = s.filter('term', source=source)
     if year:  # Filtre par années
         s = s.filter('range', publication_date={'gte': year + '-01-01', 'lte': year + '-12-31'})
     if signitureDateStart:
