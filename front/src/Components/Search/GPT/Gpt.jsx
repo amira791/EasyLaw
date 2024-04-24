@@ -93,9 +93,9 @@ function Gpt() {
   return (
     <div className='gpt_dv'>
       <div className='gpt_logo'>
-        <Link to="/gptpage">
+        
           <img className="icon_gpt" src="./images/gpt.png" alt="Logo GPT" />
-        </Link>
+       
       </div>
       <div className='gpt_search'>
         <form className="search-form" onSubmit={handleSearchSubmit}>
