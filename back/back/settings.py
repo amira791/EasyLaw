@@ -62,14 +62,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'User',
-<<<<<<< HEAD
     'Data_Collection',
     'django_elasticsearch_dsl',
-    
-   
-=======
     'Payement_Validation',
->>>>>>> origin/main
 ]
 ELASTICSEARCH_DSL={
 'default': {
