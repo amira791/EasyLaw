@@ -70,8 +70,9 @@ function Gpt() {
     if (fileType) {
       queryParams.file_type = fileType; // Use a more descriptive param name
     }*/
- if (true) {
+ if (hasSubscription) {
     console.log('Utilisateur a un abonnement. Effectuer la recherche...');
+    console.log(hasSubscription)
     try {
       console.log(queryParams)
       const response = await axios.get(

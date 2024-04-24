@@ -10,7 +10,6 @@ import { Column } from 'primereact/column';
 
 
 import usePayment from '../../Hooks/usePayment';
-
 function Facture() {
     const [initials, setInitials] = useState('');
     const [userAccount, setUserAccount] = useState([]);
@@ -40,34 +39,38 @@ function Facture() {
         window.open(pdfUrl, '_blank');
     };
     
-  return (
-   <>
-   <Logo/>
-   <div className='profile_container'>
-<div className='profile_name'>
-    <div className="user-initials-circle"> {initials}</div>
-        <h3>{formData.nom}</h3>
-    </div>
-    <div className='profile_content'>
-   <div className='facture_container'> 
-   <h2>فواتيري </h2>
-   <DataTable value={userAccount} paginator rows={10}  style={{ width: '100%',textAlign:'center' }}>
-   <Column field="pdf" header="" style={{ width: '16%' }} body={(rowData) => (
-     <button style={{ color:'red',border:'none',backgroundColor:'transparent',fontSize:"16px" }} onClick={() => {handleDownload(rowData.facture.pdf); console.log(rowData.facture)}}>تحميل</button>
-         )}></Column>
-          <Column field="facture.methode_de_payment" header="طريقة الدفع " style={{ width: '16%' ,textAlign:'center'}}></Column>
-          <Column field="facture.payé" header="مدفوعة " style={{ width: '16%' ,textAlign:'center'}} body={(rowData) => (<>{rowData.facture.payé? "نعم" : "لا" }</>)}></Column>
-          <Column field="facture.montant" header="الثمن" style={{ width: '16%' ,textAlign:'center'}}></Column>
-          <Column field="facture.date" header="التاريخ " style={{ width: '16%',textAlign:'center' }}></Column>
-          <Column field="service" header=" العرض" style={{ width: '16%',textAlign:'center' }}></Column>
-        </DataTable>
-   </div>
-   <NavBarProfile interest="اهتماماتي"  services="خدماتي"/>
-   </div>
-  </div>
-   <Footer/>
-   </>
-  )
+    return (
+        <>
+           <Logo/>
+            <div className='profile_container'>
+                <div className='profile_name'>
+                    <div className="user-initials-circle"> {initials}</div>
+                    <h3>{formData.nom}</h3>
+                </div>
+                <div className='profile_content'>
+                    <div className='facture_container'> 
+                        <h2>فواتيري </h2>
+                        {userAccount && userAccount.length > 0 ? (
+                            <DataTable value={userAccount} paginator rows={10}  style={{ width: '100%',textAlign:'center' }}>
+                                <Column field="pdf" header="" style={{ width: '16%' }} body={(rowData) => (
+                                    <button style={{ color:'red',border:'none',backgroundColor:'transparent',fontSize:"16px" }} onClick={() => {handleDownload(rowData.facture.pdf); console.log(rowData.facture)}}>تحميل</button>
+                                )}></Column>
+                                <Column field="facture.methode_de_payment" header="طريقة الدفع " style={{ width: '16%' ,textAlign:'center'}}></Column>
+                                <Column field="facture.payé" header="مدفوعة " style={{ width: '16%' ,textAlign:'center'}} body={(rowData) => (<>{rowData.facture.payé? "نعم" : "لا" }</>)}></Column>
+                                <Column field="facture.montant" header="الثمن" style={{ width: '16%' ,textAlign:'center'}}></Column>
+                                <Column field="facture.date" header="التاريخ " style={{ width: '16%',textAlign:'center' }}></Column>
+                                <Column field="service" header=" العرض" style={{ width: '16%',textAlign:'center' }}></Column>
+                            </DataTable>
+                        ) : (
+                            <div>لا توجد فواتير لعرضها</div>
+                        )}
+                    </div>
+                    <NavBarProfile interest="اهتماماتي"  services="خدماتي"/>
+                </div>
+            </div>
+            <Footer/>
+        </>
+    );
 }
-export default Facture
 
+export default Facture;
