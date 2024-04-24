@@ -1,12 +1,15 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.http import HttpRequest
+from django.urls import reverse
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from unittest.mock import MagicMock, patch
-from .views import getServices, addUser, getsubscription, getinvoices
+from .views import getServices, addUser, getsubscription, getinvoices, subscribe
 from .models import Service, Abonnement, Facture
 from User.models import CustomUser
+
+import json
 
 import stripe
 
@@ -26,15 +29,9 @@ class GetServicesTestCase(TestCase):
 
     def test_get_services(self):
 
-        # Creating a mock request object with an authenticated user
-        request = HttpRequest()
-        request.method = 'GET'
-
-        user = {"id":123, "is_authenticated":True}
-        request.user = user  
 
         # Call the view function
-        response = getServices(request)
+        response = self.client.get(reverse('service'))
 
         # Assert that the response is as expected
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -54,10 +51,8 @@ class AddUserTestCase(TestCase):
     @patch('stripe.Customer.create')
     @patch('stripe.Customer.list')
     def test_add_user_existing_customer(self, mock_customer_list, mock_customer_create):
-        # Mock request object with POST data
-        request = HttpRequest()
-        request.method = 'POST'
-        request.data = {'name': 'John Doe', 'email': 'john@example.com'}
+        
+        data = {'name': 'John Doe', 'email': 'john@example.com'}
 
         # Mock existing customer response from Stripe
         Customer = namedtuple("User", ["id", "stripeCustomerId"])
@@ -65,7 +60,8 @@ class AddUserTestCase(TestCase):
 
 
         # Call the view function
-        response = addUser(request)
+        response = self.client.post(reverse('customer'), data=json.dumps(data), 
+                content_type='application/json')
 
         # Assert that the response is as expected
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -77,10 +73,8 @@ class AddUserTestCase(TestCase):
     @patch('stripe.Customer.create')
     @patch('stripe.Customer.list')
     def test_add_user_new_customer(self, mock_customer_list, mock_customer_create):
-        # Mock request object with POST data
-        request = HttpRequest()
-        request.method = 'POST'
-        request.data = {'name': 'John Doe', 'email': 'john@example.com'}
+        
+        data = {'name': 'John Doe', 'email': 'john@example.com'}
 
         # Mock empty existing customer response from Stripe
         mock_customer_list.return_value.data = []
@@ -89,7 +83,8 @@ class AddUserTestCase(TestCase):
         mock_customer_create.return_value.id = 'new_customer_id'
 
         # Call the view function
-        response = addUser(request)
+        response = self.client.post(reverse('customer'), data=json.dumps(data), 
+                content_type='application/json')
 
         # Assert that the response is as expected
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -99,16 +94,15 @@ class AddUserTestCase(TestCase):
     @patch('stripe.Customer.create', side_effect=stripe.error.StripeError)
     @patch('stripe.Customer.list')
     def test_add_user_stripe_error(self, mock_customer_list, mock_customer_create):
-        # Mock request object with POST data
-        request = HttpRequest()
-        request.method = 'POST'
-        request.data = {'name': 'John Doe', 'email': 'john@example.com'}
+        
+        data = {'name': 'John Doe', 'email': 'john@example.com'}
 
         # Mock empty existing customer response from Stripe
         mock_customer_list.return_value.data = []
 
         # Call the view function
-        response = addUser(request)
+        response = self.client.post(reverse('customer'), data=json.dumps(data), 
+                content_type='application/json')
 
         # Assert that the response is as expected
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -131,17 +125,7 @@ class getsubscriptionTestCase(TestCase):
 
     def test_get_subscription_active(self):
 
-        # Creating a mock request object with an authenticated user
-        request = HttpRequest()
-        request.method = 'GET'
-
-        request.META['HTTP_AUTHORIZATION'] = f'Token {self.token.key}'
-
-        user = {"id":123, "is_authenticated":True}
-        request.user = user  
-
-        # Call the view function
-        response = getsubscription(request)
+        response = self.client.get(reverse('subsciption'), HTTP_AUTHORIZATION=f'Token {self.token.key}')
 
         # Assert that the response is as expected
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -154,17 +138,19 @@ class getsubscriptionTestCase(TestCase):
         self.abonement.statut = "inactive"
         self.abonement.save()
 
-        # Creating a mock request object with an authenticated user
-        request = HttpRequest()
-        request.method = 'GET'
+        response = self.client.get(reverse('subsciption'), HTTP_AUTHORIZATION=f'Token {self.token.key}')
 
-        request.META['HTTP_AUTHORIZATION'] = f'Token {self.token.key}'
+        # Assert that the response is as expected
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)
+    
+    
+    def test_get_subscription_ended(self):
 
-        user = {"id":123, "is_authenticated":True}
-        request.user = user  
+        self.abonement.dateFin = (datetime.now()-timedelta(days=30)).strftime('%Y-%m-%d')
+        self.abonement.save()
 
-        # Call the view function
-        response = getsubscription(request)
+        response = self.client.get(reverse('subsciption'), HTTP_AUTHORIZATION=f'Token {self.token.key}')
 
         # Assert that the response is as expected
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -187,19 +173,46 @@ class getinvoicesTestCase(TestCase):
 
     def test_getinvoices(self):
 
-        # Creating a mock request object with an authenticated user
-        request = HttpRequest()
-        request.method = 'GET'
-
-        request.META['HTTP_AUTHORIZATION'] = f'Token {self.token.key}'
-
-        user = {"id":123, "is_authenticated":True}
-        request.user = user  
-
-        # Call the view function
-        response = getinvoices(request)
+        response = self.client.get(reverse('invoice'), HTTP_AUTHORIZATION=f'Token {self.token.key}')
 
         # Assert that the response is as expected
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(int(response.data[0]["facture"]["id"]), self.facture.id)
         self.assertEqual(response.data[0]["facture"]["montant"], self.facture.montant)
+
+
+
+
+
+class subscribeTestCase(TestCase):
+        subscription = None
+
+        def setUp(self):
+            prices = stripe.Price.list(active=True)
+
+            self.client = Client()
+            self.service1 = Service.objects.create(id= prices.data[0].product, nom="Service 1", tarif = prices.data[0].unit_amount, priceId = prices.data[0].id)
+            self.user = CustomUser.objects.create(id= 2, stripeCustomerId="cus_Pyrerehpdho8dz")
+            self.token = Token.objects.create(user=self.user)
+        
+        def test_subscribe(self):
+
+            data = {
+                'priceId': self.service1.priceId,
+                'paymentMethod': "Dhahabia",
+                'token': {"id":"tok_unionpay"},
+            }
+
+
+            response = self.client.post(reverse('subscribe'), data=json.dumps(data), 
+                content_type='application/json', HTTP_AUTHORIZATION=f'Token {self.token.key}')
+
+            self.subscription = response.data
+
+            # Assert that the response is as expected
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            self.assertEqual(self.subscription["service"], self.service1.id)
+            self.assertEqual(self.subscription["dateFin"], (datetime.now()+timedelta(days=30)).strftime('%Y-%m-%d'))
+
+        def tearDown(self):
+            stripe.Subscription.cancel(self.subscription["id"].split("-")[0])

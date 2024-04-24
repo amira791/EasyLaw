@@ -21,9 +21,9 @@ function NavBar() {
         <ul className='NavBar_item'>
           <div className='li_item1'><Link to="/about-us"><li>حول المنصة </li></Link></div>
           <div className='li_item1'><Link to="/subscrib"><li><LocalFireDepartmentIcon sx={{marginLeft:'3%'}}/>عروضنا</li></Link></div>
-          <div className='li_item1'><Link to="/official-resources"><li><LibraryBooksIcon sx={{marginLeft:'3%'}}/>المصادر الرسمية</li></Link></div>
+          <div className='li_item1'><Link to="/ressource"><li><LibraryBooksIcon sx={{marginLeft:'3%'}}/>المصادر الرسمية</li></Link></div>
           <div className='li_item1'><Link to="/latest-news"><li><CampaignIcon sx={{marginLeft:'3%'}}/>اخر المستجدات</li></Link></div>
-          <div className='li_item1'><Link to="/home"><li><HomeIcon sx={{marginLeft:'3%'}}/>الرئيسية</li></Link></div>
+          <div className='li_item1'><Link to="/"><li><HomeIcon sx={{marginLeft:'3%'}}/>الرئيسية</li></Link></div>
         </ul>
      
     </div>

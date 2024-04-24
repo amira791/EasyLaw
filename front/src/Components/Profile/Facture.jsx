@@ -53,7 +53,7 @@ function Facture() {
    <h2>فواتيري </h2>
    <DataTable value={userAccount} paginator rows={10}  style={{ width: '100%',textAlign:'center' }}>
    <Column field="pdf" header="" style={{ width: '16%' }} body={(rowData) => (
-     <button style={{ color:'red',border:'none',backgroundColor:'transparent',fontSize:"16px" }} onClick={() => {handleDownload(rowData.facture.pdf); console.log(rowData.facture)}}>تحميل</button>
+     <button style={{ color:'red',border:'none',backgroundColor:'transparent',fontSize:"16px", cursor:'pointer' }} onClick={() => {handleDownload(rowData.facture.pdf)}}>تحميل</button>
          )}></Column>
           <Column field="facture.methode_de_payment" header="طريقة الدفع " style={{ width: '16%' ,textAlign:'center'}}></Column>
           <Column field="facture.payé" header="مدفوعة " style={{ width: '16%' ,textAlign:'center'}} body={(rowData) => (<>{rowData.facture.payé? "نعم" : "لا" }</>)}></Column>

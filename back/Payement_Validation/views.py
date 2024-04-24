@@ -10,15 +10,14 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import *
 from .models import Abonnement
 
-from permissions import is_Allowed
+from permissions import is_Allowed, checkSubscriptionEnd
 
 from datetime import datetime
-
+import random
 
 import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-
 
 
 
@@ -38,7 +37,9 @@ def getServices(request):
         userId = request.user.id
         current = Abonnement.objects.filter(user = userId, statut = "active")
         if(len(current)):
-            res["current"] =  current[0].service.id
+            abonnement = checkSubscriptionEnd(current[0])
+            if(abonnement):
+                res["current"] =  abonnement.service.id
 
     return Response(res, status=status.HTTP_200_OK)
 
@@ -78,13 +79,19 @@ def subscribe(request):
     method = request.data.get('paymentMethod')
 
 
+    if(method == "Dhahabia" and token["card"]["brand"] != "UnionPay"):
+        return Response({'message': "please enter a valid Dhahabia card (starting with 62..)"}, status=status.HTTP_400_BAD_REQUEST)
+
     subs = Abonnement.objects.filter(user=userId, statut="active")
+    updgrading = None
+
     if(len(subs)):
         for sub in subs:
             if(sub.service.priceId == priceId):
                 return Response({"message" : "this user is already subscribed"}, status=status.HTTP_409_CONFLICT)
                 break
             else:
+                updgrading = sub.id.split("-")[0]
                 sub.statut="upgraded"
                 sub.save()
 
@@ -104,24 +111,35 @@ def subscribe(request):
         )
 
 
-        #creating the subscription
-        stripeSubscription = stripe.Subscription.create(
-            customer=customerId,
-            items=[
-                {
-                    "price": priceId,  
-                }
-            ],
-            default_payment_method= paymentMethod.id,
-            cancel_at_period_end = True,
-        )
+        if(updgrading):
+            item = stripe.Subscription.retrieve(updgrading)["items"]["data"][0]["id"]
+
+            stripeSubscription = stripe.Subscription.modify(
+                updgrading,
+                default_payment_method= paymentMethod.id,
+                items=[{"id": item, "price": priceId}],
+                billing_cycle_anchor="now",
+            )
+        else:
+            #creating the subscription
+            stripeSubscription = stripe.Subscription.create(
+                customer=customerId,
+                items=[
+                    {
+                        "price": priceId,  
+                    }
+                ],
+                default_payment_method= paymentMethod.id,
+                cancel_at_period_end = True,
+            )
     
         #retreiving the invoice associated 
         invoice = stripe.Invoice.retrieve(stripeSubscription.latest_invoice)
          
-        # 
+        
+        #saving to our database 
         subscription = {
-            "id": stripeSubscription.id,
+            "id": stripeSubscription.id +"-"+str(random.randrange(1000)),
             "dateDebut": datetime.now().strftime('%Y-%m-%d'),
             "dateFin": datetime.fromtimestamp(stripeSubscription.current_period_end).strftime('%Y-%m-%d'),
             "statut": stripeSubscription.status,
@@ -157,8 +175,10 @@ def getsubscription(request):
     userId = request.user.id
 
     abonnement = Abonnement.objects.filter(user = userId, statut = "active")
+    if(len(abonnement) and not(checkSubscriptionEnd(abonnement[0]))):
+        return Response([], status=status.HTTP_200_OK)
 
-    serializer = AbonnementFullSerializer(abonnement, many=True)
+    serializer = AbonnementFullSerializer(abonnement, many= True)
     serialized_data = serializer.data
 
     return Response(serialized_data, status=status.HTTP_200_OK)
