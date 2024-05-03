@@ -1,0 +1,54 @@
+  .accountManag-container {
+    margin: 0 auto;
+    width: 100%;
+  }
+  .accountManag-container h2{
+    text-align: center;
+  }
+  
+  /* Style pour la DataTable elle-même */
+  .p-datatable {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 1%;
+  }
+  .p-datatable .p-column-header-content {
+    display: block;
+}
+  
+  .p-datatable thead th {
+    background-color: var(--primary-color);
+    font-weight: bold;
+    padding: 1.5% 0%;
+    color: white;
+  }
+  
+  /* Style pour les cellules de données */
+  .p-datatable tbody td {
+    padding: 10px;
+  vertical-align: middle; 
+  }
+  .p-datatable tbody tr:nth-child(odd) {
+    background-color: #04525327; /* Couleur de fond pour les lignes impaires */
+  }
+  
+  /* Style pour les boutons de pagination */
+  .p-paginator .p-paginator-current,
+  .p-paginator .p-paginator-pages {
+    margin: 2px;
+  
+    display: flex;
+    justify-content: space-between;
+  }
+  .p-paginator-page{
+    color: #045253;
+    width: 30px;
+  }
+  /* Style pour les boutons de pagination actifs */
+  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: #045253;
+    color:white;
+   width: 25px;
+   height: 25px;
+   border-radius: 100%;
+  }

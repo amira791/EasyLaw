@@ -1,40 +1,60 @@
 .navBar_container{
-    padding: 5% 3% 0% 10%;
-    max-width: 100%;
+    padding: 5% 0% 0% 0%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
    
     align-items: center;
 }
 .navBar_container .NavBar_item{
     display: flex;
-    justify-content: space-evenly;
-    border: 1px solid black;
+    justify-content: space-around;
+    padding: 0% 2%;
     border-radius: 6px;
-    background-color: #3D3935;
-    width: 720px;
+    background-color:var(--primary-color);
+    width: 70%;
 }
+
 
 .navBar_container .li_item1{
-margin: 2% auto;
-width: 130px;
+/*margin: 2% auto;
+width: 130px;*/
+list-style-type: none;
+padding: 1.5% ;
 
+border-radius: 5px;
+flex:auto;
+
+direction: rtl;
 
 }
+
 .navBar_container .li_item1 li {
    text-align: center;
-    list-style: none;
-    color: white;
+    color: white;    
+    width: 100%;
+    display: inline-flex;
+    
    
     
 }
+
+
 .navBar_container .navbar_btn{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    
+    
+
+}
+.navBar_container .dv_btn{
+  
+    height: 40px;
+    box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
     border: 1px solid black;
     border-radius: 8px;
-    background-color: transparent;
-    width: 170px;
-    height: 40px;
-    font-size: 18px;
-    box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
-
+    padding:0.5% 1% ;
+    
+    text-align: center;
 }

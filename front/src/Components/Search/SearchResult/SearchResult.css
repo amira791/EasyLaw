@@ -1,0 +1,46 @@
+/* Dans le fichier SearchResult.css */
+
+.searchResult {
+    padding: 2% 6%;
+    direction: rtl;
+  }
+  
+  .searchResult h1 {
+    font-size: 24px;
+   margin: auto;
+    text-align:center ;
+    background-color:  #BBE1E2;
+    border-radius: 10px;
+    padding: 1%;
+    width: 90%;
+  }
+ 
+  
+  .searchResult-item {
+    background-color: #d9d9d944;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 2% 0%;
+    direction: rtl;
+    
+  }
+  .adjustment-item{
+    
+    margin-right: 6%;
+  }
+  .adjustment-item1{
+    
+    margin-right: 8%;
+  }
+  
+  .searchResult-item h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color:var(--primary-color);
+  }
+  
+  .searchResult-item p {
+    font-size: 14px;
+    color: black;
+  }
+  

@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from rest_framework.decorators import api_view, permission_classes
+#from selenium import webdriver
+#from selenium.webdriver.common.by import By
+#from selenium.webdriver.support.ui import Select
+#from selenium.webdriver.support.ui import WebDriverWait
+#from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 from .models import JuridicalText, Adjutstement, OfficialJournal
 from django.http import HttpResponse
@@ -14,14 +14,17 @@ from .search import lookup
 import time
 from datetime import datetime
 from .models import JuridicalText, Adjutstement, OfficialJournal
-import os
-from pdf2image import convert_from_path
-import pytesseract
-from PyPDF2 import PdfReader
-from pytesseract import image_to_string
+#import os
+#from pdf2image import convert_from_path
+#import pytesseract
+#from PyPDF2 import PdfReader
+#from pytesseract import image_to_string
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import JuridicalTextSerializer 
+
+from rest_framework.permissions import IsAuthenticated
+from permissions import is_Allowed
 
 #les expressions réguliéres
 patterns = [
@@ -52,33 +55,33 @@ patterns = [
 ]
 @api_view(['POST'])
 def ocrTest(request):#text files construction 
-    # Assuming 'year' and 'type_text' are passed in the POST request data
+     # Assuming 'year' and 'type_text' are passed in the POST request data
     year = '2024'
-    #type_text = 'مرسوم تنفيذي'
-    # Construct the base directory for PDFs
+     #type_text = 'مرسوم تنفيذي'
+     # Construct the base directory for PDFs
     base_directory = rf'C:\Users\Amatek\Downloads\scrap\pdfs'
-    # Fetch JuridicalText objects based on the provided criteria
+     # Fetch JuridicalText objects based on the provided criteria
     juridical_texts = JuridicalText.objects.filter(
         official_journal__year=year,
     )
 
-    # Iterate over the filtered JuridicalText objects
+     # Iterate over the filtered JuridicalText objects
     for jt in juridical_texts:
         with open(rf'C:\Users\Amatek\Desktop\EasyLaw\V01\EasyLaw\back\Data_Collection\files\JTs\{jt.id_text}.txt', 'w', encoding='utf-8') as f:
 
-            # Construct the PDF file path for each JuridicalText
+             # Construct the PDF file path for each JuridicalText
             pdf_file_path = os.path.join(base_directory, year, f'A{year}{jt.official_journal.number:03}.pdf')
             print(f'Processing PDF File: {pdf_file_path } , {jt.official_journal_page}')
             print(rf'saving in txt File: C:\Users\Amatek\Desktop\EasyLaw\V01\EasyLaw\back\Data_Collection\files\JTs{jt.id_text}.txt')
-            # Extract text from the specific page of the PDF file
+             # Extract text from the specific page of the PDF file
             
             extracted_text = extract_text_from_pdf_file(pdf_file_path, jt.official_journal_page)
 
             nb_matches = 0 
             for pt in patterns : 
-                # Define a regular expression pattern to match the desired phrases
+                 # Define a regular expression pattern to match the desired phrases
                 pattern = re.compile(pt, re.MULTILINE)
-                # Find all matches in the text
+                 # Find all matches in the text
                 matches = re.findall(pattern, extracted_text)
 
                 if len(matches) > 0 :
@@ -90,27 +93,27 @@ def ocrTest(request):#text files construction
                 page = jt.official_journal_page
                 stop = False
                 pdf_reader = PdfReader(pdf_file_path)
-                # Get the number of pages in the PDF
+                 # Get the number of pages in the PDF
                 page_count = len(pdf_reader.pages)
                 page = page + 1
                 while not stop and page <= page_count:
 
                     extracted_text = extract_text_from_pdf_file(pdf_file_path, page)
                     for pt in patterns:
-                        # Define a regular expression pattern to match the desired phrases
+                         # Define a regular expression pattern to match the desired phrases
                         pattern = re.compile(pt, re.MULTILINE)
-                        # Find all matches in the text
+                         # Find all matches in the text
                         matches = re.findall(pattern, extracted_text)
 
                         if len(matches) > 0:
                             stop = True
                             match = matches[0]
-                            # Get the index of the first occurrence of the match in the extracted_text
+                             # Get the index of the first occurrence of the match in the extracted_text
                             print(match)
                             match_index = extracted_text.find(match)
                             
                             if match_index != -1:
-                                # Remove all text after the match
+                                 # Remove all text after the match
                                 extracted_text = extracted_text[:match_index]
                             f.write(extracted_text)
                             break
@@ -120,20 +123,20 @@ def ocrTest(request):#text files construction
                         page = page + 1
 
 
-            # print(extracted_text)
+         # print(extracted_text)
             print("=" * 50)  # Separator between texts
 
-    # Return a success response
+     # Return a success response
     return HttpResponse({"msg" : "successfuly inserted"}, status = status.HTTP_201_CREATED)
-#the ocr function
+ #the ocr function
 def extract_text_from_pdf_file(pdf_file_path, page_number):
-    # Check if the PDF file exists
+     # Check if the PDF file exists
     if os.path.isfile(pdf_file_path):
-        # Convert the specific page of the PDF to an image
+         # Convert the specific page of the PDF to an image
         images = convert_from_path(pdf_file_path, first_page=page_number, last_page=page_number)
 
         if images:
-            # Perform OCR on the extracted page using pytesseract
+             # Perform OCR on the extracted page using pytesseract
             extracted_text = pytesseract.image_to_string(images[0], lang='ara')  # OCR for Arabic text
 
             return extracted_text
@@ -143,65 +146,46 @@ def extract_text_from_pdf_file(pdf_file_path, page_number):
     else:
         print(f"PDF file not found at {pdf_file_path}")
         return None
-# the search function 
-# def search_view(request):
-#     query_params = request.GET
-#     q = query_params.get('q')
-#     context = {}
-#     if q is not None:
-#         results = lookup(q)
-#         context['results'] = results
-#         context['query'] = q
-#     return render(request, 'search.html', context)
-
-# from django.http import JsonResponse
-# from .elasticsearch_utils import lookup  # Import your Elasticsearch lookup function
-
-# def search_view(request):
-#     query = request.GET.get('q', '')  # Get the search query from the request
-#     if query:
-#         results = lookup(query)  # Call your Elasticsearch lookup function
-#         return JsonResponse({'results': results})
-#     else:
-#         return JsonResponse({'error': 'No search query provided'}, status=400)
-
+# search function 
+@permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
-         query = request.GET.get('q')
-         sort_by = request.GET.get('sort_by', 'relevance')  # Par défaut, tri par pertinence 
-         source = request.GET.get('source') 
-         year = request.GET.get('year')
-         if query:
-            results = lookup(query, sort_by='relevance',  # Ou 'publication_date' pour trier par date de publication
-  # Filtre par institut de publication
-    year='2023',  # Filtre par année de publication
-    signitureDateStart='2023-01-01',  # Filtre par date de signature de début
-    signitureDateEnd='2023-12-31',  # Filtre par date de signature de fin
-    publicationDateStart='2023-01-01',  # Filtre par date de publication de début
-    publicationDateEnd='2023-12-31',  # Filtre par date de publication de fin
-    # type='votre_type_de_texte',  # Filtre par type de texte
-    # ojNumber='votre_numéro_journal_officiel',  # Filtre par numéro du journal officiel
-    # jtNumber='votre_numéro_juridique',  # Filtre par numéro juridique
-    # jt_source='votre_source_jt',  # Filtre par source JT
-    # domain='votre_domaine_de_description'  )# Filtre par domaine de description)
-      page=2,  # Page à récupérer
-    page_size=3 )# Nombre de résultats par page      
-            return Response(results)
-         else:
-            return Response({'error': 'No search query provided'}, status=400)
+             if( is_Allowed(request.user.id,"search")):
+                 # Récupérer les paramètres de recherche depuis la requête GET
+                  query = request.GET.get('q')
+                  sort_by=request.GET.get('sort_by')
+                  source = request.GET.get('source')
+                  year = request.GET.get('year')
+                  signature_date = request.GET.get('signature_date')
+                  publication_date = request.GET.get('publication_date')
+                  type = request.GET.get('type')
+                  ojNumber = request.GET.get('ojNumber')
+                  jtNumber = request.GET.get('jtNumber')
+                  domain = request.GET.get('domain')
+                  page = int(request.GET.get('page', 1))  # Default to page 1
+                  page_size = int(request.GET.get('page_size', 10))  # Default to 10 results per page
+                  if query:
+                     results = lookup(query=query,sort_by=sort_by, source=source, year=year, 
+                     signature_date=signature_date, publication_date=publication_date,
+                     type=type, ojNumber=ojNumber, jtNumber=jtNumber, domain=domain, page=page,page_size=page_size)
+                     return Response(results)
+                  else:
+                     return Response({'error': 'No search query provided'}, status=400)
+             else:
+                return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 
 @api_view(['POST'])
 def initial_jt_filling(request):
-    # Initialize WebDriver
+#     # Initialize WebDriver
     driver = webdriver.Chrome()
 
-    # Navigate to the website
+#     # Navigate to the website
     driver.get("https://www.joradp.dz/HAR/Index.htm")
 
-    # Switch to the correct frame
+#     # Switch to the correct frame
     driver.switch_to.frame(driver.find_element(By.XPATH, "//frame[@src='ATitre.htm']"))
 
-    # Wait for the link to appear
+#     # Wait for the link to appear
     search_link = WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located(
             (By.XPATH, "/html/body/div/table[2]/tbody/tr/td[3]/a")
@@ -212,7 +196,7 @@ def initial_jt_filling(request):
     driver.switch_to.default_content()
     driver.switch_to.frame(driver.find_element(By.XPATH, "//frame[@src='Accueil.htm']"))
 
-    # Wait for the page to load
+#     # Wait for the page to load
     wait = WebDriverWait(driver, 10)
     # wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")))
 

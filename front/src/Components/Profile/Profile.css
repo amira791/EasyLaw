@@ -1,5 +1,5 @@
 .profile_container .profile_name{
-    background-color: #3D3935;
+    background-color:var(--primary-color);
     padding: 3%;
     display: flex;
     align-items: center;
@@ -14,36 +14,32 @@
 }
 
 .profile_container .profile_navBar{
-    background-color: #3D3935;
+    width: 10%;
+    background-color:var(--primary-color);
     padding: 3%;
       
 }
 .profile_container .profile_navBar ul{
 padding: 0%;
+direction: rtl;
+
 }
 .profile_container .profile_navBar li{
     list-style-type: none;
-    color: white;
     text-align: right;
     cursor: pointer;
-    margin: 30% auto;
+    margin: 30% 0%;
+    
+}
+.profile_container .profile_navBar li a{
+   text-decoration: none;
+   color: white;
+   display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
 
-.profile_container .profile_form{
-    
-    margin: 4% auto 14% auto;
-    padding: 3%;
-    width: 70%; 
-    
-   
-    
-}
-.profile_container .lign_dv{
-    display: flex;
-    justify-content: space-between;
-  
-    margin-bottom: 5%;
-}
 .profile_container .profile_info{
     display: flex;
     flex-direction: column;
@@ -52,50 +48,266 @@ padding: 0%;
    /* border: #3D3935 1px solid;*/
     width: 100%; 
 }
+.profile_container .profile_form{
+    
+    margin: 4% 0% 0% 0%;
+    padding: 3%;
+    width: 90%; 
+   
+    
+}
+.profile_container .lign_dv{
+    display: flex;
+    justify-content: space-between;
+  width: 100%;
+    margin-bottom: 5%;
+}
+
 .profile_container .lign_dv_info{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     width: 48%;
 }
+.profile_container .inpt_lign{
+    width:91%; 
+    padding:3%; 
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    text-align: right;
+   
+
+}
 .profile_container  label {
     margin-bottom: 2%; 
+   
 }
 
 .profile_container .profile_info_input {
-    width: 97%; 
+    width: 95.5%; 
     padding: 1.5%; 
     border: 1px solid #ccc;
     border-radius: 5px; 
+    text-align: right;
 }
 .profile_container  input::placeholder {
     text-align: right;
+   
 }
 
 .profile_container .profile_info select {
-    width: 100%; 
+    width: 99%; 
     padding: 1.5%; 
     border: 1px solid #ccc; 
     border-radius: 5px; 
 }
-.profile_container .inpt_lign{
-    width:400px; 
-    padding:3%; 
-    border: 1px solid #ccc;
-    border-radius: 5px; 
-   
 
-}
 
 .profile_container .save_info {
     width: 100%; 
-    padding: 2%; 
+    padding: 1.5%; 
     border: none; 
     border-radius: 5px;
-    background-color: #3D3935;
+    background-color:var(--primary-color);
     color: white;
     font-size: 16px;
     cursor: pointer;
     margin-top: 3%;
+    
+}
+
+.profile_container .user-initials-circle{
+    background-color: white;
+     border-radius: 100%;
+     width:90px;
+     height: 90px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    color:  #045253;
+   
+    
+    
+ }
+ .compte_user{
+    width: 90%;
+     
+    
+ }
+ 
+ .edit_button {
+    margin: 0% 3% 3% 3% ;
+    background-color: transparent;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 0%; 
+    font-size: 16px; 
+    cursor: pointer; 
+    width: 90%;
+    
+  }
+.services{
+    font-size: 18pt;
+}
+
+.services
+{
+    list-style-type: none;
+}
+
+.services li::before
+{
+    content: "\2713";
+    margin-left: .5em;
+}
+  
+.services-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4% auto 14% auto;
+    padding: 3%;
+    width: 70%;
+    
+}
+.services-container h2,h3,h4{
+    text-align: center;
+}
+.services-container .services-display{
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    margin-top: 5%;
+    width: 85%;
+    margin-bottom: 3em;
+}
+.services-container .service-item{
+    padding: 3% 7%;
+    border-radius: 3px;
+    background-color: var(--secondary-color);
+    width: 45%;
+}
+
+.services-container .service-item-content{
+display: flex;
+justify-content: space-between;
+width: 100%;
+}
+.services-container .icon-service{
+    display: flex;
+    align-items: center;
+    background-color: #00C8CB;
+    border-radius: 15px;
+    padding: 0px 10px;
+    color: white;
+    font-weight: 500;
+    width: 30%;
+   
+}
+
+.icon-service .safe
+{
+    color: var(--primary-color);
+}
+
+.services-container ul {
+    direction: rtl;
+}
+.service-item p{
+    text-align: end;
+}
+.service-item .serv-span{
+    background-color: #FEFFB5;
+    border-radius: 8px;
+    padding: 3px;
+}
+.services-container .ofr{
+background-color: white;
+color: red;
+width: 50%;
+}
+.services-container .add-content{
+    background-color: transparent;
+    border: #374957 0.5px dashed ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   
+}
+.services-container .btn_sub{
+    background-image:linear-gradient(to right, #1D8B8C 20%, #00C8CB 100%);
+    border: none;
+    padding: 1% 4%;
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.interest-container{
+    margin: 4% auto 14% auto;
+    padding: 3%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.interest-container h2,h3{
+    text-align: center;
+}
+.interest-container .interest-display{
+    display: grid;
+    grid-template-columns: repeat(2,50%);
+    justify-content:space-around;
+    margin-top: 5%;
+    width: 100%;
+    
+}
+.interest-container .interest-item{
+   padding: 2% 12%;
+    margin-bottom: 10%;
+    border-radius: 3px;
+    height: 140px;
+    background-color: var(--secondary-color);
+    width: 70%;
+}
+.interest-container .interest-item-content{
+display: flex;
+justify-content: space-between;
+width: 100%;
+}
+.interest-container .icon-interest{
+    display: flex;
+    align-items: center;
+    width: 30%;
+ 
+
+    
+}
+.interest-container .add-content{
+    background-color: transparent;
+    border: #374957 0.5px dashed ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.facture_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4% auto 14% auto;
+    padding: 3%;
+    width: 70%;
     
 }

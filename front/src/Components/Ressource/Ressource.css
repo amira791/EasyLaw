@@ -1,0 +1,33 @@
+.ressource_container{
+    direction: rtl;
+    color:  #374957;
+    width: 85%;
+    margin: 4% auto;
+}
+.ressource_container .pdf-content{
+    width: 100%;
+}
+.ressource_container .ressource-menu{
+    background-color: #E3FAFC;
+    border-radius: 10px;
+    padding: 2%;
+    width: 35%;
+    font-weight: 700;
+}
+.ressource_container .ressource-menu li{
+   margin-bottom: 4%;
+   font-size: 18px;
+   font-weight: 400;
+}
+.ressource_container .ressource-law{
+    background-color: #58D6D7;
+    width: 73%;
+    border-radius: 10px;
+    padding: 1%;
+}
+.ressource_container .ressource-law li{ 
+    margin-bottom: 2%;
+    font-size: 18px;
+    font-weight: 700;
+    list-style: none;
+}

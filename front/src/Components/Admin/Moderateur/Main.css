@@ -1,0 +1,111 @@
+.moderateur-main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+    width: 100%;
+    padding: 2% 0;
+    color: #374957;
+}
+.moderateur-main-container .moderateurMain-titre{
+    padding: 0.7% 5%;
+    background-color: #58D6D7;
+    border-radius: 10px;
+
+}
+.moderateur-main-container .moderateurMain-titre h3{
+    padding: 0% ;
+   margin: 0px;
+}
+.moderateur-main-container .moderateurMain-section1{
+    width: 85%;
+   
+    margin: 3% 0%;
+    display: flex;
+    justify-content: space-between;
+}
+.moderateur-main-container .moderateurMain-section1 p{
+   font-size: 22px;
+   font-weight: bold;
+}
+
+.moderateur-main-container .select-filter{
+    border: none;
+    direction: rtl;
+    display: flex;
+    align-items: center;
+    padding: 1% 2%;
+    justify-content: space-between;
+    width: 30%;
+    border-radius: 10px;
+    background-color: #E3FAFC;
+}
+.moderateur-main-container .select-filter option {
+    font-size: 16px;
+    padding: 8px 12px;
+    background-color:white;
+    
+  }
+.moderateur-main-container .moderateurMain-section2{
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+   overflow-x: hidden;
+    max-height: 500px;
+   
+}
+.moderateur-main-container .moderateurMain-info{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #E3FAFC;
+    border-bottom: 1px solid gray;
+    padding: 2% 0% 1% 2% ;
+
+}
+.moderateur-main-container .moderateurMain-info-titre{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 68%;
+   
+}
+.moderateur-main-container .moderateurMain-info-titre p{
+   color: #374957;
+   margin: 0%;
+    margin-bottom: 6px;
+    font-size: 18px;
+   
+}
+.moderateur-main-container .moderateurMain-info-titre span{
+    color: #00C8CB;
+    margin: 0;
+}
+.moderateur-main-container .moderateurMain-btn{
+    width: 20%;
+   
+    display: flex;
+    justify-content: space-between;
+
+}
+.moderateur-main-container .moderateurMain-btn button{
+    width: 45%;
+    height: 35px;
+    border: #00C8CB 1.5px solid;
+    border-radius: 11px;
+    color: #374957;
+    background-color: transparent;
+    font-weight: 500;
+
+}
+
+.moderateur-main-container .moderateurMain-btn .pdf-btn,.display-result-btn{
+    display: flex;
+    align-items: center;
+}
+.moderateur-main-container .moderateurMain-btn .display-result-btn{
+    background-color: #58D6D7;
+    border: none;
+}
