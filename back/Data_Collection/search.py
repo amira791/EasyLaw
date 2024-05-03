@@ -8,42 +8,43 @@ ELASTIC_HOST = 'http://localhost:9200/'
 # Create the client instance
 client = Elasticsearch(
     [ELASTIC_HOST],
-    basic_auth=('manel', '12345678')
-)
-def lookup(query, index='juridical_texts', fields=['id_text', 'type_text', 'description', 'extracted_text'], sort_by='relevance', source=None, year=None, signitureDateStart=None, signitureDateEnd=None, publicationDateStart=None, publicationDateEnd=None, type=None, ojNumber=None, jtNumber=None, jt_source=None, domain=None):
+    basic_auth=('nermine', '17161670'))
+# the search function
+def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
+            sort_by=None, source=None, year=None, signature_date=None,
+             publication_date=None, type=None, ojNumber=None, 
+             jtNumber=None, jt_source=None, domain=None, page=None, page_size=None):
     if not query:
         return
     # Définition du tri en fonction du paramètre sort_by pour avoir le tri pertinence ou par date
-    if sort_by == 'relevance':
-        sort = '_score'  # Tri par pertinence
-    elif sort_by == 'publication_date':
+    if sort_by == 'publication_date':
         sort = {'publication_date': {'order': 'desc'}}  # Tri par date de publication
     else:
         sort = '_score'  # Tri par défaut (pertinence)
-    
-    # Construction de la requête Elasticsearch avec le tri
-    print(jt_source)
+    #la requete de la recherche 
     s = Search(index=index).using(client).query(
         "multi_match", fields=fields, fuzziness='AUTO', query=query
-    ).sort(sort) 
-    if source:  # Tri par institut de publication
-        print(f"Filtering by source: {source}")
-        s = s.filter('term', source=source)
-    if year:  # Filtre par années
+    ).sort(sort)
+     
+    # Pagination
+    s = s[(page - 1) * page_size: page * page_size]
+   # Ajout des filtres supplémentaires
+    if source:  
+        s = s.filter('match_phrase', source=source)
+    if year:  
         s = s.filter('range', publication_date={'gte': year + '-01-01', 'lte': year + '-12-31'})
-    if signitureDateStart:
-        s = s.filter('range', signature_date={'gte': signitureDateStart, 'lte': signitureDateEnd})
-    if publicationDateStart:#
-        s = s.filter('range', publication_date={'gte': publicationDateStart, 'lte': publicationDateEnd})
-    if type:#ca marche 
-        s = s.filter('term', type_text=type)
+    if signature_date:
+        s = s.filter('term', signature_date=signature_date)
+    if publication_date:#remarque=dans le front on exige le format de publication date et signature date 
+        s = s.filter('term', publication_date=publication_date)
+    if type:
+        s = s.filter('match_phrase', type_text=type)
     if ojNumber:
-        s = s.filter('term', official_journal__page=ojNumber)
+        s = s.filter('term',official_journal_page=ojNumber)
     if jtNumber:
-        s = s.filter('term', jt_number=jtNumber)
+        s = s.filter('match',  jt_number= jtNumber)
     if domain:
         s = s.filter('term', description=domain)
-
 
     # Exécuter la recherche Elasticsearch
     results = s.execute()

@@ -2,22 +2,36 @@ from django_elasticsearch_dsl import Document, fields
 from django_elasticsearch_dsl.registries import registry
 from .models import JuridicalText, Adjutstement
 
-@registry.register_document
-class JuridicalTextDocument(Document):
+@registry.register_document #enregistre le document Elasticsearch dans le registre Elasticsearch DSL 
+class JuridicalTextDocument(Document):# Définition du document Elasticsearch
     # Define fields for Elasticsearch indexing
     adjusted_texts = fields.NestedField(properties={
         'adjusted_num': fields.KeywordField(),
         'adjusting_num': fields.KeywordField(),
         'adjustment_type': fields.KeywordField(),
     })
+   
 
     class Index:
-        name = 'juridical_texts'
-
-    class Django:
+        name = 'juridical_texts'# Nom de l'index Elasticsearch
+         # Define the mapping for the extracted_text field
+        settings = {
+            'number_of_shards': 1, 
+            'number_of_replicas': 0,  
+            'analysis': {
+                'analyzer': {
+                    'custom_arabic_analyzer': {
+                        'type': 'arabic'  # Using the built-in Arabic analyzer
+                    }
+                }
+            }
+        }
+    class Django:  # Modèle Django à indexer dans Elasticsearch
         model = JuridicalText
         # Champs du modèle à indexer dans Elasticsearch
-        fields = ['id_text', 'type_text', 'signature_date', 'publication_date', 'jt_number', 'source', 'official_journal_page', 'description', 'extracted_text']
+        fields = ['id_text', 'type_text', 'signature_date', 
+                  'publication_date', 'jt_number', 'source', 
+                  'official_journal_page', 'description', 'extracted_text']
     # Méthode pour récupérer les ajustements associés à un texte juridique
     def get_adjustments(self, obj):
         # Retrieve related adjustments for the JuridicalText object
