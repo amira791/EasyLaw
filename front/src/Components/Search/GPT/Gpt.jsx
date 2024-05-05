@@ -78,11 +78,11 @@ function Gpt() {
 
     handleSearchSubmit();
   }, [sortBy]);*/
-  const [category, setCategory] = useState('');
+  const [type, setType] = useState('');
   const [source, setSource] = useState('');
   const [year, setDate] = useState('');
-  const [fileType, setFileType] = useState('');
- 
+  const [domain, setDomain] = useState('');
+
 
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState();
@@ -90,11 +90,15 @@ function Gpt() {
   
     const handleSearchSubmit = async (e) => {
      e.preventDefault();
-  
+     const formattedDate = year ? `${year}` : '';
       const queryParams = {
         q: searchQuery,
         sort_by: sortBy,
-        year: year,
+        source:source,
+        type:type,
+        domain:domain,
+        year:formattedDate,
+       
       };
   
       try {
@@ -124,7 +128,7 @@ function Gpt() {
       
     };
   
-
+   
   return (
     <div className='gpt_dv'>
       <div className='gpt_logo'>
@@ -178,18 +182,19 @@ function Gpt() {
             id="file-type"
             name="file-type"
             className='select_item'
-            value={fileType}
-            onChange={(e) => setFileType(e.target.value)}
+            value={domain}
+            onChange={(e) => setDomain(e.target.value)}
           >
-            <option value=""> نوع الملف</option>
+            <option value=""> المجال </option>
             <option value="طالب">طالب</option>
           </select>
+         
           <input
-            type="date"
+            type="text"
             id="date"
             name="publication_date"
             className='select_item'
-            placeholder='التاريخ'
+            placeholder='السنة'
             value={year}
             onChange={(e) => setDate(e.target.value)}
           />
@@ -201,17 +206,22 @@ function Gpt() {
             onChange={(e) => setSource(e.target.value)}
           >
             <option value=""> المصدر</option>
-            <option value="طالب">طالب</option>
+            <option value="وزارة المالية">وزارة المالية</option>
+            <option value=" وزارة النقل">وزارة النقل </option>
+            
           </select>
           <select
             id="category"
             name="category"
             className='select_item'
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
           >
-            <option value=""> التصنيف</option>
-            <option value="طالب">طالب</option>
+            <option value=""> نوع</option>
+            <option value="تعليمة">تعليمة</option>
+            <option value="مرسوم تشريعي">مرسوم تشريعي</option>
+            <option value="مقرر">مقرر</option>
+            
           </select>
         </div>
       </div>
