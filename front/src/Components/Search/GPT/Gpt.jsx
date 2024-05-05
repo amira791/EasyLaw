@@ -29,7 +29,7 @@ function Gpt() {
     } catch (error) {
       console.error('Erreur lors de la recherche:', error);
     }
-  };*/
+  }
 
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,21 +51,10 @@ function Gpt() {
 
     const queryParams = {
       q: searchQuery,
-      sort_by: sortBy, // Assuming you always want to sort by relevance
+      sort_by: sortBy, 
       
     };
 
-   /* if (category) {
-      queryParams.category = category;
-    }
-
-    if (source) {
-      queryParams.source = source;
-    }
-
-    if (fileType) {
-      queryParams.file_type = fileType; // Use a more descriptive param name
-    }*/
     try {
       console.log(queryParams)
       const response = await axios.get(
@@ -86,16 +75,56 @@ function Gpt() {
       }
   };
   useEffect(() => {
-    // const checkSubscription = async () => {
-    //   const { hasInvoices } = await getUserInvoices();
-     
-    //   // Mettez à jour hasSubscription en fonction du résultat de getUserInvoices
-    //   setHasSubscription(hasInvoices);
-    //   console.log(hasSubscription);
-    // };
-    // checkSubscription();
+
     handleSearchSubmit();
-  }, [sortBy]);
+  }, [sortBy]);*/
+  const [category, setCategory] = useState('');
+  const [source, setSource] = useState('');
+  const [year, setDate] = useState('');
+  const [fileType, setFileType] = useState('');
+ 
+
+    const [searchQuery, setSearchQuery] = useState('');
+    const [sortBy, setSortBy] = useState();
+    const navigate = useNavigate();
+  
+    const handleSearchSubmit = async (e) => {
+     e.preventDefault();
+  
+      const queryParams = {
+        q: searchQuery,
+        sort_by: sortBy,
+        year: year,
+      };
+  
+      try {
+        console.log(queryParams)
+        const response = await axios.get(
+          `http://localhost:8000/data_collection/index_page`,
+          {
+            headers: { 'Authorization': `Token ${localStorage.getItem('access_token')}` },
+            params: queryParams
+          }
+        );
+        console.log('Recherche soumise avec la requête :', searchQuery);
+        console.log('Résultats de la recherche:', response.data);
+        navigate('/searchresult', { state: { results: response.data } });
+      } catch (error) {
+        if (error.response?.status === 403) {
+          console.error('You are not allowed to search.');
+          navigate("/subscrib")
+        }
+        console.error('Erreur lors de la recherche:', error);
+      }
+    };
+  
+    const handleSortBy = async (sortByValue) => {
+      setSortBy(sortByValue);
+      // Rechercher automatiquement lorsqu'un mode de tri est sélectionné
+      
+    };
+  
+
   return (
     <div className='gpt_dv'>
       <div className='gpt_logo'>
@@ -126,7 +155,7 @@ function Gpt() {
                 name="sortBy"
                 value="relevance"
                 checked={sortBy === 'relevance'}
-                onChange={() => setSortBy('relevance')}
+                onChange={() => handleSortBy('relevance')}
               />
               
             </label>
@@ -137,7 +166,7 @@ function Gpt() {
                 name="sortBy"
                 value="publication_date"
                 checked={sortBy === 'publication_date'}
-                onChange={() => setSortBy('publication_date')}
+                onChange={() => handleSortBy('publication_date')}
               />
               
             </label>
