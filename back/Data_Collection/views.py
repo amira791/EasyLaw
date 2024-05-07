@@ -192,24 +192,36 @@ def redirect_to_pdf(request):
     official_journal_year = request.GET.get('official_journal_year')
     official_journal_number = request.GET.get('official_journal_number')
     official_journal_page = request.GET.get('official_journal_page')
-    if official_journal_year and official_journal_number and official_journal_page:
-            # Generate the PDF file path
-            pdf_directory = f"D:\\pdfs\\{official_journal_year}"
-            pdf_filename = f"A{official_journal_year}{official_journal_number}.pdf"  # Assuming this format
-            pdf_path = os.path.join(pdf_directory, pdf_filename)
 
-            # Check if the PDF file exists
-            if os.path.exists(pdf_path):
-                # Open the PDF file and set response headers for displaying in the browser
-                response = FileResponse(open(pdf_path, 'rb'), content_type='application/pdf')
-                response['Content-Disposition'] = f'inline; filename="{pdf_filename}"'
-                # Set the initial page to be displayed
-                response['Accept-Ranges'] = 'bytes'
-                response['Content-Range'] = f'bytes {int(official_journal_page) * 1024}-'
-                return response
-            else:
-                # Handle the case where the PDF file does not exist
-                return HttpResponse("Le fichier PDF demandé n'existe pas.", status=404)
+    if official_journal_year and official_journal_number and official_journal_page:
+        # Format official_journal_number to ensure it has three digits
+        formatted_journal_number = official_journal_number.zfill(3)
+        year_prefix = 'A' if int(official_journal_year) >= 1963 else 'F'
+        # Generate the PDF file path
+        pdf_directory = f"D:\\pdfs\\{official_journal_year}"
+        pdf_filename = f"{year_prefix}{official_journal_year}{formatted_journal_number}.pdf"  # Assuming this format
+        pdf_path = os.path.join(pdf_directory, pdf_filename)
+
+        # Check if the PDF file exists
+        if os.path.exists(pdf_path):
+            # Open the PDF file and set response headers for displaying in the browser
+            response = FileResponse(open(pdf_path, 'rb'), content_type='application/pdf')
+
+            # Set the initial page to be displayed
+            page_to_display = int(official_journal_page)
+            response['Accept-Ranges'] = 'bytes'
+            response['Content-Disposition'] = f'inline; filename="{pdf_filename}"'
+
+            # Calculate the content range based on the requested page
+            with open(pdf_path, 'rb') as pdf_file:
+                pdf_file.seek((page_to_display - 1) * 1024 * 1024)  # Set the file pointer to the start of the requested page
+                page_content = pdf_file.read(1024 * 1024)  # Read 1 MB of content starting from the requested page
+                response['Content-Range'] = f'bytes {int((page_to_display - 1) * 1024 * 1024)}-{int((page_to_display - 1) * 1024 * 1024) + len(page_content) - 1}/{os.path.getsize(pdf_path)}'
+
+            return response
+        else:
+            # Handle the case where the PDF file does not exist
+            return HttpResponse("Le fichier PDF demandé n'existe pas.", status=404)
     else:
         # Handle the case where parameters are missing
         return HttpResponse("Paramètres manquants.", status=400)

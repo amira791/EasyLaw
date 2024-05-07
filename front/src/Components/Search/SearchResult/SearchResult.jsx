@@ -81,7 +81,7 @@ function SearchResult() {
               <p> {result.source}</p>
               <p> الجريدة الرسمية في {convertirDateEnArabe(result.publication_date)}</p>
               <p> {result.description}</p>
-              <Link to={`http://127.0.0.1:8000/data_collection/details?official_journal_year=${result.official_journal_year}&official_journal_number=${result.official_journal_number}&official_journal_page=${result.official_journal_page}`} target="_blank">View PDF</Link>
+              <Link to={`http://127.0.0.1:8000/data_collection/details?official_journal_year=${result.official_journal_year}&official_journal_number=${result.official_journal_number}&official_journal_page=${result.official_journal_page}`} target="_blank">التفاصيل</Link>
               <div>
                 {result.adjustments.map(adjustment => (
                   <div key={adjustment.adjusting_text.id_text} className="adjustment-item">
