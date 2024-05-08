@@ -7,6 +7,7 @@ import React, { useState, useEffect , useContext} from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../Context/LogoProvider';
 import useUser from '../../../Hooks/useUser';
+import { Link, Navigate } from 'react-router-dom';
 
 
 function ProfileAdmin() {
@@ -33,7 +34,8 @@ function ProfileAdmin() {
       dateNaiss: '',
       occupation: '',
       univer_Entrep: '',
-      email: ''
+      email: '',
+      username:''
     });
   };
 
@@ -47,6 +49,7 @@ function ProfileAdmin() {
           dateNaiss: userData.dateNaiss || '',
           email: userData.email || '',
           nom: userData.nom || '',
+          username: userData.username || '',
           occupation: userData.occupation || '',
           prenom: userData.prenom || '',
           univer_Entrep: userData.univer_Entrep || '',
@@ -74,10 +77,24 @@ function ProfileAdmin() {
       setEditedFormData({
         ...editedFormData,
         [name]: value
+        
       });
     };
   
-    
+    const [isLoggedOut, setIsLoggedOut] = useState(false);
+  const { logout } = useUser(); // Utilisez la fonction logout du hook useUser
+
+  const handleLogout = async () => {
+    const isLogout = await logout(); // Appelez la fonction logout correcte
+    if (isLogout) {
+      setIsLoggedOut(true); // Mettre à jour l'état après la déconnexion
+    }
+  }
+
+  if (isLoggedOut) {
+    return <Navigate to="/" />;
+  }
+
 
   return (
     <>
@@ -136,62 +153,38 @@ function ProfileAdmin() {
             />
           </div>
           <div className='lign_dv_info'>
-            <label htmlFor="dateNaiss">تاريخ الميلاد</label>
+            <label htmlFor="email"> اسم المستخدم</label>
             <input
               className='inpt_lign'
-              type="date"
-              id="dateNaiss"
-              name="dateNaiss"
-              value={formData.dateNaiss}
-              onChange={handleChange}
-              placeholder='تاريخ الميلاد'
-              required
-              disabled={!editMode}
-            />
-          </div>
-        </div>
-        
-        <div className='col_dv'>
-          <div className='profile_info'>
-            <label htmlFor="univer_Entrep">الشركة / الجامعة</label>
-            <input
-              className='profile_info_input'
               type="text"
-              id="univer_Entrep"
-              name="univer_Entrep"
-              value={formData.univer_Entrep || ''}
+              id="email"
+              name="email"
+              value={formData.username}
               onChange={handleChange}
-              placeholder='الشركة / الجامعة'
+              placeholder=' اسم المستخدم'
               required
               disabled={!editMode}
             />
           </div>
-          <div className='profile_info'>
-            <label htmlFor="occupation">المهنة</label>
-            <select
-              id="occupation"
-              name="occupation"
-              className='profile_info_input'
-              value={formData.occupation || ''}
-              onChange={handleChange}
-              required
-              disabled={!editMode}
-            >
-              <option value="">اختر المهنة</option>
-              <option value="طالب">طالب</option>
-              <option value="موظف">موظف</option>
-              <option value="مهندس">مهندس</option>
-            </select>
+          
           </div>
-        </div>
-        <button className='save_info' type="submit" disabled={!editMode}>
+      
+        {/* <button className='save_info' type="submit" disabled={!editMode}> 
         حفظ المعلومات
-        </button>
+        </button>*/}
       </form>
-      <button onClick={() => setEditMode(!editMode)}>
+      {/* <button onClick={() => setEditMode(!editMode)}>
         {editMode ? 'Annuler' : 'Modifier'}
-      </button>
-    <NavBarProfile/>
+      </button> */}
+    
+    <div className='profile_navBar'>
+        <ul>
+         
+          <li>
+            <a onClick={handleLogout}>تسجيل الخروج</a>
+          </li>
+        </ul>
+      </div>
   </div>
     <FooterAdmin/>
     </div>

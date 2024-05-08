@@ -44,7 +44,7 @@ function LogoAdmin(props) {
         
         <div className='lign_dv'></div>
         <div className='easylaw_logo'> 
-        <Link  to ="/">
+        <Link  to ="/admin">
             <img src ="./images/logo.png"/>
             </Link>
             </div>

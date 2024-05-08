@@ -194,3 +194,6 @@
     text-decoration: none;
   }
  
+  .signin-form .error-message{
+    direction: rtl;
+  }

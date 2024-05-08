@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'User',
     'Payement_Validation',
     'Data_Collection',
+    'Administartion',
     'django_elasticsearch_dsl',
 ]
 ELASTICSEARCH_DSL={
