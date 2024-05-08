@@ -6,34 +6,66 @@ import NavBarProfile from '../../Profile/NavBarProfile'
 import React, { useState, useEffect , useContext} from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../Context/LogoProvider';
+import useUser from '../../../Hooks/useUser';
 
 
 function ProfileAdmin() {
-    const [activeList, setNavList] = useState('profile');
-    const { updateFormData } = useContext(AuthContext);
-    const [formData, setFormData] = useState({
+  const [activeList, setNavList] = useState('profile');
+  const { updateFormData } = useContext(AuthContext);
+  const [initials, setInitials] = useState('');
+  const [formData, setFormData] = useState({
+    nom: '',
+    prenom: '',
+    dateNaiss: '',
+    occupation: '',
+    univer_Entrep: '',
+    email: ''
+  });
+
+  const { getUserInfo } = useUser(); // Utilisation de la fonction getUserInfo du hook useUser
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    setFormData({
       nom: '',
       prenom: '',
       dateNaiss: '',
       occupation: '',
       univer_Entrep: '',
-      email:''
+      email: ''
     });
-    //const [isAuth, setIsAuth] = useState(false);
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log(formData);
-      // Reset form 
-      setFormData({
-        nom: '',
-        prenom: '',
-        dateNaiss: '',
-        occupation: '',
-        univer_Entrep: '',
-        email:''
-      });
+  };
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getUserInfo();
+        console.log(userData);
+
+        setFormData({
+          dateNaiss: userData.dateNaiss || '',
+          email: userData.email || '',
+          nom: userData.nom || '',
+          occupation: userData.occupation || '',
+          prenom: userData.prenom || '',
+          univer_Entrep: userData.univer_Entrep || '',
+        });
+
+        updateFormData({ nom: userData.nom });
+
+       
+      } catch (error) {
+        console.error('Une erreur s\'est produite lors de la récupération des informations de profil :', error);
+      }
     };
+
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
+    setInitials(nameInitials);
+  }, [formData.nom]);
     const [editMode, setEditMode] = useState(false);
     const [editedFormData, setEditedFormData] = useState();
   
@@ -52,9 +84,9 @@ function ProfileAdmin() {
     <LogoAdmin/>
     <div className='profile_container'>
     <div className='profile_name'>
-        <img alt='photo profile'/>
-        <h3>hhh</h3>
-&    </div>
+    <div className="user-initials-circle"> {initials}</div>
+        <h3>{formData.nom}</h3>
+    </div>
     <div className='profile_content'>
     <form className='profile_form' onSubmit={handleSubmit}>
         <div className='lign_dv'>
