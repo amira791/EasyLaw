@@ -41,6 +41,11 @@ function NavBarProfile(props) {
           <li>
             <Link to='/facture'>فواتيري</Link>
           </li>
+          {props.role === 'moderateur' && ( // Conditionally render the link based on the role
+            <li>
+              <Link to='/mainmoderateur'> العودة لصفحة الاشراف</Link>
+            </li>
+          )}
           <li>
             <a onClick={handleLogout}>تسجيل الخروج</a>
           </li>
