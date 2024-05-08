@@ -8,7 +8,7 @@ import { AuthContext } from '../../../Context/LogoProvider';
 import usePayment from '../../../Hooks/usePayment';
 
 
-function Gpt() {
+function Gpt({ currentPage, resultsPerPage }) {
  /* const [searchQuery, setSearchQuery] = useState('');
   const [category, setCategory] = useState('');
   const [source, setSource] = useState('');
@@ -123,6 +123,7 @@ function Gpt() {
         type:type,
         domain:domain,
         year:formattedDate,
+        page: currentPage, 
        
       };
   

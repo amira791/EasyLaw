@@ -9,12 +9,12 @@ ELASTIC_HOST = 'http://localhost:9200/'
 # Create the client instance
 client = Elasticsearch(
     [ELASTIC_HOST],
-    basic_auth=('nermine', '17161670'))
+    basic_auth=('manel', '12345678'))
 # the search function
 def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
             sort_by=None, source=None, year=None, signature_date=None,
              publication_date=None, type=None, ojNumber=None, 
-             jtNumber=None, jt_source=None, domain=None):
+             jtNumber=None, jt_source=None, domain=None,page=None,page_size=None):
     if not query:
         return
     # Définition du tri en fonction du paramètre sort_by pour avoir le tri pertinence ou par date
@@ -28,7 +28,7 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
     ).sort(sort)
      
     # Pagination
-    #s = s[(page - 1) * page_size: page * page_size]
+    s = s[(page - 1) * page_size: page * page_size]
    # Ajout des filtres supplémentaires
     if source:  
         s = s.filter('match_phrase', source=source)

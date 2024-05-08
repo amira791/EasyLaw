@@ -6,11 +6,12 @@ import Footer from '../../Footer/Footer';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
-function SearchResult() {
+function SearchResult({  resultsPerPage }) {
   const location = useLocation();
   const [results, setResults] = useState([]);
+  const [totalPages, setTotalPages] = useState(0)
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 2;
+ // const resultsPerPage = 10;
 
   useEffect(() => {
     if (location.state && location.state.results) {
@@ -18,13 +19,18 @@ function SearchResult() {
     }
   }, [location.state]);
 
-  const totalPages = Math.ceil(results.length / resultsPerPage);
+  //const totalPages = Math.ceil(results.length / resultsPerPage);
+  useEffect(() => {
+    const newTotalPages = Math.ceil(results.length / resultsPerPage);
+    setTotalPages(newTotalPages);
+  }, [results, resultsPerPage]);
+  
 
-  const paginate = (pageNumber) => {
+ const paginate = (pageNumber) => {
     if (pageNumber < 1 || pageNumber > totalPages) {
       return;
     }
-    setCurrentPage(pageNumber);
+    setCurrentPage(pageNumber); // Update the current page state
   };
 
   const indexOfLastResult = currentPage * resultsPerPage;
@@ -69,7 +75,7 @@ function SearchResult() {
   return (
     <>
       <Logo />
-      <Gpt />
+      <Gpt  currentPage={currentPage} resultsPerPage={resultsPerPage}/>
       <div className='searchResult'>
         <h1>نتائج البحث</h1>
         <div className="searchResult-container">
