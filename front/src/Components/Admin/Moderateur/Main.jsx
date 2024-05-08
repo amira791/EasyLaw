@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Main.css'
-import LogoAdmin from '../../LOGO/LogoAdmin'
+import LogoModerateur from '../../LOGO/LogoModerateur'
 import TitleBar from '../../TitleBar/TitleBar'
 import FooterAdmin from '../../Footer/FooterAdmin'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
@@ -33,7 +33,7 @@ function Main() {
 
     return (
     <>
-     <LogoAdmin title="صفحة الاشراف "/>
+     <LogoModerateur title="صفحة الاشراف "/>
       <TitleBar title="ادارة المحتوى القانوني"/>
       <div className='moderateur-main-container'>
         <div className='moderateurMain-titre'>

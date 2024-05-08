@@ -7,6 +7,7 @@ class CustomUser(AbstractUser):
     ROLE_CHOICES = (
         ('client', 'Client'),
         ('moderateur', 'Moderateur'),
+        ('admin', 'Admin'),
     )
 
     email = models.EmailField(unique=True)
