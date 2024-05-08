@@ -18,13 +18,13 @@ def signup(request):
     if request.method == 'POST':
         data = request.data.copy()
         data['password'] = make_password(data['password'])  # Hash the password
+        data['role'] = 'client'  # Set role to 'user' during signup
         data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
         serializer = CustomUserSerializer(data=data)
         if serializer.is_valid():
             user = serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -36,10 +36,11 @@ def login(request):
 
     if user:
         token, _ = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key}, status=HTTP_200_OK)
+        role = user.role  # Include role information in the response
+        return Response({'token': token.key, 'role': role}, status=status.HTTP_200_OK)
     else:
-        return Response({'error': 'Invalid credentials'}, status=HTTP_400_BAD_REQUEST)
-    
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_user_info(request):

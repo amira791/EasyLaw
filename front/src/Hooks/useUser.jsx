@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -7,12 +8,12 @@ import  { userApiClient } from '../API';
 
 
 export default function useUser() {
-    const [errorMessage, setErrorMessage] = useState('');
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const navigate = useNavigate(); 
-    const [isLoggedOut, setIsLoggedOut] = useState(false);
-    const { setFormData ,setIsAuth} = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate(); 
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
+  const { setFormData ,setIsAuth} = useContext(AuthContext);
     // Fonction logout
     const logout = async () => {
       try {
@@ -86,60 +87,68 @@ const changePassword = async (oldPassword, newPassword) => {
 };
 
 //************** For Sign In ************************** */
-  const loginUser = async (formData) => {
-    try {
-      const response = await userApiClient.post(`/login/`, formData);
-      console.log(response.data.token);
-      localStorage.clear();
-      localStorage.setItem('access_token', response.data.token);
-      localStorage.setItem('refresh_token', response.data.refresh);
-      axios.defaults.headers.common['Authorization'] =  `token ${response.data.token}`;
-      setLoggedIn(true);
-      return true;
-    } catch (error) {
-      console.error('Une erreur s\'est produite lors de l\'authentification :', error);
-      setErrorMessage('Erreur lors de l\'authentification. Veuillez vérifier vos informations.');
-    }
-  };
+useEffect(() => {
+  console.log("kkkkkk",loggedIn); // This will log the updated value of loggedIn whenever it changes
+}, [loggedIn]);
+const loginUser = async (formData) => {
+  try {
+    const response = await userApiClient.post(`/login/`, formData);
+    console.log(response.data.token);
+    localStorage.clear();
+    localStorage.setItem('access_token', response.data.token);
+    localStorage.setItem('refresh_token', response.data.refresh);
+    localStorage.setItem('role', response.data.role); // Store the role in localStorage
+    axios.defaults.headers.common['Authorization'] = `token ${response.data.token}`;
+    setLoggedIn(true); // Update the state
+    console.log(loggedIn); // This will log the updated state
+    return true;
+  } catch (error) {
+    console.error('An error occurred during authentication:', error);
+    return false;
+  }
+};
 
 // ******************* For Sign Up *****************************/
 const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessage, setPasswordError, setSuccessMessage) => {
-    try {
-      setErrorMessage('');
-      if (formData.password !== confirmPassword) {
-        setPasswordError('كلمة السر وتأكيد كلمة السر يجب أن تتطابق');
-      } else if (formData.password.length < 8) {
-        setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
-      } else {
-        const response = await userApiClient.post(`/signup`, formData);
-        console.log(response.data);
-        setSuccessMessage('تم إنشاء الحساب بنجاح! يتم إعادة توجيهك إلى صفحة تسجيل الدخول...');
-        setFormData({
-          prenom: '',
-          nom: '',
-          dateNaiss: '',
-          univer_Entrep: '',
-          occupation: '',
-          email: '',
-          password: '',
-          username: ''
-        });
-        setPasswordError('');
-        setConfirmPassword('');
-        setTimeout(() => {
-          navigate('/signin'); // Use navigate to redirect to the signin page
-        }, 2000);
-      }
-    } catch (error) {
-      if (error.response.data.email) {
-        setErrorMessage(error.response.data.email);
-      } else if (error.response.data.username) {
-        setErrorMessage(error.response.data.username);
-      } else {
-        setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
-      }
+  try {
+    setErrorMessage('');
+    if (formData.password !== confirmPassword) {
+      setPasswordError('كلمة السر وتأكيد كلمة السر يجب أن تتطابق');
+    } else if (formData.password.length < 8) {
+      setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
+    } else {
+      // Remove the 'role' field from formData
+      delete formData.role;
+      const response = await userApiClient.post(`/signup`, formData);
+      console.log(response.data);
+      setSuccessMessage('تم إنشاء الحساب بنجاح! يتم إعادة توجيهك إلى صفحة تسجيل الدخول...');
+      setFormData({
+        prenom: '',
+        nom: '',
+        dateNaiss: '',
+        univer_Entrep: '',
+        occupation: '',
+        email: '',
+        password: '',
+        username: ''
+      });
+      setPasswordError('');
+      setConfirmPassword('');
+      setTimeout(() => {
+        navigate('/signin'); // Use navigate to redirect to the signin page
+      }, 2000);
     }
-  };
+  } catch (error) {
+    if (error.response.data.email) {
+      setErrorMessage(error.response.data.email);
+    } else if (error.response.data.username) {
+      setErrorMessage(error.response.data.username);
+    } else {
+      setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
+    }
+  }
+};
+
 
   return {
     logout,

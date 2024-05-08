@@ -27,7 +27,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def getServices(request):
 
     services = Service.objects.all()
-    services[0].priceId = "jkhgkh"
+    #services[0].priceId = "jkhgkh"
     
     serializer = ServiceSerializer(services, many=True)
     serialized_data = serializer.data
