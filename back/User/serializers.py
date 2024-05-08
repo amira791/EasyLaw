@@ -47,4 +47,13 @@ class ModerateurSerializer(serializers.ModelSerializer):
 
 
 
-       
+from django.contrib.auth.hashers import make_password
+
+class EditUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'nom', 'prenom', 'num_telephone', 'dateNaiss', 'lieuNaiss', 'univer_Entrep', 'occupation', 'bio', 'location', 'profile_picture']
+        # Remove 'password' from read_only_fields to allow hashing during updates
+        read_only_fields = []
+

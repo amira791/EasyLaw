@@ -1,7 +1,7 @@
 POST http://127.0.0.1:9000/user/login 
 Content-Type: application/json
 
-{ "username": "fournisseur3", "password": "1234" }
+{ "username": "fournisseur15", "password": "1234" }
 
 ###
 
@@ -11,8 +11,8 @@ Content-Type: application/json
 {
   "user_type": "client",
   "user": {
-    "email": "fournisseur3@example.com",
-    "username": "fournisseur3",
+    "email": "fournisseur15@example.com",
+    "username": "fournisseur15",
     "prenom": "John",
     "nom": "Doe",
     "num_telephone": "1234567890",
@@ -25,29 +25,28 @@ Content-Type: application/json
 
 GET http://127.0.0.1:9000/user/get_user_info
 Content-Type: application/json
-Authorization: token 8b35000c4297b9cedc75ac32b0614936c048e934
+Authorization: token 4bb61ff80fe697ec41706cbdbdf9f373cb7cae56
 
 ###
 
 
 PUT http://127.0.0.1:9000/user/edit_user_info
 Content-Type: application/json
-Authorization: Token 4d6b7d193af34b668b57039266ca35447c881aa4
+Authorization: Token 4bb61ff80fe697ec41706cbdbdf9f373cb7cae56
 
 {
-  "username": "fournisseur3",
-  "email": "fournisseur3@example.com",
+  "username": "fournisseur15",
+  "email": "fournisseur15@example.com",
   "nom": "Doe",
   "prenom": "John",
   "num_telephone": "1234567890",
   "dateNaiss": null,
-  "lieuNaiss": null,
-  "univer_Entrep": null,
-  "occupation": null,
+  "lieuNaiss": "1565",
+  "univer_Entrep": "nbhui",
+  "occupation": "nbhu",
   "bio": "",
   "location": "Bantna",
-  "profile_picture": null,
-  "password": "1234"
+  "profile_picture": null
 }
 
 

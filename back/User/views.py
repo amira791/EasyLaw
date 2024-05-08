@@ -106,12 +106,12 @@ def get_user_info(request):
 @permission_classes([IsAuthenticated])  # User must be authenticated
 def edit_user_info(request):
     user = request.user  # Get the authenticated user
-    password = request.data.get('password')
-    if not user.check_password(password):
+
+    if not user:
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
     # Check if the request data is valid based on the serializer
-    serializer = UserSerializer(user, data=request.data)
+    serializer = EditUserSerializer(user, data=request.data)
 
     if serializer.is_valid():
         serializer.save()  # Save the updated user data
