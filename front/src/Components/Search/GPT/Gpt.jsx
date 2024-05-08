@@ -137,7 +137,7 @@ function Gpt() {
         );
         console.log('Recherche soumise avec la requête :', searchQuery);
         console.log('Résultats de la recherche:', response.data);
-        navigate('/searchresult', { state: { results: response.data } });
+        navigate('/searchresult', { state: { results: response.data.results, len: response.data.len } });
       } catch (error) {
         if (error.response?.status === 403) {
           console.error('You are not allowed to search.');

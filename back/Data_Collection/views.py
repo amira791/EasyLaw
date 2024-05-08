@@ -155,7 +155,7 @@ def extract_text_from_pdf_file(pdf_file_path, page_number):
 class search_view(APIView):
         def get(self, request):
              #if( is_Allowed(request.user.id,"search")):
-                 # Récupérer les paramètres de recherche depuis la requête GET
+                  #Récupérer les paramètres de recherche depuis la requête GET
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
                   source = request.GET.get('source')
@@ -166,17 +166,17 @@ class search_view(APIView):
                   ojNumber = request.GET.get('ojNumber')
                   jtNumber = request.GET.get('jtNumber')
                   domain = request.GET.get('domain')
-                  #page = int(request.GET.get('page', 1))  # Default to page 1
-                  #page_size = int(request.GET.get('page_size', 10))  # Default to 10 results per page
+                #   page = int(request.GET.get('page', 1))  # Default to page 1
+                #   page_size = int(request.GET.get('page_size', 10))  # Default to 10 results per page
                   if query:
-                     results = lookup(query=query,sort_by=sort_by, source=source, year=year, 
+                     results , len = lookup(query=query,sort_by=sort_by, source=source, year=year, 
                      signature_date=signature_date, publication_date=publication_date,
                      type=type, ojNumber=ojNumber, jtNumber=jtNumber, domain=domain)
-                     return Response(results)
+                     return Response({'results': results, 'len': len}, status=200)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
-             #else:
-                #return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+            #  else:
+            #     return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 # fonction pour recupere les sources et types 
 def get_type_and_source(request):
     types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
@@ -196,7 +196,7 @@ def redirect_to_pdf(request):
     if official_journal_year and official_journal_number and official_journal_page:
         # Format official_journal_number to ensure it has three digits
         formatted_journal_number = official_journal_number.zfill(3)
-        year_prefix = 'A' if int(official_journal_year) >= 1963 else 'F'
+        year_prefix = 'A' if int(official_journal_year) >= 1964 else 'F'
         # Generate the PDF file path
         pdf_directory = f"D:\\pdfs\\{official_journal_year}"
         pdf_filename = f"{year_prefix}{official_journal_year}{formatted_journal_number}.pdf"  # Assuming this format

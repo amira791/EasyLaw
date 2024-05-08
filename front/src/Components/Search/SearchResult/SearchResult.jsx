@@ -9,16 +9,18 @@ import { useLocation } from 'react-router-dom';
 function SearchResult() {
   const location = useLocation();
   const [results, setResults] = useState([]);
+  const [results_len, setResults_len] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 2;
+  const resultsPerPage = 3;
 
   useEffect(() => {
     if (location.state && location.state.results) {
       setResults(location.state.results);
+      setResults_len(location.state.len);
     }
   }, [location.state]);
 
-  const totalPages = Math.ceil(results.length / resultsPerPage);
+  const totalPages = Math.ceil(results_len / resultsPerPage);
 
   const paginate = (pageNumber) => {
     if (pageNumber < 1 || pageNumber > totalPages) {

@@ -26,9 +26,6 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
     s = Search(index=index).using(client).query(
         "multi_match", fields=fields, fuzziness='AUTO', query=query
     ).sort(sort)
-     
-    # Pagination
-    #s = s[(page - 1) * page_size: page * page_size]
    # Ajout des filtres supplémentaires
     if source:  
         s = s.filter('match_phrase', source=source)
@@ -49,6 +46,10 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
 
     # Exécuter la recherche Elasticsearch
     results = s.execute()
+    results_length = len(results)
+    # # Pagination
+    # s = s[(page - 1) * page_size: page * page_size]
+    # results = s.execute()
     q_results = []
 
     for hit in results:
@@ -72,8 +73,10 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
             "text_file_content": hit.extracted_text,
             "adjustments": adjustments, 
         }
+        
         q_results.append(data)
-    return q_results
+    
+    return q_results, results_length
 
 def get_adjustments(jt_id):
     # Retrieve adjustments related to the given JuridicalText ID
