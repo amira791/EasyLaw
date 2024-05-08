@@ -2,13 +2,14 @@ import elasticsearch
 from elasticsearch_dsl import Search, Q, Index
 from elasticsearch import Elasticsearch
 from .models import Adjutstement
+import json
 
 ELASTIC_HOST = 'http://localhost:9200/'
 
 # Create the client instance
 client = Elasticsearch(
     [ELASTIC_HOST],
-    basic_auth=('manel', '12345678'))
+    basic_auth=('nermine', '17161670'))
 # the search function
 def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
             sort_by=None, source=None, year=None, signature_date=None,
@@ -54,6 +55,9 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
         # Retrieve adjustments related to the current JuridicalText
         adjustments = get_adjustments(hit.id_text)
         
+        # Convert official_journal_id to a serializable format
+        official_journal_id = hit.official_journal.year if hit.official_journal else None
+        official_journal_id_str = str(official_journal_id) if official_journal_id is not None else None
         data = {
             "id_text": hit.id_text,
             "description": hit.description,
@@ -63,8 +67,10 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
             "jt_number": hit.jt_number,
             "source": hit.source,
             "official_journal_page": hit.official_journal_page,
+            "official_journal_year": official_journal_id_str,
+            "official_journal_number": hit.official_journal.number if hit.official_journal else None, 
             "text_file_content": hit.extracted_text,
-            "adjustments": adjustments,  # Include adjustments data
+            "adjustments": adjustments, 
         }
         q_results.append(data)
     return q_results

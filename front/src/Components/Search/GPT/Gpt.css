@@ -26,8 +26,9 @@
     border-radius: 0px 4px 4px 0px;
     padding: 10px;
     color: black;
-    border: 1px solid var(--primary-color)
-    ;
+    border: 1px solid var(--primary-color);
+    padding-right: 40px;
+    
   }
   
   .btn-primary {
@@ -44,8 +45,10 @@
     right: 10px; 
     top: 50%;
     transform: translateY(-50%);
+    
    
   }
+  
   .gpt_logo{
    
     width: 18%;

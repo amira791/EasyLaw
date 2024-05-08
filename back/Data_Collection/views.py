@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view, permission_classes
 #from selenium.webdriver.support.ui import Select
 #from selenium.webdriver.support.ui import WebDriverWait
 #from selenium.webdriver.support import expected_conditions as EC
+from PyPDF2 import PdfReader ,PdfWriter
+from django.http import FileResponse
 from datetime import datetime
 from .models import JuridicalText, Adjutstement, OfficialJournal
 from django.http import HttpResponse
@@ -14,7 +16,9 @@ from .search import lookup
 import time
 from datetime import datetime
 from .models import JuridicalText, Adjutstement, OfficialJournal
-#import os
+from django.http import JsonResponse
+from django.http import HttpResponseRedirect
+import os
 #from pdf2image import convert_from_path
 #import pytesseract
 #from PyPDF2 import PdfReader
@@ -171,21 +175,56 @@ class search_view(APIView):
                      return Response(results)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
-            # else:
-             #   return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+             #else:
+                #return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+# fonction pour recupere les sources et types 
+def get_type_and_source(request):
+    types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
+    sources = JuridicalText.objects.values_list('source', flat=True).distinct()
+    return JsonResponse({'types': list(types), 'sources': list(sources)})
+def distinct_years(request):
+    distinct_years_list = OfficialJournal.objects.values_list('year', flat=True).distinct().order_by('year')
+    years = list(distinct_years_list)
+    return JsonResponse({'years': years})
+#details de juridical text
+def redirect_to_pdf(request):
+    # Get the query parameters from the request
+    official_journal_year = request.GET.get('official_journal_year')
+    official_journal_number = request.GET.get('official_journal_number')
+    official_journal_page = request.GET.get('official_journal_page')
+    if official_journal_year and official_journal_number and official_journal_page:
+            # Generate the PDF file path
+            pdf_directory = f"D:\\pdfs\\{official_journal_year}"
+            pdf_filename = f"A{official_journal_year}{official_journal_number}.pdf"  # Assuming this format
+            pdf_path = os.path.join(pdf_directory, pdf_filename)
 
+            # Check if the PDF file exists
+            if os.path.exists(pdf_path):
+                # Open the PDF file and set response headers for displaying in the browser
+                response = FileResponse(open(pdf_path, 'rb'), content_type='application/pdf')
+                response['Content-Disposition'] = f'inline; filename="{pdf_filename}"'
+                # Set the initial page to be displayed
+                response['Accept-Ranges'] = 'bytes'
+                response['Content-Range'] = f'bytes {int(official_journal_page) * 1024}-'
+                return response
+            else:
+                # Handle the case where the PDF file does not exist
+                return HttpResponse("Le fichier PDF demandé n'existe pas.", status=404)
+    else:
+        # Handle the case where parameters are missing
+        return HttpResponse("Paramètres manquants.", status=400)
 @api_view(['POST'])
 def initial_jt_filling(request):
-#     # Initialize WebDriver
+     # Initialize WebDriver
     driver = webdriver.Chrome()
 
-#     # Navigate to the website
+     # Navigate to the website
     driver.get("https://www.joradp.dz/HAR/Index.htm")
 
-#     # Switch to the correct frame
+     # Switch to the correct frame
     driver.switch_to.frame(driver.find_element(By.XPATH, "//frame[@src='ATitre.htm']"))
 
-#     # Wait for the link to appear
+     # Wait for the link to appear
     search_link = WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located(
             (By.XPATH, "/html/body/div/table[2]/tbody/tr/td[3]/a")
@@ -196,7 +235,7 @@ def initial_jt_filling(request):
     driver.switch_to.default_content()
     driver.switch_to.frame(driver.find_element(By.XPATH, "//frame[@src='Accueil.htm']"))
 
-#     # Wait for the page to load
+     # Wait for the page to load
     wait = WebDriverWait(driver, 10)
     # wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")))
 

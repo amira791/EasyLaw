@@ -78,16 +78,41 @@ function Gpt() {
 
     handleSearchSubmit();
   }, [sortBy]);*/
-  const [type, setType] = useState('');
-  const [source, setSource] = useState('');
-  const [year, setDate] = useState('');
-  const [domain, setDomain] = useState('');
-
-
+    const [types, setTypes] = useState([]); // Declare types and setTypes
+    const [sources, setSources] = useState([]); // Declare sources and setSources
+    const [type, setType] = useState('');
+    const [source, setSource] = useState('');
+    const [year, setYear] = useState('');
+    const [domain, setDomain] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState();
+    const [years, setYears] = useState([]); 
     const navigate = useNavigate();
-  
+    useEffect(() => {
+      const fetchOptions = async () => {
+          try {
+              const response = await axios.get('http://localhost:8000/data_collection/types_sources');
+              setTypes(response.data.types);
+              setSources(response.data.sources);
+          } catch (error) {
+              console.error('Error fetching options:', error);
+          }
+      };
+
+      fetchOptions();
+
+   // Fetch distinct years
+   const fetchDistinctYears = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/data_collection/distinct_years');
+      setYears(response.data.years);
+    } catch (error) {
+      console.error('Error fetching distinct years:', error);
+    }
+  };
+
+  fetchDistinctYears();
+     }, []);
     const handleSearchSubmit = async (e) => {
      e.preventDefault();
      const formattedDate = year ? `${year}` : '';
@@ -140,7 +165,6 @@ function Gpt() {
        
         <form className="search-form" onSubmit={handleSearchSubmit}>
           <div className='display_form'>
-         
           <input
             type="text"
             className="form-control"
@@ -148,8 +172,9 @@ function Gpt() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-           <button type="submit" className="btn btn-primary"> البحث</button>
           <SearchIcon className="search-icon" />
+           <button type="submit" className="btn btn-primary"> البحث</button>
+          
           </div>
           <div className="radio-buttons">
             <label>
@@ -178,51 +203,44 @@ function Gpt() {
         </form>
         
         <div className='search_filter'>
-          <select
-            id="file-type"
-            name="file-type"
-            className='select_item'
-            value={domain}
-            onChange={(e) => setDomain(e.target.value)}
-          >
-            <option value=""> المجال </option>
-            <option value="طالب">طالب</option>
-          </select>
+          
          
-          <input
-            type="text"
-            id="date"
-            name="publication_date"
+        <select
+            id="year"
+            name="year"
             className='select_item'
-            placeholder='السنة'
             value={year}
-            onChange={(e) => setDate(e.target.value)}
-          />
-          <select
-            id="source"
-            name="source"
-            className='select_item'
-            value={source}
-            onChange={(e) => setSource(e.target.value)}
+            onChange={(e) => setYear(e.target.value)}
           >
-            <option value=""> المصدر</option>
-            <option value="وزارة المالية">وزارة المالية</option>
-            <option value=" وزارة النقل">وزارة النقل </option>
-            
+            <option value="">السنة</option>
+            {years.map((yearOption) => (
+              <option key={yearOption} value={yearOption}>{yearOption}</option>
+            ))}
+        </select>
+         <select
+              id="source"
+              name="source"
+              className='select_item'
+              value={source}
+              onChange={(e) => setSource(e.target.value)}
+          >
+              <option value="">المصدر</option>
+              {sources.map((sourceOption) => (
+                  <option key={sourceOption} value={sourceOption}>{sourceOption}</option>
+              ))}
           </select>
           <select
-            id="category"
-            name="category"
-            className='select_item'
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option value=""> نوع</option>
-            <option value="تعليمة">تعليمة</option>
-            <option value="مرسوم تشريعي">مرسوم تشريعي</option>
-            <option value="مقرر">مقرر</option>
-            
-          </select>
+                  id="category"
+                  name="category"
+                  className='select_item'
+                  value={type}
+                  onChange={(e) => setType(e.target.value)}
+              >
+                  <option value="">نوع</option>
+                  {types.map((typeOption) => (
+                      <option key={typeOption} value={typeOption}>{typeOption}</option>
+                  ))}
+            </select>
         </div>
       </div>
     </div>
