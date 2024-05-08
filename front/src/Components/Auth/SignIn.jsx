@@ -16,6 +16,7 @@ function SignIn() {
   const { loginUser, errorMessage } = useUser();
   const [passwordType, setPasswordType] = useState('password');
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const togglePassword = () => {
     setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
@@ -33,7 +34,16 @@ function SignIn() {
     e.preventDefault();
     const loggedIn = await loginUser(formData);
     if (loggedIn) {
-      navigate('/profile'); // Navigate to main page if logged in successfully
+      const role = localStorage.getItem('role'); // Get the role from localStorage
+      if (role === 'admin') {
+        navigate('/admin'); // Redirect admin to admin main
+      } else if (role === 'moderateur') {
+        navigate('/mainmoderateur'); // Redirect moderator to moderator main
+      } else {
+        navigate('/'); // Redirect other users to law categories
+      }
+    } else {
+      setError('معلومات خاطئة. الرجاء المحاولة مرة أخرى');
     }
   };
 
@@ -43,7 +53,7 @@ function SignIn() {
       <TitleBar title="  تسجيل الدخول" />
       <div className="signin-form">
         <form onSubmit={handleSubmit}>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {error && <div className="error-message">{error}</div>}
           <div className='username_dv1'>
             <div className='input-group'>
               <label htmlFor="dateN"> اسم المستخدم </label>

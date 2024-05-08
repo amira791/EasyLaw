@@ -22,14 +22,12 @@ function LawCategories() {
 </h1>
         <div className='Law_content'>
            <div className='law_item'>
-           <img  className=' icon-free'src="./images/Star.png"/>
-           <span className='icon-free-span'>مجانا</span>
+           
                 <div ><img  className='law-icon'src="./images/soutien.png"  /></div>
                 <h3>التجارة و الأعمال </h3>
             </div>
             <div className='law_item'>
-            <img  className=' icon-free'src="./images/Star.png"/>
-            <span className='icon-free-span'>مجانا</span>
+           
                 <div ><img  className='law-icon'src="./images/debat.png"  /></div>
                 <h3>الاستشارات القضائية</h3>
             </div>
@@ -50,7 +48,8 @@ function LawCategories() {
                 <h3>القوانين  </h3>
             </div>
             <div className='law_item'>
-           
+            <img  className=' icon-free'src="./images/Star.png"/>
+            <span className='icon-free-span'>مجانا</span>
            <div ><img  className='law-icon'src="./images/algremovebgpreview.png"  /></div>
            <h3>الجرائد الرسمية</h3>
        </div>

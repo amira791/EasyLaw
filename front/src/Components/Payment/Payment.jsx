@@ -139,7 +139,7 @@ console.log(stripe);
         <span>{name}</span> <br/>
        <span>{price}</span>
       </div>
-      <ShoppingCart sx={{ width: '2em', height: '2em', color: 'var(--primary-color)'}}/>
+      <ShoppingCart sx={{ width: '2em', height: '2em', color: 'white'}}/>
     </div>
       <div className='payment-group-col'>
         <label htmlFor="modeP"> : طريقة الدفع </label>

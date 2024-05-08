@@ -14,7 +14,7 @@ client = Elasticsearch(
 def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
             sort_by=None, source=None, year=None, signature_date=None,
              publication_date=None, type=None, ojNumber=None, 
-             jtNumber=None, jt_source=None, domain=None):
+             jtNumber=None, jt_source=None, domain=None,page=None,page_size=None):
     if not query:
         return
     # Définition du tri en fonction du paramètre sort_by pour avoir le tri pertinence ou par date

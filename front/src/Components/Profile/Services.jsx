@@ -18,7 +18,7 @@ function Services() {
     const {  formData} = useContext(AuthContext);
 
     const [sub, setSub] = useState(null)
-    const remaining = Math.ceil((new Date(sub?.dateFin) - new Date(sub?.dateDebut))/ (1000 * 60 * 60 * 24))
+    const remaining = Math.ceil((new Date(sub?.dateFin) - new Date())/ (1000 * 60 * 60 * 24))
     const {getCurrentSubscription} = usePayment()
 
     useEffect(() => {

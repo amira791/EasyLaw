@@ -22,11 +22,11 @@ function SearchResult() {
 
   const totalPages = Math.ceil(results_len / resultsPerPage);
 
-  const paginate = (pageNumber) => {
+ const paginate = (pageNumber) => {
     if (pageNumber < 1 || pageNumber > totalPages) {
       return;
     }
-    setCurrentPage(pageNumber);
+    setCurrentPage(pageNumber); // Update the current page state
   };
 
   const indexOfLastResult = currentPage * resultsPerPage;
@@ -71,7 +71,7 @@ function SearchResult() {
   return (
     <>
       <Logo />
-      <Gpt />
+      <Gpt  currentPage={currentPage} resultsPerPage={resultsPerPage}/>
       <div className='searchResult'>
         <h1>نتائج البحث</h1>
         <div className="searchResult-container">

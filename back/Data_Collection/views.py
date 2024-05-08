@@ -151,11 +151,11 @@ def extract_text_from_pdf_file(pdf_file_path, page_number):
         print(f"PDF file not found at {pdf_file_path}")
         return None
 # search function 
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
-             #if( is_Allowed(request.user.id,"search")):
-                  #Récupérer les paramètres de recherche depuis la requête GET
+             if( is_Allowed(request.user.id,"search")):
+                 # Récupérer les paramètres de recherche depuis la requête GET
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
                   source = request.GET.get('source')
@@ -175,8 +175,8 @@ class search_view(APIView):
                      return Response({'results': results, 'len': len}, status=200)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
-            #  else:
-            #     return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+             else:
+                 return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 # fonction pour recupere les sources et types 
 def get_type_and_source(request):
     types = JuridicalText.objects.values_list('type_text', flat=True).distinct()

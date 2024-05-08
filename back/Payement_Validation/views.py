@@ -28,6 +28,7 @@ def getServices(request):
 
     services = Service.objects.all()
     
+    
     serializer = ServiceSerializer(services, many=True)
     serialized_data = serializer.data
 

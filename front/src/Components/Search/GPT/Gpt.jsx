@@ -8,7 +8,7 @@ import { AuthContext } from '../../../Context/LogoProvider';
 import usePayment from '../../../Hooks/usePayment';
 
 
-function Gpt() {
+function Gpt({ currentPage, resultsPerPage }) {
  /* const [searchQuery, setSearchQuery] = useState('');
   const [category, setCategory] = useState('');
   const [source, setSource] = useState('');
@@ -123,6 +123,7 @@ function Gpt() {
         type:type,
         domain:domain,
         year:formattedDate,
+        page: currentPage, 
        
       };
   
@@ -157,9 +158,9 @@ function Gpt() {
   return (
     <div className='gpt_dv'>
       <div className='gpt_logo'>
-        <Link to="/gptpage">
+        
           <img className="icon_gpt" src="./images/gpt.png" alt="Logo GPT" />
-        </Link>
+       
       </div>
       <div className='gpt_search'>
        
