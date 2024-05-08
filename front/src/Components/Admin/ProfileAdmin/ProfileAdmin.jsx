@@ -54,7 +54,7 @@ function ProfileAdmin() {
     <div className='profile_name'>
         <img alt='photo profile'/>
         <h3>hhh</h3>
-    </div>
+&    </div>
     <div className='profile_content'>
     <form className='profile_form' onSubmit={handleSubmit}>
         <div className='lign_dv'>
