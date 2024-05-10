@@ -9,7 +9,7 @@ ELASTIC_HOST = 'http://localhost:9200/'
 # Create the client instance
 client = Elasticsearch(
     [ELASTIC_HOST],
-    basic_auth=('nermine', '17161670'))
+    basic_auth=('manel', '12345678'))
 # the search function
 def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
             sort_by=None, source=None, year=None, signature_date=None,
