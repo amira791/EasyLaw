@@ -92,7 +92,7 @@ useEffect(() => {
 }, [loggedIn]);
 const loginUser = async (formData) => {
   try {
-    const response = await userApiClient.post(`/login/`, formData);
+    const response = await userApiClient.post(`/login`, formData);
     console.log(response.data.token);
     localStorage.clear();
     localStorage.setItem('access_token', response.data.token);

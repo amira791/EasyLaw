@@ -73,6 +73,11 @@
     width: 200px;
     margin-right: 15%;
 }
+.logo_section .titre_section1 {
+    text-align: center;
+    width: 200px;
+    margin-left: 42%;
+}
 .logo_section .user-initials-circle{
    background-color: #045253;
     border-radius: 100%;

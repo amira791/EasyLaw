@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 function LogoModerateur(props) {
   return (
     <div className='logo_section'>
-      <div className='titre_section' style={{ textAlign: 'center' }}> {/* Applied inline style for centering */}
+      <div className='titre_section1' > {/* Applied inline style for centering */}
         <h2>{props.title}</h2>
       </div>
       <div className='easylaw_section'>
