@@ -29,3 +29,8 @@
 .AdminMain-Container .pic-menu{
     width: 100px;
 }
+.AdminMain-Container .AdminMain-menu a{
+    text-decoration: none;
+    color: #374957;
+   
+}

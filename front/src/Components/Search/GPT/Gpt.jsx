@@ -227,7 +227,7 @@ function Gpt({ currentPage, resultsPerPage }) {
           >
               <option value="">المصدر</option>
               {sources.map((sourceOption) => (
-                  <option key={sourceOption} value={sourceOption}>{sourceOption}</option>
+                  <option  key={sourceOption} value={sourceOption}>{sourceOption}</option>
               ))}
           </select>
           <select

@@ -1,18 +1,18 @@
-
 import LogoAdmin from '../../LOGO/LogoAdmin'
 import FooterAdmin from '../../Footer/FooterAdmin'
-import Compte from '../../Profile/Compte'
-import NavBarProfile from '../../Profile/NavBarProfile'
+
 import React, { useState, useEffect , useContext} from 'react';
-import axios from 'axios';
+
 import { AuthContext } from '../../../Context/LogoProvider';
 import useUser from '../../../Hooks/useUser';
-import { Link, Navigate } from 'react-router-dom';
-import NavBarAdmin from './NavBarAdmin';
+import { Navigate } from 'react-router-dom';
+
+import NavBarMod from './NavBarMod';
+import LogoModerateur from '../../LOGO/LogoModerateur';
 
 
-function ProfileAdmin() {
-  const [activeList, setNavList] = useState('profile');
+function ProfileModerateur() {
+    const [activeList, setNavList] = useState('profile');
   const { updateFormData } = useContext(AuthContext);
   const [initials, setInitials] = useState('');
   const [formData, setFormData] = useState({
@@ -92,14 +92,12 @@ function ProfileAdmin() {
     }
   }
 
-  if (isLoggedOut) {
-    return <Navigate to="/" />;
-  }
+ 
 
 
   return (
     <>
-    <LogoAdmin/>
+    <LogoModerateur title=" صفحة الاشراف "/>
     <div className='profile_container'>
     <div className='profile_name'>
     <div className="user-initials-circle"> {initials}</div>
@@ -138,6 +136,7 @@ function ProfileAdmin() {
             />
           </div>
         </div>
+
         <div className='lign_dv'>
           <div className='lign_dv_info'>
             <label htmlFor="email">البريد الالكتروني</label>
@@ -169,6 +168,10 @@ function ProfileAdmin() {
           </div>
           
           </div>
+
+          
+
+
       
         {/* <button className='save_info' type="submit" disabled={!editMode}> 
         حفظ المعلومات
@@ -179,15 +182,14 @@ function ProfileAdmin() {
       </button> */}
     
    
-        <NavBarAdmin/>
+        <NavBarMod/>
       
   </div>
   
     <FooterAdmin/>
     </div>
     </>
-    
   )
 }
 
-export default ProfileAdmin
+export default ProfileModerateur

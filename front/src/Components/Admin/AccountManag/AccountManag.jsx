@@ -5,6 +5,7 @@ import { Column } from 'primereact/column';
 import TitleBar from '../../TitleBar/TitleBar';
 import LogoAdmin from '../../LOGO/LogoAdmin';
 import FooterAdmin from '../../Footer/FooterAdmin';
+import Navigation from '../NavigationBar/Navigation';
 
 // Exemple de données pour la DataTable
 
@@ -30,8 +31,9 @@ function AccountManag() {
       ];
   return (
     <>
-      <LogoAdmin />
+      <LogoAdmin  title="صفحة الادارة"/>
       <TitleBar title="ادارة الحسابات" />
+      <Navigation/>
       <div className='accountManag-container'>
       <h2> حسابات المستخدمين</h2>
       <DataTable value={userAccount} paginator rows={7}  tableStyle={{ minWidth: '50rem' }}>

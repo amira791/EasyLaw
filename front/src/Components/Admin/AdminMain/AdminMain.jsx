@@ -8,12 +8,15 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { Link } from 'react-router-dom'
 
 function AdminMain() {
+ 
   return (
     <>
     <LogoAdmin title="صفحة الادارة "/>
     <TitleBar title="ادارة المنصة"/>
+    
     <div className='AdminMain-Container'>
         <div className='AdminMain-menu'>
+        <Link to="/tarification">
             <SettingsOutlinedIcon sx={{width:'90px',height:'90px',
             position:'absolute',top:'-35px',right:'9px'}}/>
             <div className='pic-menu-dv'>
@@ -21,19 +24,20 @@ function AdminMain() {
             </div>
             
             <h2>ادارة التسعيرة</h2>
+            </Link>
         </div>
         <div className='AdminMain-menu'>
-         
+        <Link to='/pricingmanagement'>
             <SettingsOutlinedIcon sx={{width:'90px',height:'90px',
             position:'absolute',top:'-35px',right:'9px'}}/>
             <div className='pic-menu-dv'>
             <img src="./images/remarquer.png" className='pic-menu'/>
             </div>
             <h2> ادارة المحتوى القانوني</h2>
-           
+            </Link>
         </div>
         <div className='AdminMain-menu'>
-        <Link to="/">
+        <Link to="/accountmanagment">
             <SettingsOutlinedIcon sx={{width:'90px',height:'90px',
             position:'absolute',top:'-35px',right:'9px'}}/>
             <div className='pic-menu-dv'>
