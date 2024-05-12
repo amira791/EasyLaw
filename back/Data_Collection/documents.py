@@ -25,7 +25,9 @@ class JuridicalTextDocument(Document):
             'analysis': {
                 'analyzer': {
                     'custom_arabic_analyzer': {
-                        'type': 'arabic'
+                     'type': 'custom', 
+                    'tokenizer': 'arabic', 
+                    'filter': ['lowercase', 'arabic_normalization']  
                     }
                 }
             }

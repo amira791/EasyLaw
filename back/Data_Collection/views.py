@@ -19,6 +19,7 @@ from .models import JuridicalText, Adjutstement, OfficialJournal
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 import os
+import PyPDF2
 #from pdf2image import convert_from_path
 #import pytesseract
 #from PyPDF2 import PdfReader
@@ -166,17 +167,17 @@ class search_view(APIView):
                   ojNumber = request.GET.get('ojNumber')
                   jtNumber = request.GET.get('jtNumber')
                   domain = request.GET.get('domain')
-                #   page = int(request.GET.get('page', 1))  # Default to page 1
-                #   page_size = int(request.GET.get('page_size', 10))  # Default to 10 results per page
+                  page = int(request.GET.get('page', 1))  # Default to page 1
+                  page_size = int(request.GET.get('page_size', 50))  # Default to 10 results per page
                   if query:
                      results , len = lookup(query=query,sort_by=sort_by, source=source, year=year, 
                      signature_date=signature_date, publication_date=publication_date,
-                     type=type, ojNumber=ojNumber, jtNumber=jtNumber, domain=domain)
+                     type=type, ojNumber=ojNumber, jtNumber=jtNumber, domain=domain, page=page,page_size=page_size)
                      return Response({'results': results, 'len': len}, status=200)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
              else:
-                 return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+                  return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 # fonction pour recupere les sources et types 
 def get_type_and_source(request):
     types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
@@ -214,9 +215,14 @@ def redirect_to_pdf(request):
 
             # Calculate the content range based on the requested page
             with open(pdf_path, 'rb') as pdf_file:
-                pdf_file.seek((page_to_display - 1) * 1024 * 1024)  # Set the file pointer to the start of the requested page
-                page_content = pdf_file.read(1024 * 1024)  # Read 1 MB of content starting from the requested page
-                response['Content-Range'] = f'bytes {int((page_to_display - 1) * 1024 * 1024)}-{int((page_to_display - 1) * 1024 * 1024) + len(page_content) - 1}/{os.path.getsize(pdf_path)}'
+                # Set the file pointer to the start of the requested page
+                pdf_file.seek((page_to_display - 1) * 1024 * 1024)
+                # Read 1 MB of content starting from the requested page
+                page_content = pdf_file.read(1024 * 1024)
+                # Calculate the content range for the requested page
+                start_byte = (page_to_display - 1) * 1024 * 1024
+                end_byte = start_byte + len(page_content) - 1
+                response['Content-Range'] = f'bytes {start_byte}-{end_byte}/{os.path.getsize(pdf_path)}'
 
             return response
         else:
@@ -225,6 +231,7 @@ def redirect_to_pdf(request):
     else:
         # Handle the case where parameters are missing
         return HttpResponse("Paramètres manquants.", status=400)
+
 @api_view(['POST'])
 def initial_jt_filling(request):
      # Initialize WebDriver

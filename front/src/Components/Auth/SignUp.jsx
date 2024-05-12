@@ -133,7 +133,7 @@ function SignUp() {
          />
       </div>
       <div className='input-group-col'>
-        <label htmlFor="username">username</label>
+        <label htmlFor="username">اسم المستخدم</label>
         <input
             type="text"
             id="username"
@@ -141,7 +141,7 @@ function SignUp() {
             className='input_item_col'
             value={formData.username}
             onChange={handleChange}
-            placeholder=' username'
+            placeholder=' اسم المستخدم'
             required
          />
       </div>
@@ -165,11 +165,7 @@ function SignUp() {
       <label htmlFor="password"> كلمة السر </label>
       <div className='input-group-row '>
       <div className='visibility-icon' onClick={togglePassword}>
-          {passwordType === 'password' ? (
-            <VisibilityIcon sx={{ width: '20px', height: '20px',marginTop:'5px' }}/>
-          ) : (
-            <VisibilityOffIcon sx={{ width: '20px', height: '20px',marginTop:'5px' }}/>
-          )}
+         
         </div>
         <input
           type={passwordType}
@@ -189,11 +185,7 @@ function SignUp() {
          <label htmlFor="company"> تأكيد كلمة السر </label>
          <div className='input-group-row '>
          <div className='visibility-icon' onClick={togglePassword}>
-          {passwordType === 'password' ? (
-            <VisibilityIcon sx={{ width: '20px', height: '20px',marginTop:'5px' }}/>
-          ) : (
-            <VisibilityOffIcon sx={{ width: '20px', height: '20px',marginTop:'5px' }}/>
-          )}
+         
         </div>
         <input
     type="password"

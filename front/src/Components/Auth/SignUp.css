@@ -53,6 +53,7 @@
     margin-bottom: 5%;
    /* border: #3D3935 1px solid;*/
     width: 100%; 
+    text-align: right;
 }
 .signup-form .input_item_col{
   width: 97%; 
@@ -62,12 +63,14 @@
 }
 .signup-form input::placeholder {
   text-align: right;
+  
 }
 .signup-form .input-group-col select{
   width: 100%; 
   padding: 1.5%; 
   border: 1px solid #ccc; 
   border-radius: 5px; 
+  text-align: right;
 }
  
   .signup-form button {
