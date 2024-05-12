@@ -2,7 +2,7 @@ import elasticsearch
 from elasticsearch_dsl import Search, Q, Index
 from elasticsearch import Elasticsearch
 from .models import Adjutstement
-import json
+from django.urls import reverse
 
 ELASTIC_HOST = 'http://localhost:9200/'
 
@@ -14,7 +14,7 @@ client = Elasticsearch(
 def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
             sort_by=None, source=None, year=None, signature_date=None,
              publication_date=None, type=None, ojNumber=None, 
-             jtNumber=None, jt_source=None, domain=None,page=None,page_size=None):
+             jtNumber=None, jt_source=None, domain=None, page=None, page_size=None):
     if not query:
         return
     # Définition du tri en fonction du paramètre sort_by pour avoir le tri pertinence ou par date
@@ -22,10 +22,15 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
         sort = {'publication_date': {'order': 'desc'}}  # Tri par date de publication
     else:
         sort = '_score'  # Tri par défaut (pertinence)
+    # Split the user query into keywords
+        keywords = query.lower().split() 
+
     #la requete de la recherche 
     s = Search(index=index).using(client).query(
-        "multi_match", fields=fields, fuzziness='AUTO', query=query
+        "multi_match", fields=fields, fuzziness='AUTO', query=query.join(keywords)
     ).sort(sort)
+    # Pagination
+    s = s[(page - 1) * page_size: page * page_size]
    # Ajout des filtres supplémentaires
     if source:  
         s = s.filter('match_phrase', source=source)
@@ -47,16 +52,11 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
     # Exécuter la recherche Elasticsearch
     results = s.execute()
     results_length = len(results)
-    # # Pagination
-    # s = s[(page - 1) * page_size: page * page_size]
-    # results = s.execute()
     q_results = []
 
     for hit in results:
         # Retrieve adjustments related to the current JuridicalText
         adjustments = get_adjustments(hit.id_text)
-        
-        # Convert official_journal_id to a serializable format
         official_journal_id = hit.official_journal.year if hit.official_journal else None
         official_journal_id_str = str(official_journal_id) if official_journal_id is not None else None
         data = {
@@ -71,12 +71,12 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
             "official_journal_year": official_journal_id_str,
             "official_journal_number": hit.official_journal.number if hit.official_journal else None, 
             "text_file_content": hit.extracted_text,
-            "adjustments": adjustments, 
+            "adjustments": adjustments,  # Include adjustments data
         }
-        
         q_results.append(data)
-    
-    return q_results, results_length
+    # Get the length of results
+
+    return q_results,results_length
 
 def get_adjustments(jt_id):
     # Retrieve adjustments related to the given JuridicalText ID
