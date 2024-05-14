@@ -20,6 +20,7 @@ from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 import os
 import PyPDF2
+import json
 #from pdf2image import convert_from_path
 #import pytesseract
 #from PyPDF2 import PdfReader
@@ -155,7 +156,7 @@ def extract_text_from_pdf_file(pdf_file_path, page_number):
 @permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
-             if( is_Allowed(request.user.id,"search")):
+              if( is_Allowed(request.user.id,"search")):
                  # Récupérer les paramètres de recherche depuis la requête GET
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
@@ -176,8 +177,8 @@ class search_view(APIView):
                      return Response({'results': results, 'len': len}, status=200)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
-             else:
-                  return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+              else:
+                   return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 # fonction pour recupere les sources et types 
 def get_type_and_source(request):
     types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
@@ -188,6 +189,8 @@ def distinct_years(request):
     years = list(distinct_years_list)
     return JsonResponse({'years': years})
 #details de juridical text
+
+
 def redirect_to_pdf(request):
     # Get the query parameters from the request
     official_journal_year = request.GET.get('official_journal_year')

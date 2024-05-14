@@ -3,6 +3,7 @@ from elasticsearch_dsl import Search, Q, Index
 from elasticsearch import Elasticsearch
 from .models import Adjutstement
 from django.urls import reverse
+import json
 
 ELASTIC_HOST = 'http://localhost:9200/'
 
@@ -14,7 +15,7 @@ client = Elasticsearch(
 def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
             sort_by=None, source=None, year=None, signature_date=None,
              publication_date=None, type=None, ojNumber=None, 
-             jtNumber=None, jt_source=None, domain=None, page=None, page_size=None):
+             jtNumber=None, domain=None, page=None, page_size=None):
     if not query:
         return
     # Définition du tri en fonction du paramètre sort_by pour avoir le tri pertinence ou par date
@@ -22,13 +23,11 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
         sort = {'publication_date': {'order': 'desc'}}  # Tri par date de publication
     else:
         sort = '_score'  # Tri par défaut (pertinence)
-    # Split the user query into keywords
-        keywords = query.lower().split() 
-
     #la requete de la recherche 
     s = Search(index=index).using(client).query(
-        "multi_match", fields=fields, fuzziness='AUTO', query=query.join(keywords)
+        "multi_match", fields=fields, fuzziness='AUTO', query=query
     ).sort(sort)
+    
     # Pagination
     s = s[(page - 1) * page_size: page * page_size]
    # Ajout des filtres supplémentaires
@@ -53,12 +52,19 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
     results = s.execute()
     results_length = len(results)
     q_results = []
-
+    with open(r'c:\Users\Amatek\Downloads\sheetsresult.json', 'r') as file:
+         pagination_info = json.load(file)
+        
     for hit in results:
+        print(hit)
         # Retrieve adjustments related to the current JuridicalText
         adjustments = get_adjustments(hit.id_text)
         official_journal_id = hit.official_journal.year if hit.official_journal else None
         official_journal_id_str = str(official_journal_id) if official_journal_id is not None else None
+        if 1962 <= int(official_journal_id_str) <= 1992:
+           real_page=get_real_page_number(official_journal_id_str,hit.official_journal.number ,hit.official_journal_page, pagination_info)
+        else:
+            real_page=hit.official_journal_page
         data = {
             "id_text": hit.id_text,
             "description": hit.description,
@@ -67,9 +73,10 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
             "publication_date": hit.publication_date,
             "jt_number": hit.jt_number,
             "source": hit.source,
+            "real_page": real_page,
             "official_journal_page": hit.official_journal_page,
             "official_journal_year": official_journal_id_str,
-            "official_journal_number": hit.official_journal.number if hit.official_journal else None, 
+            "official_journal_number": hit.official_journal.number if hit.official_journal else None,
             "text_file_content": hit.extracted_text,
             "adjustments": adjustments,  # Include adjustments data
         }
@@ -109,3 +116,18 @@ def get_adjusting_text(jt_id):
         return result[0].to_dict()
     else:
         return None
+def get_real_page_number(year, journal_number, page_initial, data):
+    
+    year_key = str(year)  # Convert year to string for dictionary lookup
+    if year_key in data:
+        for sublist in data[year_key]:  # Iterate over each sublist within the year
+            for entry in sublist:  # Iterate over each entry within the sublist
+                # Convert float values to integers for comparison
+                file_name = str(entry['file_name'])
+                p_b = int(entry['p_b'])
+                p_e = int(entry['p_e'])
+                if file_name.startswith(f'A{year}') and p_b <= page_initial  <= p_e:
+                    real_page = page_initial - p_b +1
+                    return int(real_page)
+    
+    return None  # Return None if the entry is not found
