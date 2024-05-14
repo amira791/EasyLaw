@@ -149,3 +149,26 @@ REST_FRAMEWORK = {
     ],
 }
 
+
+
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'C:/Users/mps/Downloads/2CS/S2/Project/Plateforme/16/EasyLaw/back/logfile.txt',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

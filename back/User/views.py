@@ -13,10 +13,12 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from .serializers import *
 from .models import *
+
+import logging
+
+logger = logging.getLogger(__name__)
+
 # from . import privileges
-
-
-User = get_user_model()
 
 @api_view(['POST'])
 def signup(request):
@@ -25,6 +27,7 @@ def signup(request):
 
     # Validate user_type
     if user_type not in ['client', 'moderateur']:
+        logger.error('Signup failed: Invalid user_type')
         return Response({'error': 'Invalid user_type'}, status=status.HTTP_400_BAD_REQUEST)
 
     # Create user and related model based on user_type
@@ -34,12 +37,14 @@ def signup(request):
 
         if user_type == 'client':
             Client.objects.create(user=user)
-            # user.groups.add(Group.objects.get(name='Fournisseurs'))
+            logger.info(f'User {user.username} signed up as a client')
         elif user_type == 'moderateur':
             Moderateur.objects.create(user=user)
-            # user.groups.add(Group.objects.get(name='Consommateurs'))
+            logger.info(f'User {user.username} signed up as a moderator')
 
         return Response({'success': 'User created successfully'}, status=status.HTTP_201_CREATED)
+    
+    logger.error('Signup failed: Invalid user data')
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # @api_view(['POST'])
@@ -61,21 +66,26 @@ def login(request):
     password = request.data.get('password')
 
     if username is None or password is None:
+        logger.error('Login failed: Please provide both username/email and password')
         return Response({'error': 'Please provide both username/email and password'}, status=status.HTTP_400_BAD_REQUEST)
 
     user = CustomUser.objects.filter(username=username).first()
 
     if user is None:
+        logger.error('Login failed: User does not exist')
         return Response({'error': 'User does not exist'}, status=status.HTTP_401_UNAUTHORIZED)
 
     if not user.check_password(password):
+        logger.error('Login failed: Invalid credentials')
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
     if user:
         token, _ = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key}, status=HTTP_200_OK)
+        logger.info(f'User {username} successfully logged in')
+        return Response({'token': token.key}, status=status.HTTP_200_OK)
     else:
-        return Response({'error': 'Invalid credentials'}, status=HTTP_400_BAD_REQUEST)
+        logger.error('Login failed: Invalid credentials')
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -92,34 +102,89 @@ def login(request):
 #         return Response({'token': token.key}, status=HTTP_200_OK)
 #     else:
 #         return Response({'error': 'Invalid credentials'}, status=HTTP_400_BAD_REQUEST)
+
+
+#######################################################################################################
+############################### Before Loggin #########################################################
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def get_user_info(request):
+#     token = request.META.get('HTTP_AUTHORIZATION').split()[1]
+#     user = Token.objects.get(key=token).user
+#     serializer = UserSerializer(user)
+#     return Response(serializer.data)
+
+
+# @api_view(['PUT'])  # Use PUT method for updating user info
+# @permission_classes([IsAuthenticated])  # User must be authenticated
+# def edit_user_info(request):
+#     user = request.user  # Get the authenticated user
+
+#     if not user:
+#         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+#     # Check if the request data is valid based on the serializer
+#     serializer = EditUserSerializer(user, data=request.data)
+
+#     if serializer.is_valid():
+#         serializer.save()  # Save the updated user data
+#         return Response(serializer.data)
+#     else:
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
+
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def change_password(request):
+#     user = request.user
+#     old_password = request.data.get('old_password')
+#     new_password = request.data.get('new_password')
+
+#     if not user.check_password(old_password):
+#         return Response({'error': 'Invalid old password'}, status=status.HTTP_400_BAD_REQUEST)
+
+#     user.set_password(new_password)
+#     user.save()
+#     return Response({'message': 'Password changed successfully'}, status=status.HTTP_200_OK)
+
+
+# @api_view(['POST'])  # Use POST method for logout
+# @permission_classes([IsAuthenticated])  # User must be authenticated to logout
+# def logout(request):
+#     user = request.user
+#     Token.objects.filter(user=user).delete()  # Delete the user's authentication token
+#     return Response({'message': 'Logged out successfully.'})
+
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_user_info(request):
     token = request.META.get('HTTP_AUTHORIZATION').split()[1]
     user = Token.objects.get(key=token).user
+    logger.info(f'User {user.username} accessed user info')
     serializer = UserSerializer(user)
     return Response(serializer.data)
 
-
-@api_view(['PUT'])  # Use PUT method for updating user info
-@permission_classes([IsAuthenticated])  # User must be authenticated
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def edit_user_info(request):
-    user = request.user  # Get the authenticated user
+    user = request.user
 
     if not user:
+        logger.error('Edit user info failed: Invalid credentials')
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-    # Check if the request data is valid based on the serializer
     serializer = EditUserSerializer(user, data=request.data)
 
     if serializer.is_valid():
-        serializer.save()  # Save the updated user data
+        serializer.save()
+        logger.info(f'User {user.username} updated their info')
         return Response(serializer.data)
     else:
+        logger.error('Edit user info failed: Invalid request data')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -129,16 +194,18 @@ def change_password(request):
     new_password = request.data.get('new_password')
 
     if not user.check_password(old_password):
+        logger.error('Change password failed: Invalid old password')
         return Response({'error': 'Invalid old password'}, status=status.HTTP_400_BAD_REQUEST)
 
     user.set_password(new_password)
     user.save()
+    logger.info(f'User {user.username} changed their password')
     return Response({'message': 'Password changed successfully'}, status=status.HTTP_200_OK)
 
-
-@api_view(['POST'])  # Use POST method for logout
-@permission_classes([IsAuthenticated])  # User must be authenticated to logout
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def logout(request):
     user = request.user
-    Token.objects.filter(user=user).delete()  # Delete the user's authentication token
+    Token.objects.filter(user=user).delete()
+    logger.info(f'User {user.username} logged out')
     return Response({'message': 'Logged out successfully.'})

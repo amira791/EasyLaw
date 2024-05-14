@@ -1,7 +1,7 @@
 POST http://127.0.0.1:9000/user/login 
 Content-Type: application/json
 
-{ "username": "fournisseur15", "password": "1234" }
+{ "username": "admin", "password": "admin" }
 
 ###
 
@@ -11,8 +11,8 @@ Content-Type: application/json
 {
   "user_type": "client",
   "user": {
-    "email": "fournisseur15@example.com",
-    "username": "fournisseur15",
+    "email": "fournisseur16@example.com",
+    "username": "fournisseur16",
     "prenom": "John",
     "nom": "Doe",
     "num_telephone": "1234567890",
@@ -55,15 +55,15 @@ Authorization: Token 4bb61ff80fe697ec41706cbdbdf9f373cb7cae56
 
 POST http://127.0.0.1:9000/user/change_password 
 Content-Type: application/json
-Authorization: Token 8b35000c4297b9cedc75ac32b0614936c048e934
+Authorization: Token 7200e277f57dd53c80a098e026aa022b4915b556
 
 {
-  "old_password": "12345",
-  "new_password": "1234"
+  "old_password": "1234",
+  "new_password": "12345"
 }
 
 
 ###
 
 POST http://127.0.0.1:9000/user/logout
-Authorization: Token 7bc3ee9d3e01b0fe6d284d9b42d17bc8c827b0af
+Authorization: Token 7200e277f57dd53c80a098e026aa022b4915b556

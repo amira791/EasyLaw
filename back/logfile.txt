@@ -1,0 +1,79 @@
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Ferrari 488 Pista
+Ferrari 488 Pista
+Ferrari 488 Pista
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+The user fournisseur15 has been logged
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+User fournisseur15 successfully logged in
+User fournisseur15 successfully logged in
+User admin successfully logged in
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Signup failed: Invalid user data
+Bad Request: /user/signup
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
