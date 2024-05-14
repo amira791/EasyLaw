@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.conf import settings
+from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import OfficialJournal  # Import the OfficialJournal model
 import os
-from django.http import HttpResponse
+from django.http import FileResponse, HttpResponse
 from rest_framework import status
 from django.http import JsonResponse
 import re
@@ -810,3 +811,131 @@ def process_files_generator_downloadFr(request):
         return Response({'message': 'Data saved to database'}, status=status.HTTP_200_OK)
     else:
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+
+@api_view(['GET'])
+def show_results(request):
+    if request.method == 'GET':
+        # Retrieve all instances of OfficialJournal from the database
+        journals = OfficialJournal.objects.all()
+
+        # Serialize the queryset to JSON format
+        serialized_data = [{'number': journal.number, 'year': journal.year, 'file_path': journal.text_file.url} for journal in journals]
+
+        return Response({'results': serialized_data})
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+
+
+
+
+# fonction pour recupere les sources et types 
+def get_type_and_source(request):
+    types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
+    sources = JuridicalText.objects.values_list('source', flat=True).distinct()
+    return JsonResponse({'types': list(types), 'sources': list(sources)})
+def distinct_years(request):
+    distinct_years_list = OfficialJournal.objects.values_list('year', flat=True).distinct().order_by('year')
+    years = list(distinct_years_list)
+    return JsonResponse({'years': years})
+#details de juridical text
+def redirect_to_pdf(request):
+    # Get the query parameters from the request
+    official_journal_year = request.GET.get('official_journal_year')
+    official_journal_number = request.GET.get('official_journal_number')
+    official_journal_page = request.GET.get('official_journal_page')
+
+    if official_journal_year and official_journal_number and official_journal_page:
+        # Format official_journal_number to ensure it has three digits
+        formatted_journal_number = official_journal_number.zfill(3)
+        year_prefix = 'A' if int(official_journal_year) >= 1964 else 'F'
+        # Generate the PDF file path
+        pdf_directory = f"D:\\pdfs\\{official_journal_year}"
+        pdf_filename = f"{year_prefix}{official_journal_year}{formatted_journal_number}.pdf"  # Assuming this format
+        pdf_path = os.path.join(pdf_directory, pdf_filename)
+
+        # Check if the PDF file exists
+        if os.path.exists(pdf_path):
+            # Open the PDF file and set response headers for displaying in the browser
+            response = FileResponse(open(pdf_path, 'rb'), content_type='application/pdf')
+
+            # Set the initial page to be displayed
+            page_to_display = int(official_journal_page)
+            response['Accept-Ranges'] = 'bytes'
+            response['Content-Disposition'] = f'inline; filename="{pdf_filename}"'
+
+            # Calculate the content range based on the requested page
+            with open(pdf_path, 'rb') as pdf_file:
+                # Set the file pointer to the start of the requested page
+                pdf_file.seek((page_to_display - 1) * 1024 * 1024)
+                # Read 1 MB of content starting from the requested page
+                page_content = pdf_file.read(1024 * 1024)
+                # Calculate the content range for the requested page
+                start_byte = (page_to_display - 1) * 1024 * 1024
+                end_byte = start_byte + len(page_content) - 1
+                response['Content-Range'] = f'bytes {start_byte}-{end_byte}/{os.path.getsize(pdf_path)}'
+
+            return response
+        else:
+            # Handle the case where the PDF file does not exist
+            return HttpResponse("Le fichier PDF demandé n'existe pas.", status=404)
+    else:
+        # Handle the case where parameters are missing
+        return HttpResponse("Paramètres manquants.", status=400)
+    
+
+
+
+@api_view(['GET'])
+def open_pdf_directly(request, year, number):
+    try:
+        # Get the OfficialJournal instance or return 404 if not found
+        journal = get_object_or_404(OfficialJournal, year=year, number=number)
+
+        # Clean up the file path format: replace backslashes with forward slashes
+        file_path = str(journal.text_file).replace('\\', '/')
+
+        # Construct the full URL to the PDF file using MEDIA_URL and file_path
+        pdf_url = f"{settings.MEDIA_URL.strip('/')}/{file_path.strip('/')}"
+
+        # Open and serve the PDF file using Django's FileResponse
+        response = FileResponse(open(pdf_url, 'rb'), content_type='application/pdf')
+        response['Content-Disposition'] = f'inline; filename="{journal.text_file.name}"'
+        return response
+    except OfficialJournal.DoesNotExist:
+        return JsonResponse({'error': 'Journal not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+
+@api_view(['GET'])
+def get_numbers_for_year(request, year):
+    try:
+        # Get all OfficialJournal instances for the given year
+        journals_for_year = OfficialJournal.objects.filter(year=year)
+        
+        # Extract the numbers from the journals_for_year queryset
+        numbers_for_year = [journal.number for journal in journals_for_year]
+
+        # Return the numbers as a JSON response
+        return JsonResponse({'number': numbers_for_year})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+@api_view(['GET'])
+def get_distinct_years(request):
+    try:
+        # Get all distinct years from OfficialJournal model
+        distinct_years = OfficialJournal.objects.values_list('year', flat=True).distinct()
+
+        # Convert the queryset to a list and return as JSON response
+        years_list = list(distinct_years)
+        return JsonResponse({'years': years_list})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
