@@ -48,8 +48,15 @@
     
    
   }
-  
-
+  .radio-buttons{
+    margin-top: 1%;
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+  }
+.radio_label{
+  direction: ltr;
+}
   .gpt_logo{
    
     width: 18%;
@@ -65,13 +72,14 @@
   }
   .search_filter{
     display: flex;
-    width: 100%;
+    width: 80%;
     justify-content: space-between;
     padding: 20px 0px 10px 0px;
     margin-top: 2%;
+    direction: rtl;
   }
   .select_item{
-    border: 1px solid black;
+    border: 1.5px solid #58D6D7;
     color: var(--text-color);
     width: 22%;
     height: 45px;
@@ -79,6 +87,7 @@
     text-align: right;
     font-weight: bold;
     font-size: 16px;
+    background-color: #E3FAFC;
     
    
   }
