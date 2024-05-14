@@ -231,7 +231,6 @@ def redirect_to_pdf(request):
     else:
         # Handle the case where parameters are missing
         return HttpResponse("Paramètres manquants.", status=400)
-
 @api_view(['POST'])
 def initial_jt_filling(request):
      # Initialize WebDriver
