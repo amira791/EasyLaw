@@ -11,8 +11,8 @@ client = Elasticsearch(
     [ELASTIC_HOST],
     basic_auth=('manel', '12345678'))
 # the search function
-def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
-            sort_by=None, source=None, year=None, signature_date=None,
+def lookup(query, index='juridical_texts' ,fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
+            sort_by=None, source=None, year=None, searching_way="multi_match", signature_date=None,
              publication_date=None, type=None, ojNumber=None, 
              jtNumber=None, jt_source=None, domain=None, page=None, page_size=None):
     if not query:
@@ -27,7 +27,7 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
 
     #la requete de la recherche 
     s = Search(index=index).using(client).query(
-        "multi_match", fields=fields, fuzziness='AUTO', query=query.join(keywords)
+        searching_way, fields=fields, fuzziness='AUTO', query=query
     ).sort(sort)
     # Pagination
     s = s[(page - 1) * page_size: page * page_size]

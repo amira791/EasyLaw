@@ -7,6 +7,7 @@ export default function useSearch() {
   const [sources, setSources] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState();
+  const [searching_way, setSearching_way] = useState("multi_match");
   const [years, setYears] = useState([]);
   const [year, setYear] = useState('');
   const [domain, setDomain] = useState(''); // Added domain state for future filtering
@@ -52,6 +53,7 @@ export default function useSearch() {
       type,
       domain, // Added domain for future filtering
       year: formattedDate,
+      searching_way:searching_way
     };
 
     console.log(queryParams);

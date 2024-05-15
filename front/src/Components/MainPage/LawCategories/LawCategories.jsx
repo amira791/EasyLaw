@@ -4,6 +4,7 @@ import Footer from '../../Footer/Footer'
 import Gpt from '../../Search/GPT/Gpt'
 import Logo from '../../LOGO/Logo'
 import NavBar from '../NavBar/NavBar'
+import { Link } from 'react-router-dom'
 
 
 
@@ -42,11 +43,12 @@ function LawCategories() {
             <div ><img  className='law-icon'src="./images/echelledejustice.png"  /></div>
                 <h3>الاجتهادات القضائية</h3>
             </div>
-           
+           <Link to='/law'>
             <div className='law_item'>
             <div ><img  className='law-icon'src="./images/remarquer.png"  /></div>
                 <h3>القوانين  </h3>
             </div>
+            </Link>
             <div className='law_item'>
             <img  className=' icon-free'src="./images/Star.png"/>
             <span className='icon-free-span'>مجانا</span>

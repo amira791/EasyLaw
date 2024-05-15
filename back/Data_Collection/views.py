@@ -161,6 +161,7 @@ class search_view(APIView):
                   sort_by=request.GET.get('sort_by')
                   source = request.GET.get('source')
                   year = request.GET.get('year')
+                  searching_way=request.GET.get('searching_way')
                   signature_date = request.GET.get('signature_date')
                   publication_date = request.GET.get('publication_date')
                   type = request.GET.get('type')
@@ -169,8 +170,18 @@ class search_view(APIView):
                   domain = request.GET.get('domain')
                   page = int(request.GET.get('page', 1))  # Default to page 1
                   page_size = int(request.GET.get('page_size', 50))  # Default to 10 results per page
+                  print("Query:", query)
+                  print("Sort By:", sort_by)
+                  print("Source:", source)
+                  print("Year:", year)
+                  print("Signature Date:", signature_date)
+                  print("Publication Date:", publication_date)
+                  print("Type:", type)
+                  print("OJ Number:", ojNumber)
+                  print("JT Number:", jtNumber)
+                  print("Domain:", domain)
                   if query:
-                     results , len = lookup(query=query,sort_by=sort_by, source=source, year=year, 
+                     results , len = lookup(query=query,sort_by=sort_by, source=source, year=year,searching_way=searching_way,
                      signature_date=signature_date, publication_date=publication_date,
                      type=type, ojNumber=ojNumber, jtNumber=jtNumber, domain=domain, page=page,page_size=page_size)
                      return Response({'results': results, 'len': len}, status=200)

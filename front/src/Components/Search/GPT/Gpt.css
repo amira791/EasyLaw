@@ -68,6 +68,7 @@
     width: 74%;
     margin: 0px;
     padding: 0px;
+    direction: rtl;
     /* solid 1px rgb(55, 0, 51);*/
   }
   .search_filter{
