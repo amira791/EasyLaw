@@ -39,8 +39,20 @@
     justify-content: center;
     box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
     position: relative;
+    cursor: pointer;
 
 }
+
+.LawCategories .law_item a{
+    text-decoration: none;
+    color: black;
+ 
+ }
+    .LawCategories .law_item:hover{
+        border-radius: 20px;
+    
+    }
+
 .LawCategories .law-icon{
 
     width: 80px;

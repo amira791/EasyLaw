@@ -74,7 +74,7 @@ export default function useSearch() {
         navigate("/subscrib");
       } else {
         console.error('Erreur lors de la recherche:', error);
-        setErrorMessage('An error occurred while performing the search'); // Set user-friendly error message
+        setErrorMessage('حدث خطأ أثناء إجراء البحث'); // Set user-friendly error message
       }
     }
   };

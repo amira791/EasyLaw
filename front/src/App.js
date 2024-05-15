@@ -37,8 +37,9 @@ import { loadStripe } from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
 import ProfileModerateur from './Components/Admin/Moderateur/ProfileModerateur';
 import Tarification from './Components/Admin/Tarification/Tarification';
-import HelpPage from './Components/HelpPage/HelpPage';
+
 import AboutUs from './Components/AboutUs/AboutUs';
+import HelpPage from './Components/HelpPage/HelpPage';
 
 function App() {
 

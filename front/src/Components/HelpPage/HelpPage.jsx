@@ -8,9 +8,9 @@ import emailjs from 'emailjs-com';
 
 function HelpPage() {
   const [questions, setQuestions] = useState([
-    { id: 1, question: 'كيف يمكنني استعمال محلل النص الذكي ؟', titre: "test", desc: "hhh", showContent: false },
-    { id: 2, question: 'لم أفهم طريقة الدفع ؟', titre: "test1", desc: "hhh1", showContent: false },
-    { id: 3, question: 'كيف أجدد الاشتراك ؟', titre: "test2", desc: "hhh2", showContent: false },
+    { id: 1, question: 'كيف يمكنني استعمال محلل النص الذكي ؟',  desc: "محلل النص الذكي هو أداة تساعدك على تحليل النصوص بسهولة. لاستخدامه، أدخل النص الذي ترغب في تحليله في حقل الإدخال المتاح ، اضغط على زر تحليل لبدء العملية. ستظهر النتائج بسرعة وتعرض لك تحليلًا مفصلاً للنص، مثل استخراج المعلومات المهمة أو تحليل المشاعر. إذا كانت لديك أي استفسارات، يمكنك الرجوع إلى قسم المساعدة في التطبيق. ", showContent: false },
+    { id: 2, question: 'لم أفهم طريقة الدفع ؟',  desc: "طريقة الدفع في منصتنا بسيطة وسهلة. اتبع الخطوات التالية لفهم كيفية إجراء عملية الدفع:  بعد تسجيل الدخول إلى حسابك، اختر الخدمة انتقل إلى صفحة الدفع و  ستُطلب منك إدخال معلومات الدفع الخاصة بك، مثل رقم البطاقة الائتمانية أو اختيار وسيلة دفع أخرى متاحة.   إذا واجهت أي مشكلة أثناء عملية الدفع، يمكنك التواصل مع خدمة العملاء للحصول على المساعدة اللازمة." , showContent: false },
+    { id: 3, question: 'كيف أجدد الاشتراك ؟',  desc: "لتجديد الاشتراك في منصتنا، اتبع الخطوات التالية: تسجيل الدخول: قم بتسجيل الدخول إلى حسابك باستخدام بيانات الاعتماد الخاصة بك. الذهاب إلى صفحة الاشتراكات: انتقل إلى قائمة الحساب أو الإعدادات وابحث عن خيار الاشتراكات أو دارة الاشتراك. اختيار خطة الاشتراك: اختر الخطة التي ترغب في تجديدها. يمكنك اختيار نفس الخطة السابقة أو الترقية إلى خطة جديدة.", showContent: false },
   ]);
 
   const handleToggleContent = (id) => {
@@ -97,12 +97,12 @@ function HelpPage() {
             <div key={q.id}>
               <div className="icon-container" onClick={() => handleToggleContent(q.id)}>
                 <ArrowDropDownIcon />
-                <p>{q.question}</p>
+                <p style={{fontWeight:500}}>{q.question}</p>
               </div>
               {q.showContent && (
                 <div className="content-container">
-                  <h2>{q.titre}</h2>
-                  <p>{q.desc}</p>
+                  
+                  <p style={{color:"#374957"}}>{q.desc}</p>
                 </div>
               )}
               <div className='lign_qst'></div>

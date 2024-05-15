@@ -43,12 +43,14 @@ function LawCategories() {
             <div ><img  className='law-icon'src="./images/echelledejustice.png"  /></div>
                 <h3>الاجتهادات القضائية</h3>
             </div>
-           <Link to='/law'>
+           
             <div className='law_item'>
+            <Link to='/law'>
             <div ><img  className='law-icon'src="./images/remarquer.png"  /></div>
                 <h3>القوانين  </h3>
+                </Link>
             </div>
-            </Link>
+           
             <div className='law_item'>
             <img  className=' icon-free'src="./images/Star.png"/>
             <span className='icon-free-span'>مجانا</span>
