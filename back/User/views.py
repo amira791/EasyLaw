@@ -12,7 +12,10 @@ from django.contrib.auth import authenticate
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from django.contrib.auth.hashers import make_password
 import requests
-from .models import CustomUser 
+from .models import CustomUser
+import logging
+
+logger = logging.getLogger(__name__) 
 
 @api_view(['POST'])
 def signup(request):
@@ -23,6 +26,7 @@ def signup(request):
         data['etat'] = 'Active'
         data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
         serializer = CustomUserSerializer(data=data)
+        logger.info(f'User {user.username}  signed up as a client')
         if serializer.is_valid():
             user = serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -41,9 +45,12 @@ def login(request):
         role = user.role  # Include role information in the response
         etat = user.etat
         if etat == "Active":
+            
           return Response({'token': token.key, 'role': role}, status=status.HTTP_200_OK)
+          
     else:
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+    logger.info(f'User {user.username} {user.role} login')
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -51,6 +58,8 @@ def get_user_info(request):
     token = request.META.get('HTTP_AUTHORIZATION').split()[1]
     user = Token.objects.get(key=token).user
     serializer = CustomUserSerializer(user)
+    logger.info(f'get All users Info ')
+    logger.info(f'User {user.username} {user.role} login')
     return Response(serializer.data)
 
 
@@ -63,6 +72,8 @@ def edit_user_info(request):
     serializer = EditUserSerializer(user, data=request.data)
     if serializer.is_valid():
         serializer.save()  # Save the updated user data
+        logger.info(f'User {user.username} {user.role} edit profile info')
+
         return Response(serializer.data)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -81,6 +92,7 @@ def change_password(request):
 
     user.set_password(new_password)
     user.save()
+    logger.info(f'User {user.username} {user.role} change his password ')
     return Response({'message': 'Password changed successfully'}, status=status.HTTP_200_OK)
 
 
@@ -89,6 +101,7 @@ def change_password(request):
 def logout(request):
     user = request.user
     Token.objects.filter(user=user).delete()  # Delete the user's authentication token
+    logger.info(f'User {user.username} {user.role} logout  ')
     return Response({'message': 'Logged out successfully.'})
 
 
@@ -99,7 +112,8 @@ def logout(request):
 def allUsers(request):
     if request.method == 'GET':
         users = CustomUser.objects.all()  
-        serialized_users = CustomUserSerializer(users, many=True)  
+        serialized_users = CustomUserSerializer(users, many=True) 
+        logger.info(f'Get All users ') 
         return Response({'users': serialized_users.data})
 
          
@@ -128,6 +142,7 @@ def createMod(request):
         serializer = CustomUserSerializer(data=data)
         if serializer.is_valid():
             user = serializer.save()
+            logger.info(f'User {user.username} {user.role} make payment ')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

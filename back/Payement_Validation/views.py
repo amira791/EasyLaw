@@ -19,6 +19,10 @@ import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+import logging
+
+logger = logging.getLogger(__name__) 
+
 
 
 
@@ -41,6 +45,7 @@ def getServices(request):
             abonnement = checkSubscriptionEnd(current[0])
             if(abonnement):
                 res["current"] =  abonnement.service.id
+                logger.info(f'User {request.user.username}  {abonnement.service}   signed up as a client')
 
     return Response(res, status=status.HTTP_200_OK)
 
@@ -57,6 +62,7 @@ def addUser(request):
     try:
         existing_customer = stripe.Customer.list(email=email, limit=1)
         if existing_customer.data:
+            logger.info(f'User {name}  {email}  has already an account ')
             return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
         else:
 
@@ -64,7 +70,9 @@ def addUser(request):
                 email=email,
                 name=name
             )
+            logger.info(f'User {name}  {email}  create an account in stripe')
             return Response({'stripe_customer_id': stripe_customer.id}, status=status.HTTP_201_CREATED)
+       
     except stripe.error.StripeError as e:
         return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -89,10 +97,12 @@ def subscribe(request):
     if(len(subs)):
         for sub in subs:
             if(sub.service.priceId == priceId):
+                logger.info(f'User {userId}   this user is already subscribed ')
                 return Response({"message" : "this user is already subscribed"}, status=status.HTTP_409_CONFLICT)
                 break
             else:
                 updgrading = sub.id.split("-")[0]
+                logger.info(f'User {userId}   this user is now subscribed ')
                 sub.statut="upgraded"
                 sub.save()
 
@@ -121,6 +131,7 @@ def subscribe(request):
                 items=[{"id": item, "price": priceId}],
                 billing_cycle_anchor="now",
             )
+            logger.info(f'User {userId}  is upgraded')
         else:
             #creating the subscription
             stripeSubscription = stripe.Subscription.create(
@@ -174,6 +185,7 @@ def subscribe(request):
 @permission_classes([IsAuthenticated])
 def getsubscription(request):
     userId = request.user.id
+    username = request.user.username
 
     abonnement = Abonnement.objects.filter(user = userId, statut = "active")
     if(len(abonnement) and not(checkSubscriptionEnd(abonnement[0]))):
@@ -181,6 +193,7 @@ def getsubscription(request):
 
     serializer = AbonnementFullSerializer(abonnement, many= True)
     serialized_data = serializer.data
+    logger.info(f'User {username}  get subscription')
 
     return Response(serialized_data, status=status.HTTP_200_OK)
 
@@ -190,11 +203,13 @@ def getsubscription(request):
 @permission_classes([IsAuthenticated])
 def getinvoices(request):
     userId = request.user.id
+    username = request.user.username
 
     abonnement = Abonnement.objects.filter(user = userId)
     serializer = AbonnementFullSerializer(abonnement, many=True)
     serialized_data = serializer.data
     factures = [{"facture":abonnement_instance["facture"], "service": abonnement_instance["service"]["nom"]} for abonnement_instance in serialized_data]
+    logger.info(f'User {username}  get invoice')
     
 
     return Response(factures, status=status.HTTP_200_OK)

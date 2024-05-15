@@ -33,6 +33,10 @@ from .serializers import JuridicalTextSerializer
 from rest_framework.permissions import IsAuthenticated
 from permissions import is_Allowed
 
+
+import logging
+logger = logging.getLogger(__name__)
+
 #les expressions réguliéres
 patterns = [
     r'^(?:أمر.*?|أوامر|امر.*?|اوامر)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
@@ -157,7 +161,11 @@ def extract_text_from_pdf_file(pdf_file_path, page_number):
 @permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
+<<<<<<< HEAD
              if is_Allowed(request.user.id, "search") or (request.user.role == "moderateur"):
+=======
+             if( is_Allowed(request.user.id,"search") or (request.user.role == "moderateur")):
+>>>>>>> 99411e8e37cdd41837ebc474cd171779aa98f5be
                  # Récupérer les paramètres de recherche depuis la requête GET
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
@@ -186,7 +194,9 @@ class search_view(APIView):
                      results , len = lookup(query=query,sort_by=sort_by, source=source, year=year,searching_way=searching_way,
                      signature_date=signature_date, publication_date=publication_date,
                      type=type, ojNumber=ojNumber, jtNumber=jtNumber, domain=domain, page=page,page_size=page_size)
+                     logger.info(f'User {request.user.username} {request.user.role} {query} {domain} {source} {type} get_type_and_source of Juridical Text ')
                      return Response({'results': results, 'len': len}, status=200)
+                     
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
              else:
@@ -232,6 +242,7 @@ class search_law(APIView):
 def get_type_and_source(request):
     types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
     sources = JuridicalText.objects.values_list('source', flat=True).distinct()
+    logger.info(f'User {types} {sources}  get_type_and_source of Juridical Text ')
     return JsonResponse({'types': list(types), 'sources': list(sources)})
 def distinct_years(request):
     distinct_years_list = OfficialJournal.objects.values_list('year', flat=True).distinct().order_by('year')
@@ -254,7 +265,7 @@ def redirect_to_pdf(request):
         pdf_directory = f"C:\\Users\\Manel\\Desktop\\2CS\\S2\\PROJET\\TP\\pdfs\\{official_journal_year}"
         pdf_filename = f"{year_prefix}{official_journal_year}{formatted_journal_number}.pdf"  # Assuming this format
         pdf_path = os.path.join(pdf_directory, pdf_filename)
-
+        
         # Check if the PDF file exists
         if os.path.exists(pdf_path):
             # Open the PDF file and set response headers for displaying in the browser
