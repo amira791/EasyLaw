@@ -12,13 +12,15 @@ from django.contrib.auth import authenticate
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from django.contrib.auth.hashers import make_password
 import requests
+from .models import CustomUser 
 
 @api_view(['POST'])
 def signup(request):
     if request.method == 'POST':
         data = request.data.copy()
         data['password'] = make_password(data['password'])  # Hash the password
-        data['role'] = 'client'  # Set role to 'user' during signup
+        data['role'] = 'client'  
+        data['etat'] = 'Active'
         data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
         serializer = CustomUserSerializer(data=data)
         if serializer.is_valid():
@@ -37,7 +39,9 @@ def login(request):
     if user:
         token, _ = Token.objects.get_or_create(user=user)
         role = user.role  # Include role information in the response
-        return Response({'token': token.key, 'role': role}, status=status.HTTP_200_OK)
+        etat = user.etat
+        if etat == "Active":
+          return Response({'token': token.key, 'role': role}, status=status.HTTP_200_OK)
     else:
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -91,16 +95,68 @@ def logout(request):
 
 
 
+@api_view(['GET']) 
+def allUsers(request):
+    if request.method == 'GET':
+        users = CustomUser.objects.all()  
+        serialized_users = CustomUserSerializer(users, many=True)  
+        return Response({'users': serialized_users.data})
+
+         
+
 def stripeCustomerId(name, email,request):
     url = root_url = request.build_absolute_uri('/')[:-1] +'/payment/customer'
     data = {
     "name":name,
     "email":email
-    }  # Your POST data
-
+    }  
     print(data)
 
     # Send POST request
     response = requests.post(url, json=data)
 
     return response.json()["stripe_customer_id"]
+
+@api_view(['POST'])
+def createMod(request):
+    if request.method == 'POST':
+        data = request.data.copy()
+        data['password'] = make_password(data['password'])  # Hash the password
+        data['role'] = 'moderateur'  
+        data['etat'] = 'Active'
+        data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+        serializer = CustomUserSerializer(data=data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['POST'])
+def activateUser(request):
+    if request.method == 'POST':
+        username = request.data.get('username')
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user.etat = CustomUser.ACTIVE  # Set user's state to Active
+        user.save()
+        
+        return Response({'message': 'User activated successfully'}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def blockUser(request):
+    if request.method == 'POST':
+        username = request.data.get('username')
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user.etat = CustomUser.NOT_ACTIVE  # Set user's state to Not Active
+        user.save()
+        
+        return Response({'message': 'User blocked successfully'}, status=status.HTTP_200_OK)

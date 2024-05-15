@@ -26,3 +26,4 @@ class Adjutstement(models.Model):
     adjusted_num = models.CharField(max_length=100)
     adjusting_num = models.CharField(max_length=100)
     adjustment_type = models.CharField(max_length=100)
+
