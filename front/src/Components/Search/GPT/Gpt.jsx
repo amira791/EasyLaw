@@ -1,134 +1,90 @@
-import React, { useContext, useState ,useEffect} from 'react';
+import React, { useState, useContext } from 'react';
 import './Gpt.css';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../../../Context/LogoProvider';
+import  useSearch from '../../../Hooks/useSearch'; // Import the useSearch hook
 
-import usePayment from '../../../Hooks/usePayment';
-
-
-function Gpt() {
- /* const [searchQuery, setSearchQuery] = useState('');
-  const [category, setCategory] = useState('');
-  const [source, setSource] = useState('');
-  const [date, setDate] = useState('');
-  const [fileType, setFileType] = useState('');
-  const navigate = useNavigate();
-
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
-    console.log('Recherche soumise avec la requête :', searchQuery);
-
-    try {
-      // Envoyer une requête HTTP GET au backend pour récupérer les résultats de recherche
-      const response = await axios.get(`http://localhost:8000/data_collection/index_page?q=${searchQuery}&sort_by=relevence&year=${date}`);
-      console.log('Résultats de la recherche:', response.data);
-      // Rediriger l'utilisateur vers la page de résultats de recherche avec les données récupérées
-      navigate('/searchresult', { state: { results: response.data } });
-    } catch (error) {
-      console.error('Erreur lors de la recherche:', error);
-    }
-  };*/
-
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const [category, setCategory] = useState('');
-  const [source, setSource] = useState('');
-  const [publication_date, setDate] = useState('');
-  const [fileType, setFileType] = useState('');
-  const navigate = useNavigate();
-  const { hasSubscription, setHasSubscription } = useContext(AuthContext);
-  const { getUserInvoices } = usePayment();
-  useEffect(() => {
-    // const checkSubscription = async () => {
-    //   const { hasInvoices } = await getUserInvoices();
-     
-    //   // Mettez à jour hasSubscription en fonction du résultat de getUserInvoices
-    //   setHasSubscription(hasInvoices);
-    //   console.log(hasSubscription);
-    // };
-    // checkSubscription();
-  }, []);
-
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
-
-    const queryParams = {
-      q: searchQuery,
-      sort_by: 'relevence', // Assuming you always want to sort by relevance
-    };
-
-   /* if (category) {
-      queryParams.category = category;
-    }
-
-    if (source) {
-      queryParams.source = source;
-    }
-
-    if (fileType) {
-      queryParams.file_type = fileType; // Use a more descriptive param name
-    }*/
-    try {
-      console.log(queryParams)
-      const response = await axios.get(
-        `http://localhost:8000/data_collection/index_page`,
-          { headers: {'Authorization': `Token ${localStorage.getItem('access_token')}`}
-            ,params: queryParams  } // Pass query params as an object
-          );
-      console.log('Utilisateur a un abonnement. Effectuer la recherche...');
-      console.log('Recherche soumise avec la requête :', searchQuery);
-      console.log('Résultats de la recherche:', response.data);
-      navigate('/searchresult', { state: { results: response.data } });
-      } catch (error) {
-        if (error.response?.status === 403) {
-          console.error('You are not allowed to search.');
-          navigate("/subscrib")
-        }
-        console.error('Erreur lors de la recherche:', error);
-      }
-  };
+function Gpt({ currentPage, resultsPerPage }) {
+  const {
+    types,
+    sources,
+    searchQuery,
+    setSearchQuery,
+    sortBy,
+    setSortBy,
+    years,
+    year, // State for future year filtering
+    setYear,
+    domain, // State for future domain filtering (placeholder)
+    setDomain,
+    type, // State for future type filtering (placeholder)
+    setType,
+    source, // State for future source filtering (placeholder)
+    setSource,
+    errorMessage,
+    setErrorMessage,
+    handleSearchSubmit,
+    handleSortBy,
+  } = useSearch();
 
   return (
     <div className='gpt_dv'>
       <div className='gpt_logo'>
-        
-          <img className="icon_gpt" src="./images/gpt.png" alt="Logo GPT" />
-       
+        <img className="icon_gpt" src="./images/gpt.png" alt="Logo GPT" />
       </div>
       <div className='gpt_search'>
         <form className="search-form" onSubmit={handleSearchSubmit}>
-          <button type="submit" className="btn btn-primary"> البحث</button>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="ابحث عن النص القانوني . . . "
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <SearchIcon className="search-icon" />
+          <div className='display_form'>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="ابحث عن النص القانوني . . . "
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <SearchIcon className="search-icon" />
+            <button type="submit" className="btn btn-primary"> البحث</button>
+          </div>
+          {errorMessage && <div className="error-message">{errorMessage}</div>} {/* Display error message */}
+          <div className="radio-buttons">
+            <label className='radio_label'>
+            بالصلة
+              <input
+              
+                type="radio"
+                name="sortBy"
+                value="relevance"
+                checked={sortBy === 'relevance'}
+                onChange={() => handleSortBy('relevance')}
+              />
+              
+            </label>
+            <label>
+              
+              <input
+                type="radio"
+                name="sortBy"
+                value="publication_date"
+                checked={sortBy === 'publication_date'}
+                onChange={() => handleSortBy('publication_date')}
+              />
+              بتاريخ النشر
+            </label>
+          </div>
         </form>
         <div className='search_filter'>
           <select
-            id="file-type"
-            name="file-type"
+            id="year"
+            name="year"
             className='select_item'
-            value={fileType}
-            onChange={(e) => setFileType(e.target.value)}
+            value={year} // Use the defined year state
+            onChange={(e) => setYear(e.target.value)}
           >
-            <option value=""> نوع الملف</option>
-            <option value="طالب">طالب</option>
+            <option value="">السنة</option>
+            {years.map((yearOption) => (
+              <option key={yearOption} value={yearOption}>{yearOption}</option>
+            ))}
           </select>
-          <input
-            type="date"
-            id="date"
-            name="publication_date"
-            className='select_item'
-            placeholder='التاريخ'
-            value={publication_date}
-            onChange={(e) => setDate(e.target.value)}
-          />
           <select
             id="source"
             name="source"
@@ -136,19 +92,24 @@ function Gpt() {
             value={source}
             onChange={(e) => setSource(e.target.value)}
           >
-            <option value=""> المصدر</option>
-            <option value="طالب">طالب</option>
+            <option value="">المصدر</option>
+            {sources.map((sourceOption) => (
+              <option key={sourceOption} value={sourceOption}>{sourceOption}</option>
+            ))}
           </select>
           <select
             id="category"
             name="category"
             className='select_item'
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
           >
-            <option value=""> التصنيف</option>
-            <option value="طالب">طالب</option>
+            <option value="">نوع</option>
+            {types.map((typeOption) => (
+              <option key={typeOption} value={typeOption}>{typeOption}</option>
+            ))}
           </select>
+          {/* Add select elements for domain (if applicable) */}
         </div>
       </div>
     </div>

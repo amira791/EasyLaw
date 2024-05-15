@@ -30,9 +30,9 @@
     width: 100px;
 }
 
+.AdminMain-Container .AdminMain-menu a{
+    text-decoration: none;
+    color: #374957;
+   
+}
 
-.AdminMain-Container .menu-item:hover {
-    transform: scale(1.1); /* Increase the size by 10% */
-    transition: transform 0.3s ease; /* Add a smooth transition effect */
-  }
-  

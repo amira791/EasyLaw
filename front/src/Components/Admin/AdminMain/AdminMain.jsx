@@ -4,6 +4,7 @@ import TitleBar from '../../TitleBar/TitleBar';
 import FooterAdmin from '../../Footer/FooterAdmin';
 import './AdminMain.css';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+
 import { useNavigate } from 'react-router-dom';
 
 function AdminMain() {
@@ -41,6 +42,7 @@ function AdminMain() {
             <img src="./images/account.png" className='pic-menu'/>
           </div>
           <h2>ادارة الحسابات </h2>
+
         </div>
       </div>
       <FooterAdmin/>

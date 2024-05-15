@@ -43,9 +43,7 @@ function SignIn() {
         navigate('/'); // Redirect other users to law categories
       }
     } else {
-      console.log ("hiii")
-      
-      navigate('/');
+      setError('معلومات خاطئة. الرجاء المحاولة مرة أخرى');
     }
   };
 
@@ -55,6 +53,7 @@ function SignIn() {
       <TitleBar title="  تسجيل الدخول" />
       <div className="signin-form">
         <form onSubmit={handleSubmit}>
+        {error && <div className="error-message">{error}</div>}
           <div className='username_dv1'>
             <div className='input-group'>
               <label htmlFor="dateN"> اسم المستخدم </label>

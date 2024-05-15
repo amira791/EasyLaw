@@ -3,6 +3,7 @@
 .searchResult {
     padding: 2% 6%;
     direction: rtl;
+    
   }
   
   .searchResult h1 {
@@ -13,6 +14,7 @@
     border-radius: 10px;
     padding: 1%;
     width: 90%;
+   
   }
  
   

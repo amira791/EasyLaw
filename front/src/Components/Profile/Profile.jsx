@@ -80,7 +80,10 @@ function Profile() {
       <div className='profile_container'>
         <div className='profile_name'>
           <div className="user-initials-circle">{initials}</div>
-          <h3>{formData.nom} {formData.role === 'moderateur' && <StarIcon style={{ fontSize: 16 }} />}</h3> {/* Conditional rendering for the star icon */}
+          <h3>
+  {formData.nom} {formData.role === 'moderateur' ? <><StarIcon style={{ fontSize: 16 }} /> <div><span>مشرف</span></div></> : null}
+</h3>
+
         </div>
         <div className='profile_content'>
           <Compte formData={formData} onSubmit={handleSubmit} />

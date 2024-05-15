@@ -45,10 +45,12 @@ function Logo() {
           )}
         </div>
         <div className='easylaw_section'>
-          <div className='help_icon'>
+        <Link to='/help'>
+          <div className='help_icon'> 
             <p>مساعدة</p>
-            <HelpIcon />
+            <HelpIcon /> 
           </div>
+          </Link>
           <div className='lign_dv'></div>
           <div className='easylaw_logo'>
             <Link to="/">

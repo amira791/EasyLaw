@@ -1,0 +1,129 @@
+.tarification_page{
+    margin: 0 auto;
+    width: 100%;
+    direction: rtl;
+}
+
+.tarification_page h3{
+    text-align:right;
+    background-color: #58D6D7;
+    margin: 0%;
+    width: 200px;
+    color: white;
+    padding: 1%;
+    
+  }
+  .tarification_page .tarification_section1{
+    display: flex;
+    justify-content: space-between;
+  
+    margin: 3% 2% 0% 2%;
+   
+  }
+  
+  /* Style pour la DataTable elle-même */
+  .tarification_page .p-datatable {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0% 2% 3% 2%;
+    
+  }
+  .tarification_page  .p-datatable .p-column-header-content {
+    display: block;
+}
+  
+.tarification_page .p-datatable thead th {
+    background-color: #E3FAFC;
+    font-weight: bold;
+    padding: 1.5% 0%;
+    color: #374957;
+    text-align: -webkit-center;
+  }
+ 
+  
+  /* Style pour les cellules de données */
+  .tarification_page .p-datatable tbody td {
+    padding: 10px;
+  vertical-align: middle; 
+  text-align: -webkit-center;
+  color: #374957;
+  font-weight: 500;
+  }
+  
+  
+  /* Style pour les boutons de pagination */
+  .tarification_page .p-paginator .p-paginator-current,
+  .p-paginator .p-paginator-pages {
+    margin: 2px;
+  
+    display: flex;
+    justify-content: space-between;
+  }
+  .tarification_page .p-paginator-page{
+    color: #045253;
+    width: 30px;
+  }
+  /* Style pour les boutons de pagination actifs */
+  .tarification_page .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: #045253;
+    color:white;
+   width: 25px;
+   height: 25px;
+   border-radius: 100%;
+  }
+
+  .popup-content {
+    background-color: #ffffff; /* White background */
+    padding: 2rem;
+    border-radius: 5px;
+    height: 18rem;
+    direction: rtl; /* Right-to-left text alignment */
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+  }
+  
+  /* Improved label positioning (flexbox with grid fallback) */
+  .p-field {
+    display: flex;
+    flex-direction: column; /* Stack labels and inputs vertically */
+    gap: 0.5rem; /* Add some spacing between labels and inputs */
+ 
+    /* Grid fallback for older browsers */
+    display: grid;
+    grid-template-rows: auto auto; /* Two rows for label and input */
+    grid-gap: 0.5rem;
+    align-items: center; /* Align labels and inputs vertically */
+  }
+  
+  .p-field  input{
+   height: 40px;
+  }
+
+  
+  .p-dialog-footer {
+    margin-top: 3rem; 
+    display: flex;
+    justify-content: space-between; 
+  }
+  
+  .p-dialog-footer button {
+    padding: 0.5rem 2rem; 
+    border: 1px solid transparent;
+    border-radius: 3px;
+  }
+  
+  .p-dialog-footer .p-button {
+    background-color: green; 
+  }
+  
+  .p-dialog-mask {
+    background-color: rgba(0, 0, 0, 0.5); 
+  }
+  
+  .btn_addSub{
+    background-color: transparent;
+    border: 1px solid #58D6D7;
+    padding: 0.5% 2%;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 1%;
+  }

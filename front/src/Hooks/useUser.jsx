@@ -53,9 +53,9 @@ export default function useUser() {
     console.error('Une erreur s\'est produite lors de la récupération des informations de l\'utilisateur :', error);
     throw error; // Propager l'erreur pour la gérer dans le composant
   }
-};
+ };
 
-const editUserInfo = async (editedFormData) => {
+ const editUserInfo = async (editedFormData) => {
   try {
     const access_token = localStorage.getItem('access_token');
     await userApiClient.put(`/edit_user_info/`, editedFormData, {
@@ -67,9 +67,9 @@ const editUserInfo = async (editedFormData) => {
   } catch (error) {
     console.error('Une erreur s\'est produite lors de la mise à jour des informations de profil :', error);
   }
-};
+ };
  // Fonction pour modifier le mot de passe de l'utilisateur
-const changePassword = async (oldPassword, newPassword) => {
+ const changePassword = async (oldPassword, newPassword) => {
   try {
     const response = await userApiClient.post(`/change_password/`, {
       old_password: oldPassword,
@@ -84,15 +84,15 @@ const changePassword = async (oldPassword, newPassword) => {
     console.error(error);
     setErrorMessage('خطأ في تغيير كلمة السر');
   }
-};
+ };
 
-//************** For Sign In ************************** */
-useEffect(() => {
+ //************** For Sign In ************************** */
+ useEffect(() => {
   console.log("kkkkkk",loggedIn); // This will log the updated value of loggedIn whenever it changes
-}, [loggedIn]);
-const loginUser = async (formData) => {
+ }, [loggedIn]);
+ const loginUser = async (formData) => {
   try {
-    const response = await userApiClient.post(`/login/`, formData);
+    const response = await userApiClient.post(`/login`, formData);
     console.log(response.data.token);
     localStorage.clear();
     localStorage.setItem('access_token', response.data.token);
@@ -106,10 +106,10 @@ const loginUser = async (formData) => {
     console.error('An error occurred during authentication:', error);
     return false;
   }
-};
+ };
 
-// ******************* For Sign Up *****************************/
-const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessage, setPasswordError, setSuccessMessage) => {
+ // ******************* For Sign Up *****************************/
+ const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessage, setPasswordError, setSuccessMessage) => {
   try {
     setErrorMessage('');
     if (formData.password !== confirmPassword) {
@@ -147,7 +147,7 @@ const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessag
       setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
     }
   }
-};
+ };
 
 /***************** Get All Users ************************** */
 const getAllUsers = async () => {

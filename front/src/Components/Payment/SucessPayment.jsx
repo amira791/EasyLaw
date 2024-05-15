@@ -7,6 +7,7 @@ function SucessPayment() {
   return (
     <>
     <Logo/>
+    
     <div className="success-payment-container">
   <h1 className="success-payment-title">تم الدفع بنجاح!</h1>
   <div className="success-payment-details">

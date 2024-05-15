@@ -64,7 +64,7 @@ INSTALLED_APPS = [
 ELASTICSEARCH_DSL={
 'default': {
 'hosts': 'http://localhost:9200',
-'timeout': 60,  # Custom timeout
+'timeout': 60,  
 'http_auth': ('manel', '12345678')
 }
 }

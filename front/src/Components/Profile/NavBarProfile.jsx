@@ -29,19 +29,27 @@ function NavBarProfile(props) {
           <li>
             <Link to='/profile'>الحساب الشخصي</Link>
           </li>
+          {props.role != 'moderateur' && (
           <li>
             <Link to='/changePwd'>تغيير كلمة السر</Link>
           </li>
+          )}
+          {props.role != 'moderateur' && (
           <li>
             <Link to='/interest'>{props.interest}</Link>
           </li>
+          )}
+          {props.role != 'moderateur' && (
           <li>
             <Link to='/services'>{props.services}</Link>
           </li>
+           )}
+          {props.role != 'moderateur' && ( 
           <li>
             <Link to='/facture'>فواتيري</Link>
           </li>
-          {props.role === 'moderateur' && (
+          )}
+          {props.role === 'moderateur' && ( 
             <li>
               <Link to='/mainmoderateur'> العودة لصفحة الاشراف</Link>
             </li>
