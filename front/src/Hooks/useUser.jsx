@@ -149,16 +149,106 @@ export default function useUser() {
   }
  };
 
+/***************** Get All Users ************************** */
+const getAllUsers = async () => {
+  try {
+    const access_token = localStorage.getItem('access_token');
+
+    if (!access_token) {
+      throw new Error('Token not found in localStorage');
+    }
+
+    const response = await userApiClient.get(`/allUsers/`, {
+      headers: {
+        Authorization: `Token ${access_token}` // Use 'Token' instead of 'token'
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('An error occurred while retrieving user information:', error);
+    throw error; 
+  }
+};
+/******************************* Create Moderateur ***************************************** */
+const createModerator = async (formData) => {
+  try {
+    const access_token = localStorage.getItem('access_token');
+
+    if (!access_token) {
+      throw new Error('Token not found in localStorage');
+    }
+
+    const response = await userApiClient.post(`/createMod/`, formData, {
+      headers: {
+        Authorization: `Token ${access_token}`
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('An error occurred while creating the moderator:', error);
+    throw error;
+  }
+};
+/***********************************Activate User ******************************************** */
+const activateUser = async (username) => {
+  try {
+    const access_token = localStorage.getItem('access_token');
+
+    if (!access_token) {
+      throw new Error('Token not found in localStorage');
+    }
+
+    const response = await userApiClient.post(`/activateUser`, { username }, {
+      headers: {
+        Authorization: `Token ${access_token}`
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('An error occurred while activating the user:', error);
+    throw error;
+  }
+};
+/************************************ Block User ******************************************* */
+const blockUser = async (username) => {
+  try {
+    const access_token = localStorage.getItem('access_token');
+
+    if (!access_token) {
+      throw new Error('Token not found in localStorage');
+    }
+
+    const response = await userApiClient.post(`/blockUser`, { username }, {
+      headers: {
+        Authorization: `Token ${access_token}`
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('An error occurred while blocking the user:', error);
+    throw error;
+  }
+};
+/*************************************************************************************************** */
+
 
   return {
     logout,
+    getAllUsers,
     getUserInfo,
     editUserInfo,
+    activateUser,
+    blockUser,
     changePassword,
     addNewUser,
     loginUser,
     errorMessage,
     setErrorMessage,
+    createModerator,
     loggedIn,
     setLoggedIn
   };

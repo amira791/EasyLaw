@@ -1,61 +1,116 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './AccountManag.css';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext'; // Import InputText component for search
 import TitleBar from '../../TitleBar/TitleBar';
 import LogoAdmin from '../../LOGO/LogoAdmin';
 import FooterAdmin from '../../Footer/FooterAdmin';
-import Navigation from '../NavigationBar/Navigation';
-
-// Exemple de données pour la DataTable
-
+import useUser from '../../../Hooks/useUser';
 
 function AccountManag() {
-    const userAccount = [
-        { setting: ' إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '  12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example1@example.com', username: 'المستخدم 1' },
-        { setting: 'إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example2@example.com', username: 'المستخدم 2' },
-        { setting:' إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example3@example.com', username: 'المستخدم 3' },
-        { setting: ' إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '  12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example1@example.com', username: 'المستخدم 4' },
-        { setting: 'إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example2@example.com', username: 'المستخدم 5'},
-        { setting:' إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example3@example.com', username: 'المستخدم 6' },
-        { setting: ' إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '  12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example1@example.com', username: 'المستخدم 7' },
-        { setting: 'إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example2@example.com', username: 'المستخدم 8' },
-        { setting:' إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example3@example.com', username: 'المستخدم 9' },
-        { setting: ' إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '  12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example1@example.com', username: 'المستخدم 10' },
-        { setting: 'إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example2@example.com', username: 'المستخدم 11' },
-        { setting:' إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example3@example.com', username: 'المستخدم 12' },
-        { setting: ' إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '  12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example1@example.com', username: 'المستخدم 13' },
-        { setting: 'إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example2@example.com', username: 'المستخدم 14' },
-        { setting:' إعدادت الحساب', bloc: 'تعليق الحساب', lastLogin: '12/12/2023', subscription: '  تجريبي', status: ' نشط', email: 'example3@example.com', username: 'المستخدم 15' },
-       
-      ];
+  const { getAllUsers, activateUser, blockUser, createModerator } = useUser();
+  const [userAccount, setUserAccount] = useState([]);
+  const [clientSearchQuery, setClientSearchQuery] = useState('');
+  const [moderatorSearchQuery, setModeratorSearchQuery] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAllUsers(); 
+        setUserAccount(response.users);
+      } catch (error) {
+        console.error('An error occurred while retrieving user information:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
+  const handleActivateUser = async (username) => {
+    try {
+      await activateUser(username);
+      const response = await getAllUsers(); 
+      setUserAccount(response.users);
+    } catch (error) {
+      console.error('An error occurred while activating the user:', error);
+    }
+  };
+  
+  const handleBlockUser = async (username) => {
+    try {
+      await blockUser(username);
+      const response = await getAllUsers(); 
+      setUserAccount(response.users);
+    } catch (error) {
+      console.error('An error occurred while blocking the user:', error);
+    }
+  };
+
+  const filteredClientUsers = userAccount.filter(user =>
+    user.role === 'client' &&
+    (user.username.toLowerCase().includes(clientSearchQuery.toLowerCase()) ||
+    user.email.toLowerCase().includes(clientSearchQuery.toLowerCase()))
+  );
+
+  const filteredModeratorUsers = userAccount.filter(user =>
+    user.role === 'moderateur' &&
+    (user.username.toLowerCase().includes(moderatorSearchQuery.toLowerCase()) ||
+    user.email.toLowerCase().includes(moderatorSearchQuery.toLowerCase()))
+  );
+
   return (
     <>
-      <LogoAdmin  title="صفحة الادارة"/>
+      <LogoAdmin />
       <TitleBar title="ادارة الحسابات" />
-      <Navigation/>
       <div className='accountManag-container'>
-      <h2> حسابات المستخدمين</h2>
-      <DataTable value={userAccount} paginator rows={7}  tableStyle={{ minWidth: '50rem' }}>
-          <Column field="setting" header="" style={{ width: '15%' }}></Column>
-          <Column field="bloc" header="" style={{ width: '15%',color:'red' }}></Column>
-          <Column field="lastLogin" header="آخر تسجيل" style={{ width: '15%' }}></Column>
-          <Column field="subscription" header="عرض الاشتراك" style={{ width: '15%' }}></Column>
-          <Column field="status" header="الوضعية" style={{ width: '15%' }}></Column>
-          <Column field="email" header="البريد الإلكتروني" style={{ width: '15%' }}></Column>
-          <Column field="username" header="إسم المستخدم" style={{ width: '15%' }}></Column>
-        </DataTable>
-
-        <h2>  حسابات المشرفين</h2>
-      <DataTable value={userAccount} paginator rows={7}  tableStyle={{ minWidth: '50rem' }}>
-          <Column field="setting" header="" style={{ width: '15%' }}></Column>
-          <Column field="bloc" header="" style={{ width: '15%',color:'red' }}></Column>
-          <Column field="lastLogin" header="آخر تسجيل" style={{ width: '15%' }}></Column>
-          <Column field="subscription" header="عرض الاشتراك" style={{ width: '15%' }}></Column>
-          <Column field="status" header="الوضعية" style={{ width: '15%' }}></Column>
-          <Column field="email" header="البريد الإلكتروني" style={{ width: '15%' }}></Column>
-          <Column field="username" header="إسم المستخدم" style={{ width: '15%' }}></Column>
-        </DataTable>
+        <h2> حسابات العملاء</h2>
+        <div className="search-container">
+  <div className="p-input-icon-left">
+    <i className="pi pi-search"></i>
+    <InputText value={clientSearchQuery} onChange={(e) => setClientSearchQuery(e.target.value)} placeholder="ابحث حسب الاسم أو البريد الإلكتروني" className="p-inputtext" />
+  </div>
+</div>
+        <div className="datatable-responsive">
+          <DataTable value={filteredClientUsers} className="p-datatable-sm" paginator rows={7} tableStyle={{ minWidth: '50rem' }}>
+            <Column field="username" header="إسم المستخدم" style={{ width: '15%' }} ></Column>
+            <Column field="email" header="البريد الإلكتروني" style={{ width: '15%' }}></Column>
+            <Column field="etat" header="الوضعية" style={{ width: '15%' }}></Column>
+            <Column header="الحالة" style={{ width: '15%' }} body={(rowData) => (
+             <div>
+                {rowData.etat === 'Active' ? (
+                  <Button label="حظر" className="p-button-block" onClick={() => handleBlockUser(rowData.username)} />
+                ) : (
+                  <Button label="تفعيل" className="p-button-unblock" onClick={() => handleActivateUser(rowData.username)} />
+                )}
+              </div>
+            )} />
+          </DataTable>
+        </div>
+        <h2> حسابات المشرفين</h2>
+        <div className="search-container">
+  <div className="p-input-icon-left">
+    <i className="pi pi-search"></i>
+    <InputText value={moderatorSearchQuery} onChange={(e) => setModeratorSearchQuery(e.target.value)} placeholder="ابحث حسب الاسم أو البريد الإلكتروني" className="p-inputtext" />
+  </div>
+</div>
+        <div className="datatable-responsive">
+          <DataTable value={filteredModeratorUsers} className="p-datatable-sm" paginator rows={7} tableStyle={{ minWidth: '50rem' }}>
+            <Column field="username" header="إسم المستخدم" style={{ width: '15%' }}></Column>
+            <Column field="email" header="البريد الإلكتروني" style={{ width: '15%' }}></Column>
+            <Column field="etat" header="الوضعية" style={{ width: '15%' }}></Column>
+            <Column header="الحالة" style={{ width: '15%' }} body={(rowData) => (
+              <div>
+                {rowData.etat === 'Active' ? (
+                  <Button label="حظر" className="p-button-block" onClick={() => handleBlockUser(rowData.username)} />
+                ) : (
+                  <Button label="تفعيل" className="p-button-unblock" onClick={() => handleActivateUser(rowData.username)} />
+                )}
+              </div>
+            )} />
+          </DataTable>
+        </div>
       </div>
       <FooterAdmin />
     </>
