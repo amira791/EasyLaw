@@ -39,7 +39,7 @@ function Profile() {
       occupation: '',
       univer_Entrep: '',
       email: '',
-      role: '' // Reset role field too
+      role: '' 
     });
   };
 
