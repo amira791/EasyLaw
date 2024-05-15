@@ -210,7 +210,7 @@ def redirect_to_pdf(request):
         formatted_journal_number = official_journal_number.zfill(3)
         year_prefix = 'A' if int(official_journal_year) >= 1964 else 'F'
         # Generate the PDF file path
-        pdf_directory = f"D:\\pdfs\\{official_journal_year}"
+        pdf_directory = f"C:\\Users\\Manel\\Desktop\\2CS\\S2\\PROJET\\TP\\pdfs\\{official_journal_year}"
         pdf_filename = f"{year_prefix}{official_journal_year}{formatted_journal_number}.pdf"  # Assuming this format
         pdf_path = os.path.join(pdf_directory, pdf_filename)
 
