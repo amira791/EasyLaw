@@ -1,0 +1,120 @@
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+get All users Info 
+User Sanaa_799 client login
+User Sanaa_799 client logout  
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
