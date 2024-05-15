@@ -20,6 +20,7 @@ from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 import os
 import PyPDF2
+import json
 #from pdf2image import convert_from_path
 #import pytesseract
 #from PyPDF2 import PdfReader
@@ -155,12 +156,17 @@ def extract_text_from_pdf_file(pdf_file_path, page_number):
 @permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
+<<<<<<< HEAD
              if is_Allowed(request.user.id, "search") or (request.user.role == "moderateur"):
+=======
+             if( is_Allowed(request.user.id,"search") or (request.user.role == "moderateur")):
+>>>>>>> 36cc33654d8ec7d81266c33825013a22b3d35939
                  # Récupérer les paramètres de recherche depuis la requête GET
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
                   source = request.GET.get('source')
                   year = request.GET.get('year')
+                  searching_way=request.GET.get('searching_way')
                   signature_date = request.GET.get('signature_date')
                   publication_date = request.GET.get('publication_date')
                   type = request.GET.get('type')
@@ -169,15 +175,25 @@ class search_view(APIView):
                   domain = request.GET.get('domain')
                   page = int(request.GET.get('page', 1))  # Default to page 1
                   page_size = int(request.GET.get('page_size', 50))  # Default to 10 results per page
+                  print("Query:", query)
+                  print("Sort By:", sort_by)
+                  print("Source:", source)
+                  print("Year:", year)
+                  print("Signature Date:", signature_date)
+                  print("Publication Date:", publication_date)
+                  print("Type:", type)
+                  print("OJ Number:", ojNumber)
+                  print("JT Number:", jtNumber)
+                  print("Domain:", domain)
                   if query:
-                     results , len = lookup(query=query,sort_by=sort_by, source=source, year=year, 
+                     results , len = lookup(query=query,sort_by=sort_by, source=source, year=year,searching_way=searching_way,
                      signature_date=signature_date, publication_date=publication_date,
                      type=type, ojNumber=ojNumber, jtNumber=jtNumber, domain=domain, page=page,page_size=page_size)
                      return Response({'results': results, 'len': len}, status=200)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
              else:
-                  return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+                   return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 # fonction pour recupere les sources et types 
 def get_type_and_source(request):
     types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
@@ -188,6 +204,8 @@ def distinct_years(request):
     years = list(distinct_years_list)
     return JsonResponse({'years': years})
 #details de juridical text
+
+
 def redirect_to_pdf(request):
     # Get the query parameters from the request
     official_journal_year = request.GET.get('official_journal_year')
@@ -199,7 +217,7 @@ def redirect_to_pdf(request):
         formatted_journal_number = official_journal_number.zfill(3)
         year_prefix = 'A' if int(official_journal_year) >= 1964 else 'F'
         # Generate the PDF file path
-        pdf_directory = f"D:\\pdfs\\{official_journal_year}"
+        pdf_directory = f"C:\\Users\\Manel\\Desktop\\2CS\\S2\\PROJET\\TP\\pdfs\\{official_journal_year}"
         pdf_filename = f"{year_prefix}{official_journal_year}{formatted_journal_number}.pdf"  # Assuming this format
         pdf_path = os.path.join(pdf_directory, pdf_filename)
 
@@ -231,7 +249,6 @@ def redirect_to_pdf(request):
     else:
         # Handle the case where parameters are missing
         return HttpResponse("Paramètres manquants.", status=400)
-
 @api_view(['POST'])
 def initial_jt_filling(request):
      # Initialize WebDriver

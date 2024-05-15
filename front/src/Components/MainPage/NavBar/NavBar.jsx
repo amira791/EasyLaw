@@ -24,6 +24,7 @@ function NavBar() {
         </Link>
       </div>
       
+<<<<<<< HEAD
       <ul className='NavBar_item'>
         <div className='li_item1'><Link to="/about-us"><li>حول المنصة </li></Link></div>
         <div className='li_item1'><Link to="/subscrib"><li><LocalFireDepartmentIcon sx={{marginLeft:'3%'}}/>عروضنا</li></Link></div>
@@ -31,6 +32,16 @@ function NavBar() {
         <div className='li_item1'><Link to="/latest-news"><li><CampaignIcon sx={{marginLeft:'3%'}}/>اخر المستجدات</li></Link></div>
         <div className='li_item1'><Link to="/"><li><HomeIcon sx={{marginLeft:'3%'}}/>الرئيسية</li></Link></div>
       </ul>
+=======
+        <ul className='NavBar_item'>
+          <div className='li_item1'><Link to="/aboutus"><li>حول المنصة </li></Link></div>
+          <div className='li_item1'><Link to="/subscrib"><li><LocalFireDepartmentIcon sx={{marginLeft:'3%'}}/>عروضنا</li></Link></div>
+          <div className='li_item1'><Link to="/ressource"><li><LibraryBooksIcon sx={{marginLeft:'3%'}}/>المصادر الرسمية</li></Link></div>
+          <div className='li_item1'><Link to="/latest-news"><li><CampaignIcon sx={{marginLeft:'3%'}}/>اخر المستجدات</li></Link></div>
+          <div className='li_item1'><Link to="/"><li><HomeIcon sx={{marginLeft:'3%'}}/>الرئيسية</li></Link></div>
+        </ul>
+     
+>>>>>>> 36cc33654d8ec7d81266c33825013a22b3d35939
     </div>
   );
 }

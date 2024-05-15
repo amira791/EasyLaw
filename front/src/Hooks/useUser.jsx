@@ -63,7 +63,7 @@ export default function useUser() {
         Authorization: `Token ${access_token}`
       }
     });
-    alert('Les informations ont été mises à jour avec succès !');
+    //alert('Les informations ont été mises à jour avec succès !');
   } catch (error) {
     console.error('Une erreur s\'est produite lors de la mise à jour des informations de profil :', error);
   }

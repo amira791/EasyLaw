@@ -14,9 +14,9 @@
 }
 
 .profile_container .profile_navBar{
-    width: 10%;
+    width: 20%;
     background-color:var(--primary-color);
-    padding: 3%;
+   
       
 }
 .profile_container .profile_navBar ul{
@@ -310,4 +310,17 @@ width: 100%;
     padding: 3%;
     width: 70%;
     
+}
+
+.logout_btn {
+    margin-top: 80% !important;
+    display: flex;
+    align-items: center;
+    padding-right: 20%;
+    
+}
+.logout_btn a{
+    font-weight: 500;
+   
+    margin-right: 2%;
 }
