@@ -14,7 +14,7 @@ client = Elasticsearch(
 )
 
 # The search function
-def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
+def lookuplaw(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
            sort_by=None, source=None, year=None, searching_way="multi_match", signature_date=None,
            publication_date=None, type=None, ojNumber=None, 
            jtNumber=None, domain=None, page=None, page_size=None):
@@ -29,7 +29,7 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
         sort = '_score'  # Tri par défaut (pertinence)
     
     # Création de la requête booléenne
-    bool_query = Q('bool', must=[Q('match_phrase', extracted_text=query)])
+    bool_query = Q('bool', must=[Q('match_phrase', description=query)])
 
     # Ajout des filtres supplémentaires à la requête booléenne
     if source:  
