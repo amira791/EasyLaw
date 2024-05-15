@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 import HomeIcon from '@mui/icons-material/Home';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import { AuthContext } from '../../../Context/LogoProvider';
 
 function NavBar() {
-  const [activeLink, setActiveLink] = useState('');
+  const { isAuth } = useContext(AuthContext);
 
-  const handleSetActiveLink = (link) => {
-    setActiveLink(link);
+  const handleSubscribeClick = () => {
+    if (!isAuth) {
+      window.location.href = '/signin'; // Redirect to sign-in page
+    }
   };
+
   return (
     <div className='navBar_container'>
       <div className='dv_btn'>
-        <Link to="/subscrib" className='navbar_btn'>! اشترك معنا الان</Link>
+        <Link to="/subscrib" className='navbar_btn' onClick={handleSubscribeClick}>
+          ! اشترك معنا الان
+        </Link>
       </div>
       
         <ul className='NavBar_item'>
