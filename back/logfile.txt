@@ -77,3 +77,36 @@ C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py c
 Watching for file changes with StatReloader
 C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\User\views.py changed, reloading.
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+User admin successfully logged in
+User admin successfully logged in
+Signup failed: Invalid user data
+Bad Request: /user/signup
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in

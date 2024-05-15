@@ -152,7 +152,7 @@ REST_FRAMEWORK = {
 
 
 
-
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 LOGGING = {
     'version': 1,
@@ -161,7 +161,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'C:/Users/mps/Downloads/2CS/S2/Project/Plateforme/16/EasyLaw/back/logfile.txt',
+            'filename': os.path.join(parent_dir, 'logfile.txt'),
         },
     },
     'loggers': {

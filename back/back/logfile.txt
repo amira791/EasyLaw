@@ -1,0 +1,11 @@
+Watching for file changes with StatReloader
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+User admin successfully logged in
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\16\EasyLaw\back\back\settings.py changed, reloading.
