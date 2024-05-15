@@ -54,7 +54,7 @@ function NavBarProfile(props) {
               <Link to='/mainmoderateur'> العودة لصفحة الاشراف</Link>
             </li>
           )}
-          <li>
+          <li className='logout_btn'>
             <a onClick={handleLogout}>تسجيل الخروج</a>
           </li>
         </ul>

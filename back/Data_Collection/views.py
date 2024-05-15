@@ -155,7 +155,7 @@ def extract_text_from_pdf_file(pdf_file_path, page_number):
 @permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
-             if( is_Allowed(request.user.id,"search")):
+             if( is_Allowed(request.user.id,"search") or (request.user.role == "moderateur")):
                  # Récupérer les paramètres de recherche depuis la requête GET
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
