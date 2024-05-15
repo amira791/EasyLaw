@@ -11,16 +11,32 @@ class JuridicalTextDocument(Document):
         'adjustment_type': fields.KeywordField(),
     })
 
+    # Define the field for official_journal
+    official_journal = fields.ObjectField(properties={
+        'number': fields.IntegerField(),
+        'year': fields.IntegerField(),
+    })
+
     class Index:
         name = 'juridical_texts'
+        settings = {
+            'number_of_shards': 1,
+            'number_of_replicas': 0,
+            'analysis': {
+                'analyzer': {
+                    'custom_arabic_analyzer': {
+                        'type': 'arabic'
+                    }
+                }
+            }
+        }
 
     class Django:
         model = JuridicalText
-        # Champs du modèle à indexer dans Elasticsearch
-        fields = ['id_text', 'type_text', 'signature_date', 'publication_date', 'jt_number', 'source', 'official_journal_page', 'description', 'extracted_text']
-    # Méthode pour récupérer les ajustements associés à un texte juridique
+        fields = ['id_text', 'type_text', 'signature_date', 'publication_date', 'jt_number',
+                  'source', 'official_journal_page', 'description', 'extracted_text']
+
     def get_adjustments(self, obj):
-        # Retrieve related adjustments for the JuridicalText object
         adjustments = Adjutstement.objects.filter(adjusted_num=obj.id_text).values('adjusting_num', 'adjustment_type')
         adjusting_texts = []
         
@@ -39,11 +55,19 @@ class JuridicalTextDocument(Document):
         return adjusting_texts
 
     def prepare_adjusted_texts(self, instance):
-        # Include adjustments in the indexed document
         adjusted_texts = self.get_adjustments(instance)
         return adjusted_texts
-    # Méthode pour préparer les données à indexer dans Elasticsearch
+
     def prepare(self, obj):
         data = super().prepare(obj)
         data['adjusted_texts'] = self.prepare_adjusted_texts(obj)
+        
+        # Include the official_journal information
+        if obj.official_journal:
+            data['official_journal'] = {
+                'number': obj.official_journal.number,
+                'year': obj.official_journal.year,
+                
+            }
+        
         return data
