@@ -45,7 +45,7 @@ function Gpt({ currentPage, resultsPerPage }) {
             <SearchIcon className="search-icon" />
             <button type="submit" className="btn btn-primary"> البحث</button>
           </div>
-          {errorMessage && <div className="error-message">{errorMessage}</div>} {/* Display error message */}
+         
           <div className="radio-buttons">
             <label className='radio_label'>
             بالصلة

@@ -20,6 +20,7 @@ from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 import os
 import PyPDF2
+import json
 #from pdf2image import convert_from_path
 #import pytesseract
 #from PyPDF2 import PdfReader
@@ -188,7 +189,7 @@ class search_view(APIView):
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
              else:
-                  return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+                   return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 # fonction pour recupere les sources et types 
 def get_type_and_source(request):
     types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
@@ -199,6 +200,8 @@ def distinct_years(request):
     years = list(distinct_years_list)
     return JsonResponse({'years': years})
 #details de juridical text
+
+
 def redirect_to_pdf(request):
     # Get the query parameters from the request
     official_journal_year = request.GET.get('official_journal_year')
@@ -242,7 +245,6 @@ def redirect_to_pdf(request):
     else:
         # Handle the case where parameters are missing
         return HttpResponse("Paramètres manquants.", status=400)
-
 @api_view(['POST'])
 def initial_jt_filling(request):
      # Initialize WebDriver
