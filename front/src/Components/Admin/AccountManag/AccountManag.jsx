@@ -8,6 +8,8 @@ import TitleBar from '../../TitleBar/TitleBar';
 import LogoAdmin from '../../LOGO/LogoAdmin';
 import FooterAdmin from '../../Footer/FooterAdmin';
 import useUser from '../../../Hooks/useUser';
+import Navigation from '../NavigationBar/Navigation';
+import SearchIcon from '@mui/icons-material/Search';
 
 function AccountManag() {
   const { getAllUsers, activateUser, blockUser, createModerator } = useUser();
@@ -62,12 +64,14 @@ function AccountManag() {
 
   return (
     <>
-      <LogoAdmin />
+      <LogoAdmin  title=" صفحة الادارة"  />
       <TitleBar title="ادارة الحسابات" />
+      <Navigation/>
       <div className='accountManag-container'>
         <h2> حسابات العملاء</h2>
         <div className="search-container">
   <div className="p-input-icon-left">
+    <SearchIcon sx={{position:'absolute',right:20,top:16}}/>
     <i className="pi pi-search"></i>
     <InputText value={clientSearchQuery} onChange={(e) => setClientSearchQuery(e.target.value)} placeholder="ابحث حسب الاسم أو البريد الإلكتروني" className="p-inputtext" />
   </div>
@@ -91,6 +95,7 @@ function AccountManag() {
         <h2> حسابات المشرفين</h2>
         <div className="search-container">
   <div className="p-input-icon-left">
+  <SearchIcon sx={{position:'absolute',right:20,top:16}}/>
     <i className="pi pi-search"></i>
     <InputText value={moderatorSearchQuery} onChange={(e) => setModeratorSearchQuery(e.target.value)} placeholder="ابحث حسب الاسم أو البريد الإلكتروني" className="p-inputtext" />
   </div>

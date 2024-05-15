@@ -5,7 +5,9 @@
   .accountManag-container h2{
     text-align: center;
   }
-  
+  .datatable-responsive{
+    direction: rtl;
+  }
   /* Style pour la DataTable elle-même */
   .accountManag-container .p-datatable {
     border: 1px solid #ccc;
@@ -27,6 +29,8 @@
   .accountManag-container .p-datatable tbody td {
     padding: 10px;
   vertical-align: middle; 
+  text-align: -webkit-center;
+
   }
   .accountManag-container .p-datatable tbody tr:nth-child(odd) {
     background-color: #04525327; /* Couleur de fond pour les lignes impaires */
@@ -56,10 +60,12 @@
   /* Styling button block and unblock */
   .p-button-block {
     border-radius: 20px;
-    background-color: #045253 !important;
-    color: white !important;
+    border: none;
+    background-color: transparent !important;
+    color:#bf0606 !important;
     width: 110px;
     height: 25px;
+    font-size: 18px;
   }
   
   .p-button-unblock {
@@ -74,20 +80,28 @@
 .search-container {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center; /* Center horizontally */
+ direction: rtl;
+
+  /* Center horizontally */
 }
 
 /* Style for search input */
 .p-inputtext {
 
   background-color: transparent;
-  border-radius: 0px 4px 4px 0px;
+  border-radius: 5px;
   padding: 10px;
   color: black;
+  width: 260px;
   border: 1px solid var(--primary-color);
+  direction: rtl;
+  padding-right: 10%;
+  position: relative;
+  margin-right: 8%;
 }
+.p-input-icon-left{
 
+}
 .create-moderator-button {
   width: 100%;
   background-color: var(--primary-color);
