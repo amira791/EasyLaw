@@ -13,89 +13,125 @@ from django.http import HttpResponse
 from rest_framework import status
 from django.http import JsonResponse
 import re
-import PyPDF2
 from PyPDF2 import PdfReader
-
-
-import time
+import json 
+from fuzzywuzzy import process
 from datetime import datetime
 from .models import JuridicalText, Adjutstement, OfficialJournal
 import re
 import os
 from pdf2image import convert_from_path
 import pytesseract
-from pytesseract import image_to_string
+from concurrent.futures import ThreadPoolExecutor
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\user\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
 patterns = [
 
     
-    r'^(?:أمر.*?|أوامر|امر.*?|اوامر)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:أمر.*?|أوامر|امر.*?|اوامر)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
 
 
-    r'^(?:منشور.*?|مناشير)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:منشور.*?|مناشير)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
 
 
-    r'^(?:منشور.*?\sوزاري.*?\sمشترك.*?|مناشير وزارية مشتركة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:لائحة.*?|لوائح|لائحتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:مداولة.*?|مداولات|مداولتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:منشور.*?\sوزاري.*?\sمشترك.*?|مناشير وزارية مشتركة)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:لائحة.*?|لوائح|لائحتان)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مداولة.*?|مداولات|مداولتان)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
 
-    #r'^(مداولة.*?\sم-أ-للدولة.*?)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    #r'^(مداولة.*?\sم-أ-للدولة.*?)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
 
-    r'^(?:مرسوم.*?\sتنفيذي.*?|مراسيم تنفيذية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:مرسوم.*?\sتشريعي.*?|مراسيم تشريعية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:مرسوم.*?\sرئاسي.*?|مراسيم رئاسية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:مقرر.*?|مقررات)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:مقرر.*?\sوزاري.*?\sمشترك.*?|مقررات وزارية مشتركة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:إعلان.*?|اعلان.*?)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:نظام.*?|أنظمة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:اتفاقية.*?|إتفاقيات|إتفاقيتان|إتفاقية|اتفاقيتان|اتفاقيات)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:تصريح.*?|تصاريح)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:تقرير.*?|تقارير)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:تعليمة.*?|تعليمات|تعليمتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:تعليمة.*?\sوزارية.*?\sمشتركة.*?|تعليمات وزارية مشتركة|تعليمتان وزاريتان مشتركتان)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:جدول.*?|جداول)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:رأي.*?|آراء)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:قانون.*?|قوانين)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:قانون.*?\sعضوي.*?|قوانين عضوية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:قرار.*?|قرارات)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:قرار.*?\sولائي.*?|قرارات ولائية)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
-    r'^(?:قرار.*?\sوزاري.*?\sمشترك.*?|قرارات وزارية مشتركة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)'
+    r'^(?:مرسوم.*?|مراسيم)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مرسوم.*?\sتنفيذي.*?|مراسيم تنفيذية)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مرسوم.*?\sتشريعي.*?|مراسيم تشريعية)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مرسوم.*?\sرئاسي.*?|مراسيم رئاسية)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مقرر.*?|مقررات)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:مقرر.*?\sوزاري.*?\sمشترك.*?|مقررات وزارية مشتركة)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:إعلان.*?|اعلان.*?)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:نظام.*?|أنظمة)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:اتفاقية.*?|إتفاقيات|إتفاقيتان|إتفاقية|اتفاقيتان|اتفاقيات)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تصريح.*?|تصاريح)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تقرير.*?|تقارير)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تعليمة.*?|تعليمات|تعليمتان)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:تعليمة.*?\sوزارية.*?\sمشتركة.*?|تعليمات وزارية مشتركة|تعليمتان وزاريتان مشتركتان)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:جدول.*?|جداول)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:رأي.*?|آراء)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قانون.*?|قوانين)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قانون.*?\sعضوي.*?|قوانين عضوية)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قرار.*?|قرارات)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قرار.*?\sولائي.*?|قرارات ولائية)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)',
+    r'^(?:قرار.*?\sوزاري.*?\sمشترك.*?|قرارات وزارية مشتركة)\s(?:رقم|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)'
 ]
 
-# patterns = [
-#     r'^أمر.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^منشور.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^منشور.*?\sوزاري.*?\sمشترك.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^لائحة.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^مداولة.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^مداولة.*?\sم-أ-للدولة.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^مرسوم.*?\sتنفيذي.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^مرسوم.*?\sتشريعي.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^مرسوم.*?\sرئاسي.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^مقرر.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^مقرر.*?\sوزاري.*?\sمشترك.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^إعلان.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^نظام.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^اتفاقية.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^تصريح.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^تقرير.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^تعليمة.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^تعليمة.*?\sوزارية.*?\sمشتركة.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^جدول.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^رأي.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^قانون.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^قانون.*?\sعضوي.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^قرار.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^قرار.*?\sولائي.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)',
-#     r'^قرار.*?\sوزاري.*?\sمشترك.*?\s(?:رقم\s[\d.-]+|مؤرخ.*?)(?=\s|$)'
-# ]
+
+def first_page_verifications(text, target_string, re_matches_list):
+
+    continue_ocr = True 
+    start_index = 0
+    next_jt_index = None
+
+    print(re_matches_list)
+
+    # Splitting the text into individual lines
+    lines = text.strip().split('\n')
+
+    # Finding the most similar string to the target_string (description)
+    most_similar, similarity_degree = process.extractOne(target_string, lines)
+
+    line_index = lines.index(most_similar)
+    start_index = max(0, line_index - 6)
+    del lines[:start_index]
+    relevant_text = '\n'.join(lines)
+    
+    desc_index = relevant_text.find(most_similar)
+
+    dif = float('inf')
+    for m in re_matches_list:
+        jt_indexes = find_all_occurrences(relevant_text, m)
+        for jt_index in jt_indexes:
+            if jt_index > desc_index :
+                if continue_ocr:
+                    print("setting continue ocr false")
+                    continue_ocr = False
+                if jt_index-desc_index < dif:
+                    next_jt_index = jt_index
+
+    if next_jt_index:
+        relevant_text = relevant_text[:next_jt_index]
+
+    return continue_ocr, relevant_text
+
+def find_all_occurrences(extracted_text, match):
+    # Initialize an empty list to store the indexes of all occurrences
+    match_indexes = []
+
+    # Start index for search
+    start_index = 0
+
+    # Iterate over the extracted text to find all occurrences of the match
+    while True:
+        # Find the next occurrence of the match starting from the current start_index
+        match_index = extracted_text.find(match, start_index)
+        
+        # If no further occurrence is found, break the loop
+        if match_index == -1:
+            break
+        
+        if (match_index - 1 > 0 and extracted_text[match_index-1] == '\n') or match_index == 0:
+            # Append the match index to the list
+            match_indexes.append(match_index)
+        
+        # Update the start_index for the next iteration
+        start_index = match_index + len(match)
+
+    # Return the list of all match indexes
+    return match_indexes
+
 
 @api_view(['POST'])
 def ocrTest(request):
     # Assuming 'year' and 'type_text' are passed in the POST request data
-    year = '2024'
+    publicationDateStart = '1997-01-01'
     #type_text = 'مرسوم تنفيذي'
 
 
@@ -104,7 +140,8 @@ def ocrTest(request):
 
     # Fetch JuridicalText objects based on the provided criteria
     juridical_texts = JuridicalText.objects.filter(
-        official_journal__year=year,
+        publication_date__gte = publicationDateStart,
+        official_journal__number__gte = 42
     )
 
     # Iterate over the filtered JuridicalText objects
@@ -114,14 +151,14 @@ def ocrTest(request):
         with open(rf'C:\Users\user\Documents\JTs\{jt.id_text}.txt', 'w', encoding='utf-8') as f:
 
             # Construct the PDF file path for each JuridicalText
-            pdf_file_path = os.path.join(base_directory, year, f'A{year}{jt.official_journal.number:03}.pdf')
+            pdf_file_path = os.path.join(base_directory, str(jt.official_journal.year), f'A{jt.official_journal.year}{jt.official_journal.number:03}.pdf')
             print(f'Processing PDF File: {pdf_file_path } , {jt.official_journal_page}')
             print(rf'saving in txt File: C:\Users\user\Documents\JTs\{jt.id_text}.txt')
             # Extract text from the specific page of the PDF file
             
             extracted_text = extract_text_from_pdf_file(pdf_file_path, jt.official_journal_page)
 
-            nb_matches = 0 
+            re_matches_list = []
             for pt in patterns : 
                 # Define a regular expression pattern to match the desired phrases
                 pattern = re.compile(pt, re.MULTILINE)
@@ -129,11 +166,13 @@ def ocrTest(request):
                 matches = re.findall(pattern, extracted_text)
 
                 if len(matches) > 0 :
-                    nb_matches += len(matches)
+                    re_matches_list.extend(matches)
+
+            conitue_ocr, extracted_text = first_page_verifications(extracted_text, jt.description, re_matches_list)
 
             f.write(extracted_text)
 
-            if nb_matches <= 1:
+            if conitue_ocr:
                 page = jt.official_journal_page
                 stop = False
                 pdf_reader = PdfReader(pdf_file_path)
@@ -166,12 +205,108 @@ def ocrTest(request):
                         f.write(extracted_text) 
                         page = page + 1
 
-
             # print(extracted_text)
             print("=" * 50)  # Separator between texts
 
     # Return a success response
     return HttpResponse({"msg" : "successfuly inserted"}, status = status.HTTP_201_CREATED)
+
+
+
+
+@api_view(['POST'])
+def ocrTestPara(request):
+    # Assuming 'year' and 'type_text' are passed in the POST request data
+    publicationDateStart = '1983-01-01'
+    publicationDateEnd = '1992-12-31'
+    # type_text = 'مرسوم تنفيذي'
+
+    # Construct the base directory for PDFs
+    base_directory = rf'C:\Users\user\Documents\JOs'
+    json_file_path = r'C:\Users\user\Desktop\EasyLaw_versions\V00.1\EasyLaw\back\sheetsresult.json'
+
+    # Fetch JuridicalText objects based on the provided criteria
+    juridical_texts = list(JuridicalText.objects.filter(
+        publication_date__gte=publicationDateStart,
+        publication_date__lte=publicationDateEnd,
+    ))
+
+    with open(json_file_path, 'r') as file:
+        data = json.load(file)
+
+    def process_juridical_text(jt):
+        with open(rf'C:\Users\user\Documents\JTs_Para\{jt.id_text}.txt', 'w', encoding='utf-8') as f:
+            # Construct the PDF file path for each JuridicalText
+            pdf_file_path = os.path.join(base_directory, str(jt.official_journal.year), f'A{jt.official_journal.year}{jt.official_journal.number:03}.pdf')
+            print(f'Processing PDF File: {pdf_file_path}, {jt.official_journal_page}')
+            print(rf'saving in txt File: C:\Users\user\Documents\JTs_Para\{jt.id_text}.txt')
+            # Extract text from the specific page of the PDF file
+            pdf_reader = PdfReader(pdf_file_path)
+            # Get the number of pages in the PDF
+            page_count = len(pdf_reader.pages)
+            if jt.official_journal.year < 1993 :
+                real_page_number = get_real_page_number(jt.official_journal.year, jt.official_journal.number, jt.official_journal_page, data)
+            else: 
+                real_page_number = jt.official_journal_page
+            
+            if real_page_number <= page_count :
+
+                extracted_text = extract_text_from_pdf_file(pdf_file_path, real_page_number)
+                re_matches_list = []
+                for pt in patterns:
+                    # Define a regular expression pattern to match the desired phrases
+                    pattern = re.compile(pt, re.MULTILINE)
+                    # Find all matches in the text
+                    matches = re.findall(pattern, extracted_text)
+                    if len(matches) > 0:
+                        re_matches_list.extend(matches)
+
+                conitue_ocr, extracted_text = first_page_verifications(extracted_text, jt.description, re_matches_list)
+
+                f.write(extracted_text)
+
+                if conitue_ocr:
+                    page = real_page_number
+                    stop = False
+                    
+                    page = page + 1
+                    while not stop and page <= page_count:
+                        extracted_text = extract_text_from_pdf_file(pdf_file_path, page)
+                        for pt in patterns:
+                            # Define a regular expression pattern to match the desired phrases
+                            pattern = re.compile(pt, re.MULTILINE)
+                            # Find all matches in the text
+                            matches = re.findall(pattern, extracted_text)
+                            if len(matches) > 0:
+                                stop = True
+                                match = matches[0]
+                                # Get the index of the first occurrence of the match in the extracted_text
+                                print(match)
+                                match_index = extracted_text.find(match)
+                                if match_index != -1:
+                                    # Remove all text after the match
+                                    extracted_text = extracted_text[:match_index]
+                                f.write(extracted_text)
+                                break
+                        if not stop:
+                            f.write(extracted_text)
+                            page = page + 1
+
+                print("=" * 50)  # Separator between texts
+
+
+    print(f"parallel processing of {len(juridical_texts)} JTS")
+    print("=" * 50)
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        executor.map(process_juridical_text, juridical_texts)
+
+
+
+    # Return a success response
+    return HttpResponse({"msg": "successfully inserted"}, status=status.HTTP_201_CREATED)
+
+
 
 
 def extract_text_from_pdf_file(pdf_file_path, page_number):
@@ -240,24 +375,32 @@ def initial_jt_filling(request):
 
     # Wait for the page to load
     wait = WebDriverWait(driver, 10)
-    wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")))
+    # wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")))
 
-    page_setting = driver.find_element(By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")
-    page_setting.click()
+    # page_setting = driver.find_element(By.XPATH, "/html/body/div/table[1]/tbody/tr/td/a")
+    # page_setting.click()
 
-    wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='b1']/a")))
+    # wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='b1']/a")))
 
-    input = driver.find_element(By.XPATH, "/html/body/div/form/table[1]/tbody/tr[7]/td[2]/input")
-    input.clear()
-    input.send_keys('100')
+    # input = driver.find_element(By.XPATH, "/html/body/div/form/table[1]/tbody/tr[7]/td[2]/input")
+    # input.clear()
+    # input.send_keys('100')
 
-    send = driver.find_element(By.XPATH, "//*[@id='b1']/a")
-    send.click()
+    # send = driver.find_element(By.XPATH, "//*[@id='b1']/a")
+    # send.click()
 
     wait.until(EC.presence_of_element_located((By.NAME, "znat")))
 
     # Find the select element
     select_element = Select(driver.find_element(By.NAME, "znat"))
+
+    starting_date_input = driver.find_element(By.XPATH, "/html/body/div/form/table[1]/tbody/tr[8]/td[2]/input[1]") 
+    starting_date_input.clear()
+    starting_date_input.send_keys('01/01/2001')
+
+    ending_date_input = driver.find_element(By.XPATH, "/html/body/div/form/table[1]/tbody/tr[8]/td[2]/input[2]") 
+    ending_date_input.clear()
+    ending_date_input.send_keys('10/03/2024')
 
     # Iterate over each option and scrape the data
     i = 0
@@ -278,7 +421,7 @@ def initial_jt_filling(request):
         'ديسمبر': '12'
     }
     # len(select_element.options)
-    for i in range(3, 4):
+    for i in range(26, 27):
         option_text = select_element.options[i].text
         select_element.options[i].click()  # Select the option
         # Click on the search button
@@ -440,6 +583,7 @@ def initial_jt_filling(request):
         if len(error_element) > 0 and error_element[0].text == "Erreur de serveur":
             return HttpResponse({"msg" : "crashed website"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
         
+        print("wchbiiiik")
 
         # Split juridical_texts into smaller lists
         chunk_size = 3000
@@ -451,25 +595,24 @@ def initial_jt_filling(request):
             for data in chunk:
                 try:
                     official_journal = OfficialJournal.objects.get(number=data['official_journal_number'], year=data['official_journal_year'])
+                    jt = JuridicalText(
+                        id_text=data['id_text'],
+                        type_text=data['type_text'],
+                        signature_date=data['signature_date'],
+                        publication_date=data['publication_date'],
+                        jt_number=data['jt_number'],
+                        source=data['source'],
+                        official_journal=official_journal,
+                        official_journal_page=data['official_journal_page'],
+                        description=data['description'],
+                        text_file=data['text_file']
+                    )
+                    juridical_data.append(jt)
                 except OfficialJournal.DoesNotExist:
-                    print(data['official_journal_number'], data['official_journal_year'])
-                    return HttpResponse({"msg": "Does not exist"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-                jt = JuridicalText(
-                    id_text=data['id_text'],
-                    type_text=data['type_text'],
-                    signature_date=data['signature_date'],
-                    publication_date=data['publication_date'],
-                    jt_number=data['jt_number'],
-                    source=data['source'],
-                    official_journal=official_journal,
-                    official_journal_page=data['official_journal_page'],
-                    description=data['description'],
-                    text_file=data['text_file']
-                )
-                juridical_data.append(jt)
-
+                    print(data)
             # Bulk create the instances into the database
             JuridicalText.objects.bulk_create(juridical_data)
+        
 
         # Split adjustments_associations into smaller lists
         adjustment_data_chunks = [adjustments_associations[i:i + chunk_size] for i in range(0, len(adjustments_associations), chunk_size)]
@@ -521,22 +664,6 @@ def initial_jt_filling(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @api_view(['POST'])
 def process_files_generator_view(request):
     if request.method == 'POST':
@@ -578,14 +705,10 @@ def process_files_generator_view(request):
 # path('process-files/', process_files_generator_view, name='process_files_generator_view'),
 
 
-
-
-
-
 @api_view(['POST'])
 def process_files_generator_download(request):
     if request.method == 'POST':
-        base_url = 'F:\\project 2cs\\EasyLaw\\back\\jaraid'
+        base_url = r'C:\Users\user\Documents\missing_Jos2'
         
         # Generator function to process files
         def process_files_generator(base_url):
@@ -689,3 +812,115 @@ def process_files_generator_downloadFr(request):
         return Response({'message': 'Data saved to database'}, status=status.HTTP_200_OK)
     else:
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+@api_view(['POST'])
+def ocrTestbefore1993(request):
+    # Assuming 'year' and 'type_text' are passed in the POST request data
+    year = '1982'
+    #type_text = 'مرسوم تنفيذي'
+
+
+    # Construct the base directory for PDFs
+    base_directory = rf'C:\Users\user\Documents\JOs'
+
+    # Fetch JuridicalText objects based on the provided criteria
+    juridical_texts = JuridicalText.objects.filter(
+        official_journal__year=year,
+    )
+
+    # Iterate over the filtered JuridicalText objects
+    for jt in juridical_texts:
+        with open(rf'C:\Users\user\Documents\JTs\{jt.id_text}.txt', 'w', encoding='utf-8') as f:
+
+            # Construct the PDF file path for each JuridicalText
+            pdf_file_path = os.path.join(base_directory, year, f'A{year}{jt.official_journal.number:03}.pdf')
+            # Example usage
+            json_file_path = r'C:\Users\user\Desktop\EasyLaw_versions\V00.1\EasyLaw\back\sheetsresult.json'
+            #journal_number = 9  # Example journal number
+            #page_initial = 468  # Example initial page number
+            print(f'year: {year } ,  {jt.official_journal.number}  , {jt.official_journal_page }')
+            print(rf'saving in txt File: C:\Users\user\Documents\JTs\{jt.id_text}.txt')
+
+            real_page_number = get_real_page_number(json_file_path, year, jt.official_journal.number, jt.official_journal_page)
+            pdf_reader = PdfReader(pdf_file_path)
+                # Get the number of pages in the PDF
+            page_count = len(pdf_reader.pages)
+           
+            if real_page_number <=page_count :
+                #if real_page_number is not None:
+                #   print(f'Real Page Number: {real_page_number}')
+
+                
+                # page wanted in the json file , 
+                print(f'Processing PDF File: {pdf_file_path } , {real_page_number}')
+
+                # Extract text from the specific page of the PDF file
+                
+                extracted_text = extract_text_from_pdf_file(pdf_file_path, real_page_number)
+
+                re_matches_list = []
+                for pt in patterns : 
+                    # Define a regular expression pattern to match the desired phrases
+                    pattern = re.compile(pt, re.MULTILINE)
+                    # Find all matches in the text
+                    matches = re.findall(pattern, extracted_text)
+
+                    if len(matches) > 0 :
+                         re_matches_list.extend(matches)
+
+                conitue_ocr, extracted_text = first_page_verifications(extracted_text, jt.description, re_matches_list)
+                f.write(extracted_text)
+
+                if conitue_ocr:
+                    page = real_page_number
+                    stop = False
+                    page = page + 1
+                    while not stop and page <= page_count:
+
+                        extracted_text = extract_text_from_pdf_file(pdf_file_path, page)
+                        for pt in patterns:
+                            # Define a regular expression pattern to match the desired phrases
+                            pattern = re.compile(pt, re.MULTILINE)
+                            # Find all matches in the text
+                            matches = re.findall(pattern, extracted_text)
+
+                            if len(matches) > 0:
+                                stop = True
+                                match = matches[0]
+                                # Get the index of the first occurrence of the match in the extracted_text
+                                print(match)
+                                match_index = extracted_text.find(match)
+                                
+                                if match_index != -1:
+                                    # Remove all text after the match
+                                    extracted_text = extracted_text[:match_index]
+                                f.write(extracted_text)
+                                break
+
+                        if not stop :
+                            f.write(extracted_text) 
+                            page = page + 1
+
+            # print(extracted_text)
+            print("=" * 50)  # Separator between texts
+
+    # Return a success response
+    return HttpResponse({"msg" : "successfuly inserted"}, status = status.HTTP_201_CREATED)
+
+
+
+def get_real_page_number(year, journal_number, page_initial, data):
+    
+    year_key = str(year)  # Convert year to string for dictionary lookup
+    if year_key in data:
+        for sublist in data[year_key]:  # Iterate over each sublist within the year
+            for entry in sublist:  # Iterate over each entry within the sublist
+                # Convert float values to integers for comparison
+                file_name = str(entry['file_name'])
+                p_b = int(entry['p_b'])
+                p_e = int(entry['p_e'])
+                if file_name.startswith(f'A{year}') and p_b <= page_initial  <= p_e:
+                    real_page = page_initial - entry['p_b'] +1
+                    return int(real_page)
+    
+    return None  # Return None if the entry is not found
