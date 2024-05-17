@@ -11,4 +11,6 @@ urlpatterns = [
     re_path('change_password', views.change_password),
     re_path('logout', views.logout),
     # re_path('test_token', views.test_token)
+    path('custom-app/verify/<str:uidb64>/<str:token>/', views.confirm_email, name='confirm-email'),
+
 ]

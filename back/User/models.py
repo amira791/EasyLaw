@@ -89,6 +89,7 @@ class CustomUser(AbstractUser):
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=100, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username
@@ -105,17 +106,17 @@ class UserProfileBase(models.Model):
 class Client(UserProfileBase):
     id_client = models.AutoField(primary_key=True)
 
-@receiver(post_save, sender=Client)
-def assign_client_group(sender, instance, created, **kwargs):
-    if created:
-        instance.user.groups.add(Group.objects.get(name='Client'))
+# @receiver(post_save, sender=Client)
+# def assign_client_group(sender, instance, created, **kwargs):
+#     if created:
+#         instance.user.groups.add(Group.objects.get(name='Client'))
 
 class Moderateur(UserProfileBase):
     id_moderateur = models.AutoField(primary_key=True)
 
-@receiver(post_save, sender=Moderateur)
-def assign_moderator_group(sender, instance, created, **kwargs):
-    if created:
-        instance.user.groups.add(Group.objects.get(name='Moderator'))
+# @receiver(post_save, sender=Moderateur)
+# def assign_moderator_group(sender, instance, created, **kwargs):
+#     if created:
+#         instance.user.groups.add(Group.objects.get(name='Moderator'))
 
 

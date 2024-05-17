@@ -172,3 +172,18 @@ LOGGING = {
         },
     },
 }
+
+
+
+
+
+###################### Email conformation
+
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # e.g., smtp.gmail.com
+EMAIL_PORT = 587  # or the appropriate port for your email host
+EMAIL_USE_TLS = True  # Set it to True if your email host requires TLS
+EMAIL_HOST_USER = 'younes172003@gmail.com'  # Your email address for sending emails
+EMAIL_HOST_PASSWORD = 'ghvj nivn hnzi erte'  # Your email password or app-specific password

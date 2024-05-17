@@ -16,12 +16,87 @@ from .models import *
 
 import logging
 
+from django.core.mail import send_mail
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.urls import reverse
+
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_str
+
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth import get_user_model
+from django.conf import settings
+
+User = get_user_model()
+
 logger = logging.getLogger(__name__)
 
 # from . import privileges
 
 @api_view(['POST'])
 def signup(request):
+    user_type = request.data.get('user_type')
+    user_data = request.data.get('user')
+
+    # Validate user_type
+    if user_type not in ['client', 'moderateur']:
+        logger.error('Signup failed: Invalid user_type')
+        return Response({'error': 'Invalid user_type'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Create user and related model based on user_type
+    serializer = UserSerializer(data=user_data)
+    if serializer.is_valid():
+        user = serializer.save()
+
+        if user_type == 'client':
+            Client.objects.create(user=user)
+            logger.info(f'User {user.username} signed up as a client')
+        elif user_type == 'moderateur':
+            Moderateur.objects.create(user=user)
+            logger.info(f'User {user.username} signed up as a moderator')
+
+        # Generate email confirmation token
+        token_generator = default_token_generator
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        token = token_generator.make_token(user)
+        confirmation_url = reverse('confirm-email', kwargs={'uidb64': uid, 'token': token})
+
+        # Send confirmation email
+        send_mail(
+            'Confirm your email',
+            f'Click this link to confirm your email: {request.build_absolute_uri(confirmation_url)}',
+            settings.EMAIL_HOST_USER,
+            [user.email],
+            fail_silently=False,
+        )
+
+        return Response({'success': 'User created successfully. Check your email for confirmation link.'}, status=status.HTTP_201_CREATED)
+
+    logger.error('Signup failed: Invalid user data')
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def confirm_email(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return Response({'success': 'Email confirmed successfully'}, status=status.HTTP_200_OK)
+    else:
+        return Response({'error': 'Invalid confirmation link'}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+# this don't have the email confirmation
+@api_view(['POST'])
+def signup_old(request):
     user_type = request.data.get('user_type')
     user_data = request.data.get('user')
 
@@ -62,6 +137,43 @@ def signup(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    if username is None or password is None:
+        logger.error('Login failed: Please provide both username/email and password')
+        return Response({'error': 'Please provide both username/email and password'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Custom authentication logic
+    user = custom_authenticate(username, password)
+    if user is None:
+        logger.error('Login failed: Invalid credentials')
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    if not user.is_active:
+        logger.info(f'User {username} tried to log in but the account is inactive')
+        return Response({'error': 'Account is inactive'}, status=status.HTTP_403_FORBIDDEN)
+
+    # Authentication successful
+    token, _ = Token.objects.get_or_create(user=user)
+    logger.info(f'User {username} successfully logged in')
+    return Response({'token': token.key}, status=status.HTTP_200_OK)
+
+
+#le but de cree cette function et pour distangue entre le cas ou les cordonees sont fausses ou bien correct mais le compte est inactif
+def custom_authenticate(username, password):
+    try:
+        user = User.objects.get(username=username)
+        if user.check_password(password):
+            return user
+    except User.DoesNotExist:
+        pass
+    return None
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def login_old(request):
     username = request.data.get('username')
     password = request.data.get('password')
 

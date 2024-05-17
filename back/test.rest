@@ -1,7 +1,7 @@
 POST http://127.0.0.1:9000/user/login 
 Content-Type: application/json
 
-{ "username": "admin", "password": "admin" }
+{ "username": "fournisseur27", "password": "1234" }
 
 ###
 
@@ -11,15 +11,14 @@ Content-Type: application/json
 {
   "user_type": "client",
   "user": {
-    "email": "fournisseur16@example.com",
-    "username": "fournisseur16",
+    "email": "nevagic209@huleos.com",
+    "username": "fournisseur27",
     "prenom": "John",
     "nom": "Doe",
     "num_telephone": "1234567890",
     "password": "1234"
   }
 }
-
 
 ###
 
