@@ -21,7 +21,6 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     etat = models.CharField(max_length=20, choices=ETAT_CHOICES, null=True)
     nom = models.CharField(max_length=255, null=True)
-    etat = models.CharField(max_length=255, null=True)
     prenom = models.CharField(max_length=255, null=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='client')
     num_telephone = models.CharField(max_length=20, null=True)
