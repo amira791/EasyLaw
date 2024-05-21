@@ -178,13 +178,21 @@ function ScrapingUpdate() {
         >هل يعدل نصا قانونيا اخر؟ إن كان كذلك  يرجى ادخاله.</h5>
 
 <div className="scraping_update_btn scraping_update_button">
-<button className="update_btn emptybtn" type="button" onClick={resetForm}>
-          النص
-          </button>
-          
-          <button className="update_btn" type="button" onClick={resetForm}>
-          يلغي
-          </button>
+<label className="scraping_lable">
+             النص
+            <select
+              className="scraping_input"
+              type="text"
+              name="type"
+              value={formData.type}
+              onChange={handleChange}
+              placeholder="مرسوم"
+            >
+              <option value="">النص</option>
+          <option value="يلغي">يلغي</option>
+          <option value="يلغي">يلغي</option>
+            </select>
+</label>
           <Link to="/" className="update_btn fullbtn"> <button type="submit">
           اختر النص المعدل
           </button></Link>
