@@ -19,7 +19,7 @@ export default function useSearch() {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/data_collection/types_sources');
+        const response = await axios.get('http://localhost:8888/data_collection/types_sources');
         setTypes(response.data.types);
         setSources(response.data.sources);
       } catch (error) {
@@ -32,7 +32,7 @@ export default function useSearch() {
 
     const fetchDistinctYears = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/data_collection/distinct_years');
+        const response = await axios.get('http://localhost:8888/data_collection/distinct_years');
         setYears(response.data.years);
       } catch (error) {
         console.error('Error fetching distinct years:', error);
@@ -59,7 +59,7 @@ export default function useSearch() {
     console.log(queryParams);
     try {
       const response = await axios.get(
-        `http://localhost:8000/data_collection/index_page`,
+        `http://localhost:8888/data_collection/index_page`,
         {
           headers: { 'Authorization': `Token ${localStorage.getItem('access_token')}` },
           params: queryParams,

@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 #from selenium.webdriver.support.ui import Select
 #from selenium.webdriver.support.ui import WebDriverWait
 #from selenium.webdriver.support import expected_conditions as EC
-from PyPDF2 import PdfReader ,PdfWriter
+#from PyPDF2 import PdfReader ,PdfWriter
 from django.http import FileResponse
 from datetime import datetime
 from .models import JuridicalText, Adjutstement, OfficialJournal
@@ -20,7 +20,7 @@ from .models import JuridicalText, Adjutstement, OfficialJournal
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 import os
-import PyPDF2
+#import PyPDF2
 import json
 #from pdf2image import convert_from_path
 #import pytesseract
@@ -161,11 +161,7 @@ def extract_text_from_pdf_file(pdf_file_path, page_number):
 @permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
-<<<<<<< HEAD
              if is_Allowed(request.user.id, "search") or (request.user.role == "moderateur"):
-=======
-             if( is_Allowed(request.user.id,"search") or (request.user.role == "moderateur")):
->>>>>>> 99411e8e37cdd41837ebc474cd171779aa98f5be
                  # Récupérer les paramètres de recherche depuis la requête GET
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
