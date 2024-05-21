@@ -159,6 +159,7 @@ def activateUser(request):
         
         user.etat = CustomUser.ACTIVE  # Set user's state to Active
         user.save()
+        logger.info(f'User {user.username}  activated successfully')
         
         return Response({'message': 'User activated successfully'}, status=status.HTTP_200_OK)
 
@@ -173,5 +174,6 @@ def blockUser(request):
         
         user.etat = CustomUser.NOT_ACTIVE  # Set user's state to Not Active
         user.save()
+        logger.info(f'User {user.username}  User blocked successfully')
         
         return Response({'message': 'User blocked successfully'}, status=status.HTTP_200_OK)

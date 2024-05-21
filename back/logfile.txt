@@ -118,3 +118,384 @@ C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py change
 Watching for file changes with StatReloader
 C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
 Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+User <QuerySet []> <QuerySet []>  get_type_and_source of Juridical Text 
+Starting new HTTP connection (1): localhost:8000
+Starting new HTTP connection (1): localhost:8000
+load_ssl_context verify='C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\stripe\\data\\ca-certificates.crt' cert=None trust_env=True http2=False
+load_verify_locations cafile='C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\stripe\\data\\ca-certificates.crt'
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=amiratam3000%40example.com&limit=1
+api_version=2024-04-10 message='Post details' post_data=email=amiratam3000%40example.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=amiratam3000%40example.com&limit=1
+api_version=2024-04-10 message='Post details' post_data=email=amiratam3000%40example.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+Starting new HTTP connection (1): localhost:8000
+https://api.stripe.com:443 "GET /v1/customers?email=amiratam3000%40example.com&limit=1 HTTP/1.1" 200 83
+message='Stripe API response' path=https://api.stripe.com/v1/customers?email=amiratam3000%40example.com&limit=1 response_code=200
+body='{\n  "object": "list",\n  "data": [],\n  "has_more": false,\n  "url": "/v1/customers"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_LpILJgIOqD6L3v message='Dashboard link for request'
+message='Request to Stripe api' method=post url=https://api.stripe.com/v1/customers
+api_version=2024-04-10 message='Post details' post_data=email=amiratam3000%40example.com&name=Amira_792
+Starting new HTTP connection (1): localhost:8000
+https://api.stripe.com:443 "POST /v1/customers HTTP/1.1" 200 613
+message='Stripe API response' path=https://api.stripe.com/v1/customers response_code=200
+body='{\n  "id": "cus_Q6wvKFZr3WPNRm",\n  "object": "customer",\n  "address": null,\n  "balance": 0,\n  "created": 1715784121,\n  "currency": null,\n  "default_source": null,\n  "delinquent": false,\n  "description": null,\n  "discount": null,\n  "email": "amiratam3000@example.com",\n  "invoice_prefix": "C1007823",\n  "invoice_settings": {\n    "custom_fields": null,\n    "default_payment_method": null,\n    "footer": null,\n    "rendering_options": null\n  },\n  "livemode": false,\n  "metadata": {},\n  "name": "Amira_792",\n  "phone": null,\n  "preferred_locales": [],\n  "shipping": null,\n  "tax_exempt": "none",\n  "test_clock": null\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_2BgGzYhM80zeQZ message='Dashboard link for request'
+User Amira_792  amiratam3000@example.com  create an account in stripe
+http://localhost:8000 "POST /payment/customer HTTP/1.1" 201 43
+https://api.stripe.com:443 "GET /v1/customers?email=amiratam3000%40example.com&limit=1 HTTP/1.1" 200 812
+message='Stripe API response' path=https://api.stripe.com/v1/customers?email=amiratam3000%40example.com&limit=1 response_code=200
+body='{\n  "object": "list",\n  "data": [\n    {\n      "id": "cus_Q6wvKFZr3WPNRm",\n      "object": "customer",\n      "address": null,\n      "balance": 0,\n      "created": 1715784121,\n      "currency": null,\n      "default_source": null,\n      "delinquent": false,\n      "description": null,\n      "discount": null,\n      "email": "amiratam3000@example.com",\n      "invoice_prefix": "C1007823",\n      "invoice_settings": {\n        "custom_fields": null,\n        "default_payment_method": null,\n        "footer": null,\n        "rendering_options": null\n      },\n      "livemode": false,\n      "metadata": {},\n      "name": "Amira_792",\n      "phone": null,\n      "preferred_locales": [],\n      "shipping": null,\n      "tax_exempt": "none",\n      "test_clock": null\n    }\n  ],\n  "has_more": false,\n  "url": "/v1/customers"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_AYjymedm20IwLf message='Dashboard link for request'
+User Amira_792  amiratam3000@example.com  has already an account 
+Internal Server Error: /payment/customer
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 174, in __getattr__
+    return self[k]
+           ~~~~^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 216, in __getitem__
+    raise err
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 204, in __getitem__
+    return super(StripeObject, self).__getitem__(k)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'stripeCustomerId'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py", line 66, in addUser
+    return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 176, in __getattr__
+    raise AttributeError(*err.args)
+AttributeError: stripeCustomerId
+http://localhost:8000 "POST /payment/customer HTTP/1.1" 500 119395
+Internal Server Error: /user/signup
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py", line 29, in signup
+    logger.info(f'User {user.username}  signed up as a client')
+                        ^^^^
+UnboundLocalError: cannot access local variable 'user' where it is not associated with a value
+Internal Server Error: /user/signup
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py", line 27, in signup
+    data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py", line 132, in stripeCustomerId
+    return response.json()["stripe_customer_id"]
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=amiratam3000%40example.com&limit=1
+api_version=2024-04-10 message='Post details' post_data=email=amiratam3000%40example.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=amiratam3000%40example.com&limit=1
+api_version=2024-04-10 message='Post details' post_data=email=amiratam3000%40example.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+https://api.stripe.com:443 "GET /v1/customers?email=amiratam3000%40example.com&limit=1 HTTP/1.1" 200 812
+message='Stripe API response' path=https://api.stripe.com/v1/customers?email=amiratam3000%40example.com&limit=1 response_code=200
+body='{\n  "object": "list",\n  "data": [\n    {\n      "id": "cus_Q6wvKFZr3WPNRm",\n      "object": "customer",\n      "address": null,\n      "balance": 0,\n      "created": 1715784121,\n      "currency": null,\n      "default_source": null,\n      "delinquent": false,\n      "description": null,\n      "discount": null,\n      "email": "amiratam3000@example.com",\n      "invoice_prefix": "C1007823",\n      "invoice_settings": {\n        "custom_fields": null,\n        "default_payment_method": null,\n        "footer": null,\n        "rendering_options": null\n      },\n      "livemode": false,\n      "metadata": {},\n      "name": "Amira_792",\n      "phone": null,\n      "preferred_locales": [],\n      "shipping": null,\n      "tax_exempt": "none",\n      "test_clock": null\n    }\n  ],\n  "has_more": false,\n  "url": "/v1/customers"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_2TGuoHgoSCjXzq message='Dashboard link for request'
+User Amira_792  amiratam3000@example.com  has already an account 
+Internal Server Error: /payment/customer
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 174, in __getattr__
+    return self[k]
+           ~~~~^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 216, in __getitem__
+    raise err
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 204, in __getitem__
+    return super(StripeObject, self).__getitem__(k)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'stripeCustomerId'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py", line 66, in addUser
+    return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 176, in __getattr__
+    raise AttributeError(*err.args)
+AttributeError: stripeCustomerId
+http://localhost:8000 "POST /payment/customer HTTP/1.1" 500 119395
+Internal Server Error: /user/signup
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py", line 27, in signup
+    data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py", line 132, in stripeCustomerId
+    return response.json()["stripe_customer_id"]
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+https://api.stripe.com:443 "GET /v1/customers?email=amiratam3000%40example.com&limit=1 HTTP/1.1" 200 812
+message='Stripe API response' path=https://api.stripe.com/v1/customers?email=amiratam3000%40example.com&limit=1 response_code=200
+body='{\n  "object": "list",\n  "data": [\n    {\n      "id": "cus_Q6wvKFZr3WPNRm",\n      "object": "customer",\n      "address": null,\n      "balance": 0,\n      "created": 1715784121,\n      "currency": null,\n      "default_source": null,\n      "delinquent": false,\n      "description": null,\n      "discount": null,\n      "email": "amiratam3000@example.com",\n      "invoice_prefix": "C1007823",\n      "invoice_settings": {\n        "custom_fields": null,\n        "default_payment_method": null,\n        "footer": null,\n        "rendering_options": null\n      },\n      "livemode": false,\n      "metadata": {},\n      "name": "Amira_792",\n      "phone": null,\n      "preferred_locales": [],\n      "shipping": null,\n      "tax_exempt": "none",\n      "test_clock": null\n    }\n  ],\n  "has_more": false,\n  "url": "/v1/customers"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_Q9Lkn6ZvttJdDu message='Dashboard link for request'
+User Amira_792  amiratam3000@example.com  has already an account 
+Internal Server Error: /payment/customer
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 174, in __getattr__
+    return self[k]
+           ~~~~^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 216, in __getitem__
+    raise err
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 204, in __getitem__
+    return super(StripeObject, self).__getitem__(k)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'stripeCustomerId'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Payement_Validation\views.py", line 66, in addUser
+    return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 176, in __getattr__
+    raise AttributeError(*err.args)
+AttributeError: stripeCustomerId
+http://localhost:8000 "POST /payment/customer HTTP/1.1" 500 119395
+Internal Server Error: /user/signup
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py", line 27, in signup
+    data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py", line 132, in stripeCustomerId
+    return response.json()["stripe_customer_id"]
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+User <QuerySet []> <QuerySet []>  get_type_and_source of Juridical Text 
+User <QuerySet []> <QuerySet []>  get_type_and_source of Juridical Text 
+User <QuerySet []> <QuerySet []>  get_type_and_source of Juridical Text 
