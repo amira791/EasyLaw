@@ -118,3 +118,648 @@ C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py change
 Watching for file changes with StatReloader
 C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+User <QuerySet []> <QuerySet []>  get_type_and_source of Juridical Text 
+User <QuerySet []> <QuerySet []>  get_type_and_source of Juridical Text 
+User <QuerySet []> <QuerySet []>  get_type_and_source of Juridical Text 
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+Unauthorized: /data_collection/index_page
+Unauthorized: /data_collection/index_page
+Unauthorized: /data_collection/index_page
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\models.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\models.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\models.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\models.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\models.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /data_collection/journals/open-pdf/2021/5/
+Not Found: /data_collection/journals/open-pdf/2024/5/
+Not Found: /data_collection/journals/open-pdf/2024/5/
+Not Found: /data_collection/journals/open-pdf/2024/5/
+Method Not Allowed: /data_collection/updateJT/
+Bad Request: /data_collection/updateJT/
+Not Found: /django
+Not Found: /favicon.ico
+Bad Request: /data_collection/updateJT/
+Starting new HTTP connection (1): localhost:9200
+PUT http://localhost:9200/_bulk?refresh=true [status:N/A duration:4.099s]
+Node <Urllib3HttpNode(http://localhost:9200)> has failed for 1 times in a row, putting on 1 second timeout
+Retrying request after failure (attempt 0 of 3)
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C18B21DE90>: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée)
+Starting new HTTP connection (2): localhost:9200
+PUT http://localhost:9200/_bulk?refresh=true [status:N/A duration:4.100s]
+Node <Urllib3HttpNode(http://localhost:9200)> has failed for 2 times in a row, putting on 2 second timeout
+Retrying request after failure (attempt 1 of 3)
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C18B5AD5D0>: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée)
+Resurrected node <Urllib3HttpNode(http://localhost:9200)> (force=False)
+Starting new HTTP connection (3): localhost:9200
+PUT http://localhost:9200/_bulk?refresh=true [status:N/A duration:4.091s]
+Node <Urllib3HttpNode(http://localhost:9200)> has failed for 3 times in a row, putting on 4 second timeout
+Retrying request after failure (attempt 2 of 3)
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C18B6591D0>: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée)
+Resurrected node <Urllib3HttpNode(http://localhost:9200)> (force=False)
+Starting new HTTP connection (4): localhost:9200
+PUT http://localhost:9200/_bulk?refresh=true [status:N/A duration:4.097s]
+Node <Urllib3HttpNode(http://localhost:9200)> has failed for 4 times in a row, putting on 8 second timeout
+Internal Server Error: /data_collection/updateJT/
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py", line 857, in update_juridical_text
+    serializer.save()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\serializers.py", line 207, in save
+    self.instance = self.update(self.instance, validated_data)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\serializers.py", line 1006, in update
+    instance.save()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\base.py", line 822, in save
+    self.save_base(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\base.py", line 924, in save_base
+    post_save.send(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\dispatch\dispatcher.py", line 189, in send
+    response = receiver(signal=self, sender=sender, **named)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\signals.py", line 61, in handle_save
+    registry.update(instance)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\registries.py", line 141, in update
+    doc().update(instance, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 259, in update
+    return self._bulk(
+           ^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 236, in _bulk
+    return self.bulk(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 178, in bulk
+    response = bulk(client=self._get_connection(), actions=actions, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 521, in bulk
+    for ok, item in streaming_bulk(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 436, in streaming_bulk
+    for data, (ok, info) in zip(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 339, in _process_bulk_chunk
+    resp = client.bulk(*args, operations=bulk_actions, **kwargs)  # type: ignore[arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\utils.py", line 446, in wrapped
+    return api(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\__init__.py", line 714, in bulk
+    return self.perform_request(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 271, in perform_request
+    response = self._perform_request(
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 316, in _perform_request
+    meta, resp_body = self.transport.perform_request(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: ConnectionError(Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C18B21DE90>: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée))
+Resurrected node <Urllib3HttpNode(http://localhost:9200)> (force=False)
+Starting new HTTP connection (5): localhost:9200
+PUT http://localhost:9200/_bulk?refresh=true [status:N/A duration:4.096s]
+Node <Urllib3HttpNode(http://localhost:9200)> has failed for 5 times in a row, putting on 16 second timeout
+Retrying request after failure (attempt 0 of 3)
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C18B5B1490>: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée)
+Resurrected node <Urllib3HttpNode(http://localhost:9200)> (force=False)
+Starting new HTTP connection (6): localhost:9200
+PUT http://localhost:9200/_bulk?refresh=true [status:N/A duration:4.117s]
+Node <Urllib3HttpNode(http://localhost:9200)> has failed for 6 times in a row, putting on 30 second timeout
+Retrying request after failure (attempt 1 of 3)
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C18B7872D0>: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée)
+Starting new HTTP connection (7): localhost:9200
+PUT http://localhost:9200/_bulk?refresh=true [status:N/A duration:4.121s]
+Node <Urllib3HttpNode(http://localhost:9200)> has failed for 7 times in a row, putting on 30 second timeout
+Retrying request after failure (attempt 2 of 3)
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C18B783310>: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée)
+Starting new HTTP connection (8): localhost:9200
+PUT http://localhost:9200/_bulk?refresh=true [status:N/A duration:4.109s]
+Node <Urllib3HttpNode(http://localhost:9200)> has failed for 8 times in a row, putting on 30 second timeout
+Internal Server Error: /data_collection/updateJT/
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py", line 857, in update_juridical_text
+    serializer.save()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\serializers.py", line 207, in save
+    self.instance = self.update(self.instance, validated_data)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\serializers.py", line 1006, in update
+    instance.save()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\base.py", line 822, in save
+    self.save_base(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\base.py", line 924, in save_base
+    post_save.send(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\dispatch\dispatcher.py", line 189, in send
+    response = receiver(signal=self, sender=sender, **named)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\signals.py", line 61, in handle_save
+    registry.update(instance)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\registries.py", line 141, in update
+    doc().update(instance, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 259, in update
+    return self._bulk(
+           ^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 236, in _bulk
+    return self.bulk(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 178, in bulk
+    response = bulk(client=self._get_connection(), actions=actions, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 521, in bulk
+    for ok, item in streaming_bulk(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 436, in streaming_bulk
+    for data, (ok, info) in zip(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 339, in _process_bulk_chunk
+    resp = client.bulk(*args, operations=bulk_actions, **kwargs)  # type: ignore[arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\utils.py", line 446, in wrapped
+    return api(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\__init__.py", line 714, in bulk
+    return self.perform_request(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 271, in perform_request
+    response = self._perform_request(
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 316, in _perform_request
+    meta, resp_body = self.transport.perform_request(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: ConnectionError(Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C18B5B1490>: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée))
+F:\project 2cs\newtask\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:9200
+PUT http://localhost:9200/_bulk?refresh=true [status:N/A duration:4.077s]
+Node <Urllib3HttpNode(http://localhost:9200)> has failed for 1 times in a row, putting on 1 second timeout
+Retrying request after failure (attempt 0 of 3)
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001BDCCFAB6D0>: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée)
+Starting new HTTP connection (2): localhost:9200
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 401 0
+PUT http://localhost:9200/_bulk?refresh=true [status:401 duration:2.189s]
+Node <Urllib3HttpNode(http://localhost:9200)> has been marked alive after a successful request
+Internal Server Error: /data_collection/updateJT/
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py", line 857, in update_juridical_text
+    serializer.save()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\serializers.py", line 207, in save
+    self.instance = self.update(self.instance, validated_data)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\serializers.py", line 1006, in update
+    instance.save()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\base.py", line 822, in save
+    self.save_base(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\base.py", line 924, in save_base
+    post_save.send(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\dispatch\dispatcher.py", line 189, in send
+    response = receiver(signal=self, sender=sender, **named)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\signals.py", line 61, in handle_save
+    registry.update(instance)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\registries.py", line 141, in update
+    doc().update(instance, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 259, in update
+    return self._bulk(
+           ^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 236, in _bulk
+    return self.bulk(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 178, in bulk
+    response = bulk(client=self._get_connection(), actions=actions, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 521, in bulk
+    for ok, item in streaming_bulk(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 436, in streaming_bulk
+    for data, (ok, info) in zip(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 355, in _process_bulk_chunk
+    yield from gen
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 291, in _process_bulk_chunk_error
+    raise error
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 339, in _process_bulk_chunk
+    resp = client.bulk(*args, operations=bulk_actions, **kwargs)  # type: ignore[arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\utils.py", line 446, in wrapped
+    return api(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\__init__.py", line 714, in bulk
+    return self.perform_request(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 271, in perform_request
+    response = self._perform_request(
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 352, in _perform_request
+    raise HTTP_EXCEPTIONS.get(meta.status, ApiError)(
+elasticsearch.AuthenticationException: AuthenticationException(401, 'security_exception', 'unable to authenticate user [manel] for REST request [/_bulk?refresh=true]')
+F:\project 2cs\newtask\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 401 0
+PUT http://localhost:9200/_bulk?refresh=true [status:401 duration:0.074s]
+Internal Server Error: /data_collection/updateJT/
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py", line 857, in update_juridical_text
+    serializer.save()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\serializers.py", line 207, in save
+    self.instance = self.update(self.instance, validated_data)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\serializers.py", line 1006, in update
+    instance.save()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\base.py", line 822, in save
+    self.save_base(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\base.py", line 924, in save_base
+    post_save.send(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\dispatch\dispatcher.py", line 189, in send
+    response = receiver(signal=self, sender=sender, **named)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\signals.py", line 61, in handle_save
+    registry.update(instance)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\registries.py", line 141, in update
+    doc().update(instance, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 259, in update
+    return self._bulk(
+           ^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 236, in _bulk
+    return self.bulk(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 178, in bulk
+    response = bulk(client=self._get_connection(), actions=actions, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 521, in bulk
+    for ok, item in streaming_bulk(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 436, in streaming_bulk
+    for data, (ok, info) in zip(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 355, in _process_bulk_chunk
+    yield from gen
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 291, in _process_bulk_chunk_error
+    raise error
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 339, in _process_bulk_chunk
+    resp = client.bulk(*args, operations=bulk_actions, **kwargs)  # type: ignore[arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\utils.py", line 446, in wrapped
+    return api(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\__init__.py", line 714, in bulk
+    return self.perform_request(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 271, in perform_request
+    response = self._perform_request(
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 352, in _perform_request
+    raise HTTP_EXCEPTIONS.get(meta.status, ApiError)(
+elasticsearch.AuthenticationException: AuthenticationException(401, 'security_exception', 'unable to authenticate user [root] for REST request [/_bulk?refresh=true]')
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 401 0
+PUT http://localhost:9200/_bulk?refresh=true [status:401 duration:0.060s]
+Internal Server Error: /data_collection/updateJT/
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py", line 857, in update_juridical_text
+    serializer.save()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\serializers.py", line 207, in save
+    self.instance = self.update(self.instance, validated_data)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\serializers.py", line 1006, in update
+    instance.save()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\base.py", line 822, in save
+    self.save_base(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\base.py", line 924, in save_base
+    post_save.send(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\dispatch\dispatcher.py", line 189, in send
+    response = receiver(signal=self, sender=sender, **named)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\signals.py", line 61, in handle_save
+    registry.update(instance)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\registries.py", line 141, in update
+    doc().update(instance, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 259, in update
+    return self._bulk(
+           ^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 236, in _bulk
+    return self.bulk(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django_elasticsearch_dsl\documents.py", line 178, in bulk
+    response = bulk(client=self._get_connection(), actions=actions, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 521, in bulk
+    for ok, item in streaming_bulk(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 436, in streaming_bulk
+    for data, (ok, info) in zip(
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 355, in _process_bulk_chunk
+    yield from gen
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 291, in _process_bulk_chunk_error
+    raise error
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\helpers\actions.py", line 339, in _process_bulk_chunk
+    resp = client.bulk(*args, operations=bulk_actions, **kwargs)  # type: ignore[arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\utils.py", line 446, in wrapped
+    return api(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\__init__.py", line 714, in bulk
+    return self.perform_request(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 271, in perform_request
+    response = self._perform_request(
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 352, in _perform_request
+    raise HTTP_EXCEPTIONS.get(meta.status, ApiError)(
+elasticsearch.AuthenticationException: AuthenticationException(401, 'security_exception', 'unable to authenticate user [root] for REST request [/_bulk?refresh=true]')
+F:\project 2cs\newtask\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\back\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.635s]
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /data_collection/scrappings/1/
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /data_collection/scrappings/1/
+Not Found: /data_collection/scrappings/1/
+Not Found: /data_collection/scrappings/1/
+Not Found: /data_collection/scrappings/1/
+Not Found: /data_collection/scrappings/1
+Not Found: /data_collection/scrappings/1/
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.247s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.133s]
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.151s]
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader

@@ -1,4 +1,18 @@
 from django.db import models
+from django.db.models import Max
+from django.utils import timezone
+
+from User.models import CustomUser
+
+
+class Scrapping(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    date = models.DateField(default=timezone.now, null=True)
+
+class IntrestDomain(models.Model):
+    name = models.CharField(max_length=100)
+
+
 
 class OfficialJournal(models.Model):
     number = models.IntegerField()
@@ -9,6 +23,10 @@ class OfficialJournal(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['number', 'year'], name='unique_official_journal')
         ]
+
+class JuridicalTextManager(models.Manager):
+    def get_max_publication_date(self):
+        return self.aggregate(max_date=Max('publication_date'))['max_date']
 
 class JuridicalText(models.Model):
     id_text = models.CharField(primary_key=True, max_length=100)
@@ -22,6 +40,13 @@ class JuridicalText(models.Model):
     description = models.TextField(null = True)
     text_file = models.FileField(null = True) #path example : files/JTs/{rest of the path}
     extracted_text = models.TextField(null=True)  # New field for extracted text
+    intrest = models.ForeignKey(IntrestDomain, null=True, on_delete=models.SET_NULL)  # New field
+    scrapping = models.ForeignKey(Scrapping, null=True, on_delete=models.SET_NULL)  # New field
+
+    objects = JuridicalTextManager()
+
+
+
 class Adjutstement(models.Model):
     adjusted_num = models.CharField(max_length=100)
     adjusting_num = models.CharField(max_length=100)
