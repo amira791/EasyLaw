@@ -118,6 +118,7 @@ C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py change
 Watching for file changes with StatReloader
 C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\Data_Collection\views.py changed, reloading.
 Watching for file changes with StatReloader
+<<<<<<< HEAD
 C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py changed, reloading.
 Watching for file changes with StatReloader
 C:\Users\DELL\Desktop\2CS\S2\Projet\EasyLaw\back\User\views.py changed, reloading.
@@ -301,6 +302,94 @@ Traceback (most recent call last):
   File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 216, in __getitem__
     raise err
   File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 204, in __getitem__
+=======
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+get All users Info 
+User USER client login
+get All users Info 
+User USER client login
+User USER  get subscription
+User USER  get invoice
+User USER client logout  
+get All users Info 
+User USER client login
+get All users Info 
+User USER client login
+User USER client logout  
+Starting new HTTP connection (1): localhost:8888
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=amine%40gmail.com&limit=1
+api_version=2023-10-16 message='Post details' post_data=email=amine%40gmail.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+https://api.stripe.com:443 "GET /v1/customers?email=amine%40gmail.com&limit=1 HTTP/1.1" 200 83
+message='Stripe API response' path=https://api.stripe.com/v1/customers?email=amine%40gmail.com&limit=1 response_code=200
+body='{\n  "object": "list",\n  "data": [],\n  "has_more": false,\n  "url": "/v1/customers"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_6M1aG2Yg9y2rmR message='Dashboard link for request'
+message='Request to Stripe api' method=post url=https://api.stripe.com/v1/customers
+api_version=2023-10-16 message='Post details' post_data=email=amine%40gmail.com&name=AMINE
+https://api.stripe.com:443 "POST /v1/customers HTTP/1.1" 200 600
+message='Stripe API response' path=https://api.stripe.com/v1/customers response_code=200
+body='{\n  "id": "cus_Q9BbVkLGH0wb6s",\n  "object": "customer",\n  "address": null,\n  "balance": 0,\n  "created": 1716299985,\n  "currency": null,\n  "default_source": null,\n  "delinquent": false,\n  "description": null,\n  "discount": null,\n  "email": "amine@gmail.com",\n  "invoice_prefix": "B4D92177",\n  "invoice_settings": {\n    "custom_fields": null,\n    "default_payment_method": null,\n    "footer": null,\n    "rendering_options": null\n  },\n  "livemode": false,\n  "metadata": {},\n  "name": "AMINE",\n  "phone": null,\n  "preferred_locales": [],\n  "shipping": null,\n  "tax_exempt": "none",\n  "test_clock": null\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_9EQpUFP7ZEHToe message='Dashboard link for request'
+User AMINE  amine@gmail.com  create an account in stripe
+http://localhost:8888 "POST /payment/customer HTTP/1.1" 201 43
+Internal Server Error: /user/signup
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 29, in signup
+    logger.info(f'User {user.username}  signed up as a client')
+                        ^^^^
+UnboundLocalError: cannot access local variable 'user' where it is not associated with a value
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:8888
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=amine%40gmail.com&limit=1
+api_version=2023-10-16 message='Post details' post_data=email=amine%40gmail.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+https://api.stripe.com:443 "GET /v1/customers?email=amine%40gmail.com&limit=1 HTTP/1.1" 200 799
+message='Stripe API response' path=https://api.stripe.com/v1/customers?email=amine%40gmail.com&limit=1 response_code=200
+body='{\n  "object": "list",\n  "data": [\n    {\n      "id": "cus_Q9BbVkLGH0wb6s",\n      "object": "customer",\n      "address": null,\n      "balance": 0,\n      "created": 1716299985,\n      "currency": null,\n      "default_source": null,\n      "delinquent": false,\n      "description": null,\n      "discount": null,\n      "email": "amine@gmail.com",\n      "invoice_prefix": "B4D92177",\n      "invoice_settings": {\n        "custom_fields": null,\n        "default_payment_method": null,\n        "footer": null,\n        "rendering_options": null\n      },\n      "livemode": false,\n      "metadata": {},\n      "name": "AMINE",\n      "phone": null,\n      "preferred_locales": [],\n      "shipping": null,\n      "tax_exempt": "none",\n      "test_clock": null\n    }\n  ],\n  "has_more": false,\n  "url": "/v1/customers"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_qW6qkXDJygpAnF message='Dashboard link for request'
+User AMINE  amine@gmail.com  has already an account 
+Internal Server Error: /payment/customer
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 174, in __getattr__
+    return self[k]
+           ~~~~^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 216, in __getitem__
+    raise err
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 204, in __getitem__
+>>>>>>> 3c5f2c76cc99c9c77c0f32049fe7e7cbd293dad7
     return super(StripeObject, self).__getitem__(k)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 KeyError: 'stripeCustomerId'
@@ -308,6 +397,7 @@ KeyError: 'stripeCustomerId'
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
+<<<<<<< HEAD
   File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
     response = get_response(request)
                ^^^^^^^^^^^^^^^^^^^^^
@@ -352,12 +442,59 @@ Traceback (most recent call last):
     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
+=======
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Payement_Validation\views.py", line 66, in addUser
+    return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 176, in __getattr__
+    raise AttributeError(*err.args)
+AttributeError: stripeCustomerId
+http://localhost:8888 "POST /payment/customer HTTP/1.1" 500 122586
+Internal Server Error: /user/signup
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\requests\models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\decoder.py", line 355, in raw_decode
+>>>>>>> 3c5f2c76cc99c9c77c0f32049fe7e7cbd293dad7
     raise JSONDecodeError("Expecting value", s, err.value) from None
 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
+<<<<<<< HEAD
   File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
     response = get_response(request)
                ^^^^^^^^^^^^^^^^^^^^^
@@ -405,6 +542,61 @@ Traceback (most recent call last):
   File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 216, in __getitem__
     raise err
   File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\stripe\_stripe_object.py", line 204, in __getitem__
+=======
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 27, in signup
+    data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 132, in stripeCustomerId
+    return response.json()["stripe_customer_id"]
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\requests\models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:8888
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=amine%40gmail.com&limit=1
+api_version=2023-10-16 message='Post details' post_data=email=amine%40gmail.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+https://api.stripe.com:443 "GET /v1/customers?email=amine%40gmail.com&limit=1 HTTP/1.1" 200 799
+message='Stripe API response' path=https://api.stripe.com/v1/customers?email=amine%40gmail.com&limit=1 response_code=200
+body='{\n  "object": "list",\n  "data": [\n    {\n      "id": "cus_Q9BbVkLGH0wb6s",\n      "object": "customer",\n      "address": null,\n      "balance": 0,\n      "created": 1716299985,\n      "currency": null,\n      "default_source": null,\n      "delinquent": false,\n      "description": null,\n      "discount": null,\n      "email": "amine@gmail.com",\n      "invoice_prefix": "B4D92177",\n      "invoice_settings": {\n        "custom_fields": null,\n        "default_payment_method": null,\n        "footer": null,\n        "rendering_options": null\n      },\n      "livemode": false,\n      "metadata": {},\n      "name": "AMINE",\n      "phone": null,\n      "preferred_locales": [],\n      "shipping": null,\n      "tax_exempt": "none",\n      "test_clock": null\n    }\n  ],\n  "has_more": false,\n  "url": "/v1/customers"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_AdIrvmcHdoZZGe message='Dashboard link for request'
+User AMINE  amine@gmail.com  has already an account 
+Internal Server Error: /payment/customer
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 174, in __getattr__
+    return self[k]
+           ~~~~^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 216, in __getitem__
+    raise err
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 204, in __getitem__
+>>>>>>> 3c5f2c76cc99c9c77c0f32049fe7e7cbd293dad7
     return super(StripeObject, self).__getitem__(k)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 KeyError: 'stripeCustomerId'
@@ -412,6 +604,7 @@ KeyError: 'stripeCustomerId'
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
+<<<<<<< HEAD
   File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
     response = get_response(request)
                ^^^^^^^^^^^^^^^^^^^^^
@@ -456,12 +649,59 @@ Traceback (most recent call last):
     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
+=======
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Payement_Validation\views.py", line 66, in addUser
+    return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 176, in __getattr__
+    raise AttributeError(*err.args)
+AttributeError: stripeCustomerId
+http://localhost:8888 "POST /payment/customer HTTP/1.1" 500 122586
+Internal Server Error: /user/signup
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\requests\models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\decoder.py", line 355, in raw_decode
+>>>>>>> 3c5f2c76cc99c9c77c0f32049fe7e7cbd293dad7
     raise JSONDecodeError("Expecting value", s, err.value) from None
 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
+<<<<<<< HEAD
   File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
     response = get_response(request)
                ^^^^^^^^^^^^^^^^^^^^^
@@ -499,3 +739,270 @@ requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 User <QuerySet []> <QuerySet []>  get_type_and_source of Juridical Text 
 User <QuerySet []> <QuerySet []>  get_type_and_source of Juridical Text 
 User <QuerySet []> <QuerySet []>  get_type_and_source of Juridical Text 
+=======
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 27, in signup
+    data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 132, in stripeCustomerId
+    return response.json()["stripe_customer_id"]
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\requests\models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+Starting new HTTP connection (1): localhost:8888
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=amine%40gmail.com&limit=1
+api_version=2023-10-16 message='Post details' post_data=email=amine%40gmail.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+https://api.stripe.com:443 "GET /v1/customers?email=amine%40gmail.com&limit=1 HTTP/1.1" 200 799
+message='Stripe API response' path=https://api.stripe.com/v1/customers?email=amine%40gmail.com&limit=1 response_code=200
+body='{\n  "object": "list",\n  "data": [\n    {\n      "id": "cus_Q9BbVkLGH0wb6s",\n      "object": "customer",\n      "address": null,\n      "balance": 0,\n      "created": 1716299985,\n      "currency": null,\n      "default_source": null,\n      "delinquent": false,\n      "description": null,\n      "discount": null,\n      "email": "amine@gmail.com",\n      "invoice_prefix": "B4D92177",\n      "invoice_settings": {\n        "custom_fields": null,\n        "default_payment_method": null,\n        "footer": null,\n        "rendering_options": null\n      },\n      "livemode": false,\n      "metadata": {},\n      "name": "AMINE",\n      "phone": null,\n      "preferred_locales": [],\n      "shipping": null,\n      "tax_exempt": "none",\n      "test_clock": null\n    }\n  ],\n  "has_more": false,\n  "url": "/v1/customers"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_nFlz7P8XXxBzuv message='Dashboard link for request'
+User AMINE  amine@gmail.com  has already an account 
+Internal Server Error: /payment/customer
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 174, in __getattr__
+    return self[k]
+           ~~~~^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 216, in __getitem__
+    raise err
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 204, in __getitem__
+    return super(StripeObject, self).__getitem__(k)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'stripeCustomerId'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Payement_Validation\views.py", line 66, in addUser
+    return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 176, in __getattr__
+    raise AttributeError(*err.args)
+AttributeError: stripeCustomerId
+http://localhost:8888 "POST /payment/customer HTTP/1.1" 500 122586
+Internal Server Error: /user/signup
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\requests\models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 27, in signup
+    data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 132, in stripeCustomerId
+    return response.json()["stripe_customer_id"]
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\requests\models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:8888
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=amine%40gmail.com&limit=1
+api_version=2023-10-16 message='Post details' post_data=email=amine%40gmail.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+https://api.stripe.com:443 "GET /v1/customers?email=amine%40gmail.com&limit=1 HTTP/1.1" 200 799
+message='Stripe API response' path=https://api.stripe.com/v1/customers?email=amine%40gmail.com&limit=1 response_code=200
+body='{\n  "object": "list",\n  "data": [\n    {\n      "id": "cus_Q9BbVkLGH0wb6s",\n      "object": "customer",\n      "address": null,\n      "balance": 0,\n      "created": 1716299985,\n      "currency": null,\n      "default_source": null,\n      "delinquent": false,\n      "description": null,\n      "discount": null,\n      "email": "amine@gmail.com",\n      "invoice_prefix": "B4D92177",\n      "invoice_settings": {\n        "custom_fields": null,\n        "default_payment_method": null,\n        "footer": null,\n        "rendering_options": null\n      },\n      "livemode": false,\n      "metadata": {},\n      "name": "AMINE",\n      "phone": null,\n      "preferred_locales": [],\n      "shipping": null,\n      "tax_exempt": "none",\n      "test_clock": null\n    }\n  ],\n  "has_more": false,\n  "url": "/v1/customers"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_ngMDrcWrPqUAUe message='Dashboard link for request'
+User AMINE  amine@gmail.com  has already an account 
+Internal Server Error: /payment/customer
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 174, in __getattr__
+    return self[k]
+           ~~~~^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 216, in __getitem__
+    raise err
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 204, in __getitem__
+    return super(StripeObject, self).__getitem__(k)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'stripeCustomerId'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Payement_Validation\views.py", line 66, in addUser
+    return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\stripe\_stripe_object.py", line 176, in __getattr__
+    raise AttributeError(*err.args)
+AttributeError: stripeCustomerId
+http://localhost:8888 "POST /payment/customer HTTP/1.1" 500 122586
+Internal Server Error: /user/signup
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\requests\models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\AppData\Local\Programs\Python\Python312\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 27, in signup
+    data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 132, in stripeCustomerId
+    return response.json()["stripe_customer_id"]
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\requests\models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+Watching for file changes with StatReloader
+get All users Info 
+User USER client login
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "POST /juridical_texts/_search HTTP/1.1" 200 None
+POST http://localhost:9200/juridical_texts/_search [status:200 duration:0.126s]
+User USER client H    get_type_and_source of Juridical Text 
+get All users Info 
+User USER client login
+User USER client logout  
+Get All users 
+get All users Info 
+User DEMO admin login
+User DEMO admin logout  
+>>>>>>> 3c5f2c76cc99c9c77c0f32049fe7e7cbd293dad7

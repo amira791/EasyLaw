@@ -40,6 +40,8 @@ import Tarification from './Components/Admin/Tarification/Tarification';
 
 import AboutUs from './Components/AboutUs/AboutUs';
 import HelpPage from './Components/HelpPage/HelpPage';
+import ScrapingUpdate from './Components/Admin/Scraping/ScrapingUpdate';
+
 
 function App() {
 
@@ -86,6 +88,9 @@ function App() {
         <Route path="/profileadmin" element={<ProfileAdmin/>} />
         <Route path="/profilemoderateur" element={<ProfileModerateur/>} />
         <Route path="/tarification" element={<Tarification/>} />
+        <Route path="/scrapingupdate" element={<ScrapingUpdate/>} />
+        
+
         
         
         

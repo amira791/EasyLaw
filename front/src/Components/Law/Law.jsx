@@ -76,7 +76,7 @@ function Law() {
     console.log(queryParams);
     try {
       const response = await axios.get(
-        `http://localhost:8000/data_collection/index_page`,
+        `http://localhost:8000/data_collection/index_law`,
         {
           headers: { 'Authorization': `Token ${localStorage.getItem('access_token')}` },
           params: queryParams,
