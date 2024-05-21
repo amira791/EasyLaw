@@ -763,3 +763,4 @@ F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
 Watching for file changes with StatReloader
 F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
