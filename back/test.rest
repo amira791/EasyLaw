@@ -1,18 +1,18 @@
-POST http://127.0.0.1:9000/user/login 
+POST http://127.0.0.1:8000/user/login 
 Content-Type: application/json
 
-{ "username": "fournisseur27", "password": "1234" }
+{ "username": "fournisseur1", "password": "1234" }
 
 ###
 
-POST http://127.0.0.1:9000/user/signup 
+POST http://127.0.0.1:8000/user/signup 
 Content-Type: application/json
 
 {
   "user_type": "client",
   "user": {
-    "email": "nevagic209@huleos.com",
-    "username": "fournisseur27",
+    "email": "xemice1929@javnoi.com",
+    "username": "fournisseur1",
     "prenom": "John",
     "nom": "Doe",
     "num_telephone": "1234567890",
@@ -22,16 +22,16 @@ Content-Type: application/json
 
 ###
 
-GET http://127.0.0.1:9000/user/get_user_info
+GET http://127.0.0.1:8000/user/get_user_info
 Content-Type: application/json
-Authorization: token 4bb61ff80fe697ec41706cbdbdf9f373cb7cae56
+Authorization: token eed271e36712891ee1fcc0d52944847fe5b82431
 
 ###
 
 
-PUT http://127.0.0.1:9000/user/edit_user_info
+PUT http://127.0.0.1:8000/user/edit_user_info
 Content-Type: application/json
-Authorization: Token 4bb61ff80fe697ec41706cbdbdf9f373cb7cae56
+Authorization: Token eed271e36712891ee1fcc0d52944847fe5b82431
 
 {
   "username": "fournisseur15",
@@ -52,7 +52,7 @@ Authorization: Token 4bb61ff80fe697ec41706cbdbdf9f373cb7cae56
 
 ###
 
-POST http://127.0.0.1:9000/user/change_password 
+POST http://127.0.0.1:8000/user/change_password 
 Content-Type: application/json
 Authorization: Token 7200e277f57dd53c80a098e026aa022b4915b556
 
@@ -64,5 +64,47 @@ Authorization: Token 7200e277f57dd53c80a098e026aa022b4915b556
 
 ###
 
-POST http://127.0.0.1:9000/user/logout
-Authorization: Token 7200e277f57dd53c80a098e026aa022b4915b556
+POST http://127.0.0.1:8000/user/logout
+Authorization: Token eed271e36712891ee1fcc0d52944847fe5b82431
+
+
+
+###
+
+POST http://127.0.0.1:8000/user/create_domaine
+Content-Type: application/json
+
+{
+    "nom_domaine": "domaine 6"
+}
+
+
+###
+
+POST http://127.0.0.1:8000/user/add_domaine_interet/
+Content-Type: application/json
+Authorization: Token eed271e36712891ee1fcc0d52944847fe5b82431
+
+{
+   "domaine_id": 1
+}
+
+###
+
+POST http://127.0.0.1:8000/user/delete_domaine_interet/
+Authorization: Token eed271e36712891ee1fcc0d52944847fe5b82431
+Content-Type: application/json
+
+{
+    "domaine_id": 1
+}
+
+###
+
+GET http://127.0.0.1:8000/user/domaines_interet/
+
+
+###
+
+GET http://127.0.0.1:8000/user/get_domaines_interet
+Authorization: Token eed271e36712891ee1fcc0d52944847fe5b82431

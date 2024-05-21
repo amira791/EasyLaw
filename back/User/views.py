@@ -321,3 +321,115 @@ def logout(request):
     Token.objects.filter(user=user).delete()
     logger.info(f'User {user.username} logged out')
     return Response({'message': 'Logged out successfully.'})
+
+
+
+
+
+
+
+
+
+@api_view(['POST'])
+def create_domaine_interet(request):
+    if request.method == 'POST':
+        try:
+            nom_domaine = request.data.get('nom_domaine')
+
+            if nom_domaine is None:
+                return Response({'error': 'Nom_domaine is required'}, status=400)
+
+            # Check if the DomaineInteret already exists
+            existing_domaine = DomaineInteret.objects.filter(nom_domaine=nom_domaine).first()
+            if existing_domaine:
+                return Response({'error': 'Domaine already exists'}, status=400)
+
+            # Create the DomaineInteret
+            domaine = DomaineInteret.objects.create(nom_domaine=nom_domaine)
+            logger.info(f'Domaine "{nom_domaine}" created successfully by user {request.user.username}')
+            return Response({'message': f'Domaine "{nom_domaine}" created successfully'})
+        except Exception as e:
+            logger.error(f'Error creating DomaineInteret: {str(e)}')
+            return Response({'error': str(e)}, status=500)
+    else:
+        return Response({'error': 'Only POST requests are allowed'}, status=405)
+    
+
+
+# from rest_framework.parsers import JSONParser
+# from django.http import JsonResponse
+
+# from rest_framework.parsers import JSONParser
+# from django.http import JsonResponse
+
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def add_domaine_interet2(request):
+#     user = request.user
+#     domaine_id = request.data.get('id')
+    
+#     if not domaine_id:
+#         return Response({'error': 'ID of DomaineInteret is required'}, status=status.HTTP_400_BAD_REQUEST)
+    
+#     try:
+#         domaine_interet = DomaineInteret.objects.get(id=domaine_id)
+#     except DomaineInteret.DoesNotExist:
+#         return Response({'error': 'DomaineInteret not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+#     if user.add_domaine_interet(domaine_interet):
+#         return Response({'success': 'DomaineInteret added successfully'}, status=status.HTTP_200_OK)
+#     else:
+#         return Response({'error': 'User already has 5 DomaineInteret'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_domaine_interet(request):
+    user = request.user
+    domaine_id = request.data.get('domaine_id')
+
+    if domaine_id is None:
+        return Response({'error': 'Domaine ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+    domaine = get_object_or_404(DomaineInteret, id=domaine_id)
+
+    if user.domaines_interet.count() >= 5:
+        return Response({'error': 'User can only have up to 5 domaines d\'intérêt'}, status=status.HTTP_400_BAD_REQUEST)
+
+    user.domaines_interet.add(domaine)
+    return Response({'message': f'Domaine "{domaine.nom_domaine}" added to user {user.username}'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def delete_domaine_interet(request):
+    user = request.user
+    domaine_id = request.data.get('domaine_id')
+
+    if not domaine_id:
+        return Response({'error': 'Domaine ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+    domaine = get_object_or_404(DomaineInteret, id=domaine_id)
+
+    if domaine not in user.domaines_interet.all():
+        return Response({'error': 'DomaineInteret not associated with user'}, status=status.HTTP_400_BAD_REQUEST)
+
+    user.domaines_interet.remove(domaine)
+    return Response({'message': f'Domaine "{domaine.nom_domaine}" removed from user {user.username}'}, status=status.HTTP_200_OK)
+
+
+
+@api_view(['GET'])
+def get_all_domaines_interet(request):
+    domaines = DomaineInteret.objects.all()
+    data = [{'id': domaine.id, 'nom_domaine': domaine.nom_domaine} for domaine in domaines]
+    return Response(data)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_domaines_interet_for_user(request):
+    user = request.user
+    domaines = user.domaines_interet.all()
+    domaines_data = [{'id': domaine.id, 'nom_domaine': domaine.nom_domaine} for domaine in domaines]
+    return Response({'domaines_interet': domaines_data}, status=status.HTTP_200_OK)

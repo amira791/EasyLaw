@@ -56,3 +56,7 @@ class EditUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'nom', 'prenom', 'num_telephone', 'dateNaiss', 'lieuNaiss', 'univer_Entrep', 'occupation', 'bio', 'location', 'profile_picture']
         read_only_fields = []
 
+
+
+class DomaineInteretSerializer(serializers.Serializer):
+    nom_domaine = serializers.CharField(max_length=255)

@@ -583,3 +583,624 @@ Watching for file changes with StatReloader
 C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\17\EasyLaw\back\User\views.py changed, reloading.
 Watching for file changes with StatReloader
 User fournisseur27 successfully logged in
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Login failed: Invalid credentials
+Unauthorized: /user/login
+Watching for file changes with StatReloader
+User admin tried to log in but the account is inactive
+Forbidden: /user/login
+User admin tried to log in but the account is inactive
+Forbidden: /user/login
+User fournisseur29 signed up as a client
+Not Found: /favicon.ico
+User fournisseur29 successfully logged in
+Login failed: Invalid credentials
+Unauthorized: /user/login
+Login failed: Invalid credentials
+Unauthorized: /user/login
+User fournisseur29 successfully logged in
+User fournisseur29 successfully logged in
+Watching for file changes with StatReloader
+User admin tried to log in but the account is inactive
+Forbidden: /user/login
+User fournisseur29 successfully logged in
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Domaine "domaine 1" created successfully by user 
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /api/add_domaine_interet/
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /api/add_domaine_interet/
+User fournisseur29 successfully logged in
+Not Found: /api/add_domaine_interet/
+Not Found: /api/add_domaine_interet/
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /api/user/add_domaine_interet/
+Not Found: /api/domaines_interet/
+Not Found: /api/domaines_interet/
+Not Found: /api/get_domaines_interet/
+User fournisseur29 successfully logged in
+Not Found: /api/user/add_domaine_interet/
+Not Found: /api/get_domaines_interet/
+Not Found: /api/domaines_interet/
+User fournisseur29 successfully logged in
+Not Found: /api/domaines_interet/
+Domaine "domaine 2" created successfully by user 
+Not Found: /api/user/add_domaine_interet/
+Internal Server Error: /user/get_domaines_interet/
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 404, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Error creating DomaineInteret: JSON parse error - Extra data: line 6 column 1 (char 31)
+Internal Server Error: /user/add_domaine_interet/
+Domaine "domaine 3" created successfully by user 
+Error creating DomaineInteret: JSON parse error - Extra data: line 6 column 1 (char 31)
+Internal Server Error: /user/add_domaine_interet
+User fournisseur29 successfully logged in
+Internal Server Error: /user/get_domaines_interet/
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 404, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Bad Request: /user/add_domaine_interet
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Bad Request: /user/add_domaine_interet
+Bad Request: /user/add_domaine_interet
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+User fournisseur29 successfully logged in
+Bad Request: /user/add_domaine_interet/
+Internal Server Error: /user/get_domaines_interet/
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 410, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Internal Server Error: /user/get_domaines_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 410, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Internal Server Error: /user/get_domaines_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 410, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Watching for file changes with StatReloader
+User admin tried to log in but the account is inactive
+Forbidden: /user/login
+User fournisseur29 successfully logged in
+Watching for file changes with StatReloader
+Domaine "domaine 4" created successfully by user 
+Bad Request: /user/add_domaine_interet/
+Watching for file changes with StatReloader
+Domaine "domaine 1" created successfully by user 
+User fournisseur1 signed up as a client
+Not Found: /favicon.ico
+User fournisseur1 successfully logged in
+User fournisseur1 accessed user info
+Internal Server Error: /user/get_domaines_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 408, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Unauthorized: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet/
+Bad Request: /user/add_domaine_interet
+Bad Request: /user/add_domaine_interet
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /user/delete_domaine_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 412, in delete_domaine_interet
+    user.profile.domaines_interet.remove(domaine)
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Domaine "domaine 2" created successfully by user 
+Domaine "domaine 3" created successfully by user 
+Domaine "domaine 4" created successfully by user 
+Domaine "domaine 5" created successfully by user 
+Domaine "domaine 6" created successfully by user 
+Internal Server Error: /user/get_domaines_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 429, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Internal Server Error: /user/get_domaines_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 429, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Internal Server Error: /user/get_domaines_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 429, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Internal Server Error: /user/get_domaines_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 429, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Internal Server Error: /user/get_domaines_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 429, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Internal Server Error: /user/get_domaines_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 429, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Internal Server Error: /user/get_domaines_interet/
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 429, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Internal Server Error: /user/get_domaines_interet/
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 429, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Method Not Allowed: /user/get_domaines_interet/
+Internal Server Error: /user/get_domaines_interet/
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 429, in get_domaines_interet_for_user
+    domaines = user.profile.domaines_interet.all()
+AttributeError: 'CustomUser' object has no attribute 'profile'
+Bad Request: /user/add_domaine_interet/
+Internal Server Error: /user/delete_domaine_interet
+Traceback (most recent call last):
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\mps\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py", line 412, in delete_domaine_interet
+    user.profile.domaines_interet.remove(domaine)
+AttributeError: 'CustomUser' object has no attribute 'profile'
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Bad Request: /user/delete_domaine_interet
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\mps\Downloads\2CS\S2\Project\Plateforme\18\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+Bad Request: /user/add_domaine_interet/
+Unauthorized: /user/delete_domaine_interet/

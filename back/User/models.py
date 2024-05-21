@@ -76,6 +76,16 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from .models import *
+
+
+### the order is important because here it was a neccessity to make the DomaineInteret before the CustomUser class
+
+class DomaineInteret(models.Model):
+    nom_domaine = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.nom_domaine
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
@@ -90,13 +100,26 @@ class CustomUser(AbstractUser):
     location = models.CharField(max_length=100, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     is_active = models.BooleanField(default=False)
+    domaines_interet = models.ManyToManyField(DomaineInteret, related_name='utilisateurs', blank=True)
+
+    def add_domaine_interet(self, domaine):
+        if self.domaines_interet.count() < 5:
+            self.domaines_interet.add(domaine)
+            return True
+        else:
+            return False
+
+    def delete_domaine_interet(self, domaine):
+        self.domaines_interet.remove(domaine)
+
+    def get_domaines_interet(self):
+        return self.domaines_interet.all()
 
     def __str__(self):
         return self.username
 
 class UserProfileBase(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    # Remove groups and user_permissions from here, as they will be managed through signals
     class Meta:
         abstract = True
 
@@ -106,17 +129,8 @@ class UserProfileBase(models.Model):
 class Client(UserProfileBase):
     id_client = models.AutoField(primary_key=True)
 
-# @receiver(post_save, sender=Client)
-# def assign_client_group(sender, instance, created, **kwargs):
-#     if created:
-#         instance.user.groups.add(Group.objects.get(name='Client'))
+
 
 class Moderateur(UserProfileBase):
     id_moderateur = models.AutoField(primary_key=True)
-
-# @receiver(post_save, sender=Moderateur)
-# def assign_moderator_group(sender, instance, created, **kwargs):
-#     if created:
-#         instance.user.groups.add(Group.objects.get(name='Moderator'))
-
 
