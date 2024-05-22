@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import JuridicalText, Scrapping
+from .models import Adjutstement, JuridicalText, Scrapping
 
 class JuridicalTextSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,6 +11,8 @@ class JuridicalTextSerializer(serializers.ModelSerializer):
     class Meta:
         model = JuridicalText
         fields = [
+            'id_text',
+            'type_text',
             'signature_date', 
             'publication_date', 
             'jt_number', 
@@ -29,3 +31,9 @@ class ScrappingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scrapping
         fields = ['id', 'user', 'date']
+
+
+class AdjustmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Adjutstement
+        fields = ['adjusted_num', 'adjusting_num', 'adjustment_type']

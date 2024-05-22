@@ -10,9 +10,15 @@ urlpatterns = [
     re_path('years', views.distinct_years),
     #re_path('Ocr', views.ocrTest),
     re_path('details', views.redirect_to_pdf),
+
+
+
     re_path('updateJT',views.update_juridical_text ) ,
     re_path(r'^scrappings/(?P<user_id>\d+)/$', views.get_user_scrappings),
-    re_path(r'^juridical_texts/(?P<scrapping_id>\d+)/$', views.scrapping_juridical_texts)
+    re_path(r'^juridical_texts/(?P<scrapping_id>\d+)/$', views.scrapping_juridical_texts) ,
+    re_path('createAdjust',views.create_adjustment ) ,
+    re_path(r'^getJT/(?P<id_text>\d+)/$',views.get_juridical_text) ,
+    re_path(r'^getJTbyScrappingAndType/(?P<scrapping_id>\d+)/(?P<type_text>[^/]+)/$', views.get_juridical_texts_by_scrapping_and_type,)
 
 
 

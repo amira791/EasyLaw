@@ -764,3 +764,127 @@ Watching for file changes with StatReloader
 F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /data_collection/juridical_texts/1/
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /data_collection/juridical_texts/1/
+Internal Server Error: /data_collection/juridical_texts/1/
+Internal Server Error: /data_collection/juridical_texts/1/
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /data_collection/getJT
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: get_juridical_text() missing 1 required positional argument: 'id_text'
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /data_collection/getJT
+Not Found: /data_collection/getJT/00003/
+Bad Request: /data_collection/updateJT/
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.254s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.140s]
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+F:\project 2cs\newtask\EasyLaw\back\Data_Collection\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader

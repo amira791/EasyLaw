@@ -31,7 +31,7 @@ import json
 #from pytesseract import image_to_string
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import JuridicalTextSerializer, ScrappingSerializer 
+from .serializers import AdjustmentSerializer, JuridicalTextSerializer, ScrappingSerializer 
 
 from rest_framework.permissions import IsAuthenticated
 from permissions import is_Allowed
@@ -885,4 +885,56 @@ def scrapping_juridical_texts(request, scrapping_id):
         return Response({"error": "Scrapping does not exist"}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
 
+
+
+
+@api_view(['POST'])
+def create_adjustment(request):
+    # Check if the request method is POST
+    if request.method == 'POST':
+        # Deserialize the JSON data from the request body
+        data = request.data
+
+        # Create a serializer instance with the request data
+        serializer = AdjustmentSerializer(data=data)
+
+        # Validate the serializer data
+        if serializer.is_valid():
+            # Save the validated data to create the Adjustment object
+            adjustment = serializer.save()
+
+            # Return a success response with the created Adjustment data
+            return Response({'message': 'Adjustment created successfully', 'adjustment': serializer.data}, status=201)
+        else:
+            # Return an error response with serializer errors
+            return Response(serializer.errors, status=400)
+    else:
+        # Return an error response for unsupported request methods
+        return Response({'error': 'Method not allowed'}, status=405)
+    
+
+
+
+@api_view(['GET'])
+def get_juridical_text(request, id_text):
+    try:
+        juridical_text = JuridicalText.objects.get(id_text=id_text)
+    except JuridicalText.DoesNotExist:
+        return Response({'error': 'JuridicalText not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = JuridicalTextSerializer(juridical_text)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+@api_view(['GET'])
+def get_juridical_texts_by_scrapping_and_type(request, scrapping_id, type_text):
+    juridical_texts = JuridicalText.objects.filter(scrapping_id=scrapping_id, type_text=type_text)
+    if not juridical_texts.exists():
+        return Response({'error': 'No JuridicalText found with the given scrapping_id and type_text'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = JuridicalTextSerializer(juridical_texts, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
