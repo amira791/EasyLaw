@@ -1,0 +1,62 @@
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:8888
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=mmm%40gmail.com&limit=1
+api_version=2023-10-16 message='Post details' post_data=email=mmm%40gmail.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+Bad Request: /payment/customer
+http://localhost:8888 "POST /payment/customer HTTP/1.1" 400 460
+Internal Server Error: /user/signup
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 27, in signup
+    data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py", line 131, in stripeCustomerId
+    return response.json()["stripe_customer_id"]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'stripe_customer_id'
+Starting new HTTP connection (1): localhost:8888
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/customers?email=mmm%40gmail.com&limit=1
+api_version=2023-10-16 message='Post details' post_data=email=mmm%40gmail.com&limit=1
+Starting new HTTPS connection (1): api.stripe.com:443
+https://api.stripe.com:443 "GET /v1/customers?email=mmm%40gmail.com&limit=1 HTTP/1.1" 200 83
+message='Stripe API response' path=https://api.stripe.com/v1/customers?email=mmm%40gmail.com&limit=1 response_code=200
+body='{\n  "object": "list",\n  "data": [],\n  "has_more": false,\n  "url": "/v1/customers"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_mpWZqb6Ayr2ShZ message='Dashboard link for request'
+message='Request to Stripe api' method=post url=https://api.stripe.com/v1/customers
+api_version=2023-10-16 message='Post details' post_data=email=mmm%40gmail.com&name=MML
+https://api.stripe.com:443 "POST /v1/customers HTTP/1.1" 200 596
+message='Stripe API response' path=https://api.stripe.com/v1/customers response_code=200
+body='{\n  "id": "cus_Q9XoyNwFzgmSwm",\n  "object": "customer",\n  "address": null,\n  "balance": 0,\n  "created": 1716382604,\n  "currency": null,\n  "default_source": null,\n  "delinquent": false,\n  "description": null,\n  "discount": null,\n  "email": "mmm@gmail.com",\n  "invoice_prefix": "37F1A073",\n  "invoice_settings": {\n    "custom_fields": null,\n    "default_payment_method": null,\n    "footer": null,\n    "rendering_options": null\n  },\n  "livemode": false,\n  "metadata": {},\n  "name": "MML",\n  "phone": null,\n  "preferred_locales": [],\n  "shipping": null,\n  "tax_exempt": "none",\n  "test_clock": null\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_UzA1eJOnoHx9sg message='Dashboard link for request'
+User MML  mmm@gmail.com  create an account in stripe
+http://localhost:8888 "POST /payment/customer HTTP/1.1" 201 43
+get All users Info 
+User MML client login
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\documents.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py changed, reloading.
