@@ -180,22 +180,3 @@ REST_FRAMEWORK = {
 
 
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(parent_dir, 'logfile.txt'),
-        },
-    },
-    'loggers': {
-        '': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}

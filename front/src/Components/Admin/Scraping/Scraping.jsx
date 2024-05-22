@@ -12,10 +12,16 @@ function Scraping() {
   const [customDate, setCustomDate] = useState("");// la date personnalisée
   const [selectedUrls, setSelectedUrls] = useState([]);// stocker les URLs sélectionnées
   const [showOptions, setShowOptions] = useState(false);// l'affichage des options
-  const [legalText, setLegalText] = useState("");
+  const [showOptions2, setShowOptions2] = useState(false);// l'affichage des options
+  const [legalText, setLegalText] = useState([]);
 
 const handleLegalTextChange = (event) => {
-    setLegalText(event.target.value);
+    const value = event.target.value;
+    if (event.target.checked) {
+      setLegalText([...legalText, value]);
+    } else {
+      setLegalText(legalText.filter(url => url !== value));
+    }
   };
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -60,6 +66,9 @@ const handleLegalTextChange = (event) => {
  const handleDisplayOptions = () => {
     setShowOptions(!showOptions);
   };
+  const handleDisplayOptions2 = () => {
+    setShowOptions2(!showOptions2);
+  };
   const urlOptions = [
     { name: "url1", url: "https://www.futura-sciences.com." },
     { name: "url2", url: "https://www.futura-sciences.com." },
@@ -67,6 +76,12 @@ const handleLegalTextChange = (event) => {
     { name: "url4", url: "https://www.futura-sciences.com." },
     { name: "url5", url: "https://www.futura-sciences.com." }
   ];
+  const urlOptions2 = [
+    { name: "نصوص قانونية ", url: "https://www.futura-sciences.com." },
+    { name: " الاجتهادات القضائية", url: "https://www.futura-sciences.com." }
+   
+  ];
+
   const frequencyOptions = [
     { label: "يوميا", value: "daily" },
     { label: "أسبوعيا", value: "weekly" },
@@ -144,18 +159,33 @@ const handleLegalTextChange = (event) => {
                   <h4>ملأ المعلومات الأساسية</h4>
                   <div className='scraping form'>
                     <form >
+                     
                       <div className='scraping-info'>
-                      <input
-                          type="text"
-                          id="textjuridique"
-                          name="textjuridique"
-                          placeholder=' النص القانوني ....'
-                          className='scraping-info-item'
-                          value={legalText}
-                          onChange={handleLegalTextChange}
-                          required
-                        />
+                        
+                        <div className="display-options" >
+                        <div className='titre-url'>
+                          <p> النص القانوني .... </p> 
+                        </div>
+                          <ExpandMoreIcon  onClick={handleDisplayOptions2} />
+                          <i className="fa fa-chevron-down"></i>
+                        </div>
+                        <div className="checkbox-options" style={{ display: showOptions2 ? 'block' : 'none' }}>
+                            {urlOptions2.map((legalText, index) => (
+                              <div key={index}>
+                                <input
+                              type="checkbox"
+                              name={legalText.name}
+                              value={legalText.name}
+                              onChange={handleLegalTextChange}
+                            />
+                            {legalText.name}
+                          </div>
+                        ))}
+                        </div>
+                        
                       </div>
+
+
                       <div className='scraping-info'>
                         
                         <div className="display-options" >

@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import JuridicalText, Adjutstement, OfficialJournal
+from .models import IntrestDomain, JuridicalText, Adjutstement, OfficialJournal, Scrapping
 
 admin.site.register(JuridicalText)
 admin.site.register(Adjutstement)
 admin.site.register(OfficialJournal)
-# Register your models here.
+admin.site.register(Scrapping)
+admin.site.register(IntrestDomain)

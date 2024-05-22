@@ -26,7 +26,6 @@ def signup(request):
         data['etat'] = 'Active'
         data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
         serializer = CustomUserSerializer(data=data)
-        logger.info(f'User {user.username}  signed up as a client')
         if serializer.is_valid():
             user = serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -50,7 +49,7 @@ def login(request):
           
     else:
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
-    logger.info(f'User {user.username} {user.role} login')
+    
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -159,6 +158,7 @@ def activateUser(request):
         
         user.etat = CustomUser.ACTIVE  # Set user's state to Active
         user.save()
+        logger.info(f'User {user.username}  activated successfully')
         
         return Response({'message': 'User activated successfully'}, status=status.HTTP_200_OK)
 
@@ -173,5 +173,6 @@ def blockUser(request):
         
         user.etat = CustomUser.NOT_ACTIVE  # Set user's state to Not Active
         user.save()
+        logger.info(f'User {user.username}  User blocked successfully')
         
         return Response({'message': 'User blocked successfully'}, status=status.HTTP_200_OK)

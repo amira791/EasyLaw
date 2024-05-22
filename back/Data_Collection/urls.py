@@ -11,6 +11,8 @@ urlpatterns = [
     #re_path('Ocr', views.ocrTest),
     re_path('details', views.redirect_to_pdf),
 
+    re_path('recentScrap' , views.scrap_recent_juridical_texts) ,
+
 
 
     re_path('updateJT',views.update_juridical_text ) ,
