@@ -919,3 +919,7 @@ Watching for file changes with StatReloader
 get All users Info 
 User USER client login
 User USER client logout  
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\User\views.py changed, reloading.
+Watching for file changes with StatReloader
