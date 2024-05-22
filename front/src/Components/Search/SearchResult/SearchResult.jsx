@@ -113,6 +113,7 @@ function SearchResult() {
       <div className='searchResult'>
         <h1>نتائج البحث</h1>
         <div className="searchResult-container">
+          <p  className="rslt_text" >{results.length} نتيجة</p>
           {currentResults.map(result => (
             <SearchC key={result.id_text} result={result} />
            
