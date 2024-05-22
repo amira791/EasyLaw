@@ -21,13 +21,11 @@ class JuridicalTextDocument(Document):
         name = 'juridical_texts'
         settings = {
             'number_of_shards': 1,
-            'number_of_replicas': 0,
+            'number_of_replicas': 1,
             'analysis': {
                 'analyzer': {
                     'custom_arabic_analyzer': {
-                     'type': 'custom', 
-                    'tokenizer': 'arabic', 
-                    'filter': ['lowercase', 'arabic_normalization']  
+                        'type': 'arabic'
                     }
                 }
             }
