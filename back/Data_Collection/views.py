@@ -9,7 +9,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from PyPDF2 import PdfReader ,PdfWriter
 from django.http import FileResponse
 from datetime import datetime
-from .models import JuridicalText, Adjutstement, OfficialJournal
+from .models import IntrestDomain, JuridicalText, Adjutstement, OfficialJournal, Scrapping
 from django.http import HttpResponse
 from rest_framework import status
 import re
@@ -361,14 +361,10 @@ def scrap_jaraid():
             if response.status_code == 200:
                 with open(save_path, 'wb') as file:
                     file.write(response.content)
-                print(f'PDF file downloaded successfully: {save_path}')
-                return save_path  # Return the filename if downloaded
             else:
-                print(f'Failed to download PDF file: {pdf_url}')
-        else:
-            print(f'File already exists: {save_path}')
+                return False
 
-        return None  # Return None if the file was not downloaded
+        return True  # Return None if the file was not downloaded
 
     # List to store the filenames of downloaded PDFs
     downloaded_files = []
@@ -377,6 +373,7 @@ def scrap_jaraid():
 
     # Determine the maximum PDF number for each year (you need to know this information)
     max_pdf_number = 150  # Update this with the actual maximum PDF number for each year
+    max_tries = 10
 
     # Create directory for the year if it doesn't exist
     year_directory = os.path.join(base_path, str(year))
@@ -389,11 +386,18 @@ def scrap_jaraid():
     
         save_path = os.path.join(year_directory, f'A{year}{str(pdf_number).zfill(3)}.pdf')
 
+        downloaded_file = False
+        attempts = 0
         # Download the PDF file and add the filename to the list if downloaded
-        downloaded_file = download_pdf(pdf_url, save_path)
+        while not downloaded_file and attempts <= max_tries:
+            downloaded_file = download_pdf(pdf_url, save_path)
+            attempts = attempts+1
         if downloaded_file:
             file_path = f'/files/JOs/{year}/A{year}{str(pdf_number).zfill(3)}.pdf'
             downloaded_files.append({"year": year, "number": pdf_number, "file_path": file_path})
+        else: 
+            return False
+    
 
     # Print the list of downloaded files if not empty
     if len(downloaded_files) > 0:
@@ -414,19 +418,21 @@ def scrap_jaraid():
         # Use bulk_create to insert all entries at once
         OfficialJournal.objects.bulk_create(official_journal_entries)
 
-    else:
-        print('No files were downloaded.')
+    return True
 
 
 @api_view(['POST'])
 def scrap_recent_juridical_texts(request):
 
-    #scrap_jaraid()
+    #try:
+    #     scrap_jaraid()
+    # except Exception as e:
+    #     print(f"An error occurred: {e}")
+    #     return HttpResponse({"msg": "Error occured when scrapping official journals"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Initialize WebDriver
     try : 
         driver = webdriver.Chrome()
-
         # Navigate to the website
         driver.get("https://www.joradp.dz/HAR/Index.htm")
 
@@ -450,7 +456,7 @@ def scrap_recent_juridical_texts(request):
         wait.until(EC.presence_of_element_located((By.NAME, "znat")))
 
         max_publication_date = JuridicalText.objects.get_max_publication_date()
-        formatted_date_start = max_publication_date.strftime('%d/%m/%Y')
+        #formatted_date_start = max_publication_date.strftime('%d/%m/%Y')
         
         today = datetime.today()
         formated_date_end = today.strftime('%d/%m/%Y')
@@ -459,7 +465,7 @@ def scrap_recent_juridical_texts(request):
 
         starting_date_input = driver.find_element(By.XPATH, "/html/body/div/form/table[1]/tbody/tr[8]/td[2]/input[1]") 
         starting_date_input.clear()
-        starting_date_input.send_keys(formatted_date_start)
+        starting_date_input.send_keys('02/05/2024')
 
         ending_date_input = driver.find_element(By.XPATH, "/html/body/div/form/table[1]/tbody/tr[8]/td[2]/input[2]") 
         ending_date_input.clear()
@@ -489,6 +495,9 @@ def scrap_recent_juridical_texts(request):
         search_button.click()
     except TimeoutException:
         return HttpResponse({"msg": "crashed website"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return HttpResponse({"msg": "an error occured during the scraping"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
     try:
@@ -496,212 +505,223 @@ def scrap_recent_juridical_texts(request):
         wait.until(EC.presence_of_element_located((By.XPATH, "//tr[@bgcolor='#78a7b9']")))
     except TimeoutException:
         return HttpResponse({"msg": "crashed website"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return HttpResponse({"msg": "an error occured during the scraping"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-    text_clf = get_text_clf()
-    stop = False
-    while not stop:
-        error_element = driver.find_elements(By.CSS_SELECTOR, "h1")
+    try: 
+        text_clf = get_text_clf()
+        stop = False
+        while not stop:
+            error_element = driver.find_elements(By.CSS_SELECTOR, "h1")
 
-        # Check if the element's text matches
-        if len(error_element) > 0 and error_element[0].text == "Erreur de serveur":
-            return HttpResponse({"msg" : "crashed website"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
-        # Get all rows containing information for each juridical text
-        juridical_text_rows = driver.find_elements(
-            By.XPATH, "//tr[@bgcolor='#78a7b9']"
-        )
-            
-        for row in juridical_text_rows:
-            # Extract information for each juridical text
-            text_number = row.find_element(By.TAG_NAME, "a").get_attribute("title")
-            number_match = re.search(r'(\d+)', text_number)
-            text_id = number_match.group(1)
-            information_rows = row.find_elements(
-                By.XPATH, "./following-sibling::tr[position()<5]"
+            # Check if the element's text matches
+            if len(error_element) > 0 and error_element[0].text == "Erreur de serveur":
+                return HttpResponse({"msg" : "crashed website"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+            # Get all rows containing information for each juridical text
+            juridical_text_rows = driver.find_elements(
+                By.XPATH, "//tr[@bgcolor='#78a7b9']"
             )
-            # Initialize dictionary
-            info_dict = {}
-            info_dict["id_text"] = text_id
-            type_match = re.search(r'(.*?)\s(?:رقم|ممضي)', information_rows[0].text)
-            info_dict["type_text"] = type_match.group(1)
-            if "الجريدة الرسمية" in information_rows[1].text:
-                information_rows.insert(1, None)
-            # Extract signature date from row1
-            signature_date_match = re.search(r"\d+\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+\d{4}",
-                                                information_rows[0].text)
-            if signature_date_match:
-                signature_date = signature_date_match.group()
-                # Extract Arabic month name and convert it to its numerical representation
-                arabic_month = signature_date_match.group(1)
-                numerical_month = arabic_month_to_number[arabic_month]
-                # Extract day and year
-                day_year_match = re.search(r"(\d+)\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+(\d{4})", signature_date)
-                if day_year_match:
-                    day = day_year_match.group(1)
-                    year = day_year_match.group(3)
-                    # Convert to DD/MM/YYYY format
-                    day_month_year = f"{year}-{numerical_month}-{day}"
-                    info_dict["signature_date"] = day_month_year
-                else: info_dict["signature_date"] = None
-            else: info_dict["signature_date"] = None
-            
-            jt_number_match = re.search(r'رقم (\d+-\d+)', information_rows[0].text)
-
-            if jt_number_match:
-                jt_number = jt_number_match.group(1)
-                info_dict["jt_number"] = jt_number
-            else: info_dict["jt_number"] = None
-
-            if information_rows[1]:
-                info_dict["source"] = information_rows[1].text
-            else:
-                info_dict["source"] = None
-
-            # Extract official journal information from row3
-            page_match = re.search(r'الصفحة (\d+)', information_rows[2].text)
-            number_match = re.search(r'عدد (\d+)', information_rows[2].text)
-
-            if number_match:
-                info_dict["official_journal_number"] = number_match.group(1)
-            else: info_dict["official_journal_number"] = None
-
-            if page_match : 
-                info_dict["official_journal_page"] = page_match.group(1)
-            else :
-                info_dict["official_journal_page"] = None
-
-            
-            jo_date_match = re.search(r"\d+\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+\d{4}",
-                                                information_rows[2].text)
-            
-            if jo_date_match:
-                jo_date = jo_date_match.group()
-                # Extract Arabic month name and convert it to its numerical representation
-                arabic_month = jo_date_match.group(1)
-                numerical_month = arabic_month_to_number[arabic_month]
-                # Extract day and year
-                day_year_match = re.search(r"(\d+)\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+(\d{4})", jo_date)
-                if day_year_match:
-                    day = day_year_match.group(1)
-                    year = day_year_match.group(3)
-                    # Convert to DD/MM/YYYY format
-                    day_month_year = f"{year}-{numerical_month}-{day}"
-                    info_dict["publication_date"] = day_month_year
-                else: info_dict["publication_date"] = None
-            else: info_dict['publication_date'] = None
-        
-            if info_dict['publication_date'] :
-                # Extract description from row4
-                info_dict["description"] = information_rows[3].text
-                date_object = datetime.strptime(info_dict["publication_date"], '%Y-%m-%d')
-                info_dict["official_journal_year"] = date_object.year
-                info_dict["text_file"] = f'/files/JTs/{info_dict["id_text"]}.txt'
-
-                juridical_texts.append(info_dict)
-
-        adjustments = driver.find_elements(
-            By.XPATH, "//tr[./td[@bgcolor='#9ec7d7']]"
-        )
-
-        # Iterate over each row with a specific bgcolor attribute
-        for row in adjustments:
-            # Find the preceding row with the specified conditions
-            preceding_row = row.find_element(
-                By.XPATH,
-                "preceding-sibling::tr[./td[@colspan='5'] and ./td/font[@color='Maroon']][1]",
-            )
-
-            # Extract information from the preceding row
-            keyword = preceding_row.find_element(
-                By.XPATH, "./td[2]/font"
-            ).text.strip()
-
-            # Extract information from the current row
-            adjusting_text_number = row.find_element(
-                By.TAG_NAME, "a"
-            ).get_attribute("title")
-
-            number_match = re.search(r'(\d+)', adjusting_text_number)
-            adjusting_text_id = number_match.group(1)
-
-            adjusted_text = row.find_element(
-                By.XPATH, "preceding-sibling::tr[@bgcolor='#78a7b9'][1]"
-            )
-            adjusted_text_number = adjusted_text.find_element(
-                By.TAG_NAME, "a"
-            ).get_attribute("title")
-
-            number_match = re.search(r'(\d+)', adjusted_text_number)
-            adjusted_text_id = number_match.group(1)
-
-            adj_dict = {
-                "adjusted_num": adjusted_text_id,
-                "adjustment_type": keyword,
-                "adjusting_num": adjusting_text_id,
-            }
-            adjustments_associations.append(adj_dict)
-        next_page_button = driver.find_elements(
-            By.XPATH, "//a[contains(@href, \"Sauter('a',3)\")]"
-        )
-        if len(next_page_button) > 0:
-            next_page_button[0].click()
-        else:
-            stop = True 
-
-    # Split juridical_texts into smaller lists
-    chunk_size = 3000
-    juridical_data_chunks = [juridical_texts[i:i + chunk_size] for i in range(0, len(juridical_texts), chunk_size)]
-
-    query_response = []
-    # Insert juridical_data_chunks into the database
-    for chunk in juridical_data_chunks:
-        juridical_data = []
-        for data in chunk:
-            try:
-                official_journal = OfficialJournal.objects.get(number=data['official_journal_number'], year=data['official_journal_year'])
-                jt = JuridicalText(
-                    id_text=data['id_text'],
-                    type_text=data['type_text'],
-                    signature_date=data['signature_date'],
-                    publication_date=data['publication_date'],
-                    jt_number=data['jt_number'],
-                    source=data['source'],
-                    official_journal=official_journal,
-                    official_journal_page=int(data['official_journal_page']),
-                    description=data['description'],
-                    text_file=data['text_file']
+                
+            for row in juridical_text_rows:
+                # Extract information for each juridical text
+                text_number = row.find_element(By.TAG_NAME, "a").get_attribute("title")
+                number_match = re.search(r'(\d+)', text_number)
+                text_id = number_match.group(1)
+                information_rows = row.find_elements(
+                    By.XPATH, "./following-sibling::tr[position()<5]"
                 )
-                extracted_text = ocr(jt)
-                jt.extracted_text = extracted_text
-                data['extrated_text'] = extracted_text
-                query_response.append(data)
-                juridical_data.append(jt)
-            except OfficialJournal.DoesNotExist:
-                print(data['official_journal_number'], data['official_journal_year'])
-        # Bulk create the instances into the database
-        JuridicalText.objects.bulk_create(juridical_data)
-    
+                # Initialize dictionary
+                info_dict = {}
+                info_dict["id_text"] = text_id
+                type_match = re.search(r'(.*?)\s(?:رقم|ممضي)', information_rows[0].text)
+                info_dict["type_text"] = type_match.group(1)
+                if "الجريدة الرسمية" in information_rows[1].text:
+                    information_rows.insert(1, None)
+                # Extract signature date from row1
+                signature_date_match = re.search(r"\d+\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+\d{4}",
+                                                    information_rows[0].text)
+                if signature_date_match:
+                    signature_date = signature_date_match.group()
+                    # Extract Arabic month name and convert it to its numerical representation
+                    arabic_month = signature_date_match.group(1)
+                    numerical_month = arabic_month_to_number[arabic_month]
+                    # Extract day and year
+                    day_year_match = re.search(r"(\d+)\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+(\d{4})", signature_date)
+                    if day_year_match:
+                        day = day_year_match.group(1)
+                        year = day_year_match.group(3)
+                        # Convert to DD/MM/YYYY format
+                        day_month_year = f"{year}-{numerical_month}-{day}"
+                        info_dict["signature_date"] = day_month_year
+                    else: info_dict["signature_date"] = None
+                else: info_dict["signature_date"] = None
+                
+                jt_number_match = re.search(r'رقم (\d+-\d+)', information_rows[0].text)
 
-    # Split adjustments_associations into smaller lists
-    adjustment_data_chunks = [adjustments_associations[i:i + chunk_size] for i in range(0, len(adjustments_associations), chunk_size)]
+                if jt_number_match:
+                    jt_number = jt_number_match.group(1)
+                    info_dict["jt_number"] = jt_number
+                else: info_dict["jt_number"] = None
 
-    # Insert adjustment_data_chunks into the database
-    for chunk in adjustment_data_chunks:
-        adjustment_data = []
-        for data in chunk:
-            # Create Adjustment instances using retrieved JuridicalText instances
-            adjustment = Adjutstement(
-                adjusted_num=data['adjusted_num'],
-                adjusting_num=data['adjusting_num'],
-                adjustment_type=data['adjustment_type']
+                if information_rows[1]:
+                    info_dict["source"] = information_rows[1].text
+                else:
+                    info_dict["source"] = None
+
+                # Extract official journal information from row3
+                page_match = re.search(r'الصفحة (\d+)', information_rows[2].text)
+                number_match = re.search(r'عدد (\d+)', information_rows[2].text)
+
+                if number_match:
+                    info_dict["official_journal_number"] = number_match.group(1)
+                else: info_dict["official_journal_number"] = None
+
+                if page_match : 
+                    info_dict["official_journal_page"] = page_match.group(1)
+                else :
+                    info_dict["official_journal_page"] = None
+
+                
+                jo_date_match = re.search(r"\d+\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+\d{4}",
+                                                    information_rows[2].text)
+                
+                if jo_date_match:
+                    jo_date = jo_date_match.group()
+                    # Extract Arabic month name and convert it to its numerical representation
+                    arabic_month = jo_date_match.group(1)
+                    numerical_month = arabic_month_to_number[arabic_month]
+                    # Extract day and year
+                    day_year_match = re.search(r"(\d+)\s+(يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|غشت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+(\d{4})", jo_date)
+                    if day_year_match:
+                        day = day_year_match.group(1)
+                        year = day_year_match.group(3)
+                        # Convert to DD/MM/YYYY format
+                        day_month_year = f"{year}-{numerical_month}-{day}"
+                        info_dict["publication_date"] = day_month_year
+                    else: info_dict["publication_date"] = None
+                else: info_dict['publication_date'] = None
+            
+                if info_dict['publication_date'] :
+                    # Extract description from row4
+                    info_dict["description"] = information_rows[3].text
+                    date_object = datetime.strptime(info_dict["publication_date"], '%Y-%m-%d')
+                    info_dict["official_journal_year"] = date_object.year
+                    info_dict["text_file"] = f'/files/JTs/{info_dict["id_text"]}.txt'
+
+                    juridical_texts.append(info_dict)
+
+            adjustments = driver.find_elements(
+                By.XPATH, "//tr[./td[@bgcolor='#9ec7d7']]"
             )
-            adjustment_data.append(adjustment)
 
-        # Bulk create the instances into the database
-        Adjutstement.objects.bulk_create(adjustment_data)
+            # Iterate over each row with a specific bgcolor attribute
+            for row in adjustments:
+                # Find the preceding row with the specified conditions
+                preceding_row = row.find_element(
+                    By.XPATH,
+                    "preceding-sibling::tr[./td[@colspan='5'] and ./td/font[@color='Maroon']][1]",
+                )
 
-    print("data inserted")
+                # Extract information from the preceding row
+                keyword = preceding_row.find_element(
+                    By.XPATH, "./td[2]/font"
+                ).text.strip()
 
-    # Close the WebDriver
-    driver.quit()
-    return HttpResponse(query_response, status = status.HTTP_201_CREATED)
-    # Create your views here.
+                # Extract information from the current row
+                adjusting_text_number = row.find_element(
+                    By.TAG_NAME, "a"
+                ).get_attribute("title")
+
+                number_match = re.search(r'(\d+)', adjusting_text_number)
+                adjusting_text_id = number_match.group(1)
+
+                adjusted_text = row.find_element(
+                    By.XPATH, "preceding-sibling::tr[@bgcolor='#78a7b9'][1]"
+                )
+                adjusted_text_number = adjusted_text.find_element(
+                    By.TAG_NAME, "a"
+                ).get_attribute("title")
+
+                number_match = re.search(r'(\d+)', adjusted_text_number)
+                adjusted_text_id = number_match.group(1)
+
+                adj_dict = {
+                    "adjusted_num": adjusted_text_id,
+                    "adjustment_type": keyword,
+                    "adjusting_num": adjusting_text_id,
+                }
+                adjustments_associations.append(adj_dict)
+            next_page_button = driver.find_elements(
+                By.XPATH, "//a[contains(@href, \"Sauter('a',3)\")]"
+            )
+            if len(next_page_button) > 0:
+                next_page_button[0].click()
+            else:
+                stop = True 
+
+        # Split juridical_texts into smaller lists
+        chunk_size = 3000
+        juridical_data_chunks = [juridical_texts[i:i + chunk_size] for i in range(0, len(juridical_texts), chunk_size)]
+
+        query_response = []
+        # Insert juridical_data_chunks into the database
+        for chunk in juridical_data_chunks:
+            juridical_data = []
+            for data in chunk:
+                try:
+                    official_journal = OfficialJournal.objects.get(number=data['official_journal_number'], year=data['official_journal_year'])
+                    jt = JuridicalText(
+                        id_text=data['id_text'],
+                        type_text=data['type_text'],
+                        signature_date=data['signature_date'],
+                        publication_date=data['publication_date'],
+                        jt_number=data['jt_number'],
+                        source=data['source'],
+                        official_journal=official_journal,
+                        official_journal_page=int(data['official_journal_page']),
+                        description=data['description'],
+                        text_file=data['text_file']
+                    )
+                    extracted_text = ocr(jt)
+                    jt.extracted_text = extracted_text
+                    domain_name = text_clf.predict([jt.description])[0]
+                    jt.intrest = IntrestDomain.objects.get(name = domain_name)
+                    data['extrated_text'] = extracted_text
+                    data['intrest_domain'] = domain_name
+                    query_response.append(data)
+                    juridical_data.append(jt)
+                except OfficialJournal.DoesNotExist:
+                    print(data['official_journal_number'], data['official_journal_year'])
+            # Bulk create the instances into the database
+            JuridicalText.objects.bulk_create(juridical_data)
+        
+
+        # Split adjustments_associations into smaller lists
+        adjustment_data_chunks = [adjustments_associations[i:i + chunk_size] for i in range(0, len(adjustments_associations), chunk_size)]
+
+        # Insert adjustment_data_chunks into the database
+        for chunk in adjustment_data_chunks:
+            adjustment_data = []
+            for data in chunk:
+                # Create Adjustment instances using retrieved JuridicalText instances
+                adjustment = Adjutstement(
+                    adjusted_num=data['adjusted_num'],
+                    adjusting_num=data['adjusting_num'],
+                    adjustment_type=data['adjustment_type']
+                )
+                adjustment_data.append(adjustment)
+
+            # Bulk create the instances into the database
+            Adjutstement.objects.bulk_create(adjustment_data)
+
+        print("data inserted")
+
+        # Close the WebDriver
+        driver.quit()
+        return HttpResponse(query_response, status = status.HTTP_201_CREATED)
+        # Create your views here.
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return HttpResponse({"msg": "an error occured during the scraping"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
