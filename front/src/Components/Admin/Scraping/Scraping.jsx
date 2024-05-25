@@ -4,9 +4,10 @@ import LogoAdmin from '../../LOGO/LogoAdmin';
 import TitleBar from '../../TitleBar/TitleBar';
 import FooterAdmin from '../../Footer/FooterAdmin';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import useScrapping from '../../../Hooks/useScrapping';
+import { useNavigate } from 'react-router-dom';
 function Scraping() {
-  
+  const  {  results , errorMessage , loading , startScrapping , recentScrapping } = useScrapping() 
   const [selectedOption, setSelectedOption] = useState("periodically"); //stocker l'option sélectionnée
   const [frequency, setFrequency] = useState(""); // la fréquence sélectionnée
   const [customDate, setCustomDate] = useState("");// la date personnalisée
@@ -14,6 +15,7 @@ function Scraping() {
   const [showOptions, setShowOptions] = useState(false);// l'affichage des options
   const [showOptions2, setShowOptions2] = useState(false);// l'affichage des options
   const [legalText, setLegalText] = useState([]);
+  const navigate = useNavigate();
 
 const handleLegalTextChange = (event) => {
     const value = event.target.value;
@@ -52,6 +54,8 @@ const handleLegalTextChange = (event) => {
     }
   };
   const handleStartScraping = () => {
+
+    
     const scrapingData = {
         selectedOption: selectedOption,
         frequency: frequency,
@@ -60,7 +64,14 @@ const handleLegalTextChange = (event) => {
         legalText:legalText
       };
     // Envoyer les informations au backend
+    if( legalText.length > 0 && selectedUrls.length >0  ) {
+
+      startScrapping() 
+
+
+    }
     console.log(scrapingData);
+
    
   };
  const handleDisplayOptions = () => {
@@ -70,16 +81,10 @@ const handleLegalTextChange = (event) => {
     setShowOptions2(!showOptions2);
   };
   const urlOptions = [
-    { name: "url1", url: "https://www.futura-sciences.com." },
-    { name: "url2", url: "https://www.futura-sciences.com." },
-    { name: "url3", url: "https://www.futura-sciences.com." },
-    { name: "url4", url: "https://www.futura-sciences.com." },
-    { name: "url5", url: "https://www.futura-sciences.com." }
+    { name: "url1", url: "joradp.dz/HAR/Index.htm" }
   ];
   const urlOptions2 = [
-    { name: "نصوص قانونية ", url: "https://www.futura-sciences.com." },
-    { name: " الاجتهادات القضائية", url: "https://www.futura-sciences.com." }
-   
+    { name: "نصوص قانونية ", url: "joradp.dz/HAR/Index.htm" }   
   ];
 
   const frequencyOptions = [
@@ -87,6 +92,11 @@ const handleLegalTextChange = (event) => {
     { label: "أسبوعيا", value: "weekly" },
     { label: "شهريا", value: "monthly" }
   ];
+
+  const handleShowResults = () => {
+    navigate('/scrapingresult', { state: { results: results }});
+  }
+
   return (
     <>
       <LogoAdmin title="صفحة الاشراف "/>
@@ -214,7 +224,26 @@ const handleLegalTextChange = (event) => {
                   </div>
               </div>
           </div>
-          <button className='btn-scraping' onClick={handleStartScraping}>بدأ عملية الكشط و البحث </button>
+          {Object.keys(recentScrapping).length > 0 && (
+            <div className="scrapping-container">
+                <div className={`scrapping-item ${recentScrapping.state}`}>
+                    <p>Date: {recentScrapping.date}</p>
+                    <p>Status: {recentScrapping.state}</p>
+                </div>
+            </div>
+          )}
+          <div className='scraping-btn-container'>
+            <button className='btn-scraping' onClick={handleStartScraping}>بدأ عملية الكشط و البحث </button>
+            {recentScrapping.state === 'success' && (
+              <button
+                className='btn-scraping'
+                onClick={handleShowResults}
+              >
+                عرض النتائج
+              </button>
+            )}
+
+          </div>
       </div>
       <FooterAdmin/>
     </>

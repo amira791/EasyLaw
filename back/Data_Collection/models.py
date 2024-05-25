@@ -9,6 +9,7 @@ class Scrapping(models.Model):
     STATE_CHOICES = (
         ('failed', 'Failed'),
         ('success', 'Success'),
+        ('loading', 'Loading'),
     )
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     date = models.DateField(default=timezone.now, null=True)

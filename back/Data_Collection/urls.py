@@ -16,7 +16,7 @@ urlpatterns = [
 
 
     re_path('updateJT',views.update_juridical_text ) ,
-    re_path(r'^scrappings/(?P<user_id>\d+)/$', views.get_user_scrappings),
+    re_path(r'^scrappings/', views.get_user_scrappings),
     re_path(r'^juridical_texts/(?P<scrapping_id>\d+)/$', views.scrapping_juridical_texts) ,
     re_path('createAdjust',views.create_adjustment ) ,
     re_path(r'^getJT/(?P<id_text>\d+)/$',views.get_juridical_text) ,

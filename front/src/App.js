@@ -88,7 +88,7 @@ function App() {
         <Route path="/profileadmin" element={<ProfileAdmin/>} />
         <Route path="/profilemoderateur" element={<ProfileModerateur/>} />
         <Route path="/tarification" element={<Tarification/>} />
-        <Route path="/scrapingupdate" element={<ScrapingUpdate/>} />
+        <Route path="/scrapingupdate/:id_text" element={<ScrapingUpdate/>} />
         
 
         

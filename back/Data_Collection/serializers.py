@@ -1,5 +1,10 @@
 from rest_framework import serializers
-from .models import Adjutstement, JuridicalText, Scrapping
+from .models import Adjutstement, JuridicalText, OfficialJournal, Scrapping
+
+
+
+
+
 
 class JuridicalTextSerializer(serializers.ModelSerializer):
     class Meta:
@@ -7,7 +12,14 @@ class JuridicalTextSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class OfficialJournalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OfficialJournal
+        fields = ['number', 'year']
+
 class JuridicalTextSerializer(serializers.ModelSerializer):
+    official_journal = OfficialJournalSerializer()
+
     class Meta:
         model = JuridicalText
         fields = [
@@ -26,11 +38,40 @@ class JuridicalTextSerializer(serializers.ModelSerializer):
             'scrapping'
         ]
 
+    def update(self, instance, validated_data):
+        official_journal_data = validated_data.pop('official_journal', None)
+        
+        # Update the JuridicalText instance fields
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        
+        # Update or create the nested OfficialJournal instance
+        if official_journal_data:
+            official_journal_instance, created = OfficialJournal.objects.get_or_create(
+                id=instance.official_journal.id,
+                defaults=official_journal_data
+            )
+            if not created:
+                for attr, value in official_journal_data.items():
+                    setattr(official_journal_instance, attr, value)
+                official_journal_instance.save()
+            
+            instance.official_journal = official_journal_instance
+
+        instance.save()
+        return instance
+    
 
 class ScrappingSerializer(serializers.ModelSerializer):
+    date_only = serializers.SerializerMethodField()
+
     class Meta:
         model = Scrapping
-        fields = ['id', 'user', 'date']
+        fields = ['id', 'user', 'date', 'state', 'date_only']  # Include 'state' in the fields
+
+    def get_date_only(self, obj):
+        return obj.date
+
 
 
 class AdjustmentSerializer(serializers.ModelSerializer):

@@ -18,6 +18,7 @@ export default function useUser() {
     const logout = async () => {
       try {
         const response = await userApiClient.post(`/logout/`, null, {
+      
           headers: {
             'Authorization': `Token ${localStorage.getItem('access_token')}`
           }

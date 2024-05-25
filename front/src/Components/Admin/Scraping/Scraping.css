@@ -346,3 +346,39 @@ font-size: 14px;
 color: black; 
 
 }
+
+
+
+/* App.css */
+
+.scrapping-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scrapping-item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: white;
+}
+
+.scrapping-item.loading {
+  background-color: #f0ad4e;
+}
+
+.scrapping-item.success {
+  background-color: #5cb85c;
+}
+
+.scrapping-item.failed {
+  background-color: #d9534f;
+}
+
+.scraping-btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adjust the gap between buttons as needed */
+  margin: 10px 0; /* Optional: Add margin to the container for spacing */
+}

@@ -15,6 +15,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from PyPDF2 import PdfReader ,PdfWriter
 from django.http import FileResponse
 from datetime import datetime
+
+from User.serializers import CustomUserSerializer
 from .models import IntrestDomain, JuridicalText, Adjutstement, OfficialJournal, Scrapping
 from User.models import CustomUser
 from .models import JuridicalText, Adjutstement, OfficialJournal, Scrapping
@@ -46,6 +48,7 @@ from permissions import is_Allowed
 from fuzzywuzzy import process
 from .classifier import get_text_clf
 from datetime import timedelta
+from rest_framework.authtoken.models import Token
 
 #les expressions réguliéres
 patterns = [
@@ -307,7 +310,7 @@ def initial_jt_filling(request):
 
         # Check if the element's text matches
         if len(error_element) > 0 and error_element[0].text == "Erreur de serveur":
-            return HttpResponse({"msg" : "crashed website"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"msg" : "crashed website"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         print("wchbiiiik")
 
@@ -385,7 +388,7 @@ def initial_jt_filling(request):
         i = i+1
     # Close the WebDriver
     driver.quit()
-    return HttpResponse({"msg" : "successfuly inserted"}, status = status.HTTP_201_CREATED)
+    return Response({"msg" : "successfuly inserted"}, status = status.HTTP_201_CREATED)
     # Create your views here.
 
 
@@ -539,10 +542,10 @@ def redirect_to_pdf(request):
             return response
         else:
             # Handle the case where the PDF file does not exist
-            return HttpResponse("Le fichier PDF demandé n'existe pas.", status=404)
+            return Response("Le fichier PDF demandé n'existe pas.", status=404)
     else:
         # Handle the case where parameters are missing
-        return HttpResponse("Paramètres manquants.", status=400)
+        return Response("Paramètres manquants.", status=400)
 
 
 
@@ -774,15 +777,22 @@ def scrap_jaraid():
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def scrap_recent_juridical_texts(request):
-
+    if request.user.role == "client":
+        return Response({"msg": "You're not allowed"}, status=status.HTTP_403_FORBIDDEN)
     try:
+        user_id = request.user.id
+        user = CustomUser.objects.get(id = user_id)
+        scrappin = Scrapping.objects.create(user = user, state = 'loading')
         resposnse = scrap_jaraid()
         if not resposnse :
-            return HttpResponse({"msg": "Error occured when scrapping official journals"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"msg": "Error occured when scrapping official journals"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     except Exception as e:
         print(f"An error occurred: {e}")
-        return HttpResponse({"msg": "Error occured when scrapping official journals"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        scrappin.state = 'failed'
+        scrappin.save()
+        return Response({"msg": "Error occured when scrapping official journals"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Initialize WebDriver
     try : 
@@ -851,20 +861,28 @@ def scrap_recent_juridical_texts(request):
         search_button = driver.find_element(By.XPATH, '//*[@id="b1"]/a')
         search_button.click()
     except TimeoutException:
-        return HttpResponse({"msg": "crashed website"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        scrappin.state = 'failed'
+        scrappin.save()
+        return Response({"msg": "crashed website"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     except Exception as e:
+        scrappin.state = 'failed'
+        scrappin.save()
         print(f"An error occurred: {e}")
-        return HttpResponse({"msg": "an error occured during the scraping"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"msg": "an error occured during the scraping"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
     try:
         # Wait for the presence of the element
         wait.until(EC.presence_of_element_located((By.XPATH, "//tr[@bgcolor='#78a7b9']")))
     except TimeoutException:
-        return HttpResponse({"msg": "crashed website"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        scrappin.state = 'failed'
+        scrappin.save()
+        return Response({"msg": "crashed website"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     except Exception as e:
+        scrappin.state = 'failed'
+        scrappin.save()
         print(f"An error occurred: {e}")
-        return HttpResponse({"msg": "an error occured during the scraping"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"msg": "an error occured during the scraping"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     try: 
         text_clf = get_text_clf()
@@ -874,7 +892,7 @@ def scrap_recent_juridical_texts(request):
 
             # Check if the element's text matches
             if len(error_element) > 0 and error_element[0].text == "Erreur de serveur":
-                return HttpResponse({"msg" : "crashed website"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({"msg" : "crashed website"}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
             # Get all rows containing information for each juridical text
             juridical_text_rows = driver.find_elements(
                 By.XPATH, "//tr[@bgcolor='#78a7b9']"
@@ -1021,7 +1039,6 @@ def scrap_recent_juridical_texts(request):
         chunk_size = 3000
         juridical_data_chunks = [juridical_texts[i:i + chunk_size] for i in range(0, len(juridical_texts), chunk_size)]
 
-        query_response = []
         # Insert juridical_data_chunks into the database
         for chunk in juridical_data_chunks:
             juridical_data = []
@@ -1044,9 +1061,9 @@ def scrap_recent_juridical_texts(request):
                     jt.extracted_text = extracted_text
                     domain_name = text_clf.predict([jt.description])[0]
                     jt.intrest = IntrestDomain.objects.get(name = domain_name)
+                    jt.scrapping = scrappin
                     data['extrated_text'] = extracted_text
                     data['intrest_domain'] = domain_name
-                    query_response.append(data)
                     juridical_data.append(jt)
                 except OfficialJournal.DoesNotExist:
                     print(data['official_journal_number'], data['official_journal_year'])
@@ -1074,15 +1091,18 @@ def scrap_recent_juridical_texts(request):
 
         print("data inserted")
 
+        scrappin.state = 'success'
+        scrappin.save()
         # Close the WebDriver
         driver.quit()
-        return HttpResponse(query_response, status = status.HTTP_201_CREATED)
+        scrap = ScrappingSerializer(scrappin)
+        return Response(scrap.data, status = status.HTTP_201_CREATED)
         # Create your views here.
     except Exception as e:
+        scrappin.state = 'failed'
+        scrappin.save()
         print(f"An error occurred: {e}")
-        return HttpResponse({"msg": "an error occured during the scraping"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-
+        return Response({"msg": "an error occured during the scraping"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 
@@ -1105,12 +1125,12 @@ def update_juridical_text(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
-def get_user_scrappings(request, user_id):
+def get_user_scrappings(request):
     try:
-        scrappings = Scrapping.objects.filter(user_id=user_id)
+        user_id = request.user.id
+        scrappings = Scrapping.objects.filter(user_id=user_id).order_by('-state')
         serializer = ScrappingSerializer(scrappings, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except CustomUser.DoesNotExist:

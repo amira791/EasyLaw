@@ -1,35 +1,92 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LogoModerateur from '../../LOGO/LogoModerateur';
 import TitleBar from '../../TitleBar/TitleBar';
 import FooterAdmin from '../../Footer/FooterAdmin';
 import './Scraping.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function ScrapingUpdate() {
-  const generateFormattedText = () => {
-    return `
-      <h5>مرسوم ممضي في 25 ديسمبر 1975</h5>
-      <p>وزارة الداخلية</p>
-      <p>الجريدة الرسمية عدد 1 مؤرخة في 02 يناير 1976، الصفحة 3</p>
-      <p>يتضمن إنهاء مهام مديرين بالمجالس التنفيذية للولايات.</p>
-
-      <h5>مرسوم ممضي في 25 ديسمبر 1975</h5>
-      <p>وزارة الداخلية</p>
-      <p>الجريدة الرسمية عدد 1 مؤرخة في 02 يناير 1976، الصفحة 3</p>
-      <p>يتضمن إنهاء مهام مديرين بالمجالس التنفيذية للولايات.</p>
-    `;
-  };
+  const { id_text } = useParams();
 
   const [formData, setFormData] = useState({
-    type: 'ABC',
-    number: '',
+    id_text: '',
+    type_text: '',
+    signature_date: '',
+    publication_date: '',
+    jt_number: '',
     source: '',
-    officialYear: '',
-    issueNumber: '',
-    signingDate: '',
-    publicationDate: '',
-    fullText: '',
+    official_journal: {
+      year: '',
+      number: ''
+    },
+    official_journal_page: '',
+    description: '',
+    extracted_text: '',
+    intrest: null,
+    scrapping: 1
   });
+
+  const [save, setSave] = useState({
+    id_text: '',
+    type_text: '',
+    signature_date: '',
+    publication_date: '',
+    jt_number: '',
+    source: '',
+    official_journal: {
+      year: '',
+      number: ''
+    },
+    official_journal_page: '',
+    description: '',
+    extracted_text: '',
+    intrest: null,
+    scrapping: 1
+  });
+
+  const [message, setMessage] = useState({ content: '', type: '' });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8888/data_collection/getJT/${id_text}/`);
+        const data = response.data;
+        setFormData({
+          id_text: data.id_text,
+          type_text: data.type_text,
+          signature_date: data.signature_date,
+          publication_date: data.publication_date,
+          jt_number: data.jt_number || '',
+          source: data.source,
+          official_journal: data.official_journal,
+          official_journal_page: data.official_journal_page || '',
+          description: data.description,
+          extracted_text: data.extracted_text,
+          intrest: data.intrest,
+          scrapping: data.scrapping
+        });
+        setSave({
+          id_text: data.id_text,
+          type_text: data.type_text,
+          signature_date: data.signature_date,
+          publication_date: data.publication_date,
+          jt_number: data.jt_number || '',
+          source: data.source,
+          official_journal: data.official_journal,
+          official_journal_page: data.official_journal_page || '',
+          description: data.description,
+          extracted_text: data.extracted_text,
+          intrest: data.intrest,
+          scrapping: data.scrapping
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [id_text]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,23 +96,49 @@ function ScrapingUpdate() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleOfficialJournalChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      official_journal: {
+        ...prevFormData.official_journal,
+        [name]: value
+      }
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Formulaire soumis avec les données :', formData);
-    resetForm();
+    try {
+      await axios.post('http://localhost:8888/data_collection/updateJT/', formData);
+      setMessage({ content: 'تم حفظ التعديلات بنجاح!', type: 'success' });
+    } catch (error) {
+      setMessage({ content: 'حدث خطأ أثناء حفظ التعديلات. حاول مرة أخرى.', type: 'error' });
+    }
   };
 
   const resetForm = () => {
     setFormData({
-      type: '',
-      number: '',
+      id_text: '',
+      type_text: '',
+      signature_date: '',
+      publication_date: '',
+      jt_number: '',
       source: '',
-      officialYear: '',
-      issueNumber: '',
-      signingDate: '',
-      publicationDate: '',
-      fullText: '',
+      official_journal: {
+        year: '',
+        number: ''
+      },
+      official_journal_page: '',
+      description: '',
+      extracted_text: '',
+      intrest: null,
+      scrapping: 1
     });
+  };
+
+  const cancelModifications = () => {
+    setFormData(save);
   };
 
   return (
@@ -72,8 +155,8 @@ function ScrapingUpdate() {
             <input
               className="scraping_input"
               type="text"
-              name="type"
-              value={formData.type}
+              name="type_text"
+              value={formData.type_text}
               onChange={handleChange}
               placeholder="مرسوم"
             />
@@ -83,8 +166,8 @@ function ScrapingUpdate() {
             <input
               className="scraping_input"
               type="text"
-              name="number"
-              value={formData.number}
+              name="jt_number"
+              value={formData.jt_number}
               onChange={handleChange}
               placeholder="88-234"
             />
@@ -97,7 +180,7 @@ function ScrapingUpdate() {
               name="source"
               value={formData.source}
               onChange={handleChange}
-              placeholder="وزارة الخارجية"
+              placeholder="المصدر"
             />
           </label>
         </div>
@@ -105,10 +188,10 @@ function ScrapingUpdate() {
         <input
           className="scraping_inputsect2"
           type="text"
-          name="fullText"
-          value={formData.fullText}
+          name="description"
+          value={formData.description}
           onChange={handleChange}
-          placeholder="يتضمن إنهاء مهام مديرين بالمجالس التنفيذية للولايات."
+          placeholder="الوصف"
         />
 
         <div className="scraping_updateContainer">
@@ -119,10 +202,10 @@ function ScrapingUpdate() {
                 style={{ width: '160px' }}
                 className="scraping_input"
                 type="text"
-                name="officialYear"
-                value={formData.officialYear}
-                onChange={handleChange}
-                placeholder="2024"
+                name="year"
+                value={formData.official_journal.year}
+                onChange={handleOfficialJournalChange}
+                placeholder="السنة"
               />
             </label>
             <label className="scraping_lable1">
@@ -131,10 +214,22 @@ function ScrapingUpdate() {
                 style={{ width: '100px' }}
                 className="scraping_input"
                 type="text"
-                name="issueNumber"
-                value={formData.issueNumber}
+                name="number"
+                value={formData.official_journal.number}
+                onChange={handleOfficialJournalChange}
+                placeholder=""
+              />
+            </label>
+            <label className="scraping_lable1">
+              الصفحة
+              <input
+                style={{ width: '100px' }}
+                className="scraping_input"
+                type="text"
+                name="official_journal_page"
+                value={formData.official_journal_page}
                 onChange={handleChange}
-                placeholder="23"
+                placeholder=""
               />
             </label>
           </div>
@@ -146,8 +241,8 @@ function ScrapingUpdate() {
                 style={{ width: '225px' }}
                 className="scraping_input"
                 type="date"
-                name="signingDate"
-                value={formData.signingDate}
+                name="signature_date"
+                value={formData.signature_date}
                 onChange={handleChange}
               />
             </label>
@@ -157,8 +252,8 @@ function ScrapingUpdate() {
                 style={{ width: '225px' }}
                 className="scraping_input"
                 type="date"
-                name="publicationDate"
-                value={formData.publicationDate}
+                name="publication_date"
+                value={formData.publication_date}
                 onChange={handleChange}
               />
             </label>
@@ -167,44 +262,53 @@ function ScrapingUpdate() {
           <div className="scraping_updateSection2">
             <label className="scraping_lable2">
               النص الكامل
-              <div
-                className="formatted-text"
-                dangerouslySetInnerHTML={{ __html: generateFormattedText() }}
+              <textarea
+                className="scraping_textarea"
+                name="extracted_text"
+                value={formData.extracted_text}
+                onChange={handleChange}
+                placeholder="النص الكامل"
+                rows={6}
               />
             </label>
           </div>
         </div>
-        <h5 style={{textAlign:'right',marginTop:'0',paddingTop:'0',color:'#374957'}}
-        >هل يعدل نصا قانونيا اخر؟ إن كان كذلك  يرجى ادخاله.</h5>
+        <h5 style={{ textAlign: 'right', marginTop: '0', paddingTop: '0', color: '#374957' }}>
+          هل يعدل نصا قانونيا اخر؟ إن كان كذلك  يرجى ادخاله.
+        </h5>
 
-<div className="scraping_update_btn scraping_update_button">
-<label className="scraping_lable">
-             النص
+        <div className="scraping_update_btn scraping_update_button">
+          <label className="scraping_lable">
+            النص
             <select
               className="scraping_input"
               type="text"
-              name="type"
-              value={formData.type}
+              name="type_text"
+              value={formData.type_text}
               onChange={handleChange}
               placeholder="مرسوم"
             >
               <option value="">النص</option>
-          <option value="يلغي">يلغي</option>
-          <option value="يلغي">يلغي</option>
+              <option value="يلغي">يلغي</option>
+              <option value="يلغي">يلغي</option>
             </select>
-</label>
-          <Link to="/" className="update_btn fullbtn"> <button type="submit">
-          اختر النص المعدل
-          </button></Link>
-          
+          </label>
+          <Link to="/" className="update_btn fullbtn">
+            <button type="button">اختر النص المعدل</button>
+          </Link>
         </div>
 
+        {message.content && (
+          <div className={`message ${message.type === 'success' ? 'success' : 'error'}`}>
+            {message.content}
+          </div>
+        )}
 
         <div className="scraping_update_button">
           <button className="update_btn" type="submit">
             حفظ التعديلات
           </button>
-          <button className="update_btn" type="button" onClick={resetForm}>
+          <button className="update_btn" type="button" onClick={cancelModifications}>
             إلغاء التعديلات
           </button>
         </div>
