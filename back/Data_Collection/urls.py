@@ -7,6 +7,6 @@ urlpatterns = [
     re_path('index_page', views.search_view.as_view()),
     re_path('types_sources', views.get_type_and_source),
     re_path('years', views.distinct_years),
-    #re_path('Ocr', views.ocrTest),
+    re_path('domaine', views.get_interest_domains),
     re_path('details', views.redirect_to_pdf),
 ]

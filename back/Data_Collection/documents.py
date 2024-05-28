@@ -4,17 +4,20 @@ from .models import JuridicalText, Adjutstement
 
 @registry.register_document
 class JuridicalTextDocument(Document):
-    # Define fields for Elasticsearch indexing
+    
     adjusted_texts = fields.NestedField(properties={
         'adjusted_num': fields.KeywordField(),
         'adjusting_num': fields.KeywordField(),
         'adjustment_type': fields.KeywordField(),
     })
 
-    # Define the field for official_journal
+
     official_journal = fields.ObjectField(properties={
         'number': fields.IntegerField(),
         'year': fields.IntegerField(),
+    })
+    intrest = fields.ObjectField(properties={
+        'name': fields.KeywordField(),
     })
 
     class Index:
@@ -25,9 +28,7 @@ class JuridicalTextDocument(Document):
             'analysis': {
                 'analyzer': {
                     'custom_arabic_analyzer': {
-                     'type': 'custom', 
-                    'tokenizer': 'arabic', 
-                    'filter': ['lowercase', 'arabic_normalization']  
+                        'type': 'arabic'
                     }
                 }
             }
@@ -37,6 +38,16 @@ class JuridicalTextDocument(Document):
         model = JuridicalText
         fields = ['id_text', 'type_text', 'signature_date', 'publication_date', 'jt_number',
                   'source', 'official_journal_page', 'description', 'extracted_text']
+    def get_interest(self, obj):
+        return {
+            'name': obj.intrest.name if obj.intrest else None,
+        }
+
+    def prepare_interest(self, instance):
+        interest_data = self.get_interest(instance)
+        return interest_data
+
+    
 
     def get_adjustments(self, obj):
         adjustments = Adjutstement.objects.filter(adjusted_num=obj.id_text).values('adjusting_num', 'adjustment_type')
@@ -71,5 +82,7 @@ class JuridicalTextDocument(Document):
                 'year': obj.official_journal.year,
                 
             }
+        # Include the interest domain information
+        data['intrest'] = self.prepare_interest(obj)
         
         return data

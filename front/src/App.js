@@ -35,6 +35,7 @@ import Facture from './Components/Profile/Facture';
 
 import { loadStripe } from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
+import Jaraid from './Components/jaraid/Jaraid';
 
 function App() {
 
@@ -77,6 +78,7 @@ function App() {
         <Route path="/mainmoderateur" element={<Main/>} />
         <Route path="/admin" element={<AdminMain/>} />
         <Route path="/profileadmin" element={<ProfileAdmin/>} />
+        <Route path="/jaraid" element={<Jaraid/>} />
         
         
         
