@@ -9,81 +9,13 @@ import usePayment from '../../../Hooks/usePayment';
 
 
 function Gpt({ currentPage, resultsPerPage }) {
- /* const [searchQuery, setSearchQuery] = useState('');
-  const [category, setCategory] = useState('');
-  const [source, setSource] = useState('');
-  const [date, setDate] = useState('');
-  const [fileType, setFileType] = useState('');
-  const navigate = useNavigate();
-
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
-    console.log('Recherche soumise avec la requête :', searchQuery);
-
-    try {
-      // Envoyer une requête HTTP GET au backend pour récupérer les résultats de recherche
-      const response = await axios.get(`http://localhost:8000/data_collection/index_page?q=${searchQuery}&sort_by=relevence&year=${date}`);
-      console.log('Résultats de la recherche:', response.data);
-      // Rediriger l'utilisateur vers la page de résultats de recherche avec les données récupérées
-      navigate('/searchresult', { state: { results: response.data } });
-    } catch (error) {
-      console.error('Erreur lors de la recherche:', error);
-    }
-  }
-
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const [category, setCategory] = useState('');
-  const [source, setSource] = useState('');
-  const [year, setDate] = useState('');
-  const [fileType, setFileType] = useState('');
-  const navigate = useNavigate();
-
-  const [sortBy, setSortBy] = useState();
-  const [results, setResults] = useState([]);
-
-  const { hasSubscription, setHasSubscription } = useContext(AuthContext);
-  const { getUserInvoices } = usePayment();
-  
-
-  const handleSearchSubmit = async (e) => {
-    //e.preventDefault();
-
-    const queryParams = {
-      q: searchQuery,
-      sort_by: sortBy, 
-      
-    };
-
-    try {
-      console.log(queryParams)
-      const response = await axios.get(
-        `http://localhost:8000/data_collection/index_page`,
-          { headers: {'Authorization': `Token ${localStorage.getItem('access_token')}`}
-            ,params: queryParams  } // Pass query params as an object
-          );
-      console.log('Utilisateur a un abonnement. Effectuer la recherche...');
-      console.log('Recherche soumise avec la requête :', searchQuery);
-      console.log('Résultats de la recherche:', response.data);
-      navigate('/searchresult', { state: { results: response.data } });
-      } catch (error) {
-        if (error.response?.status === 403) {
-          console.error('You are not allowed to search.');
-          navigate("/subscrib")
-        }
-        console.error('Erreur lors de la recherche:', error);
-      }
-  };
-  useEffect(() => {
-
-    handleSearchSubmit();
-  }, [sortBy]);*/
+    const [interestDomains, setInterestDomains] = useState([]);
+    const [interestDomain, setInterestDomain] = useState('');
     const [types, setTypes] = useState([]); // Declare types and setTypes
     const [sources, setSources] = useState([]); // Declare sources and setSources
     const [type, setType] = useState('');
     const [source, setSource] = useState('');
     const [year, setYear] = useState('');
-    const [domain, setDomain] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState();
     const [years, setYears] = useState([]); 
@@ -112,6 +44,16 @@ function Gpt({ currentPage, resultsPerPage }) {
   };
 
   fetchDistinctYears();
+  const fetchInterestDomains = async () => {
+    try {
+        const response = await axios.get('http://localhost:8000/data_collection/domaine');
+        setInterestDomains(response.data.interest_domains); // Correction ici
+    } catch (error) {
+        console.error('Error fetching distinct domaines:', error);
+    }
+};
+
+fetchInterestDomains();
      }, []);
     const handleSearchSubmit = async (e) => {
      e.preventDefault();
@@ -121,7 +63,7 @@ function Gpt({ currentPage, resultsPerPage }) {
         sort_by: sortBy,
         source:source,
         type:type,
-        domain:domain,
+        interestDomain: interestDomain,
         year:formattedDate,
         page: currentPage, 
        
@@ -242,6 +184,18 @@ function Gpt({ currentPage, resultsPerPage }) {
                       <option key={typeOption} value={typeOption}>{typeOption}</option>
                   ))}
             </select>
+            <select
+                    id="interestDomains"
+                    name="interestDomains"
+                    className='select_item'
+                    value={interestDomain} // Changez ici
+                    onChange={(e) => setInterestDomain(e.target.value)} // Et ici
+                    >
+                    <option value="">المجال</option>
+                    {interestDomains.map((domainOption) => (
+                        <option key={domainOption} value={domainOption}>{domainOption}</option>
+                    ))}
+                    </select>
         </div>
       </div>
     </div>

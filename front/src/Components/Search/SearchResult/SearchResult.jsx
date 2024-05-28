@@ -114,9 +114,9 @@ function SearchResult() {
               <p dangerouslySetInnerHTML={{ __html: result.description }} />
               <p>
                 {showFullText[result.id_text] ? (
-                  <span dangerouslySetInnerHTML={{ __html: result.text_file_content}} />
+                  <span dangerouslySetInnerHTML={{ __html: result.extracted_text }} />
                 ) : (
-                  <span dangerouslySetInnerHTML={{ __html: result.truncated_text_file_content}} />
+                  <span dangerouslySetInnerHTML={{ __html: result.truncated_text_file_content }} />
                 )}
               </p>
               <Link to={`http://127.0.0.1:8000/data_collection/details?official_journal_year=${result.official_journal_year}&official_journal_number=${result.official_journal_number}&official_journal_page=${result.official_journal_page}#page=${result.real_page}`} target="_blank">التفاصيل</Link>
