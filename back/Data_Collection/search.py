@@ -12,7 +12,7 @@ ELASTIC_HOST = 'http://localhost:9200/'
 # Create the client instance
 client = Elasticsearch(
     [ELASTIC_HOST],
-    basic_auth=('manel', '12345678'))
+    basic_auth=('nermine', '17161670'))
 # the search function
 def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
             sort_by=None, source=None, year=None, signature_date=None,
@@ -31,7 +31,8 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
     ).sort(sort)
     # Highlighting
     s = s.highlight('description', 'type_text', 'source', 'extracted_text','truncated_text_file_content', pre_tags="<mark>", post_tags="</mark>")
-    
+    # Autocomplétion
+    s = s.suggest('description_suggest', 'description.suggest', query)
     # Pagination
     s = s[(page - 1) * page_size: page * page_size]
    # Ajout des filtres supplémentaires
@@ -56,7 +57,7 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
     results = s.execute()
     results_length = len(results)
     q_results = []
-    with open(r'C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\sheetsresult.json', 'r') as file:
+    with open(r'c:\Users\Amatek\Downloads\sheetsresult.json', 'r') as file:
          pagination_info = json.load(file)
         
     for hit in results:

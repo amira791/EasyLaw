@@ -330,3 +330,106 @@ http://localhost:9200 "POST /juridical_texts/_search HTTP/1.1" 200 None
 POST http://localhost:9200/juridical_texts/_search [status:200 duration:5.236s]
 C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py changed, reloading.
 Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "POST /juridical_texts/_search HTTP/1.1" 200 None
+POST http://localhost:9200/juridical_texts/_search [status:200 duration:5.190s]
+http://localhost:9200 "POST /juridical_texts/_search HTTP/1.1" 200 None
+POST http://localhost:9200/juridical_texts/_search [status:200 duration:5.643s]
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\documents.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\documents.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py changed, reloading.
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "GET /_alias HTTP/1.1" 200 0
+GET http://localhost:9200/_alias [status:200 duration:0.250s]
+http://localhost:9200 "DELETE /juridical_texts HTTP/1.1" 200 0
+DELETE http://localhost:9200/juridical_texts [status:200 duration:0.907s]
+http://localhost:9200 "PUT /juridical_texts HTTP/1.1" 400 0
+PUT http://localhost:9200/juridical_texts [status:400 duration:0.151s]
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "GET /_alias HTTP/1.1" 200 0
+GET http://localhost:9200/_alias [status:200 duration:0.126s]
+http://localhost:9200 "DELETE /juridical_texts HTTP/1.1" 404 0
+DELETE http://localhost:9200/juridical_texts [status:404 duration:0.018s]
+PUT http://localhost:9200/juridical_texts [status:N/A duration:60.006s]
+Node <Urllib3HttpNode(http://localhost:9200)> has failed for 1 times in a row, putting on 1 second timeout
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+get All users Info 
+User USER client login
+get All users Info 
+User USER client login
+User USER client logout  
+Watching for file changes with StatReloader
+Forbidden: /data_collection/index_page
+get All users Info 
+User USER client login
+User USER client logout  
+Bad Request: /user/login
+Bad Request: /user/login
+Bad Request: /user/login
+get All users Info 
+User Amiraa client login
+get All users Info 
+User Amiraa client login
+User Amiraa client logout  
+message='Request to Stripe api' method=post url=https://api.stripe.com/v1/payment_methods
+api_version=2023-10-16 message='Post details' post_data=type=card&card[token]=tok_1PLXWSLDzFR9kcMzL6A90Qg9
+Starting new HTTPS connection (1): api.stripe.com:443
+https://api.stripe.com:443 "POST /v1/payment_methods HTTP/1.1" 200 998
+message='Stripe API response' path=https://api.stripe.com/v1/payment_methods response_code=200
+body='{\n  "id": "pm_1PLXWULDzFR9kcMzE3NThccq",\n  "object": "payment_method",\n  "allow_redisplay": "unspecified",\n  "billing_details": {\n    "address": {\n      "city": null,\n      "country": null,\n      "line1": null,\n      "line2": null,\n      "postal_code": null,\n      "state": null\n    },\n    "email": null,\n    "name": "USER",\n    "phone": null\n  },\n  "card": {\n    "brand": "visa",\n    "checks": {\n      "address_line1_check": null,\n      "address_postal_code_check": null,\n      "cvc_check": "unchecked"\n    },\n    "country": "US",\n    "display_brand": "visa",\n    "exp_month": 12,\n    "exp_year": 2030,\n    "fingerprint": "oj766pyYQtVc5O0C",\n    "funding": "credit",\n    "generated_from": null,\n    "last4": "4242",\n    "networks": {\n      "available": [\n        "visa"\n      ],\n      "preferred": null\n    },\n    "three_d_secure_usage": {\n      "supported": true\n    },\n    "wallet": null\n  },\n  "created": 1716931534,\n  "customer": null,\n  "livemode": false,\n  "metadata": {},\n  "type": "card"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_Wia8AEMLdUvLBY message='Dashboard link for request'
+message='Request to Stripe api' method=post url=https://api.stripe.com/v1/payment_methods/pm_1PLXWULDzFR9kcMzE3NThccq/attach
+api_version=2023-10-16 message='Post details' post_data=customer=cus_Py6sdkPECGcTPg
+https://api.stripe.com:443 "POST /v1/payment_methods/pm_1PLXWULDzFR9kcMzE3NThccq/attach HTTP/1.1" 200 1009
+message='Stripe API response' path=https://api.stripe.com/v1/payment_methods/pm_1PLXWULDzFR9kcMzE3NThccq/attach response_code=200
+body='{\n  "id": "pm_1PLXWULDzFR9kcMzE3NThccq",\n  "object": "payment_method",\n  "allow_redisplay": "unspecified",\n  "billing_details": {\n    "address": {\n      "city": null,\n      "country": null,\n      "line1": null,\n      "line2": null,\n      "postal_code": null,\n      "state": null\n    },\n    "email": null,\n    "name": "USER",\n    "phone": null\n  },\n  "card": {\n    "brand": "visa",\n    "checks": {\n      "address_line1_check": null,\n      "address_postal_code_check": null,\n      "cvc_check": "pass"\n    },\n    "country": "US",\n    "display_brand": "visa",\n    "exp_month": 12,\n    "exp_year": 2030,\n    "fingerprint": "oj766pyYQtVc5O0C",\n    "funding": "credit",\n    "generated_from": null,\n    "last4": "4242",\n    "networks": {\n      "available": [\n        "visa"\n      ],\n      "preferred": null\n    },\n    "three_d_secure_usage": {\n      "supported": true\n    },\n    "wallet": null\n  },\n  "created": 1716931534,\n  "customer": "cus_Py6sdkPECGcTPg",\n  "livemode": false,\n  "metadata": {},\n  "type": "card"\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_J2i9X9Xm35BNGC message='Dashboard link for request'
+message='Request to Stripe api' method=post url=https://api.stripe.com/v1/subscriptions
+api_version=2023-10-16 message='Post details' post_data=customer=cus_Py6sdkPECGcTPg&items[0][price]=price_1PJ8uDLDzFR9kcMzvA9z5DIm&default_payment_method=pm_1PLXWULDzFR9kcMzE3NThccq&cancel_at_period_end=True
+https://api.stripe.com:443 "POST /v1/subscriptions HTTP/1.1" 200 4366
+message='Stripe API response' path=https://api.stripe.com/v1/subscriptions response_code=200
+body='{\n  "id": "sub_1PLXWVLDzFR9kcMzrB2Wfn2z",\n  "object": "subscription",\n  "application": null,\n  "application_fee_percent": null,\n  "automatic_tax": {\n    "enabled": false,\n    "liability": null\n  },\n  "billing_cycle_anchor": 1716931535,\n  "billing_cycle_anchor_config": null,\n  "billing_thresholds": null,\n  "cancel_at": 1719609935,\n  "cancel_at_period_end": true,\n  "canceled_at": 1716931535,\n  "cancellation_details": {\n    "comment": null,\n    "feedback": null,\n    "reason": "cancellation_requested"\n  },\n  "collection_method": "charge_automatically",\n  "created": 1716931535,\n  "currency": "dzd",\n  "current_period_end": 1719609935,\n  "current_period_start": 1716931535,\n  "customer": "cus_Py6sdkPECGcTPg",\n  "days_until_due": null,\n  "default_payment_method": "pm_1PLXWULDzFR9kcMzE3NThccq",\n  "default_source": null,\n  "default_tax_rates": [],\n  "description": null,\n  "discount": null,\n  "discounts": [],\n  "ended_at": null,\n  "invoice_settings": {\n    "account_tax_ids": null,\n    "issuer": {\n      "type": "self"\n    }\n  },\n  "items": {\n    "object": "list",\n    "data": [\n      {\n        "id": "si_QBvNx264CGjFEj",\n        "object": "subscription_item",\n        "billing_thresholds": null,\n        "created": 1716931535,\n        "discounts": [],\n        "metadata": {},\n        "plan": {\n          "id": "price_1PJ8uDLDzFR9kcMzvA9z5DIm",\n          "object": "plan",\n          "active": true,\n          "aggregate_usage": null,\n          "amount": 200000,\n          "amount_decimal": "200000",\n          "billing_scheme": "per_unit",\n          "created": 1716360249,\n          "currency": "dzd",\n          "interval": "month",\n          "interval_count": 1,\n          "livemode": false,\n          "metadata": {},\n          "meter": null,\n          "nickname": null,\n          "product": "prod_PoJckyovwroHYV",\n          "tiers_mode": null,\n          "transform_usage": null,\n          "trial_period_days": null,\n          "usage_type": "licensed"\n        },\n        "price": {\n          "id": "price_1PJ8uDLDzFR9kcMzvA9z5DIm",\n          "object": "price",\n          "active": true,\n          "billing_scheme": "per_unit",\n          "created": 1716360249,\n          "currency": "dzd",\n          "custom_unit_amount": null,\n          "livemode": false,\n          "lookup_key": null,\n          "metadata": {},\n          "nickname": null,\n          "product": "prod_PoJckyovwroHYV",\n          "recurring": {\n            "aggregate_usage": null,\n            "interval": "month",\n            "interval_count": 1,\n            "meter": null,\n            "trial_period_days": null,\n            "usage_type": "licensed"\n          },\n          "tax_behavior": "unspecified",\n          "tiers_mode": null,\n          "transform_quantity": null,\n          "type": "recurring",\n          "unit_amount": 200000,\n          "unit_amount_decimal": "200000"\n        },\n        "quantity": 1,\n        "subscription": "sub_1PLXWVLDzFR9kcMzrB2Wfn2z",\n        "tax_rates": []\n      }\n    ],\n    "has_more": false,\n    "total_count": 1,\n    "url": "/v1/subscription_items?subscription=sub_1PLXWVLDzFR9kcMzrB2Wfn2z"\n  },\n  "latest_invoice": "in_1PLXWVLDzFR9kcMzBfdzJ6UG",\n  "livemode": false,\n  "metadata": {},\n  "next_pending_invoice_item_invoice": null,\n  "on_behalf_of": null,\n  "pause_collection": null,\n  "payment_settings": {\n    "payment_method_options": null,\n    "payment_method_types": null,\n    "save_default_payment_method": "off"\n  },\n  "pending_invoice_item_interval": null,\n  "pending_setup_intent": null,\n  "pending_update": null,\n  "plan": {\n    "id": "price_1PJ8uDLDzFR9kcMzvA9z5DIm",\n    "object": "plan",\n    "active": true,\n    "aggregate_usage": null,\n    "amount": 200000,\n    "amount_decimal": "200000",\n    "billing_scheme": "per_unit",\n    "created": 1716360249,\n    "currency": "dzd",\n    "interval": "month",\n    "interval_count": 1,\n    "livemode": false,\n    "metadata": {},\n    "meter": null,\n    "nickname": null,\n    "product": "prod_PoJckyovwroHYV",\n    "tiers_mode": null,\n    "transform_usage": null,\n    "trial_period_days": null,\n    "usage_type": "licensed"\n  },\n  "quantity": 1,\n  "schedule": null,\n  "start_date": 1716931535,\n  "status": "active",\n  "test_clock": null,\n  "transfer_data": null,\n  "trial_end": null,\n  "trial_settings": {\n    "end_behavior": {\n      "missing_payment_method": "create_invoice"\n    }\n  },\n  "trial_start": null\n}' message='API response body'
+link=https://dashboard.stripe.com/test/logs/req_Kgvg45jNvPPb1P message='Dashboard link for request'
+message='Request to Stripe api' method=get url=https://api.stripe.com/v1/invoices/in_1PLXWVLDzFR9kcMzBfdzJ6UG
+api_version=2023-10-16 message='Post details' post_data=
+https://api.stripe.com:443 "GET /v1/invoices/in_1PLXWVLDzFR9kcMzBfdzJ6UG HTTP/1.1" 200 5509
+message='Stripe API response' path=https://api.stripe.com/v1/invoices/in_1PLXWVLDzFR9kcMzBfdzJ6UG response_code=200
+link=https://dashboard.stripe.com/test/logs/req_OP0JTUwaSbEo2w message='Dashboard link for request'
+User USER  get subscription
+Internal Server Error: /data_collection/index_page
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py", line 179, in get
+    results , len = lookup(query=query,sort_by=sort_by, source=source, year=year,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py", line 35, in lookup
+    s = s.suggest('description_suggest', 'description.suggest', query)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SearchBase.suggest() takes 3 positional arguments but 4 were given
