@@ -12,11 +12,13 @@ function SearchResult() {
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
   const [showFullText, ] = useState({});
+  const [searchQuery, setSearchQuery] = useState(''); // Add state for search query
 
   useEffect(() => {
     if (location.state && location.state.results) {
       setResults(location.state.results);
       setResults_len(location.state.len);
+      setSearchQuery(location.state.searchQuery); // Set search query from state
     }
   }, [location.state]);
 
@@ -28,8 +30,6 @@ function SearchResult() {
     }
     setCurrentPage(pageNumber);
   };
-
- 
 
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
@@ -100,7 +100,7 @@ function SearchResult() {
   return (
     <>
       <Logo />
-      <Gpt currentPage={currentPage} resultsPerPage={resultsPerPage} />
+      <Gpt currentPage={currentPage} resultsPerPage={resultsPerPage} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <div className='searchResult'>
         <h1>نتائج البحث</h1>
         <div className="searchResult-container">
