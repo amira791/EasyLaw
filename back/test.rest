@@ -113,4 +113,4 @@ z
 ###
 
 GET http://127.0.0.1:8888/user/get_domaines_interet
-Authorization: Token a128bd44be1f40b82b5bbc4362a522913395ca65
+Authorization: Token ac9f815ffe809a07735e42b01685046f4f257b7a

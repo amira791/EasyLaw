@@ -110,7 +110,108 @@ export default function useUser() {
  };
 
  // ******************* For Sign Up *****************************/
- const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessage, setPasswordError, setSuccessMessage) => {
+//  const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessage, setPasswordError, setSuccessMessage) => {
+//   try {
+//     setErrorMessage('');
+//     if (formData.password !== confirmPassword) {
+//       setPasswordError('كلمة السر وتأكيد كلمة السر يجب أن تتطابق');
+//     } else if (formData.password.length < 8) {
+//       setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
+//     } else {
+//       // Remove the 'role' field from formData
+//       delete formData.role;
+//       const response = await userApiClient.post(`/signup`, formData);
+//       console.log(response.data);
+//       setSuccessMessage('تم إنشاء الحساب بنجاح! يتم إعادة توجيهك إلى صفحة تسجيل الدخول...');
+//       setFormData({
+//         prenom: '',
+//         nom: '',
+//         dateNaiss: '',
+//         univer_Entrep: '',
+//         occupation: '',
+//         email: '',
+//         password: '',
+//         username: ''
+//       });
+//       setPasswordError('');
+//       setConfirmPassword('');
+//       setTimeout(() => {
+//         navigate('/signin'); // Use navigate to redirect to the signin page
+//       }, 2000);
+//     }
+//   } catch (error) {
+//     if (error.response.data.email) {
+//       setErrorMessage(error.response.data.email);
+//     } else if (error.response.data.username) {
+//       setErrorMessage(error.response.data.username);
+//     } else {
+//       setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
+//     }
+//   }
+//  };
+
+
+
+
+
+
+
+
+// const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessage, setPasswordError, setSuccessMessage, navigate) => {
+
+
+
+//   try {
+//     setErrorMessage('');
+//     if (formData.password !== confirmPassword) {
+//       setPasswordError('كلمة السر وتأكيد كلمة السر يجب أن تتطابق');
+//     } else if (formData.password.length < 8) {
+//       setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
+//     } else {
+//       // Remove the 'role' field from formData
+//       const userFormData = { ...formData };
+//       delete userFormData.role;
+//       console.log(formData);
+//       const response = await userApiClient.post(`/user/signup`, userFormData);
+//       console.log(response.data);
+//       setSuccessMessage('تم إنشاء الحساب بنجاح! يتم إعادة توجيهك إلى صفحة تسجيل الدخول...');
+//       setFormData({
+//         username: '',
+//         password: '',
+//         email: '',
+//         etat: 'Active',
+//         nom: '',
+//         prenom: '',
+//         dateNaiss: '',
+//         univer_Entrep: '',
+//         occupation: '',
+//         stripeCustomerId: "stripe_customer_id_here"
+//       });
+//       setPasswordError('');
+//       setTimeout(() => {
+//         navigate('/signin'); // Use navigate to redirect to the signin page
+//       }, 2000);
+//     }
+//   } catch (error) {
+//     if (error.response && error.response.data) {
+//       if (error.response.data.email) {
+//         setErrorMessage(error.response.data.email);
+//       } else if (error.response.data.username) {
+//         setErrorMessage(error.response.data.username);
+//       } else {
+//         setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
+//       }
+//     } else {
+//       setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
+//     }
+//   }
+// };
+
+
+
+
+
+const addNewUser = async (formData, confirmPassword, setFormData, setErrorMessage, setPasswordError, setSuccessMessage, navigate) => {
   try {
     setErrorMessage('');
     if (formData.password !== confirmPassword) {
@@ -119,36 +220,46 @@ export default function useUser() {
       setPasswordError('كلمة السر يجب أن تتكون من 8 حروف أو أكثر');
     } else {
       // Remove the 'role' field from formData
-      delete formData.role;
-      const response = await userApiClient.post(`/signup`, formData);
+      const userFormData = { ...formData };
+      delete userFormData.role;
+      console.log(formData);
+      const response = await userApiClient.post(`/user/signup`, userFormData);
       console.log(response.data);
       setSuccessMessage('تم إنشاء الحساب بنجاح! يتم إعادة توجيهك إلى صفحة تسجيل الدخول...');
       setFormData({
-        prenom: '',
+        username: '',
+        password: '',
+        email: '',
+        etat: 'Active',
         nom: '',
+        prenom: '',
         dateNaiss: '',
         univer_Entrep: '',
         occupation: '',
-        email: '',
-        password: '',
-        username: ''
+        stripeCustomerId: "stripe_customer_id_here"
       });
       setPasswordError('');
-      setConfirmPassword('');
       setTimeout(() => {
         navigate('/signin'); // Use navigate to redirect to the signin page
       }, 2000);
     }
   } catch (error) {
-    if (error.response.data.email) {
-      setErrorMessage(error.response.data.email);
-    } else if (error.response.data.username) {
-      setErrorMessage(error.response.data.username);
+    if (error.response && error.response.data) {
+      if (error.response.data.email) {
+        setErrorMessage(error.response.data.email);
+      } else if (error.response.data.username) {
+        setErrorMessage(error.response.data.username);
+      } else {
+        setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
+      }
     } else {
       setErrorMessage('Une erreur s\'est produite lors de l\'inscription');
     }
   }
- };
+};
+
+
+
 
 /***************** Get All Users ************************** */
 const getAllUsers = async () => {
