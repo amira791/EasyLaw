@@ -12,17 +12,17 @@ ELASTIC_HOST = 'http://localhost:9200/'
 # Create the client instance
 client = Elasticsearch(
     [ELASTIC_HOST],
-    basic_auth=('nermine', '17161670'))
+    basic_auth=('manel', '12345678'))
 # the search function
 def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
             sort_by=None, source=None, year=None, signature_date=None,
              publication_date=None, type=None, ojNumber=None, 
-             jtNumber=None, domain=None, page=None, page_size=None):
+             jtNumber=None,interest_domain=None, page=1, page_size=50):
     if not query:
-        return
-    # Définition du tri en fonction du paramètre sort_by pour avoir le tri pertinence ou par date
+         return [], 0
+    # Définition du tri en fonction du paramètre sort_by pour avoir le tri pertinence ou par date de publication
     if sort_by == 'publication_date':
-        sort = {'publication_date': {'order': 'desc'}}  # Tri par date de publication
+        sort = {'publication_date': {'order': 'desc'}}  
     else:
         sort = '_score'  # Tri par défaut (pertinence)
     #la requete de la recherche 
@@ -31,8 +31,7 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
     ).sort(sort)
     # Highlighting
     s = s.highlight('description', 'type_text', 'source', 'extracted_text','truncated_text_file_content', pre_tags="<mark>", post_tags="</mark>")
-    # Autocomplétion
-    s = s.suggest('description_suggest', 'description.suggest', query)
+    
     # Pagination
     s = s[(page - 1) * page_size: page * page_size]
    # Ajout des filtres supplémentaires
@@ -49,15 +48,16 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
     if ojNumber:
         s = s.filter('term',official_journal_page=ojNumber)
     if jtNumber:
-        s = s.filter('match',  jt_number= jtNumber)
-    if domain:
-        s = s.filter('term', description=domain)
+        s = s.filter('match',jt_number=jtNumber)
+    if interest_domain:
+        s = s.filter('term', intrest__name=interest_domain)    
+   
 
     # Exécuter la recherche Elasticsearch
     results = s.execute()
-    results_length = len(results)
+    results_length = len(results) #pour la langueur de resultat
     q_results = []
-    with open(r'c:\Users\Amatek\Downloads\sheetsresult.json', 'r') as file:
+    with open(r'C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\sheetsresult.json', 'r') as file:
          pagination_info = json.load(file)
         
     for hit in results:
@@ -95,7 +95,8 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
             "official_journal_number": hit.official_journal.number if hit.official_journal else None,
             "text_file_content":hit.extracted_text,
             "truncated_text_file_content":highlighted_full_extracted_text,
-            "adjustments": adjustments,  # Include adjustments data
+            "interestDomain": hit.intrest.name if hit.intrest else None,
+            "adjustments": adjustments, # Include adjustments data
         }
         q_results.append(data)
     # Get the length of results

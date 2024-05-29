@@ -16,7 +16,7 @@ from .search import lookup
 from .searchlow import lookuplaw
 import time
 from datetime import datetime
-from .models import JuridicalText, Adjutstement, OfficialJournal
+from .models import JuridicalText, Adjutstement, OfficialJournal,IntrestDomain
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 import os
@@ -172,13 +172,13 @@ class search_view(APIView):
                   type = request.GET.get('type')
                   ojNumber = request.GET.get('ojNumber')
                   jtNumber = request.GET.get('jtNumber')
-                  domain = request.GET.get('domain')
+                  interest_domain = request.GET.get('interest_domain')
                   page = int(request.GET.get('page', 1))  # Default to page 1
                   page_size = int(request.GET.get('page_size', 50))  # Default to 10 results per page
                   if query:
                      results , len = lookup(query=query,sort_by=sort_by, source=source, year=year, 
                      signature_date=signature_date, publication_date=publication_date,
-                     type=type, ojNumber=ojNumber, jtNumber=jtNumber, domain=domain, page=page,page_size=page_size)
+                     type=type, ojNumber=ojNumber, jtNumber=jtNumber,interest_domain=interest_domain, page=page,page_size=page_size)
                      return Response({'results': results, 'len': len}, status=200)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
@@ -231,6 +231,10 @@ def distinct_years(request):
     distinct_years_list = OfficialJournal.objects.values_list('year', flat=True).distinct().order_by('year')
     years = list(distinct_years_list)
     return JsonResponse({'years': years})
+
+def get_interest_domains(request):
+    interest_domains = IntrestDomain.objects.values_list('name', flat=True).distinct()
+    return JsonResponse({'interest_domains': list(interest_domains)})
 #details de juridical text
 
 

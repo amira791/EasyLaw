@@ -433,3 +433,437 @@ Traceback (most recent call last):
     s = s.suggest('description_suggest', 'description.suggest', query)
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: SearchBase.suggest() takes 3 positional arguments but 4 were given
+Watching for file changes with StatReloader
+get All users Info 
+User USER client login
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+get All users Info 
+User USER client login
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "POST /juridical_texts/_search HTTP/1.1" 404 0
+POST http://localhost:9200/juridical_texts/_search [status:404 duration:4.200s]
+Internal Server Error: /data_collection/index_page
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py", line 179, in get
+    results , len = lookup(query=query,sort_by=sort_by, source=source, year=year,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py", line 57, in lookup
+    results = s.execute()
+              ^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\elasticsearch_dsl\_sync\search.py", line 77, in execute
+    es.search(index=self._index, body=self.to_dict(), **self._params)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\elasticsearch\_sync\client\utils.py", line 446, in wrapped
+    return api(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\elasticsearch\_sync\client\__init__.py", line 4091, in search
+    return self.perform_request(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 271, in perform_request
+    response = self._perform_request(
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 352, in _perform_request
+    raise HTTP_EXCEPTIONS.get(meta.status, ApiError)(
+elasticsearch.NotFoundError: NotFoundError(404, 'index_not_found_exception', 'no such index [juridical_texts]', juridical_texts, index_or_alias)
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "POST /juridical_texts/_search HTTP/1.1" 404 0
+POST http://localhost:9200/juridical_texts/_search [status:404 duration:0.478s]
+Internal Server Error: /data_collection/index_page
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py", line 179, in get
+    results , len = lookup(query=query,sort_by=sort_by, source=source, year=year,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py", line 57, in lookup
+    results = s.execute()
+              ^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\elasticsearch_dsl\_sync\search.py", line 77, in execute
+    es.search(index=self._index, body=self.to_dict(), **self._params)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\elasticsearch\_sync\client\utils.py", line 446, in wrapped
+    return api(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\elasticsearch\_sync\client\__init__.py", line 4091, in search
+    return self.perform_request(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 271, in perform_request
+    response = self._perform_request(
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 352, in _perform_request
+    raise HTTP_EXCEPTIONS.get(meta.status, ApiError)(
+elasticsearch.NotFoundError: NotFoundError(404, 'index_not_found_exception', 'no such index [juridical_texts]', juridical_texts, index_or_alias)
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "GET /_alias HTTP/1.1" 200 0
+GET http://localhost:9200/_alias [status:200 duration:0.405s]
+http://localhost:9200 "DELETE /juridical_texts HTTP/1.1" 404 0
+DELETE http://localhost:9200/juridical_texts [status:404 duration:0.076s]
+http://localhost:9200 "PUT /juridical_texts HTTP/1.1" 200 0
+PUT http://localhost:9200/juridical_texts [status:200 duration:1.361s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:3.281s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.906s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.565s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.736s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.497s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.612s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.658s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.641s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.631s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.749s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.781s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.695s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.955s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.857s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.823s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.632s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.643s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.767s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.641s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.857s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.777s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.795s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.456s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.638s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.533s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.515s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.543s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.575s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.556s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.491s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.526s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.716s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.650s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.890s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.574s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.792s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.693s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.502s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.615s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.523s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.741s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.595s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.532s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.436s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.426s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.423s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.412s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.732s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.466s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.683s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.770s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.690s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.615s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.396s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.420s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.115s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.684s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.726s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.811s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.752s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.734s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.010s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.229s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.778s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.852s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.627s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.506s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.539s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.633s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.847s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.378s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.405s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.619s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.485s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.695s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.510s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.656s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.583s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.788s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.632s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.722s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.709s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.188s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.661s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.144s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.700s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.576s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.807s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.841s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.916s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.871s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.990s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.540s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.686s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.814s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.828s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.082s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.240s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.884s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.736s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.849s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.683s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.624s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.817s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.554s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.563s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.608s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.707s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.776s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.687s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.927s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.819s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.951s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:1.032s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.924s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.836s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.930s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.604s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.584s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.568s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.659s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.678s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.660s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.743s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.700s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.485s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.628s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.514s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.553s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.617s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.671s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.503s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.450s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.481s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.667s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.533s]
+http://localhost:9200 "PUT /_bulk?refresh=true HTTP/1.1" 200 None
+PUT http://localhost:9200/_bulk?refresh=true [status:200 duration:0.484s]
+Watching for file changes with StatReloader
+Starting new HTTP connection (1): localhost:9200
+http://localhost:9200 "POST /juridical_texts/_search HTTP/1.1" 200 None
+POST http://localhost:9200/juridical_texts/_search [status:200 duration:7.786s]
+Internal Server Error: /data_collection/index_page
+Traceback (most recent call last):
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\views.py", line 179, in get
+    results , len = lookup(query=query,sort_by=sort_by, source=source, year=year,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py", line 60, in lookup
+    with open(r'c:\Users\Amatek\Downloads\sheetsresult.json', 'r') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'c:\\Users\\Amatek\\Downloads\\sheetsresult.json'
+C:\Users\Manel\Desktop\2CS\S2\PROJET\TD\EasyLaw\back\Data_Collection\search.py changed, reloading.
+Watching for file changes with StatReloader
