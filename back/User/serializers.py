@@ -15,3 +15,10 @@ class EditUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = [ 'email', 'nom', 'prenom', 'dateNaiss', 'univer_Entrep', 'occupation', 'etat']
         extra_kwargs = {'password': {'write_only': True, 'required': False}}
+
+
+
+class DomaineInteretSerializer(serializers.Serializer):
+    nom_domaine = serializers.CharField(max_length=255)
+
+

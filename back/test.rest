@@ -1,14 +1,30 @@
-POST http://127.0.0.1:9000/user/login 
+POST http://127.0.0.1:8888/user/login 
 Content-Type: application/json
 
-{ "username": "adam8", "password": "Pass1234!" }
+{ "username": "adam11", "password": "Pass1234" }
 
 ###
 
-POST http://127.0.0.1:9000/user/signup 
+POST http://127.0.0.1:8888/user/signup 
 Content-Type: application/json
 
-{ "username": "adam8", "password": "Pass1234!", "email": "adam8@mail.com" }
+{
+  "username": "adam16",
+  "password": "Pass1234",
+  "email": "ky_ifourah@esi.dz",
+  "etat": "Active",
+  "nom": "Adam",
+  "prenom": "Smith",
+  "num_telephone": "1234567890",
+  "dateNaiss": "1990-01-01",
+  "lieuNaiss": "Paris",
+  "univer_Entrep": "University of XYZ",
+  "occupation": "Software Engineer",
+  "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  "location": "New York",
+  "stripeCustomerId": "stripe_customer_id_here"
+}
+
 
 ###
 
@@ -55,3 +71,46 @@ Authorization: Token 2e74f8fd81ac00e9790ad1ea4c207be90f80d599
 
 POST http://127.0.0.1:9000/user/logout
 Authorization: Token 7bc3ee9d3e01b0fe6d284d9b42d17bc8c827b0af
+
+
+###
+
+
+
+POST http://127.0.0.1:8888/user/create_domaine
+Content-Type: application/json
+
+{
+    "nom_domaine": "domaine 2"
+}
+
+
+###
+
+POST http://127.0.0.1:8888/user/add_domaine_interet/
+Content-Type: application/json
+Authorization: Token a128bd44be1f40b82b5bbc4362a522913395ca65
+
+{
+   "domaine_id": 2
+}
+
+###
+
+POST http://127.0.0.1:8888/user/delete_domaine_interet/
+Authorization: Token a128bd44be1f40b82b5bbc4362a522913395ca65
+Content-Type: application/json
+
+{
+    "domaine_id": 1
+}
+
+###
+
+GET http://127.0.0.1:8888/user/domaines_interet/
+
+z
+###
+
+GET http://127.0.0.1:8888/user/get_domaines_interet
+Authorization: Token a128bd44be1f40b82b5bbc4362a522913395ca65

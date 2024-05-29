@@ -1203,3 +1203,11 @@ def get_juridical_texts_by_scrapping_and_type(request, scrapping_id, type_text):
 
     serializer = JuridicalTextSerializer(juridical_texts, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+
+
+
+

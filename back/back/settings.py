@@ -72,6 +72,7 @@ ELASTICSEARCH_DSL={
 
 AUTH_USER_MODEL='User.CustomUser'
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -180,3 +181,39 @@ REST_FRAMEWORK = {
 
 
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(parent_dir, 'logfile.txt'),
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+
+
+
+
+###################### Email conformation
+
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # e.g., smtp.gmail.com
+EMAIL_PORT = 587  # or the appropriate port for your email host
+EMAIL_USE_TLS = True  # Set it to True if your email host requires TLS
+EMAIL_HOST_USER = 'younes172003@gmail.com'  # Your email address for sending emails
+EMAIL_HOST_PASSWORD = 'ghvj nivn hnzi erte'  # Your email password or app-specific password

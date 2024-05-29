@@ -2,6 +2,10 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
+class IntrestDomain(models.Model):
+    name = models.CharField(max_length=100)
+
+    
 class CustomUser(AbstractUser):
 
     ROLE_CHOICES = (
@@ -32,12 +36,28 @@ class CustomUser(AbstractUser):
     location = models.CharField(max_length=100, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True)
     stripeCustomerId = models.CharField(max_length=30)
+    is_active = models.BooleanField(default=False)
+    domaines_interet = models.ManyToManyField(IntrestDomain, related_name='utilisateurs', blank=True)
+
+
+    def add_domaine_interet(self, domaine):
+        if self.domaines_interet.count() < 5:
+            self.domaines_interet.add(domaine)
+            return True
+        else:
+            return False
+
+    def delete_domaine_interet(self, domaine):
+        self.domaines_interet.remove(domaine)
+
+    def get_domaines_interet(self):
+        return self.domaines_interet.all()
+
 
 
 
     def __str__(self):
         return self.username
     
-
 
 
