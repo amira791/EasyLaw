@@ -3,10 +3,9 @@ from django.db import models
 from django.db.models import Max
 from django.utils import timezone
 
-from User.models import CustomUser, IntrestDomain
+from User.models import CustomUser #, IntrestDomain
 
-# from django.contrib.auth import get_user_model
-# User = get_user_model()
+
 
 class Scrapping(models.Model):
     STATE_CHOICES = (
@@ -19,8 +18,8 @@ class Scrapping(models.Model):
     date = models.DateField(default=timezone.now, null=True)
     state = models.CharField(max_length=20, choices=STATE_CHOICES ,default='failed')
 
-# class IntrestDomain(models.Model):
-#     name = models.CharField(max_length=100)
+class IntrestDomain(models.Model):
+    name = models.CharField(max_length=100)
 
 class OfficialJournal(models.Model):
     number = models.IntegerField()

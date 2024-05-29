@@ -2,8 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class IntrestDomain(models.Model):
-    name = models.CharField(max_length=100)
+from Data_Collection.models import IntrestDomain
 
     
 class CustomUser(AbstractUser):
