@@ -87,18 +87,59 @@ export default function usePayment() {
 
 
      // Fonction pour récupérer les factures de l'utilisateur
-    const getUserInvoices = async () => {
+     const getUserInvoices = async () => {
       try {
           const response = await payementApiClient.get('/invoice', {headers});
           const data = response.data
           data.reverse()
-          console.log(data);
           return data;
       } catch (error) {
-          console.error('Erreur lors de la récupération des factures :', error);
-          return null;
+        console.error('Erreur lors de la récupération des factures :', error);
+        return { invoices: null, hasInvoices: false };
       }
-  };
+    };
+
+
+    const getAllAccesses = async () => {
+      try {
+          const response = await payementApiClient.get('/access');
+          const data = response.data
+          return data;
+      } catch (error) {
+        console.error('Erreur lors de la récupération des permitions :', error);
+        return { message : "un erreur est survenu"};
+      }
+    };
+
+
+    const addSub = async (name, price, accesses) => {
+      let success = false;
+      let error = null;
+      try {
+          const response = await payementApiClient.post("/addService", { name, price, accesses }, {headers});
+          console.log("Added Successfully: " + response.data.id);
+          success = response.data;
+      } catch (err) {
+          error = err.response?.data?.message || err.message;
+      }
+      
+      return { success, error };
+  }
+
+
+  const changePrice = async (id, priceId, price) => {
+    let success = false;
+    let error = null;
+    try {
+        const response = await payementApiClient.put("/price", { id, priceId, price }, {headers});
+        console.log("Changed Successfully");
+        success = response.data;
+    } catch (err) {
+        error = err.response?.data?.message || err.message;
+    }
+    
+    return { success, error };
+}
 
 
   return {
@@ -107,5 +148,9 @@ export default function usePayment() {
     subscribe,
     getUserInvoices,
     getCurrentSubscription,
+    getAllAccesses,
+    addSub,
+    changePrice,
   };
 }
+

@@ -16,6 +16,11 @@ class FactureSerializer(serializers.ModelSerializer):
         model = Facture
         fields = '__all__'
 
+class AccessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Access
+        fields = '__all__'
+
 class AbonnementSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
     facture = FactureSerializer()
 

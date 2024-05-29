@@ -12,19 +12,24 @@ from django.contrib.auth import authenticate
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from django.contrib.auth.hashers import make_password
 import requests
+from .models import CustomUser
+import logging
+
+logger = logging.getLogger(__name__) 
 
 @api_view(['POST'])
 def signup(request):
     if request.method == 'POST':
         data = request.data.copy()
         data['password'] = make_password(data['password'])  # Hash the password
+        data['role'] = 'client'  
+        data['etat'] = 'Active'
         data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
         serializer = CustomUserSerializer(data=data)
         if serializer.is_valid():
             user = serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -36,16 +41,24 @@ def login(request):
 
     if user:
         token, _ = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key}, status=HTTP_200_OK)
+        role = user.role  # Include role information in the response
+        etat = user.etat
+        if etat == "Active":
+            
+          return Response({'token': token.key, 'role': role}, status=status.HTTP_200_OK)
+          
     else:
-        return Response({'error': 'Invalid credentials'}, status=HTTP_400_BAD_REQUEST)
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
     
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_user_info(request):
     token = request.META.get('HTTP_AUTHORIZATION').split()[1]
     user = Token.objects.get(key=token).user
     serializer = CustomUserSerializer(user)
+    logger.info(f'get All users Info ')
+    logger.info(f'User {user.username} {user.role} login')
     return Response(serializer.data)
 
 
@@ -58,6 +71,8 @@ def edit_user_info(request):
     serializer = EditUserSerializer(user, data=request.data)
     if serializer.is_valid():
         serializer.save()  # Save the updated user data
+        logger.info(f'User {user.username} {user.role} edit profile info')
+
         return Response(serializer.data)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -76,6 +91,7 @@ def change_password(request):
 
     user.set_password(new_password)
     user.save()
+    logger.info(f'User {user.username} {user.role} change his password ')
     return Response({'message': 'Password changed successfully'}, status=status.HTTP_200_OK)
 
 
@@ -84,22 +100,79 @@ def change_password(request):
 def logout(request):
     user = request.user
     Token.objects.filter(user=user).delete()  # Delete the user's authentication token
+    logger.info(f'User {user.username} {user.role} logout  ')
     return Response({'message': 'Logged out successfully.'})
 
 
 
 
 
+@api_view(['GET']) 
+def allUsers(request):
+    if request.method == 'GET':
+        users = CustomUser.objects.all()  
+        serialized_users = CustomUserSerializer(users, many=True) 
+        logger.info(f'Get All users ') 
+        return Response({'users': serialized_users.data})
+
+         
+
 def stripeCustomerId(name, email,request):
     url = root_url = request.build_absolute_uri('/')[:-1] +'/payment/customer'
     data = {
     "name":name,
     "email":email
-    }  # Your POST data
-
+    }  
     print(data)
 
     # Send POST request
     response = requests.post(url, json=data)
 
     return response.json()["stripe_customer_id"]
+
+@api_view(['POST'])
+def createMod(request):
+    if request.method == 'POST':
+        data = request.data.copy()
+        data['password'] = make_password(data['password'])  # Hash the password
+        data['role'] = 'moderateur'  
+        data['etat'] = 'Active'
+        data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+        serializer = CustomUserSerializer(data=data)
+        if serializer.is_valid():
+            user = serializer.save()
+            logger.info(f'User {user.username} {user.role} make payment ')
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['POST'])
+def activateUser(request):
+    if request.method == 'POST':
+        username = request.data.get('username')
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user.etat = CustomUser.ACTIVE  # Set user's state to Active
+        user.save()
+        logger.info(f'User {user.username}  activated successfully')
+        
+        return Response({'message': 'User activated successfully'}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def blockUser(request):
+    if request.method == 'POST':
+        username = request.data.get('username')
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user.etat = CustomUser.NOT_ACTIVE  # Set user's state to Not Active
+        user.save()
+        logger.info(f'User {user.username}  User blocked successfully')
+        
+        return Response({'message': 'User blocked successfully'}, status=status.HTTP_200_OK)

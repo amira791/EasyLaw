@@ -29,7 +29,10 @@ SECRET_KEY = 'django-insecure-#egh*o&jitym^s()0agi5klq6(*g%^d%@8fqt(q1w$-lauuj(n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'a104-41-111-189-195.ngrok-free.app'
+]
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
@@ -58,12 +61,13 @@ INSTALLED_APPS = [
     'User',
     'Payement_Validation',
     'Data_Collection',
+    'Administartion',
     'django_elasticsearch_dsl',
 ]
 ELASTICSEARCH_DSL={
 'default': {
 'hosts': 'http://localhost:9200',
-'timeout': 60,  # Custom timeout
+'timeout': 60,  
 'http_auth': ('manel', '12345678')
 }
 }
@@ -174,4 +178,27 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
+}
+
+
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(parent_dir, 'logfile.txt'),
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
 }

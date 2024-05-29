@@ -7,6 +7,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import TitleBar from '../../TitleBar/TitleBar';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
+import NavBarProfile from '../../Profile/NavBarProfile'
 
 function AuthAdmin() {
 

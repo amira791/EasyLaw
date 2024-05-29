@@ -14,7 +14,7 @@ function Footer() {
       <div className="container">
         <div className="footer-content">
           <div className="footer-item">
-            <img src="" alt="EasyLaw Logo" />
+           
             <p>
               لا تنسى تحميل تطبيق EasyLaw على هاتفك
             </p>

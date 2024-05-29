@@ -3,6 +3,7 @@
 .searchResult {
     padding: 2% 6%;
     direction: rtl;
+    
   }
   
   .searchResult h1 {
@@ -13,6 +14,7 @@
     border-radius: 10px;
     padding: 1%;
     width: 90%;
+   
   }
  
   
@@ -23,6 +25,14 @@
     margin: 2% 0%;
     direction: rtl;
     
+  }
+  .adjustment-item{
+    
+    margin-right: 6%;
+  }
+  .adjustment-item1{
+    
+    margin-right: 8%;
   }
   
   .searchResult-item h2 {

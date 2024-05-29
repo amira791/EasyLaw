@@ -5,6 +5,7 @@ import axios from 'axios';
 import { AuthContext } from '../../Context/LogoProvider';
 import useUser from '../../Hooks/useUser';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function NavBarProfile(props) {
   const [isLoggedOut, setIsLoggedOut] = useState(false);
@@ -29,19 +30,33 @@ function NavBarProfile(props) {
           <li>
             <Link to='/profile'>الحساب الشخصي</Link>
           </li>
+          {props.role != 'moderateur' && (
           <li>
             <Link to='/changePwd'>تغيير كلمة السر</Link>
           </li>
+          )}
+          {props.role != 'moderateur' && (
           <li>
             <Link to='/interest'>{props.interest}</Link>
           </li>
+          )}
+          {props.role != 'moderateur' && (
           <li>
             <Link to='/services'>{props.services}</Link>
           </li>
+           )}
+          {props.role != 'moderateur' && ( 
           <li>
             <Link to='/facture'>فواتيري</Link>
           </li>
-          <li>
+          )}
+          {props.role === 'moderateur' && ( 
+            <li>
+              <Link to='/mainmoderateur'> العودة لصفحة الاشراف</Link>
+            </li>
+          )}
+          <li className='logout_btn'>
+            <LogoutIcon sx={{color:'red'}}/>
             <a onClick={handleLogout}>تسجيل الخروج</a>
           </li>
         </ul>
