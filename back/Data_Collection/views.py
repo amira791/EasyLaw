@@ -23,7 +23,7 @@ from .models import JuridicalText, Adjutstement, OfficialJournal, Scrapping
 from django.http import HttpResponse
 from rest_framework import status
 import re
-from .search import lookup
+from .search import lookup, lookup_no_adjust
 from .searchlow import lookuplaw
 import time
 from datetime import datetime
@@ -40,7 +40,7 @@ import pytesseract
 #from pytesseract import image_to_string
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import JuridicalTextSerializer 
+from .serializers import CustomJuridicalTextSerializer, JuridicalTextSerializer 
 from .serializers import AdjustmentSerializer, JuridicalTextSerializer, ScrappingSerializer 
 from rest_framework.permissions import IsAuthenticated
 from .search import get_real_page_number
@@ -420,7 +420,7 @@ def extract_text_from_pdf_file(pdf_file_path, page_number):
 @permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
-             if is_Allowed(request.user.id, "search") or (request.user.role == "moderateur"):
+            #  if is_Allowed(request.user.id, "search") or (request.user.role == "moderateur"):
                  # Récupérer les paramètres de recherche depuis la requête GET
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
@@ -453,12 +453,36 @@ class search_view(APIView):
                      
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
-             else:
-                   return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+            #  else:
+            #        return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+
+# search function 
+@permission_classes([IsAuthenticated])
+class adjusted_search_view(APIView):
+        def get(self, request):
+            #  if is_Allowed(request.user.id, "search") or (request.user.role == "moderateur"):
+                 # Récupérer les paramètres de recherche depuis la requête GET
+                  query = request.GET.get('q')
+                  source = request.GET.get('source')
+                  year = request.GET.get('year')
+                  type = request.GET.get('type')
+                  print("Query:", query)
+                  print("Source:", source)
+                  print("Year:", year)
+                  print("Type:", type)
+                  if query:
+                     results , len = lookup_no_adjust(query=query, source=source, year=year,
+                     type=type)
+                     return Response({'results': results, 'len': len}, status=200)
+                  else:
+                     return Response({'error': 'No search query provided'}, status=400)
+            #  else:
+            #        return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+
 @permission_classes([IsAuthenticated])
 class search_law(APIView):
         def get(self, request):
-             if is_Allowed(request.user.id, "search") or (request.user.role == "moderateur"):
+            #  if is_Allowed(request.user.id, "search") or (request.user.role == "moderateur"):
                  # Récupérer les paramètres de recherche depuis la requête GET
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
@@ -490,8 +514,8 @@ class search_law(APIView):
                      return Response({'results': results, 'len': len}, status=200)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
-             else:
-                   return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+            #  else:
+            #        return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 # fonction pour recupere les sources et types 
 def get_type_and_source(request):
     types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
@@ -514,7 +538,7 @@ def redirect_to_pdf(request):
         formatted_journal_number = official_journal_number.zfill(3)
         year_prefix = 'A' if int(official_journal_year) >= 1964 else 'F'
         # Generate the PDF file path
-        pdf_directory = f"C:\\Users\\Manel\\Desktop\\2CS\\S2\\PROJET\\TP\\pdfs\\{official_journal_year}"
+        pdf_directory = f"F:\\project 2cs\\EasyLaw\\back\\jaraid\\{official_journal_year}"
         pdf_filename = f"{year_prefix}{official_journal_year}{formatted_journal_number}.pdf"  # Assuming this format
         pdf_path = os.path.join(pdf_directory, pdf_filename)
         
@@ -1130,7 +1154,7 @@ def update_juridical_text(request):
 def get_user_scrappings(request):
     try:
         user_id = request.user.id
-        scrappings = Scrapping.objects.filter(user_id=user_id).order_by('-state')
+        scrappings = Scrapping.objects.filter(user_id=user_id).order_by('-id')
         serializer = ScrappingSerializer(scrappings, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except CustomUser.DoesNotExist:
@@ -1203,3 +1227,52 @@ def get_juridical_texts_by_scrapping_and_type(request, scrapping_id, type_text):
 
     serializer = JuridicalTextSerializer(juridical_texts, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+@api_view(['GET'])
+def get_adjusted_juridical_texts(request, adjusting_num):
+    try:
+        # Fetch all adjustments with the given adjusting_num
+        adjustments = Adjutstement.objects.filter(adjusting_num=adjusting_num)
+        if not adjustments.exists():
+            return Response({"detail": "No adjustments found for the given adjusting_num."}, status=status.HTTP_404_NOT_FOUND)
+
+        response_data = []
+        for adjustment in adjustments:
+            adjusted_num = adjustment.adjusted_num
+            # Fetch the corresponding JuridicalText for the adjusted_num
+            juridical_texts = JuridicalText.objects.filter(id_text=adjusted_num)
+            juridical_texts_data = CustomJuridicalTextSerializer(juridical_texts, many=True).data
+            response_data.extend(juridical_texts_data)
+
+        return Response(response_data, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+
+
+
+@api_view(['POST'])
+def delete_adjustment(request):
+    try:
+        adjusting_num = request.data.get('adjusting_num')
+        adjusted_num = request.data.get('adjusted_num')
+        
+        if not adjusting_num or not adjusted_num:
+            return Response({"detail": "Both adjusting_num and adjusted_num are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Retrieve the adjustment object to delete
+        adjustment_obj = Adjutstement.objects.filter(adjusting_num=adjusting_num, adjusted_num=adjusted_num).first()
+        if not adjustment_obj:
+            return Response({"detail": "Adjustment not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Delete the adjustment object
+        adjustment_obj.delete()
+        return Response({"detail": "Adjustment deleted successfully."}, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

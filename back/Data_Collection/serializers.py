@@ -63,14 +63,10 @@ class JuridicalTextSerializer(serializers.ModelSerializer):
     
 
 class ScrappingSerializer(serializers.ModelSerializer):
-    date_only = serializers.SerializerMethodField()
 
     class Meta:
         model = Scrapping
-        fields = ['id', 'user', 'date', 'state', 'date_only']  # Include 'state' in the fields
-
-    def get_date_only(self, obj):
-        return obj.date
+        fields = ['id', 'user', 'state', 'date']  # Include 'state' in the fields
 
 
 
@@ -78,3 +74,29 @@ class AdjustmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Adjutstement
         fields = ['adjusted_num', 'adjusting_num', 'adjustment_type']
+
+
+
+class CustomJuridicalTextSerializer(serializers.ModelSerializer):
+    official_journal_year = serializers.SerializerMethodField()
+    official_journal_number = serializers.SerializerMethodField()
+
+    class Meta:
+        model = JuridicalText
+        fields = [
+            'id_text',
+            'description',
+            'type_text',
+            'signature_date',
+            'publication_date',
+            'jt_number',
+            'source',
+            'official_journal_year',
+            'official_journal_number'
+        ]
+
+    def get_official_journal_year(self, obj):
+        return obj.official_journal.year
+
+    def get_official_journal_number(self, obj):
+        return obj.official_journal.number

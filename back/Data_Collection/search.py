@@ -10,7 +10,7 @@ ELASTIC_HOST = 'http://localhost:9200/'
 # Create the client instance
 client = Elasticsearch(
     [ELASTIC_HOST],
-    basic_auth=('manel', '12345678')
+    basic_auth=('root', 'crafterdz2003')
 )
 
 # The search function
@@ -60,7 +60,7 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
     results_length = len(results)
     q_results = []
     
-    with open(r'C:\Users\Manel\Desktop\2CS\S2\PROJET\TP\sheetsresult.json', 'r') as file:
+    with open(r'F:\project 2cs\newtask\EasyLaw\back\sheetsresult.json', 'r') as file:
          pagination_info = json.load(file)
         
     for hit in results:
@@ -91,6 +91,54 @@ def lookup(query, index='juridical_texts', fields=['id_text','source', 'type_tex
         q_results.append(data)
 
     return q_results, results_length
+
+
+def lookup_no_adjust(query, index='juridical_texts', fields=['id_text','source', 'type_text', 'description', 'extracted_text'],
+           source=None, year=None, type = None):
+    
+    if not query:
+        return
+
+    sort = '_score'  # Tri par défaut (pertinence)
+    
+    # Création de la requête booléenne
+    bool_query = Q('bool', must=[Q('match_phrase', extracted_text=query)])
+
+    # Ajout des filtres supplémentaires à la requête booléenne
+    if source:  
+        bool_query = bool_query & Q('match_phrase', source=source)
+    if year:  
+        bool_query = bool_query & Q('range', publication_date={'gte': year + '-01-01', 'lte': year + '-12-31'})
+    if type:
+        bool_query = bool_query & Q('match_phrase', type_text=type)
+
+    # Exécution de la recherche
+    s = Search(index=index).using(client).query(bool_query).sort(sort)
+    
+    # Exécuter la recherche Elasticsearch
+    results = s.execute()
+    results_length = len(results)
+    q_results = []
+        
+    for hit in results:
+        official_journal_id = hit.official_journal.year if hit.official_journal else None
+        official_journal_id_str = str(official_journal_id) if official_journal_id is not None else None
+        
+        data = {
+            "id_text": hit.id_text,
+            "description": hit.description,
+            "type_text": hit.type_text,
+            "signature_date": hit.signature_date,
+            "publication_date": hit.publication_date,
+            "jt_number": hit.jt_number,
+            "source": hit.source,
+            "official_journal_year": official_journal_id_str,
+            "official_journal_number": hit.official_journal.number if hit.official_journal else None,
+        }
+        q_results.append(data)
+
+    return q_results, results_length
+
 
 def get_adjustments(jt_id):
     # Retrieve adjustments related to the given JuridicalText ID

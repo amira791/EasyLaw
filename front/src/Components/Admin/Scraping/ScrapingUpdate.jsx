@@ -3,8 +3,11 @@ import LogoModerateur from '../../LOGO/LogoModerateur';
 import TitleBar from '../../TitleBar/TitleBar';
 import FooterAdmin from '../../Footer/FooterAdmin';
 import './Scraping.css';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import Modal from 'react-modal';
+import useSearch from '../../../Hooks/useSearch';
+import { DeleteIcon } from '@chakra-ui/icons';
 
 function ScrapingUpdate() {
   const { id_text } = useParams();
@@ -88,6 +91,52 @@ function ScrapingUpdate() {
     fetchData();
   }, [id_text]);
 
+  const [ajusted_jt, setAdjusted_jt] = useState({
+    id_text: "",
+    description: "",
+    type_text: "",
+    signature_date: "",
+    publication_date: "",
+    jt_number: "",
+    source: "",
+    official_journal_year: "",
+    official_journal_number: ""
+  });
+  const [selectedAjustingOption, setSelectedAdjustingOption] = useState("")
+  const [ajustedTexts, setAdjustedTexts] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8888/data_collection/adjustments/${id_text}/`);
+        const data = response.data;
+        console.log(data);
+        setAdjustedTexts(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSelectedAjustedJT = async (item) => {
+    setAdjusted_jt(item);
+    closeModal();
+    const adjustement = {
+      adjusted_num: item.id_text,
+      adjusting_num: id_text,
+      adjustment_type: selectedAjustingOption
+    }
+    try {
+      await axios.post('http://localhost:8888/data_collection/createAdjust/', adjustement);
+      setMessage({ content: 'تم حفظ التعديلات بنجاح!', type: 'success' });
+      setAdjustedTexts([item, ...ajustedTexts])
+      console.log([item, ...ajustedTexts])
+    } catch (error) {
+      setMessage({ content: 'حدث خطأ أثناء حفظ التعديلات. حاول مرة أخرى.', type: 'error' });
+    }
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -140,6 +189,89 @@ function ScrapingUpdate() {
   const cancelModifications = () => {
     setFormData(save);
   };
+
+  const [filterData, setFilterData] = useState({
+    q: '',
+    year: '',
+    source: '',
+    type: ''
+  });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilterData({
+      ...filterData,
+      [name]: value,
+    });
+  };
+
+  const [results, setResults] = useState([]);
+  const navigate = useNavigate();
+
+  const applyFilters = async () => {
+    // Implement filter logic here
+    console.log('Filters applied:', filterData);
+    
+    const queryParams = filterData
+    try {
+      const response = await axios.get(
+        `http://localhost:8888/data_collection/adjusted_search`,
+        {
+          headers: { 'Authorization': `Token ${localStorage.getItem('access_token')}` },
+          params: queryParams,
+        }
+      );
+      console.log('Résultats de la recherche:', response.data);
+      setResults(response.data.results)
+    } catch (error) {
+      if (error.response?.status === 403) {
+        console.error('You are not allowed to search.');
+        navigate("/subscrib");
+      } else {
+        console.error('Erreur lors de la recherche:', error);
+      }
+    }
+  };
+
+
+
+  const {years, sources, types} = useSearch()
+
+  const adjustment_values = [
+    {option : "يستدرك", value: "استدراك في"},
+    {option : "يعدل", value: "معدل بـ"},
+    {option : "يلغي", value: "ملغى بـ"},
+    {option : "يوافق على", value: "موافق عليه بـ"} ,
+    {option : "نص تطبيقي ل", value: "نص تطبيقي"}
+  ]
+
+  const handleRemoveItem = async (indexToRemove, item) => {
+
+    const adjustement = {
+      adjusted_num: item.id_text,
+      adjusting_num: id_text,
+    }
+    try {
+      await axios.post('http://localhost:8888/data_collection/adjustment/delete/', adjustement);
+      setAdjustedTexts((prevTexts) =>
+        prevTexts.filter((_, index) => index !== indexToRemove)
+      );
+    } catch (error) {
+      console.log(error)
+    }
+
+  };
+
 
   return (
     <>
@@ -273,30 +405,97 @@ function ScrapingUpdate() {
             </label>
           </div>
         </div>
-        <h5 style={{ textAlign: 'right', marginTop: '0', paddingTop: '0', color: '#374957' }}>
-          هل يعدل نصا قانونيا اخر؟ إن كان كذلك  يرجى ادخاله.
-        </h5>
+       
 
-        <div className="scraping_update_btn scraping_update_button">
-          <label className="scraping_lable">
-            النص
-            <select
-              className="scraping_input"
+
+              <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Filter Modal"
+        className="customModal"
+        overlayClassName="customOverlay"
+      >
+        <h2>تصفية النصوص</h2>
+        <div className="filter_form">
+          <label>
+            كلمة مفتاحية
+            <input
               type="text"
-              name="type_text"
-              value={formData.type_text}
-              onChange={handleChange}
-              placeholder="مرسوم"
+              name="q"
+              value={filterData.keyword}
+              onChange={handleFilterChange}
+            />
+          </label>
+          <label>
+            السنة
+            <select
+              name="year"
+              value={filterData.year}
+              onChange={handleFilterChange}
             >
-              <option value="">النص</option>
-              <option value="يلغي">يلغي</option>
-              <option value="يلغي">يلغي</option>
+              <option value="">اختر السنة</option>
+              {years.map((yearOption) => (
+                <option key={yearOption} value={yearOption}>
+                  {yearOption}
+                </option>
+              ))}
             </select>
           </label>
-          <Link to="/" className="update_btn fullbtn">
-            <button type="button">اختر النص المعدل</button>
-          </Link>
+          <label>
+            المصدر
+            <select
+              name="source"
+              value={filterData.source}
+              onChange={handleFilterChange}
+            >
+              <option value="">اختر المصدر</option>
+              {sources.map((sourceOption) => (
+                <option key={sourceOption} value={sourceOption}>
+                  {sourceOption}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            النوع
+            <select
+              name="type"
+              value={filterData.type}
+              onChange={handleFilterChange}
+            >
+              <option value="">اختر النوع</option>
+              {types.map((typeOption) => (
+                <option key={typeOption} value={typeOption}>
+                  {typeOption}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
+
+        <div className="results_container">
+          {results.map((item, index) => (
+            <div key={index} className="result_item" onClick={() => {
+              handleSelectedAjustedJT(item)
+            }} >
+              <h2>{item.type_text}</h2>
+              <p>{item.source}</p>
+              <p>
+                الجريدة الرسمية عدد {item.official_journal_number} مؤرخة في {item.publication_date}
+              </p>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+
+        <button onClick={applyFilters} className="scraping_modifierButton">
+          بحث
+        </button>
+        <button onClick={closeModal} className="scraping_modifierButton">
+          إغلاق
+        </button>
+      </Modal>
+
 
         {message.content && (
           <div className={`message ${message.type === 'success' ? 'success' : 'error'}`}>
@@ -312,6 +511,57 @@ function ScrapingUpdate() {
             إلغاء التعديلات
           </button>
         </div>
+
+
+
+        <h5 style={{ textAlign: 'right', marginTop: '0', paddingTop: '0', color: '#374957' }}>
+          هل يعدل نصا قانونيا اخر؟ إن كان كذلك  يرجى ادخاله.
+        </h5>
+        <div className="scraping_update_btn scraping_update_button">
+
+          <label className="scraping_lable">
+            النص
+            <select
+              className="scraping_input"
+              type="text"
+              name="type_text"
+              value={selectedAjustingOption}
+              onChange={(e) => setSelectedAdjustingOption(e.target.value) }
+              placeholder="مرسوم"
+            >
+              <option value="">النص</option>
+              {adjustment_values.map((value) => (
+                <option key={value.option} value={value.value}>
+                  {value.option}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button onClick={openModal} className="update_btn fullbtn" type="button">اختر النص المعدل</button>
+        </div>
+
+        <h5 style={{ textAlign: 'right', marginTop: '20px', paddingTop: '0', color: '#374957' }}>
+          نصوص يجددها هذا النص
+        </h5>
+        <div className="results_container">
+          {ajustedTexts.map((item, index) => (
+            <div key={index} className="adj_item">
+              <div className="icon_container">
+                <DeleteIcon onClick={() => handleRemoveItem(index, item)} className="trash_icon" />
+              </div>
+              <div onClick={() => handleSelectedAjustedJT(item)}>
+                <h2>{item.type_text}</h2>
+                <p>{item.source}</p>
+                <p>
+                  الجريدة الرسمية عدد {item.official_journal_number} مؤرخة في {item.publication_date}
+                </p>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+
       </form>
       <FooterAdmin />
     </>
