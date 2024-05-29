@@ -75,6 +75,7 @@ function App() {
         <Route path="/searchresult" element={<SearchResult/>} />
         <Route path="/help" element={<HelpPage/>} />
         <Route path="/aboutus" element={<AboutUs/>} />
+        <Route path="/val" element={<Validation/>} />
 
 
         <Route path="/accountmanagment" element={<AccountManag/>} />
@@ -91,8 +92,6 @@ function App() {
         <Route path="/scrapingupdate/:id_text" element={<ScrapingUpdate/>} />
         
 
-        
-        
         
       </Routes>
       </LogoProvider>

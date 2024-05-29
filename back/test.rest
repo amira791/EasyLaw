@@ -9,7 +9,7 @@ POST http://127.0.0.1:8888/user/signup
 Content-Type: application/json
 
 {
-  "username": "adam16",
+  "username": "horizon2170",
   "password": "Pass1234",
   "email": "ky_ifourah@esi.dz",
   "etat": "Active",

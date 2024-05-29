@@ -15,6 +15,7 @@ urlpatterns = [
     path('activateUser', views.activateUser),
     path('blockUser', views.blockUser),
     # re_path('test_token', views.test_token)
+    # path('custom-app/verify/<str:uidb64>/<str:token>/', views.confirm_email, name='confirm-email'),
     path('custom-app/verify/<str:uidb64>/<str:token>/', views.confirm_email, name='confirm-email'),
 
     re_path('create_domaine', views.create_domaine_interet),
