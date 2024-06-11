@@ -123,16 +123,4 @@ class TestLookupFunction(TestCase):
         html = html.replace('<mark>', '')  # Supprimer les balises de marque d'ouverture
         html = html.replace('</mark>', '')  # Supprimer les balises de marque de fermeture
         return html
-    # def test_search_with_ojNumber_filter(self):
-    #     search_params = {'q': 'قانون', 'ojNumber': '12345'}
-    #     response = self.client.get(reverse('index_page'), data=search_params,
-    #                             HTTP_AUTHORIZATION=f'Token {self.token.key}')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    #     # Check if the response contains any results
-    #     results = response.data.get('results', [])
-    #     self.assertTrue(results, "No results returned")
-
-    #     # Check if all results have the specified ojNumber
-    #     for result in results:
-    #         self.assertEqual(result['official_journal_number'], '12345', "Official journal number mismatch")
+   

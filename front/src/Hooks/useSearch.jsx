@@ -94,6 +94,12 @@ export default function useSearch() {
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
+    if (!searchQuery) {
+      setErrorMessage('الرجاء إدخال نص للبحث'); // Set the error message if searchQuery is empty
+      return;
+    }
+    setErrorMessage(''); // Clear any existing error message
+  
     const formattedDate = year ? `${year}` : '';
     const queryParams = {
       q: searchQuery,
@@ -115,7 +121,7 @@ export default function useSearch() {
       );
       console.log('Recherche soumise avec la requête :', searchQuery);
       console.log('Résultats de la recherche:', response.data);
-      navigate('/searchresult', { state: { results: response.data.results, len: response.data.len, searchQuery } }); // Pass searchQuery
+      navigate('/searchresult', { state: { results: response.data.results, len: response.data.len, searchQuery } });
     } catch (error) {
       if (error.response?.status === 403) {
         console.error('You are not allowed to search.');
@@ -126,6 +132,7 @@ export default function useSearch() {
       }
     }
   };
+  
   
 
   const handleSortBy = async (sortByValue) => {

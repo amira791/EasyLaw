@@ -12,7 +12,7 @@
   }
   
   .journal select {
-    width: 100%;
+    
     padding: 8px;
     font-size: 16px;
     margin-bottom: 20px;
@@ -22,7 +22,7 @@
     cursor: pointer;
     padding: 10px;
     margin: 5px 0;
-    background-color: #f1f1f1;
+width: 80%;
     border: 1px solid #ccc;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -34,6 +34,19 @@
   
   .journal{
     direction: rtl;
-    margin-bottom: 7%;
+    margin: 2% 0% 2% 2%  ;
+    border:1px solid rgb(222, 222, 222);
+    padding: 2%;
+    border-radius: 5px;
+    width: 90%;
+   
 
+  }
+  .scroll-container {
+    max-height: 400px; /* Ajustez cette valeur selon vos besoins */
+    overflow-y: auto;
+    width: 30%;
+  }
+  .disply_journaux{
+    display: flex;
   }

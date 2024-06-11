@@ -6,7 +6,7 @@ import LogoAdmin from '../../LOGO/LogoAdmin';
 
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
-import { pdfjs } from 'react-pdf';
+
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import { Container } from 'semantic-ui-react';
 import PdfContent from './PdfContent';

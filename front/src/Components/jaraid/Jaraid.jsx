@@ -13,6 +13,7 @@ const Jaraid = () => {
   const [showNumbersDropdown, setShowNumbersDropdown] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState(''); // Initialize with an empty string
   const [numbers, setNumbers] = useState([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]);
+  const [selectedJournal, setSelectedJournal] = useState(null);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -28,6 +29,7 @@ const Jaraid = () => {
 
     fetchDataAsync();
   }, []);
+
   const handleYearSelect = async (year) => {
     setSelectedYear(year);
     setShowNumbersDropdown(false);
@@ -44,8 +46,7 @@ const Jaraid = () => {
 
   const handleOpenPDF = (number) => {
     if (selectedYear) {
-      const url = `http://localhost:8000/data_collection/journals/open-pdf/${selectedYear}/${number}/`;
-      window.open(url, '_blank');
+      setSelectedJournal({ year: selectedYear, number });
     } else {
       // Handle the case where year or number is not selected
       console.error('Year and number must be selected to open PDF.');
@@ -56,27 +57,39 @@ const Jaraid = () => {
     <>
       <Logo />
       <NavBar />
-      <Gpt />
+
       <div className='journal'>
-      <label htmlFor="year-select">اختر السنة:</label>
-      <select id="year-select" value={selectedYear} onChange={(e) => handleYearSelect(e.target.value)}>
-        <option value="">اختر السنة</option>
-        {data.years.map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
-      {numbers.map((number) => (
-        <div key={number} className="number-item" onClick={() => handleOpenPDF(number)}>
-          الجريدة الرسمية رقم {number} سنة {selectedYear}
+        <label htmlFor="year-select">اختر السنة:</label>
+        <select id="year-select" value={selectedYear} onChange={(e) => handleYearSelect(e.target.value)}>
+          <option value="">اختر السنة</option>
+          {data.years.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+        <div className='disply_journaux'>
+
+          <div className="scroll-container">
+            {numbers.map((number) => (
+              <div key={number} className="number-item" onClick={() => handleOpenPDF(number)}>
+                الجريدة الرسمية رقم {number} سنة {selectedYear}
+              </div>
+            ))}
+          </div>
+          {selectedJournal && (
+            <iframe
+            src={`D:\\pdfs\\1962\\F1962001.p`}
+            width="100%"
+            height="500px"
+            title={`Journal ${selectedJournal.number} - ${selectedJournal.year}`}
+          />
+          )}
         </div>
-      ))}
       </div>
-   
-    
-     <Footer />
-     </>
+
+      <Footer />
+    </>
   );
 };
 

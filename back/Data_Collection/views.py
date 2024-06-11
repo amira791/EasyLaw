@@ -179,7 +179,7 @@ def lookup(query, index='juridical_texts', fields=['id_text','source',
     if sort_by == 'publication_date':
         sort = {'publication_date': {'order': 'desc'}}  
     else:
-        sort = '_score'  # Tri par défaut (pertinence)
+        sort = '_score'  
     #la requete de la recherche 
     s = Search(index=index).using(client).query(
         "multi_match", fields=fields, fuzziness='AUTO', query=query
@@ -218,15 +218,19 @@ def lookup(query, index='juridical_texts', fields=['id_text','source',
     for hit in results:
         # Retrieve adjustments related to the current JuridicalText
         adjustments = get_adjustments(hit.id_text)
+        #pour le calcule de la page réel de jt dans le jo
         official_journal_id = hit.official_journal.year if hit.official_journal else None
         official_journal_id_str = str(official_journal_id) if official_journal_id is not None else None
         if 1962 <= int(official_journal_id_str) <= 1992:
            real_page=get_real_page_number(official_journal_id_str,hit.official_journal.number ,hit.official_journal_page, pagination_info)
         else:
             real_page=hit.official_journal_page
+
+        #pour le highlight de résultat dans description ...
         highlighted_description = hit.meta.highlight.description[0] if hasattr(hit.meta, 'highlight') and hit.meta.highlight.to_dict().get('description') else hit.description
         highlighted_type_text = hit.meta.highlight.type_text[0] if hasattr(hit.meta, 'highlight') and hit.meta.highlight.to_dict().get('type_text') else hit.type_text
         highlighted_source = hit.meta.highlight.source[0] if hasattr(hit.meta, 'highlight') and hit.meta.highlight.to_dict().get('source') else hit.source
+
         # Mettre en surbrillance tous les mots après la troncature
         highlighted_full_extracted_text = ""
         if hasattr(hit.meta, 'highlight') and hit.meta.highlight.to_dict().get('extracted_text'):
@@ -235,6 +239,8 @@ def lookup(query, index='juridical_texts', fields=['id_text','source',
              highlighted_full_extracted_text = highlighted_extracted_text + "..."
            else:
              highlighted_full_extracted_text = highlighted_extracted_text
+             
+             #le dictionnaire de résultat
         data = {
             "id_text": hit.id_text,
            "description": highlighted_description,
@@ -253,7 +259,7 @@ def lookup(query, index='juridical_texts', fields=['id_text','source',
             "adjustments": adjustments, # Include adjustments data
         }
         q_results.append(data)
-    # Get the length of results
+   
 
     return q_results,results_length
 
@@ -306,8 +312,6 @@ def get_real_page_number(year, journal_number, page_initial, data):
 @permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
-            #  if( is_Allowed(request.user.id,"search")):
-                 # Récupérer les paramètres de recherche depuis la requête GET
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
                   source = request.GET.get('source')
@@ -327,8 +331,6 @@ class search_view(APIView):
                      return Response({'results': results, 'len': len}, status=200)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
-            #  else:
-                #  return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 # fonctions pour recupere les sources et types 
 def get_type_and_source(request):
     types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
