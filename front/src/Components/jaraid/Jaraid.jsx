@@ -79,7 +79,7 @@ const Jaraid = () => {
           </div>
           {selectedJournal && (
             <iframe
-            src={`D:\\pdfs\\1962\\F1962001.p`}
+            src={`/D:/pdfs/1962/F1962001.pdf/journal.pdf`}
             width="100%"
             height="500px"
             title={`Journal ${selectedJournal.number} - ${selectedJournal.year}`}
