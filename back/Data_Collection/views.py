@@ -15,7 +15,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from PyPDF2 import PdfReader ,PdfWriter
 from django.http import FileResponse
 from datetime import datetime
-
 from User.serializers import CustomUserSerializer
 from .models import IntrestDomain, JuridicalText, Adjutstement, OfficialJournal, Scrapping
 from User.models import CustomUser
@@ -23,6 +22,7 @@ from .models import JuridicalText, Adjutstement, OfficialJournal, Scrapping
 from django.http import HttpResponse
 from rest_framework import status
 import re
+from django.shortcuts import get_object_or_404
 from .search import lookup
 import time
 from datetime import datetime
@@ -48,6 +48,14 @@ from fuzzywuzzy import process
 from .classifier import get_text_clf
 from datetime import timedelta
 from rest_framework.authtoken.models import Token
+# search function 
+import elasticsearch
+from elasticsearch_dsl import Search, Q, Index
+from elasticsearch import Elasticsearch
+from .models import Adjutstement
+from django.urls import reverse
+import json
+import re
 
 #les expressions réguliéres
 patterns = [
@@ -415,14 +423,7 @@ def extract_text_from_pdf_file(pdf_file_path, page_number):
     else:
         print(f"PDF file not found at {pdf_file_path}")
         return None
-# search function 
-import elasticsearch
-from elasticsearch_dsl import Search, Q, Index
-from elasticsearch import Elasticsearch
-from .models import Adjutstement
-from django.urls import reverse
-import json
-import re
+
 
 
 ELASTIC_HOST = 'http://localhost:9200/'
@@ -1271,37 +1272,48 @@ def scrap_recent_juridical_texts(request):
         return Response({"msg": "an error occured during the scraping"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+def upd_juridical_text(id_text, update_data):
+    # Step 1: Retrieve the JuridicalText instance
+    juridical_text = get_object_or_404(JuridicalText, id_text=id_text)
 
+    # Step 2: Update the fields
+    for key, value in update_data.items():
+        if key == 'official_journal':
+            # Update the official_journal foreign key reference
+            official_journal = get_object_or_404(OfficialJournal, number=value['number'],year=value['year'])
+            juridical_text.official_journal = official_journal
+        elif key == 'intrest':
+            # Update the intrest foreign key reference
+            intrest_domain = get_object_or_404(IntrestDomain, id=value)
+            juridical_text.intrest = intrest_domain
+        elif key == 'scrapping':
+            # Update the scrapping foreign key reference
+            scrapping = get_object_or_404(Scrapping, id=value)
+            juridical_text.scrapping = scrapping
+        else:
+            # Update other fields directly
+            setattr(juridical_text, key, value)
+    
+    # Step 3: Save the instance
+    juridical_text.save()
+
+    return juridical_text
 
 
 @api_view(['POST'])
 def update_juridical_text(request):
-    print(request.data)
     id_text = request.data.get('id_text')
     if not id_text:
         return Response({"error": "id_text is required"}, status=status.HTTP_400_BAD_REQUEST)
+
     try:
         juridical_text = JuridicalText.objects.get(id_text=id_text)
     except JuridicalText.DoesNotExist:
         return Response({"error": "JuridicalText not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = JuridicalTextSerializer(juridical_text, data=request.data, partial=True)
-    if serializer.is_valid():
-        official_journal_data = request.data.get('official_journal')
-        if official_journal_data:
-            year = official_journal_data.get('year')
-            number = official_journal_data.get('number')
-            if year and number:
-                try:
-                    official_journal = OfficialJournal.objects.get(year=year, number=number)
-                except OfficialJournal.DoesNotExist:
-                    official_journal = OfficialJournal.objects.create(year=year, number=number)
-                serializer.validated_data['official_journal'] = official_journal
-
-        updated_juridical_text = serializer.save()
-        return Response(JuridicalTextSerializer(updated_juridical_text).data, status=status.HTTP_200_OK)
-
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    upd_jt=upd_juridical_text(id_text, request.data)
+    
+    return Response({'msg':'sucess'}, status=status.HTTP_200_OK)
 
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
@@ -1329,9 +1341,6 @@ def scrapping_juridical_texts(request, scrapping_id):
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-
-
-
 
 @api_view(['POST'])
 def create_adjustment(request):

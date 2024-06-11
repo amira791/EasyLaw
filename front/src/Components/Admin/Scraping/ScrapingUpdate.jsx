@@ -158,8 +158,8 @@ function ScrapingUpdate() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form Data:', formData);  // Print formData to the console
     try {
-     console.log(formData)
       await axios.post('http://localhost:8000/data_collection/updateJT/', formData);
       setMessage({ content: 'تم حفظ التعديلات بنجاح!', type: 'success' });
     } catch (error) {
@@ -339,6 +339,7 @@ function ScrapingUpdate() {
                 value={formData.official_journal.year}
                 onChange={handleOfficialJournalChange}
                 placeholder="السنة"
+                disabled
               />
             </label>
             <label className="scraping_lable1">
@@ -351,6 +352,7 @@ function ScrapingUpdate() {
                 value={formData.official_journal.number}
                 onChange={handleOfficialJournalChange}
                 placeholder=""
+                disabled
               />
             </label>
             <label className="scraping_lable1">
@@ -363,6 +365,7 @@ function ScrapingUpdate() {
                 value={formData.official_journal_page}
                 onChange={handleChange}
                 placeholder=""
+                
               />
             </label>
           </div>

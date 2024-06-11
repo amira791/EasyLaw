@@ -18,7 +18,8 @@ class OfficialJournalSerializer(serializers.ModelSerializer):
         fields = ['number', 'year']
 
 class JuridicalTextSerializer(serializers.ModelSerializer):
-  
+    official_journal = OfficialJournalSerializer()
+
     class Meta:
         model = JuridicalText
         fields = [
@@ -37,6 +38,28 @@ class JuridicalTextSerializer(serializers.ModelSerializer):
             'scrapping'
         ]
 
+    def update(self, instance, validated_data):
+        official_journal_data = validated_data.pop('official_journal', None)
+        
+        # Update the JuridicalText instance fields
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        
+        # Update or create the nested OfficialJournal instance
+        if official_journal_data:
+            official_journal_instance, created = OfficialJournal.objects.get_or_create(
+                id=instance.official_journal.id,
+                defaults=official_journal_data
+            )
+            if not created:
+                for attr, value in official_journal_data.items():
+                    setattr(official_journal_instance, attr, value)
+                official_journal_instance.save()
+            
+            instance.official_journal = official_journal_instance
+
+        instance.save()
+        return instance
     
     
 
