@@ -4,18 +4,26 @@ import LogoAdmin from '../../LOGO/LogoAdmin';
 import TitleBar from '../../TitleBar/TitleBar';
 import FooterAdmin from '../../Footer/FooterAdmin';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import useScrapping from '../../../Hooks/useScrapping';
+import { useNavigate } from 'react-router-dom';
 function Scraping() {
-  
+  const  {  results , errorMessage , loading , startScrapping , recentScrapping } = useScrapping() 
   const [selectedOption, setSelectedOption] = useState("periodically"); //stocker l'option sélectionnée
   const [frequency, setFrequency] = useState(""); // la fréquence sélectionnée
   const [customDate, setCustomDate] = useState("");// la date personnalisée
   const [selectedUrls, setSelectedUrls] = useState([]);// stocker les URLs sélectionnées
   const [showOptions, setShowOptions] = useState(false);// l'affichage des options
-  const [legalText, setLegalText] = useState("");
+  const [showOptions2, setShowOptions2] = useState(false);// l'affichage des options
+  const [legalText, setLegalText] = useState([]);
+  const navigate = useNavigate();
 
 const handleLegalTextChange = (event) => {
-    setLegalText(event.target.value);
+    const value = event.target.value;
+    if (event.target.checked) {
+      setLegalText([...legalText, value]);
+    } else {
+      setLegalText(legalText.filter(url => url !== value));
+    }
   };
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -46,6 +54,8 @@ const handleLegalTextChange = (event) => {
     }
   };
   const handleStartScraping = () => {
+
+    
     const scrapingData = {
         selectedOption: selectedOption,
         frequency: frequency,
@@ -54,30 +64,45 @@ const handleLegalTextChange = (event) => {
         legalText:legalText
       };
     // Envoyer les informations au backend
+    if( legalText.length > 0 && selectedUrls.length >0  ) {
+
+      startScrapping() 
+
+
+    }
     console.log(scrapingData);
+
    
   };
  const handleDisplayOptions = () => {
     setShowOptions(!showOptions);
   };
+  const handleDisplayOptions2 = () => {
+    setShowOptions2(!showOptions2);
+  };
   const urlOptions = [
-    { name: "url1", url: "https://www.futura-sciences.com." },
-    { name: "url2", url: "https://www.futura-sciences.com." },
-    { name: "url3", url: "https://www.futura-sciences.com." },
-    { name: "url4", url: "https://www.futura-sciences.com." },
-    { name: "url5", url: "https://www.futura-sciences.com." }
+    { name: "url1", url: "joradp.dz/HAR/Index.htm" }
   ];
+  const urlOptions2 = [
+    { name: "نصوص قانونية ", url: "joradp.dz/HAR/Index.htm" }   
+  ];
+
   const frequencyOptions = [
     { label: "يوميا", value: "daily" },
     { label: "أسبوعيا", value: "weekly" },
     { label: "شهريا", value: "monthly" }
   ];
+
+  const handleShowResults = () => {
+    navigate('/scrapingresult', { state: { results: results }});
+  }
+
   return (
     <>
       <LogoAdmin title="صفحة الاشراف "/>
       <TitleBar title="ادارة المحتوى القانوني"/>
       <div className='scraping-container'>
-          <h2>(Scraping) كشط النصوص القانونية </h2>
+          <h2>(Scraping) تجميع النصوص القانونية </h2>
           <div className='scraping-plan'>
               <div className='scraping-time'>
                   <h4>التخطيط الزمني </h4>
@@ -144,18 +169,33 @@ const handleLegalTextChange = (event) => {
                   <h4>ملأ المعلومات الأساسية</h4>
                   <div className='scraping form'>
                     <form >
+                     
                       <div className='scraping-info'>
-                      <input
-                          type="text"
-                          id="textjuridique"
-                          name="textjuridique"
-                          placeholder=' النص القانوني ....'
-                          className='scraping-info-item'
-                          value={legalText}
-                          onChange={handleLegalTextChange}
-                          required
-                        />
+                        
+                        <div className="display-options" >
+                        <div className='titre-url'>
+                          <p> النص القانوني .... </p> 
+                        </div>
+                          <ExpandMoreIcon  onClick={handleDisplayOptions2} />
+                          <i className="fa fa-chevron-down"></i>
+                        </div>
+                        <div className="checkbox-options" style={{ display: showOptions2 ? 'block' : 'none' }}>
+                            {urlOptions2.map((legalText, index) => (
+                              <div key={index}>
+                                <input
+                              type="checkbox"
+                              name={legalText.name}
+                              value={legalText.name}
+                              onChange={handleLegalTextChange}
+                            />
+                            {legalText.name}
+                          </div>
+                        ))}
+                        </div>
+                        
                       </div>
+
+
                       <div className='scraping-info'>
                         
                         <div className="display-options" >
@@ -184,7 +224,26 @@ const handleLegalTextChange = (event) => {
                   </div>
               </div>
           </div>
-          <button className='btn-scraping' onClick={handleStartScraping}>بدأ عملية الكشط و البحث </button>
+          {Object.keys(recentScrapping).length > 0 && (
+            <div className="scrapping-container">
+                <div className={`scrapping-item ${recentScrapping.state === 'loading'? 'loading-gif':recentScrapping.state}`}>
+                    <p>Date: {recentScrapping.date}</p>
+                    <p>Status: {recentScrapping.state}</p>
+                </div>
+            </div>
+          )}
+          <div className='scraping-btn-container'>
+            <button className='btn-scraping' onClick={handleStartScraping}>بدأ عملية البحث </button>
+            {recentScrapping.state === 'success' && (
+              <button
+                className='btn-scraping'
+                onClick={handleShowResults}
+              >
+                عرض النتائج
+              </button>
+            )}
+
+          </div>
       </div>
       <FooterAdmin/>
     </>

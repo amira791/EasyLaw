@@ -36,6 +36,13 @@ import Facture from './Components/Profile/Facture';
 import { loadStripe } from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
 import Jaraid from './Components/jaraid/Jaraid';
+import ProfileModerateur from './Components/Admin/Moderateur/ProfileModerateur';
+import Tarification from './Components/Admin/Tarification/Tarification';
+
+import AboutUs from './Components/AboutUs/AboutUs';
+import HelpPage from './Components/HelpPage/HelpPage';
+import ScrapingUpdate from './Components/Admin/Scraping/ScrapingUpdate';
+
 
 function App() {
 
@@ -67,6 +74,8 @@ function App() {
         <Route path="/gptpage" element={<GptPage/>} />
         <Route path="/ressource" element={<Ressource/>} />
         <Route path="/searchresult" element={<SearchResult/>} />
+        <Route path="/help" element={<HelpPage/>} />
+        <Route path="/aboutus" element={<AboutUs/>} />
 
 
         <Route path="/accountmanagment" element={<AccountManag/>} />
@@ -79,6 +88,11 @@ function App() {
         <Route path="/admin" element={<AdminMain/>} />
         <Route path="/profileadmin" element={<ProfileAdmin/>} />
         <Route path="/jaraid" element={<Jaraid/>} />
+        <Route path="/profilemoderateur" element={<ProfileModerateur/>} />
+        <Route path="/tarification" element={<Tarification/>} />
+        <Route path="/scrapingupdate/:id_text" element={<ScrapingUpdate/>} />
+        
+
         
         
         

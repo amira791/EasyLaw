@@ -61,6 +61,7 @@ function Gpt({ currentPage, resultsPerPage }) {
             <label className='radio_label'>
               بالصلة
               <input
+              
                 type="radio"
                 name="sortBy"
                 value="relevance"
@@ -85,7 +86,7 @@ function Gpt({ currentPage, resultsPerPage }) {
             id="year"
             name="year"
             className='select_item'
-            value={year}
+            value={year} // Use the defined year state
             onChange={(e) => setYear(e.target.value)}
           >
             <option value="">السنة</option>

@@ -11,22 +11,27 @@
     grid-template-columns: repeat(2,50%);
     grid-row-gap: 50px;
     justify-content:space-between;
-    width: 85%;   
+    width: 80%;   
     margin-left: 5%; 
+    
 }
-.Law-container .law-item p{
-   font-size: larger;
-   font-weight: 500;
-   margin-right: 6%;
+
+.Law-container .law-item:hover {
+    box-shadow: 4px -1px 14px 3px rgba(0, 0, 0, 0.1);
 }
 
 .Law-container .law-item{
     display: flex;
     align-items: center;
     justify-content: end;
-    width: 90%;
+    width: 80%;
     height: 100px;
     border-radius: 10px;
+    font-size: larger;
+    font-weight: 500;
+    margin-right: 6%;
+    padding-right: 3%;
+    cursor: pointer;
 }
 .Law-container .law-item:nth-child(even) {
     background-color: #58D6D7; 

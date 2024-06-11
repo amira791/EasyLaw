@@ -176,3 +176,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
 }
+
+
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))

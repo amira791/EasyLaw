@@ -10,6 +10,10 @@
     display: flex;
     align-items: center;
 }
+.logo_section .easylaw_section a{
+    color: black;
+    cursor: pointer;
+}
 .logo_section .lign_dv{
     border: var(--primary-color) 1px solid;
     height: 40px;

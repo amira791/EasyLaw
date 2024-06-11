@@ -28,12 +28,12 @@ function LogoAdmin(props) {
     {isAuth ? (
             <div className="user-initials-circle"> <Link to="/profileadmin">{initials}</Link></div>
           ) : (
-          <Link  to ="/adminauth">
-          <button className=' btn login_btn btn_admin'> 
-          <p> الدخول كمستخدم </p>
-           <LoginIcon sx={{ width: '20px', height: '20px' }}/>
-           </button>
-           </Link>
+            <Link to="/signin">
+            <button className=' btn login_btn'>
+              <p>تسجيل الدخول </p>
+              <LoginIcon sx={{ width: '20px', height: '20px' }} />
+            </button>
+          </Link>
             )}
     </div>
     <div className='titre_section'>

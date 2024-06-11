@@ -24,7 +24,7 @@ function Profile() {
     occupation: '',
     univer_Entrep: '',
     email: '',
-    role: '' // Adding role field to formData
+    role: '' 
   });
 
   const { getUserInfo } = useUser(); // Utilisation de la fonction getUserInfo du hook useUser
@@ -39,7 +39,7 @@ function Profile() {
       occupation: '',
       univer_Entrep: '',
       email: '',
-      role: '' // Reset role field too
+      role: '' 
     });
   };
 

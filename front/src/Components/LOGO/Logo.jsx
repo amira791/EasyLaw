@@ -23,16 +23,16 @@ function Logo() {
     <>
       <div className='logo_section'>
         <div className='login_section'>
-          <div>
-            <select
+        { /*<div>
+           <select
               id="lang"
               name="lang"
               className='btn select_lang'>
               <option value=""> اختر اللغة</option>
               <option value="FR">FR</option>
               <option value="AR">AR</option>
-            </select>
-          </div>
+  </select>
+          </div>*/}
           {isAuth ? (
             <div className="user-initials-circle"> <Link to="/profile">{initials}</Link></div>
           ) : (
@@ -45,10 +45,12 @@ function Logo() {
           )}
         </div>
         <div className='easylaw_section'>
-          <div className='help_icon'>
+        <Link to='/help'>
+          <div className='help_icon'> 
             <p>مساعدة</p>
-            <HelpIcon />
+            <HelpIcon /> 
           </div>
+          </Link>
           <div className='lign_dv'></div>
           <div className='easylaw_logo'>
             <Link to="/">

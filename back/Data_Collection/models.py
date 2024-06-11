@@ -9,13 +9,14 @@ class Scrapping(models.Model):
     STATE_CHOICES = (
         ('failed', 'Failed'),
         ('success', 'Success'),
+        ('loading', 'Loading'),
     )
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    date = models.DateField(default=timezone.now, null=True)
+    date = models.DateField(default=timezone.now().date(), null=True)
     state = models.CharField(max_length=20, choices=STATE_CHOICES ,default='failed')
 
 class IntrestDomain(models.Model):
-     name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
 
 class OfficialJournal(models.Model):
     number = models.IntegerField()

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ export default function useSearch() {
   const [sources, setSources] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState();
+  const [searching_way, setSearching_way] = useState("multi_match");
   const [years, setYears] = useState([]);
   const [year, setYear] = useState('');
   const [domain, setDomain] = useState(''); // Added domain state for future filtering

@@ -8,6 +8,7 @@ import axios from 'axios';
 import { AuthContext } from '../../../Context/LogoProvider';
 import useUser from '../../../Hooks/useUser';
 import { Link, Navigate } from 'react-router-dom';
+import NavBarAdmin from './NavBarAdmin';
 
 
 function ProfileAdmin() {
@@ -177,15 +178,11 @@ function ProfileAdmin() {
         {editMode ? 'Annuler' : 'Modifier'}
       </button> */}
     
-    <div className='profile_navBar'>
-        <ul>
-         
-          <li>
-            <a onClick={handleLogout}>تسجيل الخروج</a>
-          </li>
-        </ul>
-      </div>
+   
+        <NavBarAdmin/>
+      
   </div>
+  
     <FooterAdmin/>
     </div>
     </>

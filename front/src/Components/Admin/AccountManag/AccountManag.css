@@ -5,18 +5,20 @@
   .accountManag-container h2{
     text-align: center;
   }
-  
+  .datatable-responsive{
+    direction: rtl;
+  }
   /* Style pour la DataTable elle-même */
-  .p-datatable {
+  .accountManag-container .p-datatable {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: 1%;
   }
-  .p-datatable .p-column-header-content {
+  .accountManag-container  .p-datatable .p-column-header-content {
     display: block;
 }
   
-  .p-datatable thead th {
+.accountManag-container .p-datatable thead th {
     background-color: var(--primary-color);
     font-weight: bold;
     padding: 1.5% 0%;
@@ -24,31 +26,90 @@
   }
   
   /* Style pour les cellules de données */
-  .p-datatable tbody td {
+  .accountManag-container .p-datatable tbody td {
     padding: 10px;
   vertical-align: middle; 
+  text-align: -webkit-center;
+
   }
-  .p-datatable tbody tr:nth-child(odd) {
+  .accountManag-container .p-datatable tbody tr:nth-child(odd) {
     background-color: #04525327; /* Couleur de fond pour les lignes impaires */
   }
   
   /* Style pour les boutons de pagination */
-  .p-paginator .p-paginator-current,
+  .accountManag-container .p-paginator .p-paginator-current,
   .p-paginator .p-paginator-pages {
     margin: 2px;
   
     display: flex;
     justify-content: space-between;
   }
-  .p-paginator-page{
+  .accountManag-container .p-paginator-page{
     color: #045253;
     width: 30px;
   }
   /* Style pour les boutons de pagination actifs */
-  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  .accountManag-container  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
     background-color: #045253;
     color:white;
    width: 25px;
    height: 25px;
    border-radius: 100%;
   }
+
+  /* Styling button block and unblock */
+  .p-button-block {
+    border-radius: 20px;
+    border: none;
+    background-color: transparent !important;
+    color:#bf0606 !important;
+    width: 110px;
+    height: 25px;
+    font-size: 18px;
+  }
+  
+  .p-button-unblock {
+    border-radius: 10px;
+    background-color: #045253 !important;
+    color: white !important;
+    width: 110px;
+    height: 25px;
+  }
+
+/* Style for search input container */
+.search-container {
+  width: 100%;
+  display: flex;
+ direction: rtl;
+
+  /* Center horizontally */
+}
+
+/* Style for search input */
+.p-inputtext {
+
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 10px;
+  color: black;
+  width: 260px;
+  border: 1px solid var(--primary-color);
+  direction: rtl;
+  padding-right: 10%;
+  position: relative;
+  margin-right: 8%;
+}
+.p-input-icon-left{
+
+}
+.create-moderator-button {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 0;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-bottom: 3%;
+}
+
