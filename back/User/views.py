@@ -24,7 +24,7 @@ def signup(request):
         data['password'] = make_password(data['password'])  # Hash the password
         data['role'] = 'client'  
         data['etat'] = 'Active'
-        data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+        data['stripeCustomerId'] = "unset"
         serializer = CustomUserSerializer(data=data)
         if serializer.is_valid():
             user = serializer.save()
@@ -116,19 +116,6 @@ def allUsers(request):
         return Response({'users': serialized_users.data})
 
          
-
-def stripeCustomerId(name, email,request):
-    url = root_url = request.build_absolute_uri('/')[:-1] +'/payment/customer'
-    data = {
-    "name":name,
-    "email":email
-    }  
-    print(data)
-
-    # Send POST request
-    response = requests.post(url, json=data)
-
-    return response.json()["stripe_customer_id"]
 
 @api_view(['POST'])
 def createMod(request):

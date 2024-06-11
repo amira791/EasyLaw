@@ -26,6 +26,19 @@ logger = logging.getLogger(__name__)
 
 
 
+def createCustomer(email, name):
+    existing_customer = stripe.Customer.list(email=email, limit=1)
+    if existing_customer.data:
+        return existing_customer.data[0].id
+    else:
+        stripe_customer = stripe.Customer.create(
+            email=email,
+            name=name
+        )
+        return stripe_customer.id
+
+
+
 
 @api_view(['Get'])
 def getServices(request):
@@ -48,33 +61,6 @@ def getServices(request):
                 logger.info(f'User {request.user.username}  {abonnement.service}   signed up as a client')
 
     return Response(res, status=status.HTTP_200_OK)
-
-
-
-
-
-
-@api_view(['Post'])
-def addUser(request):
-    name = request.data.get('name')
-    email = request.data.get('email')
-
-    try:
-        existing_customer = stripe.Customer.list(email=email, limit=1)
-        if existing_customer.data:
-            logger.info(f'User {name}  {email}  has already an account ')
-            return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
-        else:
-
-            stripe_customer = stripe.Customer.create(
-                email=email,
-                name=name
-            )
-            logger.info(f'User {name}  {email}  create an account in stripe')
-            return Response({'stripe_customer_id': stripe_customer.id}, status=status.HTTP_201_CREATED)
-       
-    except stripe.error.StripeError as e:
-        return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -108,6 +94,12 @@ def subscribe(request):
 
     #Execution
     try:
+        email = request.user.email
+        name = request.user.username
+        if(customerId == "unset"):
+            customerId = createCustomer(email,name)
+            request.user.stripeCustomerId = customerId
+            request.user.save()
 
         #payement method atttachement
         paymentMethod = stripe.PaymentMethod.create(
