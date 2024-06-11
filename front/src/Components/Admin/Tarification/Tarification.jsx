@@ -13,13 +13,14 @@ import usePayment from '../../../Hooks/usePayment';
 
 function Tarification() {
 
-    const {getSubscriptions, getAllAccesses, addSub, changePrice} = usePayment();
+    const {getSubscriptions, getAllAccesses, addSub, changePrice, convert, convertionSymbols} = usePayment();
 
     const [userAccount, setUserAccount] = useState([]);
     const [accesses , setAccesses] = useState();
 
     const [priceChanging, setPriceChanging] = useState(false)
     const [priceChangerData, setPriceChangerData] = useState({})
+    const [symbols, setSymbols] = useState([])
 
     useEffect(() => {
 
@@ -36,6 +37,9 @@ function Tarification() {
                 }
           }) 
           setUserAccount(data)
+          const symbs = await convertionSymbols();
+          setSymbols(symbs.success)
+
           const accessdata = await getAllAccesses()
           setAccesses(accessdata?.data)
         }
@@ -79,6 +83,21 @@ function Tarification() {
         setPriceChanging(false)
     };
 
+    const handleConvert = async (to, prix, id)=>
+    {
+        const amount = prix.match(/\d+/);
+
+        const converted = await convert("DZD", to, amount)
+        const newP = converted.success
+        if(newP){
+            const newUserAccount = [... userAccount];
+            newUserAccount.find((a)=>a.id == id).converted =  newP.result+" "+ newP.query.to;
+            setUserAccount(newUserAccount)
+        }
+            
+    }
+
+
     return (
         <>
             <LogoAdmin title="صفحة الادارة" />
@@ -93,10 +112,22 @@ function Tarification() {
                     <Column field="subscription" header="الاشتراك" ></Column>
                     <Column field="prixSub" header="سعر الاشتراك" ></Column>
                     <Column field="accesses" header="الخدمات" ></Column>
-                    <Column field="pdf" header="" style={{ width: '16%' }} body={(rowData) => (
+                    <Column field="" header="" style={{ width: '16%' }} body={(rowData) => (
                                     <button style={{ color: 'green', border: 'none', backgroundColor: 'transparent', fontSize: "16px", cursor: 'pointer' }} onClick={() => { setPrixSub(rowData.prixSub.replace(/\D/g, '')); setPriceChanging(true); setPriceChangerData({id: rowData.id, priceId: rowData.priceId}); }}>تغيير السعر</button>)}>   
                     </Column>
-                    <Column field="bloc" header="" style={{ color: '#1D8B8C', fontWeight: "600" }}></Column>
+                    <Column field="" header="" style={{ width: '16%' }} body={(rowData) => (
+                                    //<button style={{ color: 'green', border: 'none', backgroundColor: 'transparent', fontSize: "16px", cursor: 'pointer' }} onClick= {()=>{rowData.converted = handleConvert("EUR",rowData.prixSub, rowData.id)}}> تحويل العملة</button>
+                                    <>
+                                    <select className='currency-sel' name="" id="" value={1} onChange={(e)=>handleConvert(e.target.value, rowData.prixSub, rowData.id)}>
+                                        <option value="1" disabled>تحويل العملة</option>
+                                        {symbols.map(sym =>
+                                        <option value={sym}>{sym}</option> 
+                                        )}
+                                    </select>
+                                    </>
+                                    )}>   
+                    </Column>
+                    <Column field="converted" header="العملة المحولة" ></Column>
                 </DataTable>
             </div>
             <FooterAdmin />

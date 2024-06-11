@@ -139,3 +139,12 @@
     align-items: center;
     height: 1.2em;
   }
+
+
+  .currency-sel
+  {
+    padding-inline: .5em;
+    background-color: #58D6D7;
+    border-radius: 10px;
+    border: none;
+  }
