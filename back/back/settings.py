@@ -30,6 +30,8 @@ SECRET_KEY = 'django-insecure-#egh*o&jitym^s()0agi5klq6(*g%^d%@8fqt(q1w$-lauuj(n
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['4cdb-154-121-24-106.ngrok-free.app', 'localhost', '127.0.0.1']
+
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
@@ -209,7 +211,6 @@ LOGGING = {
 
 ###################### Email conformation
 
-# settings.py
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # e.g., smtp.gmail.com
@@ -217,3 +218,12 @@ EMAIL_PORT = 587  # or the appropriate port for your email host
 EMAIL_USE_TLS = True  # Set it to True if your email host requires TLS
 EMAIL_HOST_USER = 'younes172003@gmail.com'  # Your email address for sending emails
 EMAIL_HOST_PASSWORD = 'ghvj nivn hnzi erte'  # Your email password or app-specific password
+
+
+
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '4cdb-154-121-24-106.ngrok-free.app']
+
+
+# Add a custom setting for ngrok URL
+NGROK_URL = 'https://4cdb-154-121-24-106.ngrok-free.app'

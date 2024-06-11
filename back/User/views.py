@@ -57,9 +57,22 @@ def signup(request):
         confirmation_url = reverse('confirm-email', kwargs={'uidb64': uid, 'token': token})
 
 
+        # send_mail(
+        #     'Confirm your email',
+        #     f'Click this link to confirm your email: {request.build_absolute_uri(confirmation_url)}',
+        #     settings.EMAIL_HOST_USER,
+        #     [user.email],
+        #     fail_silently=False,
+        # )
+
+
+
+                # Use ngrok URL for email confirmation
+        full_confirmation_url = f'{settings.NGROK_URL}{confirmation_url}'
+
         send_mail(
             'Confirm your email',
-            f'Click this link to confirm your email: {request.build_absolute_uri(confirmation_url)}',
+            f'Click this link to confirm your email: {full_confirmation_url}',
             settings.EMAIL_HOST_USER,
             [user.email],
             fail_silently=False,

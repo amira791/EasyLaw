@@ -13,18 +13,22 @@ import axios from 'axios';
 
 
 function SignUp() {
+  
   const { addNewUser } = useUser();
   const [confirmPassword, setConfirmPassword] = useState('');
   const [formData, setFormData] = useState({
-    prenom: '',
+    username: '',
+    password: '',
+    email: '',
+    etat: 'Active',
     nom: '',
+    prenom: '',
     dateNaiss: '',
     univer_Entrep: '',
     occupation: '',
-    email: '',
-    password: '',
-    username: ''
+    stripeCustomerId: "stripe_customer_id_here"
   });
+
   const [passwordError, setPasswordError] = useState('');
   const [passwordType, setPasswordType] = useState('password');
   const [successMessage, setSuccessMessage] = useState('');
