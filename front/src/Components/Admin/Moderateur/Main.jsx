@@ -63,7 +63,7 @@ function Main() {
           <ArrowBackIosNewSharpIcon sx={{width:'15px',height:'15px',marginRight:'3px'}}/>
             الانتقال الى صفحة تجميع النصوص
           </div>
-          <p> ... البحوثات و عمليات الاستخرا الخاصة بك</p>
+          <p> ... البحوثات و عمليات الاستخراج الخاصة بك</p>
         </div>
         <div className='moderateurMain-section2'>
         {searchInfo.map(info => (
@@ -90,7 +90,7 @@ function Main() {
         </div>
         <DeleteIcon sx={{width:'10%'}}/>
     </div>
-))}
+      ))}
             {
               (searchInfo.length === 0) && <p>لا يوجد بيانات</p>
             }

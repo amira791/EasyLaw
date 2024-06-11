@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from pdf2image import convert_from_path
 from rest_framework.decorators import api_view, permission_classes
+from django.conf import settings
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
@@ -23,7 +24,7 @@ from django.http import HttpResponse
 from rest_framework import status
 import re
 from django.shortcuts import get_object_or_404
-from .search import lookup
+from .search import lookup,lookup_no_adjust
 import time
 from datetime import datetime
 from .models import JuridicalText, Adjutstement, OfficialJournal,IntrestDomain
@@ -627,6 +628,7 @@ def get_real_page_number(year, journal_number, page_initial, data):
 @permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
+              if is_Allowed(request.user.id, "search") or (request.user.role == "moderateur"):
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
                   source = request.GET.get('source')
@@ -646,6 +648,9 @@ class search_view(APIView):
                      return Response({'results': results, 'len': len}, status=200)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
+              else:
+               return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
+
 # fonction pour recupere les sources et types 
 @permission_classes([IsAuthenticated])
 class search_law(APIView):
