@@ -48,10 +48,11 @@
     color: black;
  
  }
-    .LawCategories .law_item:hover{
-        border-radius: 20px;
-    
-    }
+
+.LawCategories .law_item:hover img:last-child{
+    transform: scale(1.5);
+
+}
 
 .LawCategories .law-icon{
 

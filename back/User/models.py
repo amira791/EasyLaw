@@ -9,6 +9,9 @@ class CustomUser(AbstractUser):
         ('admin', 'Admin'),
     )
 
+    ACTIVE = 'Active'
+    NOT_ACTIVE = 'Not Active'
+
     email = models.EmailField(unique=True)
     nom = models.CharField(max_length=255, null=True)
     prenom = models.CharField(max_length=255, null=True)
@@ -22,6 +25,8 @@ class CustomUser(AbstractUser):
     location = models.CharField(max_length=100, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True)
     stripeCustomerId = models.CharField(max_length=30)
+    warned = models.BooleanField(default= False)
+    etat = models.CharField(max_length=255, null=True)
 
 
     def __str__(self):

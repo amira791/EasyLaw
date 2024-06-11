@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
 from .serializers import *
-from .models import Abonnement
+from .models import Abonnement, Access
 
 from permissions import is_Allowed, checkSubscriptionEnd
 
@@ -23,6 +23,19 @@ import logging
 
 logger = logging.getLogger(__name__) 
 
+
+
+
+def createCustomer(email, name):
+    existing_customer = stripe.Customer.list(email=email, limit=1)
+    if existing_customer.data:
+        return existing_customer.data[0].id
+    else:
+        stripe_customer = stripe.Customer.create(
+            email=email,
+            name=name
+        )
+        return stripe_customer.id
 
 
 
@@ -48,33 +61,6 @@ def getServices(request):
                 logger.info(f'User {request.user.username}  {abonnement.service}   signed up as a client')
 
     return Response(res, status=status.HTTP_200_OK)
-
-
-
-
-
-
-@api_view(['Post'])
-def addUser(request):
-    name = request.data.get('name')
-    email = request.data.get('email')
-
-    try:
-        existing_customer = stripe.Customer.list(email=email, limit=1)
-        if existing_customer.data:
-            logger.info(f'User {name}  {email}  has already an account ')
-            return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
-        else:
-
-            stripe_customer = stripe.Customer.create(
-                email=email,
-                name=name
-            )
-            logger.info(f'User {name}  {email}  create an account in stripe')
-            return Response({'stripe_customer_id': stripe_customer.id}, status=status.HTTP_201_CREATED)
-       
-    except stripe.error.StripeError as e:
-        return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -108,6 +94,12 @@ def subscribe(request):
 
     #Execution
     try:
+        email = request.user.email
+        name = request.user.username
+        if(customerId == "unset"):
+            customerId = createCustomer(email,name)
+            request.user.stripeCustomerId = customerId
+            request.user.save()
 
         #payement method atttachement
         paymentMethod = stripe.PaymentMethod.create(
@@ -213,3 +205,124 @@ def getinvoices(request):
     
 
     return Response(factures, status=status.HTTP_200_OK)
+
+
+@api_view(['Get'])
+def getAccesses(request):
+
+    accesses = Access.objects.all()
+    
+    
+    serializer = AccessSerializer(accesses, many=True)
+    serialized_data = serializer.data
+
+
+
+    return Response({"data": serialized_data}, status=status.HTTP_200_OK)
+
+
+
+@api_view(['Post'])
+def addService(request):
+    name = request.data.get('name')
+    price = request.data.get('price')
+    accesses = request.data.get('accesses')
+
+    try :
+        
+        product = stripe.Product.create(name= name)
+
+        stripePrice =  stripe.Price.create(
+                currency="dzd",
+                unit_amount=price*100,
+                recurring={"interval": "month"},
+                product= product.id,
+        )
+
+
+        service = {
+            "id" : product.id,
+            "nom" : name,
+            "description" : name,
+            "tarif": price,
+            "priceId" : stripePrice.id, 
+            "accesses" : accesses, 
+        }
+        
+        
+
+        serializer = ServiceSerializer(data=service)
+        if serializer.is_valid():
+            serializer.save()
+            newservice = Service.objects.get(id= product.id)
+            for access in accesses :
+                newservice.accesses.add(Access.objects.get(id=access))
+            return Response(service, status=status.HTTP_201_CREATED)
+        else :
+            return Response({'message': str(serializer.errors), 'valid':serializer.is_valid()}, status=status.HTTP_400_BAD_REQUEST)
+
+    except stripe.error.StripeError as e:
+        return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+   
+@api_view(['Put'])
+def changePrice(request):
+    id = request.data.get('id')
+    price = request.data.get('price')
+    priceId = request.data.get('priceId')
+
+    try :
+        
+        stripePrice =  stripe.Price.create(
+                    currency="dzd",
+                    unit_amount=price*100,
+                    recurring={"interval": "month"},
+                    product= id,
+            )
+
+        stripe.Product.modify(
+                    id,
+                    default_price=stripePrice.id,
+        )
+
+        stripe.Price.modify(
+            priceId,
+            active= False,
+        )
+
+        
+        service = Service.objects.get(id=id)
+        service.priceId = stripePrice.id
+        service.tarif = price
+        service.save()
+
+        return Response({"message": "success"}, status=status.HTTP_202_ACCEPTED)
+
+    except stripe.error.StripeError as e:
+        return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+@api_view(['Post'])
+def addUser(request):
+    name = request.data.get('name')
+    email = request.data.get('email')
+
+    try:
+        existing_customer = stripe.Customer.list(email=email, limit=1)
+        if existing_customer.data:
+            logger.info(f'User {name}  {email}  has already an account ')
+            return Response({'stripe_customer_id': existing_customer.data[0].stripeCustomerId}, status=status.HTTP_200_OK)
+        else:
+
+            stripe_customer = stripe.Customer.create(
+                email=email,
+                name=name
+            )
+            logger.info(f'User {name}  {email}  create an account in stripe')
+            return Response({'stripe_customer_id': stripe_customer.id}, status=status.HTTP_201_CREATED)
+       
+    except stripe.error.StripeError as e:
+        return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)

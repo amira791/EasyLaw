@@ -98,3 +98,15 @@
     padding-top: 3%;
     color: white;
  }
+
+
+
+ .warning {
+    position: absolute;
+    padding: 2px;
+    top: 1.5em;
+    left: 20em;
+    font-size: 1rem;
+    /* background-color: red; */
+    color: red;
+ }

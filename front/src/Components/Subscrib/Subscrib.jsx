@@ -35,38 +35,7 @@ function Subscrib() {
 
   
 
-  /*const offers = [
-    {
-      id: 1,
-      title: 'العرض الثالث',
-      price: '1000دج/شهر',
-      features: [
-        'الاطلاع على كل النصوص القانونية',
-        'الحصول على كل المستجدات',
-        'تلقي تنبيهات متعلقة بالمستجدات'
-      ]
-    },
-    {
-      id: 2,
-      title: 'العرض الثاني',
-      price: '1000دج/شهر',
-      features: [
-        'الاطلاع على كل النصوص القانونية',
-        'الحصول على كل المستجدات',
-        'تلقي تنبيهات متعلقة بالمستجدات'
-      ]
-    },
-    {
-      id: 3,
-      title: 'العرض الأول',
-      price: '1000دج/شهر',
-      features: [
-        'الاطلاع على كل النصوص القانونية',
-        'الحصول على كل المستجدات',
-        'تلقي تنبيهات متعلقة بالمستجدات'
-      ]
-    }
-  ];*/
+ 
 
   return (
    <>
@@ -74,6 +43,7 @@ function Subscrib() {
     <TitleBar title="  عروض الاشتراك  " />
     <div className='sub_container'>
         <p className='offre_title'>إختاروا العرض الذي يناسبكم</p>
+        <p className='terms'>يرجى التأكد من قراءة <a href="terms" target='_' style={{"color": "blue"}}>شروط الخدمة الخاصة بنا</a> بعناية قبل الاشتراك</p>
         <div className='sub_offers'>
             { offers.map((offer, index) => {
               if(offer.id === current) valid = false

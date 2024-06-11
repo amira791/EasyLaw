@@ -18,7 +18,6 @@ export default function useUser() {
     const logout = async () => {
       try {
         const response = await userApiClient.post(`/logout/`, null, {
-      
           headers: {
             'Authorization': `Token ${localStorage.getItem('access_token')}`
           }
@@ -210,7 +209,6 @@ const activateUser = async (username) => {
     return response.data;
   } catch (error) {
     console.error('An error occurred while activating the user:', error);
-    throw error;
   }
 };
 /************************************ Block User ******************************************* */
@@ -231,10 +229,52 @@ const blockUser = async (username) => {
     return response.data;
   } catch (error) {
     console.error('An error occurred while blocking the user:', error);
-    throw error;
   }
 };
 /*************************************************************************************************** */
+
+const warnUser = async (username) => {
+  try {
+    const access_token = localStorage.getItem('access_token');
+
+    if (!access_token) {
+      throw new Error('Token not found in localStorage');
+    }
+
+    const response = await userApiClient.post(`/warnUser`, { username }, {
+      headers: {
+        Authorization: `Token ${access_token}`
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('An error occurred while warning the user:', error);
+  }
+};
+
+/*************************************************************************************************** */
+
+const isWarned = async () => {
+  try {
+    const access_token = localStorage.getItem('access_token');
+
+    if (!access_token) {
+      throw new Error('Token not found in localStorage');
+    }
+
+    const response = await userApiClient.post(`/isWarned`,{}, {
+      headers: {
+        Authorization: `Token ${access_token}`
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('An error occurred while warning the user:', error);
+    return {"message": 'An error occurred while warning the user'}
+  }
+};
 
 
   return {
@@ -251,6 +291,8 @@ const blockUser = async (username) => {
     setErrorMessage,
     createModerator,
     loggedIn,
-    setLoggedIn
+    setLoggedIn,
+    warnUser,
+    isWarned,
   };
 }

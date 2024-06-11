@@ -31,6 +31,8 @@ function SignUp() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
+  const [isLoading,setIsLoading] = useState(true)
+
   const togglePassword = () => {
     setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
   };
@@ -44,8 +46,10 @@ function SignUp() {
   };
 
   const handleSubmit = (e) => {
+    setIsLoading(true)
     e.preventDefault();
     addNewUser(formData, confirmPassword, setErrorMessage, setPasswordError, setSuccessMessage, navigate);
+    setIsLoading(false)
   };
 
 
@@ -204,7 +208,7 @@ function SignUp() {
 </div>
 
  <button type="submit" >انشاء حساب</button>
-        <a className='connection_link'><Link style={{ color: '#484646'}}  to ="/signin">تسجيل الدخول</Link></a>
+        <a className='connection_link'><Link style={{ color: '#484646'}}  to ="/signin">تسجيل الدخول {isLoading && <i className='sloading'></i>}</Link></a>
       </form>
     </div>
     <Footer/>

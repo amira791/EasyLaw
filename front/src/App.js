@@ -39,6 +39,8 @@ import Jaraid from './Components/jaraid/Jaraid';
 import ProfileModerateur from './Components/Admin/Moderateur/ProfileModerateur';
 import Tarification from './Components/Admin/Tarification/Tarification';
 
+import Terms from './Components/Terms/Terms';
+
 import AboutUs from './Components/AboutUs/AboutUs';
 import HelpPage from './Components/HelpPage/HelpPage';
 import ScrapingUpdate from './Components/Admin/Scraping/ScrapingUpdate';
@@ -76,6 +78,7 @@ function App() {
         <Route path="/searchresult" element={<SearchResult/>} />
         <Route path="/help" element={<HelpPage/>} />
         <Route path="/aboutus" element={<AboutUs/>} />
+        <Route path="/terms" element={<Terms/>} />
 
 
         <Route path="/accountmanagment" element={<AccountManag/>} />

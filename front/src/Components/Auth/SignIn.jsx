@@ -18,6 +18,8 @@ function SignIn() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
+  const [isLoading,setIsLoading] = useState(false)
+
   const togglePassword = () => {
     setPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
   };
@@ -31,6 +33,7 @@ function SignIn() {
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true)
     e.preventDefault();
     const loggedIn = await loginUser(formData);
     if (loggedIn) {
@@ -45,6 +48,7 @@ function SignIn() {
     } else {
       setError('معلومات خاطئة. الرجاء المحاولة مرة أخرى');
     }
+    setIsLoading(false)
   };
 
   return (
@@ -91,11 +95,10 @@ function SignIn() {
               </div>
             </div>
           </div>
-          <button type="submit">تسجيل الدخول</button>
+          <button type="submit">تسجيل الدخول </button>
           <div className="connection_link">
             <a>
-              <Link style={{ color: '#484646' }} to="/signup">إنشاء حساب </Link>
-            </a>
+            <Link style={{ color: '#484646' }} to="/signup">إنشاء حساب {isLoading && <i className='sloading'></i>}</Link>            </a>
           </div>
         </form>
       </div>
