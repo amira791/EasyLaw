@@ -42,6 +42,7 @@ import AboutUs from './Components/AboutUs/AboutUs';
 import HelpPage from './Components/HelpPage/HelpPage';
 import ScrapingUpdate from './Components/Admin/Scraping/ScrapingUpdate';
 
+import Jaraid from './Components/jaraid/Jaraid';
 
 function App() {
 
@@ -91,6 +92,7 @@ function App() {
         <Route path="/scrapingupdate" element={<ScrapingUpdate/>} />
         
 
+        <Route path="/jaraid" element={<Jaraid/>} />
         
         
         

@@ -68,11 +68,16 @@ function LawCategories() {
             </div>
            
             <div className='law_item'>
+            <Link to="/jaraid">
             <img  className=' icon-free'src="./images/Star.png"/>
             <span className='icon-free-span'>مجانا</span>
            <div ><img  className='law-icon'src="./images/algremovebgpreview.png"  /></div>
            <h3>الجرائد الرسمية</h3>
-       </div>  
+           </Link>
+       </div>
+            
+           
+            
         </div>
         {isPopupVisible && (
           <div className='popup'>

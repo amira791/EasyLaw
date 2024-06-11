@@ -3,4 +3,5 @@ __pycache__
 /venv
 .env
 /logfile.txt
+./logfile.txt
 

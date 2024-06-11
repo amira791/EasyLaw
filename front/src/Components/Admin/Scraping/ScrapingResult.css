@@ -58,3 +58,11 @@ padding: 4%;
     font-size: 16px;
     color: #374957;
 }
+.rslt_text{
+    background-color:#FEFFB5 ;
+    width: 60px;
+    margin-right: 93%;
+    padding: 0.5%;
+    border-radius: 5px;
+
+}

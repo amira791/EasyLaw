@@ -11,6 +11,7 @@ import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import { Link } from 'react-router-dom';
 
 function ScrapingResult() {
+  const [showFullText, ] = useState({});
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
     const [activeButton, setActiveButton] = useState(0); //  le bouton actif
 
