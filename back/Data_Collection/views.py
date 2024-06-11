@@ -85,7 +85,57 @@ patterns = [
     r'^(?:قرار.*?\sوزاري.*?\sمشترك.*?|قرارات وزارية مشتركة)\s(?:رقم\s[\d.-]+?|مؤرخ.*?|مؤرّخ.*?|مؤَرّخ.*?)(?=\s|$)'
 ]
 
+@api_view(['GET'])
+def open_pdf_directly(request, year, number):
+    try:
+        # Get the OfficialJournal instance or return 404 if not found
+        journal = get_object_or_404(OfficialJournal, year=year, number=number)
 
+        # Clean up the file path format: replace backslashes with forward slashes
+        file_path = str(journal.text_file).replace('\\', '/')
+
+        # Construct the full URL to the PDF file using MEDIA_URL and file_path
+        pdf_url = f"{settings.MEDIA_URL.strip('/')}/{file_path.strip('/')}"
+
+        # Open and serve the PDF file using Django's FileResponse
+        response = FileResponse(open(pdf_url, 'rb'), content_type='application/pdf')
+        response['Content-Disposition'] = f'inline; filename="{journal.text_file.name}"'
+        return response
+    except OfficialJournal.DoesNotExist:
+        return JsonResponse({'error': 'Journal not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+
+@api_view(['GET'])
+def get_numbers_for_year(request, year):
+    try:
+        # Get all OfficialJournal instances for the given year
+        journals_for_year = OfficialJournal.objects.filter(year=year)
+        
+        # Extract the numbers from the journals_for_year queryset
+        numbers_for_year = [journal.number for journal in journals_for_year]
+
+        # Return the numbers as a JSON response
+        return JsonResponse({'number': numbers_for_year})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+
+@api_view(['GET'])
+def get_distinct_years(request):
+    try:
+        # Get all distinct years from OfficialJournal model
+        distinct_years = OfficialJournal.objects.values_list('year', flat=True).distinct()
+
+        # Convert the queryset to a list and return as JSON response
+        years_list = list(distinct_years)
+        return JsonResponse({'years': years_list})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 @api_view(['POST'])
 def initial_jt_filling(request):

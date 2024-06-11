@@ -6,6 +6,7 @@ import FooterAdmin from '../../Footer/FooterAdmin';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import useScrapping from '../../../Hooks/useScrapping';
 import { useNavigate } from 'react-router-dom';
+import LogoModerateur from '../../LOGO/LogoModerateur';
 function Scraping() {
   const  {  results , errorMessage , loading , startScrapping , recentScrapping } = useScrapping() 
   const [selectedOption, setSelectedOption] = useState("periodically"); //stocker l'option sélectionnée
@@ -99,7 +100,7 @@ const handleLegalTextChange = (event) => {
 
   return (
     <>
-      <LogoAdmin title="صفحة الاشراف "/>
+      <LogoModerateur title="صفحة الاشراف "/>
       <TitleBar title="ادارة المحتوى القانوني"/>
       <div className='scraping-container'>
           <h2>(Scraping) تجميع النصوص القانونية </h2>
