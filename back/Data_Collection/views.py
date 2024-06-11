@@ -312,6 +312,7 @@ def get_real_page_number(year, journal_number, page_initial, data):
 @permission_classes([IsAuthenticated])
 class search_view(APIView):
         def get(self, request):
+             if( is_Allowed(request.user.id,"search")):
                   query = request.GET.get('q')
                   sort_by=request.GET.get('sort_by')
                   source = request.GET.get('source')
@@ -331,6 +332,8 @@ class search_view(APIView):
                      return Response({'results': results, 'len': len}, status=200)
                   else:
                      return Response({'error': 'No search query provided'}, status=400)
+             else:
+                  return Response({'message':'You are not allowed to search'}, status=status.HTTP_403_FORBIDDEN)
 # fonctions pour recupere les sources et types 
 def get_type_and_source(request):
     types = JuridicalText.objects.values_list('type_text', flat=True).distinct()
