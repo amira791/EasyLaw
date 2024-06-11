@@ -50,8 +50,6 @@ function ScrapingResult() {
                            className='select_item'
                         >
                             <option value="">نوع النص</option>
-                            <option value="يلغي">يلغي</option>
-                            <option value="يلغي">يلغي</option>
                         </select>
                     </div>
                 </div>

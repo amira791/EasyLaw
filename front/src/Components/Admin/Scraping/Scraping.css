@@ -164,14 +164,38 @@ overflow-y: auto;
   margin: 0%;
   color: #374957;
 }
-.scraping-container .btn-scraping{
-  background-color: transparent;
-  border:  2px solid #58D6D7;
+.scraping-btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Increased gap for better spacing */
+  margin: 20px 0; /* More margin for better spacing */
+}
+
+.scraping-container .btn-scraping {
+  background-color: #58D6D7; /* Slightly transparent background */
+  border: 2px solid #58D6D7;
   border-radius: 10px;
-  padding: 1% 4%;
+  padding: 10px 20px; /* Adjusted padding for better size */
   font-size: 16px;
   font-weight: 600;
-  color: #374957;
+  color: #ffffff; /* Changed text color to white for contrast */
+  cursor: pointer; /* Pointer cursor for better UX */
+  transition: all 0.3s ease; /* Smooth transitions */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.scraping-container .btn-scraping:hover {
+  background-color: #45babb; /* Slightly darker background on hover */
+  border-color: #45babb; /* Matching border color on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.scraping-container .btn-scraping:active {
+  background-color: #379b9c; /* Even darker background on click */
+  border-color: #379b9c; /* Matching border color on click */
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow on click */
+  transform: translateY(0); /* Reset lift effect */
 }
 
 /*-----------------------------------scraping update-------------------------------*/
@@ -354,18 +378,36 @@ color: black;
 .scrapping-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center; /* Center the content horizontally */
+  gap: 15px; /* Increase the gap for better spacing */
+  margin: 20px 0; /* Add more margin for spacing */
 }
 
 .scrapping-item {
-  padding: 10px;
+  width: 80%; /* Set a width to make the items uniform */
+  padding: 15px; /* Increase padding for better spacing */
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px; /* Increase border-radius for smoother corners */
   color: white;
+  text-align: center; /* Center the text */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
 }
 
-.scrapping-item.loading {
-  background-color: #f0ad4e;
+@keyframes fade {
+  0% {
+    background-color: #f0ad4e;
+  }
+  50% {
+    background-color: #d9923b; /* A slightly darker shade of the original color */
+  }
+  100% {
+    background-color: #f0ad4e;
+  }
+}
+
+.scrapping-item.loading-gif {
+  animation: fade 2s infinite; /* Apply the animation with a 2s duration, looping infinitely */
 }
 
 .scrapping-item.success {
@@ -375,6 +417,12 @@ color: black;
 .scrapping-item.failed {
   background-color: #d9534f;
 }
+
+.scrapping-item:hover {
+  transform: translateY(-3px); /* Slight lift effect on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover */
+}
+
 
 .scraping-btn-container {
   display: flex;

@@ -102,7 +102,7 @@ const handleLegalTextChange = (event) => {
       <LogoAdmin title="صفحة الاشراف "/>
       <TitleBar title="ادارة المحتوى القانوني"/>
       <div className='scraping-container'>
-          <h2>(Scraping) كشط النصوص القانونية </h2>
+          <h2>(Scraping) تجميع النصوص القانونية </h2>
           <div className='scraping-plan'>
               <div className='scraping-time'>
                   <h4>التخطيط الزمني </h4>
@@ -226,14 +226,14 @@ const handleLegalTextChange = (event) => {
           </div>
           {Object.keys(recentScrapping).length > 0 && (
             <div className="scrapping-container">
-                <div className={`scrapping-item ${recentScrapping.state}`}>
+                <div className={`scrapping-item ${recentScrapping.state === 'loading'? 'loading-gif':recentScrapping.state}`}>
                     <p>Date: {recentScrapping.date}</p>
                     <p>Status: {recentScrapping.state}</p>
                 </div>
             </div>
           )}
           <div className='scraping-btn-container'>
-            <button className='btn-scraping' onClick={handleStartScraping}>بدأ عملية الكشط و البحث </button>
+            <button className='btn-scraping' onClick={handleStartScraping}>بدأ عملية البحث </button>
             {recentScrapping.state === 'success' && (
               <button
                 className='btn-scraping'

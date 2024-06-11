@@ -549,7 +549,7 @@ function ScrapingUpdate() {
               <div className="icon_container">
                 <DeleteIcon onClick={() => handleRemoveItem(index, item)} className="trash_icon" />
               </div>
-              <div onClick={() => handleSelectedAjustedJT(item)}>
+              <div>
                 <h2>{item.type_text}</h2>
                 <p>{item.source}</p>
                 <p>

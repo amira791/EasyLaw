@@ -56,19 +56,14 @@ function Main() {
       <TitleBar title="ادارة المحتوى القانوني"/>
       <div className='moderateur-main-container'>
         <div className='moderateurMain-titre'>
-          <h3>كشط و تجميع نصوص قانونية جديدة </h3>
+          <h3> تجميع نصوص قانونية جديدة </h3>
         </div>
         <div className='moderateurMain-section1'>
-        <select 
-        value={selectedCountry} 
-         onChange={(e) => setSelectedCountry(e.target.value)} 
-          className="select-filter">
-            <option value="" > فرز النتائج على حسب ..... </option>
-            {countries.map(country => (
-            <option key={country.code} value={country.code}>{country.name}</option>
-            ))}
-            </select>
-          <p> ... البحوثات و عمليات الكشط الخاصة بك</p>
+          <div className='scraping-nav-button' onClick={() => navigate("/scraping")} >
+          <ArrowBackIosNewSharpIcon sx={{width:'15px',height:'15px',marginRight:'3px'}}/>
+            الانتقال الى صفحة تجميع النصوص
+          </div>
+          <p> ... البحوثات و عمليات الاستخرا الخاصة بك</p>
         </div>
         <div className='moderateurMain-section2'>
             {searchInfo.map(info => (
@@ -88,6 +83,9 @@ function Main() {
                     <DeleteIcon sx={{width:'10%'}}/>
                 </div>
             ))}
+            {
+              (searchInfo.length === 0) && <p>لا يوجد بيانات</p>
+            }
             
         </div>
       </div>
