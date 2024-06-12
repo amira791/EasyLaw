@@ -1,0 +1,30 @@
+.aboutus_content{
+    width: 90%;
+   border-radius: 10px;
+    background-color: #EEFBFC;
+    padding: 4% 0%;
+    margin: 3% auto;
+}
+.aboutus_content .aboutus_arab{
+    direction: rtl;
+    width: 70%;
+   
+    margin: auto;
+
+}
+.aboutus_content .aboutus_arab p{   
+    text-align: center;
+    color: #374957;
+    font-weight: 500;
+}
+.aboutus_content .aboutus_EN{
+    width: 70%;
+   
+    margin:5% auto;
+
+}
+.aboutus_content .aboutus_EN p{   
+    text-align: center;
+    color: #374957;
+    font-weight: 500;
+}
