@@ -80,3 +80,12 @@
     height: 100px;
     
 }
+
+
+.offre:has(.btn_sub:hover) img{
+    transform: scale(1.1);
+}
+
+.btn_sub:hover{
+    transform: translate(-.1em,-.1em);
+}

@@ -46,8 +46,7 @@ def login(request):
         token, _ = Token.objects.get_or_create(user=user)
         role = user.role  # Include role information in the response
         etat = user.etat
-        if etat == "Active":
-            
+        if etat == "Active": 
           return Response({'token': token.key, 'role': role}, status=status.HTTP_200_OK)
           
     else:
