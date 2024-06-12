@@ -46,6 +46,8 @@ def login(request):
     if user:
         token, _ = Token.objects.get_or_create(user=user)
         role = user.role  # Include role information in the response
+        if(user.etat != "Active"):
+            return Response({'error': 'this user is blocked'}, status=status.HTTP_400_BAD_REQUEST)
         return Response({'token': token.key, 'role': role}, status=status.HTTP_200_OK)
     else:
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
