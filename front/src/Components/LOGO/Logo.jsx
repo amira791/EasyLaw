@@ -3,12 +3,18 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/LogoProvider';
 import HelpIcon from '@mui/icons-material/Help';
 import LoginIcon from '@mui/icons-material/Login';
+import useUser from '../../Hooks/useUser';
 
 function Logo() {
   const { isAuth, setIsAuth, formData, updateFormData } = useContext(AuthContext);
   const [initials, setInitials] = useState('');
+  const [warned,setWarned] = useState(false);
+
+  const {isWarned} = useUser();
 
   useEffect(() => {
+
+    
     if (localStorage.getItem('access_token') !== null) {
       setIsAuth(true);
     }
@@ -19,6 +25,21 @@ function Logo() {
     const nameInitials = formData.nom ? formData.nom.slice(0, 2).toUpperCase() : '';
     setInitials(nameInitials);
   }, [isAuth, formData.nom]);
+
+  useEffect(()=>
+  {
+    const fetchwarned = async ()=>{
+
+      const result = await isWarned()
+
+      setWarned(result.warned)
+      console.log(warned);
+    }
+
+    fetchwarned()
+
+  },[])
+
   return (
     <>
       <div className='logo_section'>
@@ -45,6 +66,13 @@ function Logo() {
           )}
         </div>
         <div className='easylaw_section'>
+
+          { warned &&
+              <div className='warning'>
+                .كان أحد المشرفين مشككًا في نشاطك. يرجى احترام <a href="terms" target='_' style={{"color": "blue"}}>شروط الخدمة الخاصة بنا</a> لتجنب الحظر
+              </div>
+          }
+
         <Link to='/help'>
           <div className='help_icon'> 
             <p>مساعدة</p>

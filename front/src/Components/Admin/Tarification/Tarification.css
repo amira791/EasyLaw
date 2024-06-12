@@ -76,7 +76,7 @@
     background-color: #ffffff; /* White background */
     padding: 2rem;
     border-radius: 5px;
-    height: 18rem;
+    height: fit-content;
     direction: rtl; /* Right-to-left text alignment */
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); /* Subtle shadow */
   }
@@ -126,4 +126,25 @@
     border-radius: 5px;
     font-size: 16px;
     margin-bottom: 1%;
+  }
+
+  th{
+    text-align: start;
+  }
+
+
+  .droit
+  {
+    display: flex;
+    align-items: center;
+    height: 1.2em;
+  }
+
+
+  .currency-sel
+  {
+    padding-inline: .5em;
+    background-color: #58D6D7;
+    border-radius: 10px;
+    border: none;
   }

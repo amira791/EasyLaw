@@ -13,6 +13,15 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from django.contrib.auth.hashers import make_password
 import requests
 
+from .models import CustomUser
+import logging
+
+from Payement_Validation.models import Abonnement
+from Payement_Validation.serializers import AbonnementUserSerializer
+
+logger = logging.getLogger(__name__) 
+
+
 @api_view(['POST'])
 def signup(request):
     if request.method == 'POST':
@@ -88,19 +97,112 @@ def logout(request):
     return Response({'message': 'Logged out successfully.'})
 
 
+@api_view(['GET']) 
+def allUsers(request):
+    if request.method == 'GET':
+        users = CustomUser.objects.all()
+
+
+        serialized_users = CustomUserSerializer(users, many=True) 
+        logger.info(f'Get All users ') 
+        sub = Abonnement.objects.filter(statut = "active")
+
+        for user in serialized_users.data:
+            subbed = sub.filter(user= user["id"])
+            if(len(subbed)):
+                user["sub"] = subbed[0].service.nom
+            else:
+                user["sub"] = "غير مشترك"
+
+
+        print(serialized_users.data[0]["sub"])
+
+        
+        
+
+        return Response({'users': serialized_users.data})
+
+         
+
+
+@api_view(['POST'])
+def createMod(request):
+    if request.method == 'POST':
+        data = request.data.copy()
+        data['password'] = make_password(data['password'])  # Hash the password
+        data['role'] = 'moderateur'  
+        data['etat'] = 'Active'
+        data['stripeCustomerId'] = stripeCustomerId(data['username'], data['email'], request)
+        serializer = CustomUserSerializer(data=data)
+        if serializer.is_valid():
+            user = serializer.save()
+            logger.info(f'User {user.username} {user.role} make payment ')
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
-def stripeCustomerId(name, email,request):
-    url = root_url = request.build_absolute_uri('/')[:-1] +'/payment/customer'
-    data = {
-    "name":name,
-    "email":email
-    }  # Your POST data
+@api_view(['POST'])
+def activateUser(request):
+    if request.method == 'POST':
+        username = request.data.get('username')
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user.etat = CustomUser.ACTIVE  # Set user's state to Active
+        user.save()
+        logger.info(f'User {user.username}  activated successfully')
+        
+        return Response({'message': 'User activated successfully'}, status=status.HTTP_200_OK)
 
-    print(data)
+@api_view(['POST'])
+def blockUser(request):
+    if request.method == 'POST':
+        username = request.data.get('username')
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user.etat = CustomUser.NOT_ACTIVE  # Set user's state to Not Active
+        user.save()
+        logger.info(f'User {user.username}  User blocked successfully')
+        
+        return Response({'message': 'User blocked successfully'}, status=status.HTTP_200_OK)
 
-    # Send POST request
-    response = requests.post(url, json=data)
 
-    return response.json()["stripe_customer_id"]
+
+@api_view(['POST'])
+def warnUser(request):
+    if request.method == 'POST':
+        username = request.data.get('username')
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user.warned = True  # Set user's state to Not Active
+        user.save()
+        logger.info(f'User {user.username}  User warned')
+        
+        return Response({'message': 'User warned'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def isWarned(request):
+    if request.method == 'POST':
+        username = request.user.username
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        warned = user.warned
+        user.warned = False  # Set user's state to Not Active
+        user.save()
+        logger.info(f'User {user.username}  User receved warning')
+        
+        return Response({'warned': warned}, status=status.HTTP_200_OK)
