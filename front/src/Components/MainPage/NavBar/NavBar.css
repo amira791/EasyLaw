@@ -34,9 +34,6 @@ direction: rtl;
     color: white;    
     width: 100%;
     display: inline-flex;
-    
-   
-    
 }
 
 
@@ -44,10 +41,14 @@ direction: rtl;
     font-size: 18px;
     text-decoration: none;
     color: black;
-    
-    
-
 }
+
+
+.navBar_container .dv_btn:hover{
+    transform: translate(-.1em,.1em);
+}
+
+
 .navBar_container .dv_btn{
   
     height: 40px;
@@ -57,4 +58,11 @@ direction: rtl;
     padding:0.5% 1% ;
     
     text-align: center;
+}
+
+
+.navBar_container .li_item1:hover {
+
+    background-color: #00000033;
+
 }
