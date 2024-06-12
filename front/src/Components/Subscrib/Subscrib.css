@@ -7,10 +7,16 @@
 }
 .sub_container .offre_title{
     text-align: center;
-    margin: 2% auto 4% auto;
+    margin: 2% auto 2% auto;
     font-size: 18px;
     font-weight: 400;
 }
+
+.terms{
+    margin-bottom: 2%;
+}
+
+
 .sub_container .sub_offers{
    
     display: flex;

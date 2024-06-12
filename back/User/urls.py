@@ -14,5 +14,7 @@ urlpatterns = [
     re_path('createMod', views.createMod),
     path('activateUser', views.activateUser),
     path('blockUser', views.blockUser),
+    path('warnUser', views.warnUser),
+    path('isWarned', views.isWarned),
     # re_path('test_token', views.test_token)
 ]

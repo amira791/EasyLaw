@@ -15,6 +15,9 @@ import requests
 from .models import CustomUser
 import logging
 
+from Payement_Validation.models import Abonnement
+from Payement_Validation.serializers import AbonnementUserSerializer
+
 logger = logging.getLogger(__name__) 
 
 @api_view(['POST'])
@@ -110,12 +113,30 @@ def logout(request):
 @api_view(['GET']) 
 def allUsers(request):
     if request.method == 'GET':
-        users = CustomUser.objects.all()  
+        users = CustomUser.objects.all()
+
+
         serialized_users = CustomUserSerializer(users, many=True) 
         logger.info(f'Get All users ') 
+        sub = Abonnement.objects.filter(statut = "active")
+
+        for user in serialized_users.data:
+            subbed = sub.filter(user= user["id"])
+            if(len(subbed)):
+                user["sub"] = subbed[0].service.nom
+            else:
+                user["sub"] = "غير مشترك"
+
+
+        print(serialized_users.data[0]["sub"])
+
+        
+        
+
         return Response({'users': serialized_users.data})
 
          
+
 
 @api_view(['POST'])
 def createMod(request):
@@ -163,3 +184,38 @@ def blockUser(request):
         logger.info(f'User {user.username}  User blocked successfully')
         
         return Response({'message': 'User blocked successfully'}, status=status.HTTP_200_OK)
+
+
+
+@api_view(['POST'])
+def warnUser(request):
+    if request.method == 'POST':
+        username = request.data.get('username')
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user.warned = True  # Set user's state to Not Active
+        user.save()
+        logger.info(f'User {user.username}  User warned')
+        
+        return Response({'message': 'User warned'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def isWarned(request):
+    if request.method == 'POST':
+        username = request.user.username
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        warned = user.warned
+        user.warned = False  # Set user's state to Not Active
+        user.save()
+        logger.info(f'User {user.username}  User receved warning')
+        
+        return Response({'warned': warned}, status=status.HTTP_200_OK)

@@ -43,6 +43,7 @@ import HelpPage from './Components/HelpPage/HelpPage';
 import ScrapingUpdate from './Components/Admin/Scraping/ScrapingUpdate';
 
 import Jaraid from './Components/jaraid/Jaraid';
+import Terms from './Components/Terms/Terms';
 
 function App() {
 
@@ -76,6 +77,7 @@ function App() {
         <Route path="/searchresult" element={<SearchResult/>} />
         <Route path="/help" element={<HelpPage/>} />
         <Route path="/aboutus" element={<AboutUs/>} />
+        <Route path="/terms" element={<Terms/>} />
 
 
         <Route path="/accountmanagment" element={<AccountManag/>} />

@@ -43,6 +43,7 @@ function Subscrib() {
     <TitleBar title="  عروض الاشتراك  " />
     <div className='sub_container'>
         <p className='offre_title'>إختاروا العرض الذي يناسبكم</p>
+        <p className='terms'>يرجى التأكد من قراءة <a href="terms" target='_' style={{"color": "blue"}}>شروط الخدمة الخاصة بنا</a> بعناية قبل الاشتراك</p>
         <div className='sub_offers'>
             { offers.map((offer, index) => {
               if(offer.id === current) valid = false

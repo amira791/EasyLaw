@@ -12,7 +12,7 @@ import Navigation from '../NavigationBar/Navigation';
 import SearchIcon from '@mui/icons-material/Search';
 
 function AccountManag() {
-  const { getAllUsers, activateUser, blockUser, createModerator } = useUser();
+  const { getAllUsers, activateUser, blockUser, createModerator, warnUser } = useUser();
   const [userAccount, setUserAccount] = useState([]);
   const [clientSearchQuery, setClientSearchQuery] = useState('');
   const [moderatorSearchQuery, setModeratorSearchQuery] = useState('');
@@ -49,12 +49,26 @@ function AccountManag() {
       console.error('An error occurred while blocking the user:', error);
     }
   };
+  
+  const handleWarnUser = async (username) => {
+    try {
+      await warnUser(username);
+      const response = await getAllUsers(); 
+      setUserAccount(response.users);
+    } catch (error) {
+      console.error('An error occurred while warning the user:', error);
+    }
+  };
 
   const filteredClientUsers = userAccount.filter(user =>
     user.role === 'client' &&
     (user.username.toLowerCase().includes(clientSearchQuery.toLowerCase()) ||
     user.email.toLowerCase().includes(clientSearchQuery.toLowerCase()))
   );
+
+  filteredClientUsers.map((user)=> {
+    user.etat = (user.etat == "Active") ? "نشط" : "محظور"
+  })
 
   const filteredModeratorUsers = userAccount.filter(user =>
     user.role === 'moderateur' &&
@@ -80,10 +94,16 @@ function AccountManag() {
           <DataTable value={filteredClientUsers} className="p-datatable-sm" paginator rows={7} tableStyle={{ minWidth: '50rem' }}>
             <Column field="username" header="إسم المستخدم" style={{ width: '15%' }} ></Column>
             <Column field="email" header="البريد الإلكتروني" style={{ width: '15%' }}></Column>
+            <Column field="sub" header="الاشتراك" style={{ width: '15%' }}></Column>
             <Column field="etat" header="الوضعية" style={{ width: '15%' }}></Column>
+            <Column header="إنذار" style={{ width: '15%' }} body={(rowData) => (
+             <div>
+                  <Button label="إنذار" className="p-button-unblock" onClick={() => handleWarnUser(rowData.username)} />
+              </div>
+            )} />
             <Column header="الحالة" style={{ width: '15%' }} body={(rowData) => (
              <div>
-                {rowData.etat === 'Active' ? (
+                {rowData.etat === 'نشط' ? (
                   <Button label="حظر" className="p-button-block" onClick={() => handleBlockUser(rowData.username)} />
                 ) : (
                   <Button label="تفعيل" className="p-button-unblock" onClick={() => handleActivateUser(rowData.username)} />
