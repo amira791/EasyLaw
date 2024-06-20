@@ -1,5 +1,4 @@
-# Projet Web Scraping et Application Web
-
+# Plateforme Juridique
 ## Table des matières
 1. [Configuration Frontend](#configuration-frontend)
 2. [Configuration Backend](#configuration-backend)
